@@ -1,0 +1,31 @@
+$grid-text-size:1.5rem;
+.overlay-w {
+    position: relative;
+    .overlay-layer {
+        position: absolute;
+        opacity: 0;
+        transition: all ease 500ms;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        display: flex;
+        transform: scale(0.2);
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        a{
+            color: #fff;
+            font-size: 1.2rem;
+            align-content: center;
+        }
+    }
+    &:hover {
+        .overlay-layer {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}

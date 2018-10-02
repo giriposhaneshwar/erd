@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Collapse</h4>
+                  <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div>
+                    <button type="button" class="btn btn-primary mb-3" (click)="isCollapsed = !isCollapsed">Toggle collapse</button>
+                    <hr>
+                    <div (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed" class="card card-block card-header">
+                        <div class="well well-lg">
+                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

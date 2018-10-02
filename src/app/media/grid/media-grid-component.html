@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+        <div class="silk-card border-primary">
+            <div class="silk-card-title">
+                <div class="silk-head d-flex justify-content-between">
+                    <div fclass="silk-pre">
+                        <h4>Gallery Grid</h4>
+                    </div>
+                    <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 silk-grid-item mb-3" *ngFor="let photo of photos">
+                        <div class="overlay-w">
+                            <img src="{{photo.photo}}" alt="Image alt" width="600" height="600">
+                            <div class="overlay-layer">
+                                <a href="javascript:void(0)">{{photo.title}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

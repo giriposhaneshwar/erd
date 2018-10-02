@@ -1,0 +1,220 @@
+<div class="row">
+
+   <!-- Pie Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Pie</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [data]="pieChartData" [options]="PieChartOptions" [colors]="pieChartColors" [chartType]="pieChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Doughnut Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Doughnut Chart</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [data]="doughnutChartData" [options]="PieChartOptions" [colors]="pieChartColors" [chartType]="doughnutChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Polar Area Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Polar Area</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [colors]="pieChartColors" [chartType]="polarAreaChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Radar Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Radar</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [datasets]="radarChartData" [labels]="radarChartLabels" [legend]="polarAreaLegend" [colors]="lineChartColors" [chartType]="radarChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- bubble -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Bubble</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas height="200" baseChart [datasets]="bubbleChartData" [labels]="lineChartLabels" [options]="bubbleChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="bubbleChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Mixed Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-warning">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Mixed</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [datasets]="mixedPointChartData" [labels]="lineChartLabels" [options]="mixedChartOptions" [colors]="barChartColors" [legend]="lineChartLegend" [chartType]="barChartType"></canvas>
+         </div>
+      </div>
+   </div>
+      <!-- bar -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Bar Chart</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas height="200" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- horizontal bar -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Horizontal Bar Chart</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas height="200" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barHorizontalChartOptions" [colors]="barChartColors" [legend]="barHorizontalChartLegend" [chartType]="barHorizontalChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Stacked bar -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>GStacked Bar</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas height="200" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barStackChartOptions" [colors]="barChartColors" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Line Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-danger">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Line</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Stepped Line Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-warning">
+         <div class="silk-card-title">
+            <div class="silk-head d-flex justify-content-between">
+               <h4>Stepped Line</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [datasets]="lineChartSteppedData" [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- Point Line Chart -->
+   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title">
+            <div class="silk-head d-fle justify-content-between">
+               <h4>Points Line</h4>
+                  <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+         </div>
+         <div class="silk-card-content widget-body">
+            <canvas baseChart height="200" [datasets]="linePointChartData" [labels]="lineChartLabels" [options]="linePointChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+         </div>
+      </div>
+   </div>
+</div>
+

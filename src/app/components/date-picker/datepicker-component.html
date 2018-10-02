@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Datepicker</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content text-center widget-body">
+                <pre>Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+                <div class="mb-3" style="display:inline-block; min-height:290px;">
+                    <datepicker [(ngModel)]="dt" [minDate]="minDate" [showWeeks]="true" [dateDisabled]="dateDisabled"></datepicker>
+                </div>
+                <br>
+                <button type="button" class="btn btn-sm btn-info mr-2" (click)="today()">Today</button>
+                <button type="button" class="btn btn-sm btn-default btn-secondary mr-2" (click)="d20090824();">2009-08-24</button>
+                <button type="button" class="btn btn-sm btn-danger mr-2" (click)="clear()">Clear</button>
+                <button type="button" class="btn btn-sm btn-default btn-secondary mr-2" (click)="toggleMin()" tooltip="After today restriction">Min date</button>
+                <button type="button" class="btn btn-sm btn-default btn-secondary mr-2" (click)="disableTomorrow()">Disable Tomorrow</button>
+            </div>
+        </div>
+    </div>
+</div>

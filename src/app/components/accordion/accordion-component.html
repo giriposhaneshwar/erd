@@ -1,0 +1,101 @@
+<div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+            <div class="silk-card border-success">
+                <div class="silk-card-title">
+                    <h4>Accordion 1</h4>
+                </div>
+                <div class="silk-card-content">
+                    <accordion>
+                        <accordion-group class="mb-2 d-block" heading="Static Header, initially expanded">
+                            This content is straight in the template.
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" #group>
+                            <div accordion-heading>
+                                I can have markup, too!
+                            </div>
+                            This is just some content to illustrate fancy headings.
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 1">
+                            <p>Content 1</p>
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 2">
+                            <p>Content 2</p>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+            <div class="silk-card border-success">
+                <div class="silk-card-title">
+                    <h4>Accordion 2</h4>
+                </div>
+                <div class="silk-card-content">
+                    <accordion>
+                        <accordion-group class="mb-2 d-block" heading="Static Header, initially expanded" [isOpen]="status.isFirstOpen">
+                            This content is straight in the template.
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" #group [isOpen]="status.isOpen">
+                            <div accordion-heading>
+                                I can have markup, too!
+                                <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                            </div>
+                            This is just some content to illustrate fancy headings.
+                        </accordion-group>
+                    </accordion>
+                    <p>
+                        <button type="button" class="btn btn-primary" (click)="group.isOpen = !group.isOpen">Toggle last panel
+                  </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+            <div class="silk-card border-primary">
+                <div class="silk-card-title">
+                    <h4>Accordion 1</h4>
+                </div>
+                <div class="silk-card-content">
+                    <accordion [closeOthers]="oneAtATime">
+                        <accordion-group class="mb-2 d-block" heading="Header">
+                            This content is straight in the template.
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 1">
+                            <p>Content 1</p>
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 2">
+                            <p>Content 2</p>
+                        </accordion-group>
+                    </accordion>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value=""  [(ngModel)]="oneAtATime">
+                  Open only one at a time
+                  </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4">
+            <div class="silk-card border-success">
+                <div class="silk-card-title">
+                    <h4>Accordion 3</h4>
+                </div>
+                <div class="silk-card-content">
+                    <accordion>
+                        <accordion-group class="mb-2 d-block" heading="Static Header, initially expanded" [panelClass]="customClass" [isOpen]="isFirstOpen">
+                            This content is straight in the template.
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 1">
+                            <p>accordion 1</p>
+                        </accordion-group>
+                        <accordion-group class="mb-2 d-block" heading="Content 2" panelClass="customClass">
+                            <p>accordion 2</p>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

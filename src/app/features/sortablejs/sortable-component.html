@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 m-auto silk-sorted-drag-drop" widget>
+        <div class="silk-card pb-0 border-primary">
+            <div class="silk-card-title d-flex justify-content-between">
+                <div class="silk-head">
+
+                    <h4>Drag and Drop</h4>
+
+                </div>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+
+            </div>
+            <div class="widget-body">
+            <mat-list [sortablejs]="list1" [sortablejsOptions]="simpleOptions" class="no-gutter">
+                <mat-list-item class="draggable bg-primary pb-3 pt-3">
+                    <div class="pad-wrap">
+                        <h4 class="card-title">Drag me!</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adi.</p>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="draggable bg-success pb-3 pt-3">
+                    <div class="pad-wrap">
+                        <h4 class="card-title">Drag me!</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adi.</p>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="draggable bg-warning pb-3 pt-3">
+                    <div class="pad-wrap">
+                        <h4 class="card-title">Drag me!</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adi.</p>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="mb-0 draggable bg-danger pb-3 pt-3">
+                    <div class="pad-wrap">
+                        <h4 class="card-title">Drag me!</h4>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adi.</p>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,102 @@
+<div class="row">
+   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title d-flex justify-content-between">
+            <h4>Timepicker</h4>
+            <div class="card-controls">
+                  <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                  <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                  <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+               </div>
+         </div>
+         <div class="silk-content widget-body">
+            <timepicker [(ngModel)]="mytime"></timepicker>
+            <pre class="alert alert-info mb-5">Time is: {{mytime}}</pre>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title d-flex justify-content-between">
+            <h4>Timepicker</h4>
+            <div class="card-controls">
+                  <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                  <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                  <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+               </div>
+         </div>
+         <div class="silk-content widget-body">
+            <timepicker [(ngModel)]="mytime2" [showMeridian]="ismeridian"></timepicker>
+            <pre class="alert alert-info">Time is: {{mytime2}}</pre>
+            <hr>
+            <button type="button" class="btn btn-info" (click)="toggleMode()">12H / 24H</button>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+      <div class="silk-card border-success">
+         <div class="silk-card-title d-flex justify-content-between">
+            <h4>Timepicker</h4>
+            <div class="card-controls">
+                  <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                  <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                  <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+               </div>
+         </div>
+         <div class="silk-content widget-body">
+            <timepicker [(ngModel)]="mytime3" [showMeridian]="ismeridian" [readonlyInput]="!isEnabled"></timepicker>
+            <hr>
+            <button type="button" class="btn btn-info" (click)="isEnabled=!isEnabled">Enable / Disable input</button>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title d-flex justify-content-between">
+            <h4>Timepicker</h4>
+            <div class="card-controls">
+                  <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                  <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                  <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+               </div>
+         </div>
+         <div class="silk-content widget-body">
+            <timepicker [(ngModel)]="mytime4" [hourStep]="hstep" [minuteStep]="mstep"></timepicker>
+            <pre class="alert alert-info">Time is: {{mytime4}}</pre>
+            <div class="clearfix">
+               <div class="pull-left ml-3 mr-3">
+                  Hours step is:
+                  <select class="form-control" [(ngModel)]="hstep">
+                  <option *ngFor="let opt of options.hstep" [value]="opt">{{opt}}</option>
+                  </select>
+               </div>
+               <div class=" pull-left ml-3 mr-3">
+                  Minutes step is:
+                  <select class="form-control" [(ngModel)]="mstep">
+                  <option *ngFor="let opt of options.mstep" [value]="opt">{{opt}}</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+      <div class="silk-card border-primary">
+         <div class="silk-card-title d-flex justify-content-between">
+            <h4>Timepicker</h4>
+            <div class="card-controls">
+                  <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                  <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                  <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+               </div>
+         </div>
+         <div class="silk-content widget-body">
+            <timepicker [(ngModel)]="mytime5" (change)="changed()"></timepicker>
+            <pre class="alert alert-info">Time is: {{mytime5}}</pre>
+            <button type="button" class="btn btn-primary mr-2" (click)="update()">Set to 14:00</button>
+            <button type="button" class="btn btn-danger mr-2" (click)="clear()">Clear</button>
+         </div>
+      </div>
+   </div>
+</div>
+

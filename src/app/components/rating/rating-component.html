@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Four Direction</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div>
+                    <ngb-rating [(rate)]="currentRate"></ngb-rating>
+                    <hr>
+                    <pre>Rate: <b>{{currentRate}}</b></pre>
+                </div>
+                <div>
+                    <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly"></ngb-rating>
+                    <hr>
+                    <pre>
+Selected: <b>{{selected}}</b>
+Hovered: <b>{{hovered}}</b>
+</pre>
+                    <button class="btn btn-sm btn-outline-{{readonly ? 'danger' : 'success'}}" (click)="readonly = !readonly">
+  {{ readonly ? "readonly" : "editable"}}
+</button>
+                </div>
+                <div>
+                    <p>Custom rating template provided as child element</p>
+                    <ngb-rating [(rate)]="currentRate2">
+                        <ng-template let-fill="fill">
+                            <span class="starr" [class.filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating>
+                    <hr>
+                    <pre>Rate: <b>{{currentRate2}}</b></pre>
+                </div>
+                <div>
+                    <p>Custom rating template provided via a variable. Shows fine-grained rating display</p>
+                    <ng-template #t let-fill="fill">
+                        <span *ngIf="fill === 100" class="star full">&hearts;</span>
+                        <span *ngIf="fill === 0" class="star">&hearts;</span>
+                        <span *ngIf="fill < 100 && fill > 0" class="star">
+    <span class="half" [style.width.%]="fill">&hearts;</span>&hearts;
+                        </span>
+                    </ng-template>
+                    <ngb-rating [(rate)]="currentRate3" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                    <hr>
+                    <pre>Rate: <b>{{currentRate3}}</b></pre>
+                    <button class="btn btn-sm btn-outline-primary mr-2" (click)="currentRate3 = 1.35">1.35</button>
+                    <button class="btn btn-sm btn-outline-primary mr-2" (click)="currentRate3 = 4.72">4.72</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

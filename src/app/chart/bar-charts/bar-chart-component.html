@@ -1,0 +1,147 @@
+<div class="row">
+    <!-- bar -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Vertical Bar Chart</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-vertical [scheme]="colorScheme" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [results]="single" (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Horizontal Bar Chart</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-horizontal [scheme]="colorScheme" [results]="single" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="yAxisLabel" [yAxisLabel]="xAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-horizontal>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-vertical-2d [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical-2d>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between ">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-horizontal-2d [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="yAxisLabel" [yAxisLabel]="xAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-horizontal-2d>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-vertical-stacked [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical-stacked>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-horizontal-stacked [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="yAxisLabel" [yAxisLabel]="xAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-horizontal-stacked>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-danger">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-vertical-normalized [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical-normalized>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Bar Chart 1</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-bar-horizontal-normalized [scheme]="colorScheme" [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="yAxisLabel" [yAxisLabel]="xAxisLabel" (select)="onSelect($event)">
+                    </ngx-charts-bar-horizontal-normalized>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

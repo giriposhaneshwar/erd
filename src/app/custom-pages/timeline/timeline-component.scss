@@ -1,0 +1,63 @@
+.timeline-page {
+    .timeline {
+        padding: 40px 0px;
+        width: 80%;
+        margin-left: 10%;
+        margin-bottom: 40px;
+    }
+    .timeline:before {
+        content: "";
+        position: absolute;
+        top: 40px;
+        left: 65px;
+        width: 3px;
+        height: calc(100% - 80px);
+        background: #e83f6f;
+    }
+    .timeline {
+        .column {
+            margin: 40px 40px 40px 120px;
+            position: relative;
+            .title {
+                h1 {
+                    font-size: 38px;
+                    color: rgba(0, 0, 0, 0.1);
+                    font-family: serif;
+                    letter-spacing: 3px;
+                    &:before {
+                        content: "";
+                        position: absolute;
+                        left: -62px;
+                        top: 86px;
+                        width: 10px;
+                        height: 10px;
+                        background: #fff;
+                        border: 3px solid #e83f6f;
+                    }
+                }
+                h2 {
+                    font-size: 20px;
+                }
+            }
+        }
+        .description {
+            border-left: 1px solid #000;
+            p {
+                
+                margin-left: 20px;
+                margin-top: 10px;
+               
+            }
+        }
+    }
+    .timeline .column .description .timeline .column .main h1 {
+        font-size: 80px;
+        line-height: 60px;
+    }
+    .main p {
+        font-size: 13px;
+        line-height: 20px;
+        font-family: serif;
+        text-align: right;
+    }
+}

@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Table Selection</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="widget-body">
+            <ngx-datatable class="material selection-cell" [rows]="rows" [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [selected]="selected" [selectionType]="'cell'" (select)="onSelect($event)" (activate)="onActivate($event)">
+            </ngx-datatable>
+            </div>
+        </div>
+    </div>
+</div>

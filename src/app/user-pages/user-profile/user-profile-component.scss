@@ -1,0 +1,30 @@
+.user-list-wrap .mat-icon {
+    vertical-align: top;
+    margin-right: 0.5rem;
+}
+.user-thumb{
+		img{
+margin-left: auto;
+margin-right: auto;
+margin-bottom:1rem;
+		}
+   
+}
+.user-name{
+    font-size: 1.125rem;
+    font-weight:bold;
+}
+.user-content a{
+	color:#fff !important;
+}
+
+ .post-actions a{
+	 margin:0 5px;
+ 		i{
+ 			font-size:20px;
+ 			}
+ }
+.user-list li {
+  border-bottom: 1px solid #eee;
+  padding: 0.2rem 0;
+}

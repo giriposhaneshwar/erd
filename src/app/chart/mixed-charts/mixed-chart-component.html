@@ -1,0 +1,57 @@
+<div class="row">
+    <!-- bar -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Mixed Chart</h4>
+   <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-tree-map [scheme]="colorScheme" [results]="single" (select)="onSelect($event)">
+                    </ngx-charts-tree-map>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Mixed Chart</h4>
+                   <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-number-card [scheme]="colorScheme" [results]="single" (select)="onSelect($event)">
+                    </ngx-charts-number-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4" widget>
+        <div class="silk-card border-primary">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Mixed Chart</h4>
+                   <div class="card-controls">
+                        <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                        <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                        <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                    </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <div class="w-100 h-300px">
+                    <ngx-charts-gauge [scheme]="colorScheme" [results]="single" [min]="0" [max]="100" [angleSpan]="240" [startAngle]="-120" [units]="'alerts'" [bigSegments]="10" [smallSegments]="5" (select)="onSelect($event)">
+                    </ngx-charts-gauge>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

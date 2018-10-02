@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Four Direction</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <button type="button" class="btn mr-1 ml-1 mb-1 btn-default btn-secondary" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on left" placement="left">
+         Popover on left
+         </button>
+                <button type="button" class="btn mr-1 ml-1 mb-1 btn-default btn-secondary" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on top" placement="top">
+         Popover on top
+         </button>
+                <button type="button" class="btn mr-1 ml-1 mb-1 btn-default btn-secondary" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on bottom" placement="bottom">
+         Popover on bottom
+         </button>
+                <button type="button" class="btn mr-1 ml-1 mb-1 btn-default btn-secondary" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on right" placement="right">
+         Popover on right
+         </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Dynamic Content</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <button type="button" class="btn btn-info mr-2" [popover]="content" [popoverTitle]="title">
+         Simple binding
+         </button>
+                <ng-template #popTemplate>Just another: {{content}}</ng-template>
+                <button type="button" class="btn btn-warning mr-2" [popover]="popTemplate" popoverTitle="Template ref content inside">
+         TemplateRef binding
+         </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Dynamic Html</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <p>By using small trick you can display any dynamic html, which you got from ajax request for example.</p>
+                <ng-template #popTemplate>
+                    Here we go:
+                    <div [innerHtml]="html"></div>
+                </ng-template>
+                <button type="button" class="btn btn-success" [popover]="popTemplate" popoverTitle="Dynamic html inside">
+         Show me popover with html
+         </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Append to body</h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <p>When you have some styles on a parent element that interfere with a popover, you’ll want to specify a container="body" so that the popover’s HTML will be appended to body. </p>
+                <button type="button" class="btn btn-danger mr-2" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+         Default popover
+         </button>
+                <button type="button" class="btn btn-success mr-2" popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." container="body">
+         Popover appended to body
+         </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 mb-4" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <h4>Custom </h4>
+                <div class="card-controls">
+                    <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+                    <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <div class="silk-card-content widget-body">
+                <button type="button" class="btn btn-info" popover="I will hide on blur" triggers="mouseenter:mouseleave">
+         Hover over me!
+         </button>
+                <p>
+                    <span popover="Hello there! I was triggered manually" triggers="" #pop="bs-popover">
+            This text has attached popover
+            </span>
+                </p>
+                <button type="button" class="btn btn-success mr-2" (click)="pop.show()">
+         Show
+         </button>
+                <button type="button" class="btn btn-warning" (click)="pop.hide()">
+         Hide
+         </button>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>

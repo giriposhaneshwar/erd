@@ -1,0 +1,133 @@
+<div class="silk-mail-wrapper">
+    <div class="row d-flex">
+    <div class="col-lg-3">
+        <div class="navigation height-full pt-4">
+            <div class="compose-container">
+                <button (click)="openComposeDialog()" class="silk-compose-btn bg-primary" mat-raised-button color="primary">
+          <span>Send New mail</span>
+        </button>
+            </div>
+            <ul class="mail-nav-list mt-3 pl-0 list-style-none">
+                <li class="mb-1 active">
+                    <span><i class="fa fa-inbox"></i> Inbox</span>
+                </li>
+               
+                <li class="mb-1">
+                    <span><i class="fa fa-paper-plane-o"></i> Sent</span>
+                </li>
+                 <li class="mb-1">
+                    <span><i class="fa fa-archive" aria-hidden="true"></i> Drafts</span>
+                </li>
+                <li class="mb-1">
+                    <span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Spam</span>
+                </li>
+                <li class="mb-1">
+                    <span><i class="fa fa-trash" aria-hidden="true"></i> Trash</span>
+                </li>
+            </ul>
+        <ul class="mt-3 pl-3 list-style-none">
+				                    <li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1  text-primary"></i>File</a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-danger"></i>Bank</a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-info"></i>Social</a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-warning"></i>Promotions</a></li>
+				                </ul>
+				                <div class="pl-3 mt-3">
+								<div class="form-group">
+									<div class="input-group">
+								
+										<input class="form-control" placeholder="Search Peoples..." type="text">
+										
+										
+									</div>
+								</div>
+								 <ul class="mt-3 list-style-none">
+				                    <li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1  text-success"></i> Janita Archie </a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-success"></i> Ada Lindner </a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-danger"></i> Yan Mulford </a></li>
+									<li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-success"></i> Casie Woelfel </a></li>
+                            <li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-success"></i>  Liliana Rozell  </a></li>
+                            <li class="mb-2"><a href="#"><i class="fa fa-circle mr-2 ml-1 text-danger"></i>  Tamica Wyble  </a></li>
+				                </ul>
+							</div>
+          
+        </div>
+        </div>
+        <div class=" col-lg-9 pl-0">
+        <div class="content-container">
+
+
+            <div class="mails-container md-elevation-z2">
+                <div class="header-upper">
+                    
+                    <div class="search-bar">
+                        <form class="search-form">
+                            <mat-form-field  class="full-wid">
+                                <input matInput type="text" placeholder="Search" />
+                            </mat-form-field >
+                        </form>
+                    </div>
+                </div>
+              
+                
+                <div *ngIf="shownMailDetail" class="toolbar toolbar-detail">
+                    <div class="icon-group">
+                        <button class="back" (click)="resetTemporaries()" mat-icon-button matTooltip="Back">
+              <mat-icon>arrow_back</mat-icon>
+            </button>
+                    </div>
+               
+          
+            
+                </div>
+                <div class="mails">
+                    <div *ngIf="!shownMailDetail" class="mail-list">
+                        <div class="mail" *ngFor="let mail of shownMails"  [class.read]="mail.read">
+                        
+                            <a #mailList class="pad-wrap d-flex justify-content-between ">
+                               
+                                <div >
+
+                                    <span class="from-name">{{ mail.from }}</span>
+                                     <p >
+                                    <span class="subject">{{ mail.subject }}</span>
+                                </p>
+                                </div>
+                               
+                                <div    class="end-wrapper" >
+                                    <span class="when">{{ mail.date }}</span>
+                                </div>
+                                
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mail-detail" *ngIf="shownMailDetail">
+                 
+                        <div class="mail-content">
+                            <div class="mail-content-text">
+                                <p>Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. 
+                                </p>
+                                <p> Omnicos directe al desirabilite de un nov lingua franca: On refusa continuar payar custosi traductores. At solmen va esser necessi far uniform grammatica, pronunciation e plu sommun paroles. Ma quande lingues coalesce, li grammatica del result</p>
+                                <p> doloribus, inventore sed ratione, ducimus atque earum maiores tenetur officia commodi dicta tempora consequatur non nesciunt ipsam, consequuntur quia fuga aspernatur impedit et? Natus, earum.</p>
+                               
+                            </div>
+                        </div>
+                        <div class="respond">
+                            <img class="avatar" src="assets/img/noavatar.png">
+                            <span class="click-reply">Click to <span class="semi-bold">Reply</span> or <span class="semi-bold">Forward</span></span>
+                            
+                            <mat-icon class="reply">reply</mat-icon>
+                            <mat-icon class="forward">forward</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<mat-menu #mailOptions="matMenu">
+    <button mat-menu-item> <mat-icon>markunread_mailbox</mat-icon> Mark as unread </button>
+    <button mat-menu-item> <mat-icon>label</mat-icon> Labels </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item> <mat-icon>delete</mat-icon> Delete </button>
+</mat-menu>

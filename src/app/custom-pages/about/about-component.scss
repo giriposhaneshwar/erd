@@ -1,0 +1,28 @@
+.figure-div {
+  position: relative;
+  &:hover{
+  .hover-content{
+  opacity:1;
+  }
+  }
+}
+.hover-content {
+  background-color: rgba(34, 116, 165, 0.7);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding:8rem 1.5rem 1.5rem;
+
+  opacity:0;
+  transition:all 0.4s ease-in-out 0s;
+  h4,a{
+ color: #fff;
+    display: block;
+    text-align: right;
+    &:hover{
+    text-decoration:none;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+.linea-icons-style{
+    i{
+       display: inline-block;
+    font-size: 24px;
+    margin-bottom: 2rem;
+    text-align: center;
+    width: 33%;
+    }
+}
+@media(max-width:1199px){
+    .linea-icons-style{
+    i{
+     
+    width: 49%;
+    }
+}
+}
