@@ -8,6 +8,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from 'app/core/widgster/directives.module';
+import { SiteDataComponent } from './tabs/site-data/site-data.component';
+import { InSituParametersComponent } from './tabs/in-situ-parameters/in-situ-parameters.component';
+import { GeneralChemistryComponent } from './tabs/general-chemistry/general-chemistry.component';
+import { InOrganicChemistryComponent } from './tabs/in-organic-chemistry/in-organic-chemistry.component';
+import { OrganicChemistryComponent } from './tabs/organic-chemistry/organic-chemistry.component';
+import { MicroBiologyComponent } from './tabs/micro-biology/micro-biology.component';
+import { UploadFilesComponent } from './tabs/upload-files/upload-files.component';
 
 @NgModule({
   imports: [
@@ -20,6 +27,6 @@ import { DirectivesModule } from 'app/core/widgster/directives.module';
     DirectivesModule,
     RouterModule.forChild(MwqDataEntryRoutes)
   ],
-  declarations: [MwqDataEntryComponent]
+  declarations: [MwqDataEntryComponent, SiteDataComponent, InSituParametersComponent, GeneralChemistryComponent, InOrganicChemistryComponent, OrganicChemistryComponent, MicroBiologyComponent, UploadFilesComponent]
 })
 export class MwqDataEntryModule { }
