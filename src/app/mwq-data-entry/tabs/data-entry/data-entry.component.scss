@@ -1,0 +1,37 @@
+.componentSection {
+    .componentHeading {
+        >h3 {
+            display: block;
+            font-size: 16px;
+        }
+    }
+
+    .componentBody {
+        .radioOptions {
+            padding: 20px 0px;
+
+            label {
+                font-weight: bold;
+            }
+
+            span {
+                padding-left: 8px;
+            }
+        }
+
+        .dataEntryForm {
+            display: block;
+            padding: 25px 0px;
+            text-align: left;
+
+            .buttonSection {
+                display: block;
+                margin-top: 20px;
+
+                button {
+                    margin: 0px 5px;
+                }
+            }
+        }
+    }
+}

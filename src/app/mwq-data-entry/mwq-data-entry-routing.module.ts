@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MwqDataEntryComponent } from './mwq-data-entry.component';
 
+import { DataEntryComponent } from "./tabs/data-entry/data-entry.component";
 import { SiteDataComponent } from './tabs/site-data/site-data.component';
 import { InSituParametersComponent } from './tabs/in-situ-parameters/in-situ-parameters.component';
 import { GeneralChemistryComponent } from './tabs/general-chemistry/general-chemistry.component';
@@ -16,7 +17,8 @@ export const MwqDataEntryRoutes: Routes = [{
       path: '',
       component: MwqDataEntryComponent,
       children: [
-        { path: '', redirectTo: 'site-details', pathMatch: 'full' },
+        { path: '', redirectTo: 'data-entry', pathMatch: 'full' },
+        { path: 'data-entry', component: DataEntryComponent},
         { path: 'site-details', component: SiteDataComponent},
         { path: 'in-situ-parameters', component: InSituParametersComponent},
         { path: 'general-chemistry', component: GeneralChemistryComponent},

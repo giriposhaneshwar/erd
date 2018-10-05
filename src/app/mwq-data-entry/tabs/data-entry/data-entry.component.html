@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="componentSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="componentHeading clearfix">
+      <h3>Lab Details Entry Type</h3>
+    </div>
+    <div class="componentBody clearfix">
+      <div class="row radioOptions" *ngIf="radioGroup == null">
+        <div class="col-xs-12 col-sm-4">
+          <label for="manualEntry">
+            <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="manualEntry" name="dataEntryType"
+              value="manualEntry" />
+            <span>Manual Entry</span>
+          </label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label for="importFromExcel">
+            <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="importFromExcel"
+              name="dataEntryType" value="importFromExcel" />
+            <span>Import from Excel</span>
+          </label>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <label for="webService">
+            <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="webService" name="dataEntryType"
+              value="webService" />
+            <span>Web Service</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="dataLoadingSection">
+        <form class="form dataEntryForm">
+          <div *ngIf="radioGroup == 'importFromExcel'" class="importFromExcel">
+            <div class="formContainer">
+              <input type="file" name="importFromExcel" id="importFromExcel" [(ngModel)]="excelFile" (change)="uploadFile(excelFile)" />
+            </div>
+          </div>
+          <div *ngIf="radioGroup == 'webService'" class="webService">
+            <div class="formContainer">
+              <div class="col-sm-6">
+                <input class="form-control" type="text" name="webService" [(ngModel)]="webService" placeholder="enter site url" />
+              </div>
+            </div>
+          </div>
+          <div class="form-group buttonSection text-center" *ngIf="radioGroup != null">
+            <button class="btn btn-primary" (click)="importEntryData()">Import Data</button>
+            <button class="btn btn-danger" (click)="cancelDataEntry()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

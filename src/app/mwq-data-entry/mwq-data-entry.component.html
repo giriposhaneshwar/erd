@@ -11,18 +11,70 @@
   </div>
 </div>
 <div class="pageWrapper tabSection">
-  <div class="tabSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="row">
-      <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <ul>
-          <li><a href="javascript:void(0)" [routerLink]="['site-details']">Site Details</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['in-situ-parameters']">In-Situ Parameters</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['general-chemistry']">General Chemistry</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['in-organic-chemistry']">In-Organic Chemistry</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['organic-chemistry']">Organic Chemistry</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['microbiology']">Microbiology</a></li>
-          <li><a href="javascript:void(0)" [routerLink]="['upload-files']">Upload Files</a></li>
-        </ul>
+<div class="d-none d-sm-block d-md-block d-lg-block">
+    <div class="tabSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['data-entry']" routerLinkActive="active-link" title="Data Entry">
+                Data Entry</a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['site-details']" routerLinkActive="active-link" title="Site Details">
+                Site Details
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['in-situ-parameters']" routerLinkActive="active-link" title="In-Situ Parameters">In-Situ
+                Parameters
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['general-chemistry']" routerLinkActive="active-link" title="General Chemistry">General
+                Chemistry
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['in-organic-chemistry']" routerLinkActive="active-link" title="In-Organic Chemistry">In-Organic
+                Chemistry
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['organic-chemistry']" routerLinkActive="active-link" title="Organic Chemistry">Organic
+                Chemistry
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['microbiology']" routerLinkActive="active-link" title="Microbiology">
+                Microbiology
+              </a>
+            </li>
+            <li>
+<a href="javascript:void(0)" [routerLink]="['upload-files']" routerLinkActive="active-link" title="Upload Files">
+                Upload Files
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="d-sm-none d-md-none d-lg-none d-xs-block">
+    <div class="tabSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <div class="headerTitleMobile col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <select class="form-control" [(ngModel)]="mobileTabNav" (change)="tabRouteinMobile($event, mobileTabNav)">
+            <option value="data-entry">Data Entry</option>
+            <option value="site-details">Site Details</option>
+            <option value="in-situ-parameters">In-Situ Parameters</option>
+            <option value="general-chemistry">General Chemistry</option>
+            <option value="in-organic-chemistry">In-Organic Chemistry</option>
+            <option value="organic-chemistry">Organic Chemistry</option>
+            <option value="microbiology">Microbiology</option>
+            <option value="upload-files">Upload Files</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -48,5 +100,5 @@
   </div>
 </div>
 <div class="row">
-<!-- footer section-->
+  <!-- footer section-->
 </div>

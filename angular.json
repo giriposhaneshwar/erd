@@ -20,7 +20,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/scss/style.scss",
               "src/assets/fonts/data-table/icons.css",
               "src/assets/linea/styles.css",
               "src/assets/glyphicons/glyphicons.css",
@@ -35,7 +34,8 @@
               "node_modules/simple-line-icons/scss/simple-line-icons.scss",
               "node_modules/dragula/dist/dragula.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-              "src/assets/cropper/cropper.css"
+              "src/assets/cropper/cropper.css",
+              "src/assets/scss/style.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
