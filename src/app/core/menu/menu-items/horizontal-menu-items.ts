@@ -46,8 +46,13 @@ const HORIZONTALMENUITEMS = [
   {
     state: 'incidents',
     name: 'INCIDENTS',
-    type: 'link',
-    icon: 'bug_report'
+    type: 'sub',
+    icon: 'bug_report',
+    children: [
+      {state: 'incidents/buoys-incidents', name: 'BUOYS_INCIDENT'},
+      {state: 'incidents/blooms-incidents', name: 'BLOOMS_INCIDENT'},
+     
+    ]
   },
   {
     state: 'manageBuoys',

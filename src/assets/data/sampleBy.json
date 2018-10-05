@@ -1,0 +1,14 @@
+[
+    {
+        "sampleById": 1,
+        "sampleByName": "Abu Dhabi Environmental Agency"
+    },
+    {
+        "sampleById": 2,
+        "sampleByName": "Nautica"
+    },
+    {
+        "sampleById": 3,
+        "sampleByName": "Others"
+    }
+]

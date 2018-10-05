@@ -9,6 +9,7 @@ import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from 'app/core/widgster/directives.module';
 import { TypeaheadModule  } from 'ngx-bootstrap';
 import {TabsModule } from 'ngx-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import {TabsModule } from 'ngx-bootstrap';
     MatInputModule, 
     MatCardModule, 
     DirectivesModule,
+    NgbModule.forRoot(),
     TypeaheadModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forChild(AlertsRoutes)

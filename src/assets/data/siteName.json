@@ -1,0 +1,18 @@
+[
+    {
+        "siteId": 1,
+        "siteName": "S001"
+    },
+    {
+        "siteId": 2,
+        "siteName": "S002"
+    },
+    {
+        "siteId": 3,
+        "siteName": "S003"
+    },
+    {
+        "siteId": 4,
+        "siteName": "S004"
+    }
+]

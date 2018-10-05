@@ -1,0 +1,32 @@
+[
+    {
+        "alertId": 1,
+        "alertDescription": "Temparature Sensor Alert1",
+        "alertReportedDateTime": "2 days ago",
+        "alertSeverity": "High",
+        "siteName": "Bateen Public Beach",
+        "sensorId": "Sensor_1",
+        "status": "9",
+        "buoysId": "Buoys1"
+    },
+    {
+        "alertId": 2,
+        "alertDescription": "Temparature Sensor Alert2",
+        "alertReportedDateTime": "2 days ago",
+        "alertSeverity": "Avg",
+        "siteName": "Barakah",
+        "sensorId": "Sensor_2",
+        "status": "9",
+        "buoysId": "Buoys2"
+    },
+    {
+        "alertId": 3,
+        "alertDescription": "Temparature Sensor Alert3",
+        "alertReportedDateTime": "2 days ago",
+        "alertSeverity": "Low",
+        "siteName": "Bu Tinah",
+        "sensorId": "Sensor_3",
+        "status": "9",
+        "buoysId": "Buoys3"
+    }
+]

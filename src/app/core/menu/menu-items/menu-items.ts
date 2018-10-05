@@ -30,8 +30,13 @@ const MENUITEMS: Menu[] = [
   {
     state: 'incidents',
     name: 'INCIDENTS',
-    type: 'link',
-    icon: 'bug_report'
+    type: 'sub',
+    icon: 'bug_report',
+    children: [
+      {state: 'buoys-incidents', name: 'BUOYS_INCIDENT'},
+      {state: 'blooms-incidents', name: 'BLOOMS_INCIDENT'},
+     
+    ]
   },
   {
     state: 'manageBuoys',

@@ -1,0 +1,10 @@
+[
+    {
+        "eventTypeId": 1,
+        "eventTypeName": "Routine"
+    },
+    {
+        "eventTypeId": 2,
+        "eventTypeName": "Non-Routine"
+    }
+]

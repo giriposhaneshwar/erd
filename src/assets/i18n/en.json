@@ -10,7 +10,9 @@
   "MWQDATAENTRY": "Data Entry",
   "MWQDATAQC": "Data QC",
   "ANALYTICS": "Analytics",
-
+  "BUOYS_INCIDENT": "Buoys",
+  "BLOOMS_INCIDENT":"Blooms",
+  
   "HOME": "Dashboard",   
   "EMAILS" : "Emails",
   "CHAT" : "Chat",

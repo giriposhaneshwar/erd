@@ -1,0 +1,22 @@
+[
+    {
+        "mqlId": 1,
+        "mqlName": "atoms"
+    },
+    {
+        "mqlId": 2,
+        "mqlName": "bonds"
+    },
+    {
+        "mqlId": 3,
+        "mqlName": "properties"
+    },
+    {
+        "mqlId": 4,
+        "mqlName": "branching"
+    },
+    {
+        "mqlId": 5,
+        "mqlName": "rings"
+    }
+]

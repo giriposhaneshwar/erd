@@ -15,6 +15,8 @@ import { InOrganicChemistryComponent } from './tabs/in-organic-chemistry/in-orga
 import { OrganicChemistryComponent } from './tabs/organic-chemistry/organic-chemistry.component';
 import { MicroBiologyComponent } from './tabs/micro-biology/micro-biology.component';
 import { UploadFilesComponent } from './tabs/upload-files/upload-files.component';
+import { DemoMaterialModule } from '../material-demo.module';
+
 
 @NgModule({
   imports: [
@@ -25,6 +27,7 @@ import { UploadFilesComponent } from './tabs/upload-files/upload-files.component
     MatInputModule, 
     MatCardModule, 
     DirectivesModule,
+    DemoMaterialModule,
     RouterModule.forChild(MwqDataEntryRoutes)
   ],
   declarations: [MwqDataEntryComponent, SiteDataComponent, InSituParametersComponent, GeneralChemistryComponent, InOrganicChemistryComponent, OrganicChemistryComponent, MicroBiologyComponent, UploadFilesComponent]

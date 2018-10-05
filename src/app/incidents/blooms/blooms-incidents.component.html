@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
+    <div class="silk-card border-success">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4>Blooms Incidents Details</h4>
+      </div>
+      <div class="silk-card">
+        <div class="silk-card-content">
+          <div class="form-group row">
+            <div class="col-3">
+              <input class="form-control" type="text" placeholder="Search">
+            </div>
+            <label for="example-date-input" class="col-form-label">From Date</label>
+            <div class="col-3">
+              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            </div>
+            <label for="example-date-input" class="col-form-label">To Date</label>
+            <div class="col-3">
+              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            </div>
+            <button type="submit" class="send-btn btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+      </div>
+      <div class="silk-card-content widget-body">
+        <div class="table-responsive">
+          <ngx-datatable class="material sorting customTable" [rows]="bllomIncidentRows" [columnMode]="'force'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selectedRow"
+            [selectionType]="'single'" (select)='onSelect($event)'>
+            <ngx-datatable-column name="Incident Severity">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
+                                       'text-warning mr-2' : value=== 'Avg',
+                                       'text-danger mr-2': value=== 'High' 
+                      }"></i>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Incident Description"></ngx-datatable-column>
+            <ngx-datatable-column name="Incident Reported DateTime">
+              <small class="text-muted"><i class="fa fa-clock-o"></i> {{value}}</small>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Bloom Details</h4>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-middle table-striped" *ngFor='let sel of selectedRow'>
+          <tbody class="ng-tns-c6-0">
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Id</td>
+              <td class="ng-tns-c6-0">{{sel.bloomIncidentId}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Name</td>
+              <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Location (Lat/Long)</td>
+              <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Description</td>
+              <td class="ng-tns-c6-0">{{sel.description}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
+              <td class="ng-tns-c6-0">{{sel.areaCovered}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Area Name</td>
+              <td class="ng-tns-c6-0">{{sel.areaName}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Bloom Type</td>
+              <td class="ng-tns-c6-0">{{sel.bloomType}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Affected Species</td>
+              <td class="ng-tns-c6-0">{{sel.affectedSpecies}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+    </div>
+  </div>
+</div>

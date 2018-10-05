@@ -1,0 +1,14 @@
+[
+    {
+        "testMethodId": 1,
+        "testMethodName": "gravimetry"
+    },
+    {
+        "testMethodId": 2,
+        "testMethodName": "titrimetry"
+    },
+    {
+        "testMethodId": 3,
+        "testMethodName": "colorimetry"
+    }
+]    
