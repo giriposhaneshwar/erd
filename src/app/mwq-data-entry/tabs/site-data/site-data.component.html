@@ -6,15 +6,23 @@
           <div class="row">
             <div class="col-xs-12 col-sm-4">
               <label>Project Name</label>
-              <input type="text" class="form-control" placeholder="Project name" />
+              <input type="text" class="form-control" placeholder="SMPL31072018-001" />
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Site Category</label>
-              <input type="text" class="form-control" placeholder="site category" />
+              <!-- <input type="text" class="form-control" placeholder="site category" /> -->
+              <select class="form-control" [(ngModel)]="selectedSiteCategory" id="sd-text-siteCategoryy">
+                <option value="" selected>select a category</option>
+                <option *ngFor="let siteCat of siteCategory" [value]="siteCat.siteCategoryName">{{siteCat.siteCategoryName}}</option>
+              </select>
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Site Name</label>
-              <input type="text" class="form-control" placeholder="site name" />
+              <!-- <input type="text" class="form-control" placeholder="site name" /> -->
+              <select class="form-control" id="sd-text-siteName" [(ngModel)]="selectedSiteName">
+                <option>Select SiteName</option>
+                <option *ngFor="let siteDet of siteDetails" let i=index [value]="siteDet.siteName">{{siteDet.siteName}}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -22,15 +30,23 @@
           <div class="row">
             <div class="col-xs-12 col-sm-4">
               <label>Number</label>
-              <input type="text" class="form-control" placeholder="Number" />
+              <input type="text" class="form-control" placeholder="SMPL31072018-001" />
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Source</label>
-              <input type="text" class="form-control" placeholder="Source" />
+              <!-- <input type="text" class="form-control" placeholder="Source" /> -->
+              <select class="form-control" id="sd-text-source" [(ngModel)]="selectedSourceName">
+                <option>Select Source Name</option>
+                <option *ngFor="let sourceDet of sourceDetails" let i=index [value]="sourceDet.sourceName">{{sourceDet.sourceName}}</option>
+              </select>
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Preseration</label>
-              <input type="text" class="form-control" placeholder="Preservation" />
+              <!-- <input type="text" class="form-control" placeholder="Preservation" /> -->
+              <select class="form-control" id="sd-text-preservation" [(ngModel)]="selectedPreservation">
+                <option>Select Record</option>
+                <option *ngFor="let presrvDet of preservationDetails" let i=index [value]="presrvDet.preservationName">{{presrvDet.preservationName}}</option>
+              </select>
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Description</label>
@@ -38,19 +54,27 @@
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Date</label>
-              <input type="text" class="form-control" placeholder="Date" />
+              <input type="date" class="form-control" placeholder="Date" />
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Time</label>
-              <input type="text" class="form-control" placeholder="Time" />
+              <input type="time" class="form-control" placeholder="Time" />
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Sample By</label>
-              <input type="text" class="form-control" placeholder="Sample By" />
+              <!-- <input type="text" class="form-control" placeholder="Sample By" /> -->
+              <select class="form-control" id="sd-text-sampleBy" [(ngModel)]="selectedSampleBy">
+                <option>Select Record</option>
+                <option *ngFor="let sampleBy of sampleByDetails" let i=index [value]="sampleBy.sampleByName">{{sampleBy.sampleByName}}</option>
+              </select>
             </div>
             <div class="col-xs-12 col-sm-4">
               <label>Event Type</label>
-              <input type="text" class="form-control" placeholder="Event Type" />
+              <!-- <input type="text" class="form-control" placeholder="Event Type" /> -->
+              <select class="form-control" id="sd-text-eventType" [(ngModel)]="selectedEventType">
+                <option>Select Record</option>
+                <option *ngFor="let eventType of eventTypeDetails" let i=index [value]="eventType.eventTypeName">{{eventType.eventTypeName}}</option>
+              </select>
             </div>
           </div>
         </div>
