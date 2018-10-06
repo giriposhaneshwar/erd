@@ -19,3 +19,53 @@
     background-color: #ccc !important;
     color: #000 !important;
 }
+
+.gap {
+    &.gap-5 {
+        &.gap-lr {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        &.gap-tb {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+
+    &.gap-10 {
+        &.gap-lr {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        &.gap-tb {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.formContainer {
+    .section {
+        padding-bottom: 15px;
+
+        &.seperator {
+            border-bottom: 1px dashed #ccc;
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            display: block;
+        }
+
+        &:last-child {
+            padding-bottom: 0px;
+        }
+    }
+
+    label {
+        font-weight: bold;
+        padding-top: 15px;
+        padding-bottom: 0px;
+        margin-bottom: 5px;
+    }
+}
