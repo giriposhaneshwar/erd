@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { HistoricalGraphComponent } from '../../../partials/historical-graph/historical-graph.component';
 
 @Component({
   selector: "ms-in-organic-chemistry",
