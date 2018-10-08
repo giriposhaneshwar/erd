@@ -63,7 +63,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }
     })
   ],
-  declarations: [SilkAppComponent, MainComponent, AuthLayoutComponent],
+  declarations: [
+    SilkAppComponent,
+    MainComponent,
+    AuthLayoutComponent
+  ],
   bootstrap: [SilkAppComponent],
   providers: [
     MenuItems,
