@@ -12,15 +12,23 @@
       </div>
       <!--<mat-divider></mat-divider>-->
       <form class="form">
-        <div class="col-sm-12 col-xs-12 formTableSection">
+        <div class="col-sm-12 section col-xs-12 formTableSection">
           <div class="row formHeading">
             <div class="clearfix tbl tbl-per-10 text-left"></div>
             <div class="clearfix tbl tbl-per-20 text-left"><b>Surface</b></div>
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
             <div class="clearfix tbl tbl-per-15 text-center"><b>DeepWater</b></div>
-            <div class="clearfix tbl tbl-per-25 text-center"><b>Values</b></div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
+              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="10M" />
+              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="15M" />
+              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="20M" />
+              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="25M" />
+            </div>
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
           </div>
+
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Tempurature</div>
             <div class="clearfix tbl tbl-per-20 text-left">
@@ -28,166 +36,152 @@
               <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" [ngClass]="{'red': temperature.val1 <= 35, 'orange': temperature.val1 <= 50 && temperature.val1 > 35, 'green': temperature.val1 > 50}"
+                name="temperature.val1" [(ngModel)]="temperature.val1" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.val2 <= 35, 'orange': temperature.val2 <= 50 && temperature.val2 > 35, 'green': temperature.val2 > 50}"
+                name="temperature.val2" [(ngModel)]="temperature.val2" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.val3 <= 35, 'orange': temperature.val3 <= 50 && temperature.val3 > 35, 'green': temperature.val3 > 50}"
+                name="temperature.val3" [(ngModel)]="temperature.val3" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.val4 <= 35, 'orange': temperature.val4 <= 50 && temperature.val4 > 35, 'green': temperature.val4 > 50}"
+                name="temperature.val4" [(ngModel)]="temperature.val4" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.val5 <= 35, 'orange': temperature.val5 <= 50 && temperature.val5 > 35, 'green': temperature.val5 > 50}"
+                name="temperature.val5" [(ngModel)]="temperature.val5" class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Conductivity *</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
-              <span class="pad l-15">mS/cm (at Surface)</span>
+              <span class="pad l-15">mS/gm (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">mS/cm (at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Salinity *</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
               <span class="pad l-15">ppt (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">ppt (at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">pH *</div>
+            <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
-              <span class="pad l-15">(at Surface)</span>
+              <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">ppt(at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Dissolved O.. *</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Dissolved O_*</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
-              <span class="pad l-15">(at Surface)</span>
+              <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">ppt(at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
-              <span class="pad l-15">(at Surface)</span>
+              <span class="pad l-15">ug/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">ppt(at Surface)</span>
-            </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                class="form-control" />
+              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc...*</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
             <div class="clearfix tbl tbl-per-20 text-left">
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
-              <span class="pad l-15">(at Surface)</span>
+              <span class="pad l-15">Feet (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
-            <div class="clearfix tbl tbl-per-15 text-left">
-              <span class="pad l-15">ppt(at Surface)</span>
+            <div class="clearfix tbl tbl-per-15 text-left"></div>
+            <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+
             </div>
-            <div class="clearfix tbl tbl-per-25 text-center">
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
-              <span class="pad l-10"></span>
-              <span><input type="text" class="form-control tbl tbl-per-15" placeholder="45" /></span>
+            <div class="clearfix tbl tbl-per-15 text-center"></div>
+          </div>
+        </div>
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
           </div>
         </div>
       </form>
