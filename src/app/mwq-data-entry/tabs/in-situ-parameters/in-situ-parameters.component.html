@@ -35,7 +35,9 @@
               <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
               <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center">Historial Graph</div>
+            <div class="clearfix tbl tbl-per-15 text-center">
+              <span msHistoricalGraph graphData="[10, 20, 8, 76, 35, 96, 22]"></span>
+            </div>
             <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" [ngClass]="{'red': temperature.val1 <= 35, 'orange': temperature.val1 <= 50 && temperature.val1 > 35, 'green': temperature.val1 > 50}"
