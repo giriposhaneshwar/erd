@@ -12,8 +12,8 @@
               <label>Site Category</label>
               <!-- <input type="text" class="form-control" placeholder="site category" /> -->
               <select class="form-control" [(ngModel)]="selectedSiteCategory" id="sd-text-siteCategoryy">
-                <option value="" selected>select a category</option>
-                <option *ngFor="let siteCat of siteCategory" [value]="siteCat.siteCategoryName">{{siteCat.siteCategoryName}}</option>
+                <option value="">select a category</option>
+                <option *ngFor="let siteCat of siteCategory" value="{{siteCat.siteCategoryName}}">{{siteCat.siteCategoryName}}</option>
               </select>
             </div>
             <div class="col-xs-12 col-sm-4">
@@ -21,7 +21,7 @@
               <!-- <input type="text" class="form-control" placeholder="site name" /> -->
               <select class="form-control" id="sd-text-siteName" [(ngModel)]="selectedSiteName">
                 <option>Select SiteName</option>
-                <option *ngFor="let siteDet of siteDetails" let i=index [value]="siteDet.siteName">{{siteDet.siteName}}</option>
+                <option *ngFor="let siteDet of siteDetails" let i=index value="{{siteDet.siteName}}">{{siteDet.siteName}}</option>
               </select>
             </div>
           </div>

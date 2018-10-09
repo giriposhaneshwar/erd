@@ -49,7 +49,7 @@ export class SiteDataComponent implements OnInit {
 
   loadEventTypeData() {
     this.fetchEventTypeData((data) => {
-      //this.selectedEventType = [data[1]];
+      this.selectedEventType = [data[1]];
       this.eventTypeDetails = data;
     });
   }

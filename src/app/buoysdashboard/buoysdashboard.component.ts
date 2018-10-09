@@ -61,27 +61,30 @@ export class BuoysdashboardComponent implements OnInit {
      req.send();
    }*/
 
-  restItems: any = {
+  getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,
     Message: ""
   };
+  restItems: any = [];
   //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20180108/20181010';
   restItemsUrl = "assets/data/buoys.json";
 
   getRestItems(): void {
     this.restItemsServiceGetRestItems().subscribe(restItems => {
-      if (restItems != undefined && restItems.Status === "Success") {
-        if (
-          restItems.BuoysList != undefined &&
-          restItems.BuoysList.length > 0
-        ) {
-          this.restItems = restItems.BuoysList;
-        } else {
-          this.restItems = [];
+
+      this.getRestItemsResponse = restItems;
+      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
+        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
+          if (
+            this.getRestItemsResponse.BuoysList != undefined &&
+            this.getRestItemsResponse.BuoysList.length > 0
+          ) {
+            this.restItems = this.getRestItemsResponse.BuoysList;
+          }
         }
       }
-      console.log("----restItems----", restItems);
+      console.log("----restItems----", this.restItems);
     });
   }
 
