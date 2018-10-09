@@ -18,6 +18,7 @@ import { UploadFilesComponent } from "./tabs/upload-files/upload-files.component
 import { DemoMaterialModule } from "../material-demo.module";
 import { DataEntryComponent } from "./tabs/data-entry/data-entry.component";
 import { CalendarComponent } from "../calendar/calendar.component";
+import { HistoricalGraphDirective} from '../partials/historical-graph.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import { CalendarComponent } from "../calendar/calendar.component";
     OrganicChemistryComponent,
     MicroBiologyComponent,
     UploadFilesComponent,
-    DataEntryComponent
+    DataEntryComponent,
+    HistoricalGraphDirective
   ]
 })
 export class MwqDataEntryModule {}
