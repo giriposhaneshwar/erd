@@ -28,10 +28,6 @@ export const AppRoutes: Routes = [
         loadChildren: './incidents/incidents.module#IncidentsModule'
       },
       {
-        path: 'manageBuoys',
-        loadChildren: './managebuoys/managebuoys.module#ManagebuoysModule'
-      },
-      {
         path: 'manageMwqData',
         loadChildren: './managemwqdata/managemwqdata.module#ManagemwqdataModule'
       },

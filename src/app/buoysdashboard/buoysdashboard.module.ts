@@ -7,6 +7,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from '../core/widgster/directives.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DirectivesModule } from '../core/widgster/directives.module';
     MatInputModule, 
     MatCardModule, 
     DirectivesModule,
+    HttpClientModule,
     RouterModule.forChild(BuoysDashboardRoutes)
   ],
   declarations: [BuoysdashboardComponent]

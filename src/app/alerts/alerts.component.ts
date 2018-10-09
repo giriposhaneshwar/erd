@@ -31,7 +31,7 @@ export class AlertsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pageTitleService.setTitle("Alerts");
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
 
   fetch(cb) {

@@ -27,7 +27,8 @@ export class InSituParametersComponent implements OnInit {
     console.log("INput Data", data, key);
   }
   siteDatePrev() {
-    console.log("At Edit Screen");
+    this.route.navigate(["mwqDataEntry", "site-details"]);
+    console.log("At site-details Screen");
   }
   siteDateSave() {
     console.log("At Save Screen");

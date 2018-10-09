@@ -7,6 +7,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from 'app/core/widgster/directives.module';
+import { DownloadMwqIndiciesDataComponent } from './download-mwq-indicies-data/download-mwq-indicies-data.component';
+import { DownloadBuoysDataComponent } from './download-buoys-data/download-buoys-data.component';
+import { DownloadMwqDataComponent } from './download-mwq-data/download-mwq-data.component';
 
 @NgModule({
   imports: [
@@ -19,6 +22,6 @@ import { DirectivesModule } from 'app/core/widgster/directives.module';
     DirectivesModule,
     RouterModule.forChild(DownloadDataRoutes)
   ],
-  declarations: [DownloadDataComponent]
+  declarations: [DownloadDataComponent,DownloadMwqIndiciesDataComponent,DownloadBuoysDataComponent,DownloadMwqDataComponent]
 })
 export class DownloadDataModule { }

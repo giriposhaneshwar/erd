@@ -54,7 +54,7 @@ const HORIZONTALMENUITEMS = [
      
     ]
   },
-  {
+  /*{
     state: 'manageBuoys',
     name: 'MANAGEBUOYS',
     type: 'link',
@@ -65,12 +65,38 @@ const HORIZONTALMENUITEMS = [
     name: 'MANAGEMWQDATA',
     type: 'link',
     icon: 'people'
-  },
+  },*/
   {
+    state: 'manageMwqData',
+    name: 'MANAGEMWQDATA',
+    type: 'sub',
+    icon: 'bug_report',
+    children: [
+      {state: 'managemwqdata/configure-buoys', name: 'CONFIGURE_BUOYS'},
+      {state: 'managemwqdata/configure-parameters', name: 'CONFIGURE_PARAMETERS'},
+      {state: 'managemwqdata/configure-categories', name: 'CONFIGURE_CATEGORIES'},
+      {state: 'managemwqdata/manage-stations', name: 'MANAGE_STATIONS'},
+      {state: 'managemwqdata/manage-sites', name: 'MANAGE_SITES'},
+      {state: 'managemwqdata/manage-vendor-details', name: 'MANAGE_VENDOR_DETAILS'},
+      {state: 'managemwqdata/manage-lims-services', name: 'MANAGE_LIMS_SERVICES'},
+    ]
+  },
+  /*{
     state: 'downloadData',
     name: 'DOWNLOADDATA',
     type: 'link',
     icon: 'cloud_download'
+  },*/
+  {
+    state: 'downloadData',
+    name: 'DOWNLOADDATA',
+    type: 'sub',
+    icon: 'cloud_download',
+    children: [
+      {state: 'download-data/download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
+      {state: 'download-data/download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
+      {state: 'download-data/download-mwq-indicies-data', name: 'DOWNLOAD_MWQ_INDICIES_DATA'},
+    ]
   },
   {
     state: 'reports',

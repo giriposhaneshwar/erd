@@ -38,23 +38,49 @@ const MENUITEMS: Menu[] = [
      
     ]
   },
-  {
+
+  /*{
     state: 'manageBuoys',
     name: 'MANAGEBUOYS',
     type: 'link',
     icon: 'data_usage'
-  },
-  {
+  },{
     state: 'manageMwqData',
     name: 'MANAGEMWQDATA',
     type: 'link',
     icon: 'people'
-  },
+  },*/
   {
+    state: 'manageMwqData',
+    name: 'MANAGEMWQDATA',
+    type: 'sub',
+    icon: 'data_usage',
+    children: [
+      {state: 'configure-buoys', name: 'CONFIGURE_BUOYS'},
+      {state: 'configure-parameters', name: 'CONFIGURE_PARAMETERS'},
+      {state: 'configure-categories', name: 'CONFIGURE_CATEGORIES'},
+      {state: 'manage-stations', name: 'MANAGE_STATIONS'},
+      {state: 'manage-sites', name: 'MANAGE_SITES'},
+      {state: 'manage-vendor-details', name: 'MANAGE_VENDOR_DETAILS'},
+      {state: 'manage-lims-services', name: 'MANAGE_LIMS_SERVICES'},
+    ]
+  },
+  /*{
     state: 'downloadData',
     name: 'DOWNLOADDATA',
     type: 'link',
     icon: 'cloud_download'
+  },*/
+  {
+    state: 'downloadData',
+    name: 'DOWNLOADDATA',
+    type: 'sub',
+    icon: 'cloud_download',
+    children: [
+      {state: 'download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
+      {state: 'download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
+      {state: 'download-mwq-indicies-data', name: 'DOWNLOAD_MWQ_INDICIES_DATA'},
+    ]
   },
   {
     state: 'reports',

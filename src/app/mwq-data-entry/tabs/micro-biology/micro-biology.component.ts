@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'ms-micro-biology',
@@ -7,7 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MicroBiologyComponent implements OnInit {
 
-  constructor() { }
+  constructor(public route: Router) { }
+
+  inputOrderClass(data, key) {
+    console.log("INput Data", data, key);
+  }
+  siteDatePrev() {
+    this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
+    console.log("At organic-chemistry Screen");
+  }
+  siteDateSave() {
+    console.log("At Save Screen");
+  }
+  siteDateNext() {
+    this.route.navigate(["mwqDataEntry", "upload-files"]);
+    console.log("At upload-files Screen");
+  }
 
   ngOnInit() {
   }

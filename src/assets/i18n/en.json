@@ -11,7 +11,19 @@
   "MWQDATAQC": "Data QC",
   "ANALYTICS": "Analytics",
   "BUOYS_INCIDENT": "Buoys",
-  "BLOOMS_INCIDENT":"Blooms",
+  "BLOOMS_INCIDENT":"Algol Bloom",
+  "CONFIGURE_BUOYS":"Configure Buoys",
+  "CONFIGURE_PARAMETERS":"Configure Parameters",
+  "CONFIGURE_CATEGORIES":"Configure Categories",
+  "MANAGE_STATIONS":"Manage Stations",
+  "MANAGE_SITES":"Manage Sites",
+  "MANAGE_VENDOR_DETAILS":"Manage Vendor Details",
+  "MANAGE_LIMS_SERVICES":"Manage LIMS Services",
+  "DOWNLOAD_MWQ_DATA":"MWQ Data",
+  "DOWNLOAD_BUOYS_DATA":"BUOYS Data",
+  "DOWNLOAD_MWQ_INDICIES_DATA":"MWQ Indicies Data",
+
+
   
   "HOME": "Dashboard",   
   "EMAILS" : "Emails",

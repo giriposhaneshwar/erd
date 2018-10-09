@@ -25,6 +25,7 @@ export class SiteDataComponent implements OnInit {
     this.loadSourceNameData();
     this.loadPreservationData();
     this.loadSampleByData();
+    this.loadEventTypeData();
   }
 
 
@@ -43,11 +44,12 @@ export class SiteDataComponent implements OnInit {
   selectedEventType: any;
 
   ngOnInit() {
+    this.selectedEventType = [this.eventTypeDetails[0]];
   }
-
 
   loadEventTypeData() {
     this.fetchEventTypeData((data) => {
+      //this.selectedEventType = [data[1]];
       this.eventTypeDetails = data;
     });
   }

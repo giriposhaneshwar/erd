@@ -1,4 +1,4 @@
-import { Directive, ElementRef, ngOnInit } from "@angular/core";
+import { Directive, ElementRef, OnInit } from "@angular/core";
 import * as d3 from "d3";
 import * as $ from "jquery/dist/jquery.min.js";
 declare var $: any;
@@ -11,7 +11,7 @@ export class HistoricalGraphDirective {
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
   }
-  ngOnInit() {
+  OnInit() {
     let ele = $(this.element);
     let graphData =
       ele[0].attributes.graphData.value != undefined
