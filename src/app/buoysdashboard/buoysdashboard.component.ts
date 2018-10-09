@@ -5,12 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'ms-buoysdashboard',
-  templateUrl: './buoysdashboard.component.html',
-  styleUrls: ['./buoysdashboard.component.scss'],
+  selector: "ms-buoysdashboard",
+  templateUrl: "./buoysdashboard.component.html",
+  styleUrls: ["./buoysdashboard.component.scss"],
   // encapsulation: ViewEncapsulation.Native,
   host: {
-    "[@fadeInAnimation]": 'true'
+    "[@fadeInAnimation]": "true"
   },
   animations: [fadeInAnimation]
 })
@@ -31,8 +31,10 @@ export class BuoysdashboardComponent implements OnInit {
    ];
 */
 
-  constructor(private pageTitleService: PageTitleService, private http: HttpClient) {
-
+  constructor(
+    private pageTitleService: PageTitleService,
+    private http: HttpClient
+  ) {
     this.getRestItems();
     /*this.fetch((data) => {
       this.ngDatarows = data;
@@ -59,30 +61,32 @@ export class BuoysdashboardComponent implements OnInit {
      req.send();
    }*/
 
-  restItems: any;
+  restItems: any = {
+    BuoysList: [],
+    Status: null,
+    Message: ""
+  };
   //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20180108/20181010';
-  restItemsUrl = 'assets/data/buoys.json';
+  restItemsUrl = "assets/data/buoys.json";
 
   getRestItems(): void {
-    this.restItemsServiceGetRestItems()
-      .subscribe(
-        restItems => {
-          if(restItems != undefined && restItems.Status === "Success"){
-            if(restItems.BuoysList != undefined && restItems.BuoysList.length > 0 ){
-              this.restItems = restItems.BuoysList;
-            }else{
-              this.restItems = [];
-            }
-          }
-          console.log("----restItems----", restItems);
+    this.restItemsServiceGetRestItems().subscribe(restItems => {
+      if (restItems != undefined && restItems.Status === "Success") {
+        if (
+          restItems.BuoysList != undefined &&
+          restItems.BuoysList.length > 0
+        ) {
+          this.restItems = restItems.BuoysList;
+        } else {
+          this.restItems = [];
         }
-      )
+      }
+      console.log("----restItems----", restItems);
+    });
   }
 
   // Rest Items Service: Read all REST Items
   restItemsServiceGetRestItems() {
-    return this.http
-      .get<any[]>(this.restItemsUrl)
-      .pipe(map(data => data));
+    return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
   }
 }
