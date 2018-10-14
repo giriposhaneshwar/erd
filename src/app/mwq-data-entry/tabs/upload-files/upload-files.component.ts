@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-upload-files',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadFilesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public route: Router) { }
 
   ngOnInit() {
   }
 
+  siteDateSave() {
+    console.log("At Save Screen");
+  }
+
+  siteDatePrev() {
+    this.route.navigate(["mwqDataEntry", "microbiology"]);
+  }
 }

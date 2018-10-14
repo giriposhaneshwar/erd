@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
+    <div class="silk-card border-success">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4>Vendor Incident Details</h4>
+      </div>
+      <div class="silk-card">
+        <div class="silk-card-content">
+          <div class="form-group row">
+            <div class="col-3">
+              <input class="form-control" type="text" placeholder="Search">
+            </div>
+            <label for="example-date-input" class="col-form-label">From Date</label>
+            <div class="col-3">
+              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            </div>
+            <label for="example-date-input" class="col-form-label">To Date</label>
+            <div class="col-3">
+              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+            </div>
+            <button type="submit" class="send-btn btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+      </div>
+      <div class="silk-card-content widget-body">
+        <div class="table-responsive">
+          <ngx-datatable class="material sorting customTable" [rows]="buoysIncidentRows" [columnMode]="'force'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selectedValue"
+            [selectionType]="'single'" (select)='onSelect($event)'>
+            <ngx-datatable-column name="Incident Severity">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
+                                     'text-warning mr-2' : value=== 'Avg',
+                                     'text-danger mr-2': value=== 'High' 
+                    }"></i>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Incident Description"></ngx-datatable-column>
+            <ngx-datatable-column name="Incident Reported DateTime">
+              <small class="text-muted"><i class="fa fa-clock-o"></i> {{value}}</small>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Incident Details</h4>
+      </div>
+      <tabset>
+        <tab heading="Details">
+          <div class="table-responsive">
+            <table class="table table-middle table-striped">
+              <tbody class="ng-tns-c6-0" *ngFor='let sel of selectedValue'>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Incident Id</td>
+                  <td class="ng-tns-c6-0">{{sel.buoysIncidentId}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Incident Name</td>
+                  <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Location (Lat/Long)</td>
+                  <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Description</td>
+                  <td class="ng-tns-c6-0">{{sel.description}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Site ID</td>
+                  <td class="ng-tns-c6-0">{{sel.siteId}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Alert ID</td>
+                  <td class="ng-tns-c6-0">{{sel.alertId}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Alert Name</td>
+                  <td class="ng-tns-c6-0">{{sel.alertName}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Buoys Id</td>
+                  <td class="ng-tns-c6-0">{{sel.buoysId}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Created By</td>
+                  <td class="ng-tns-c6-0">{{sel.createdBy}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Created Date</td>
+                  <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Status</td>
+                  <td class="ng-tns-c6-0">
+                    <select id="exampleSelect1" value="{{sel.status}}">
+                      <option>In Progress</option>
+                      <option>Fixed</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0">Remarks</td>
+                  <td class="ng-tns-c6-0">
+                    <textarea class="form-control" id="exampleTextarea" rows="3" value="{{sel.remarks}}"></textarea>
+                  </td>
+                </tr>
+            <!--     <tr class="ng-tns-c6-0">
+                  <td class="ng-tns-c6-0" colspan="2">
+                    <button type="button" class="btn btn-primary waves-effect waves-light text-uppercase">
+                      Update
+                    </button>
+                  </td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </tab>
+        <tab heading="Logs">
+          <div class="latest-post pt-4" *ngFor='let sel of selectedValue'>
+            <div class="media mb-3">
+              <div class="media-body">
+                <h5 class="mt-0">{{sel.updatedBy}} {{sel.updatedDateTime}}</h5>
+                <p> {{sel.logMessage}}</p>
+              </div>
+            </div>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

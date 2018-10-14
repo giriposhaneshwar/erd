@@ -1,18 +1,112 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-    <div class="silk-card border-success">
-      <div class="silk-card-title d-flex justify-content-between">
-        <h4>MJQ Data QC</h4>
-        <!--<div class="card-controls">
-          <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
-          <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-          <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
-        </div>-->
+<div class="pageWrapper headerSection">
+  <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+      <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        MWQ Data QC
       </div>
-      <div class="widget-body">
-        <mat-card>
-        </mat-card>
+      <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+        <a href="javascript:void(0)"><i class="fa fa-gear"></i></a>
       </div>
     </div>
   </div>
+</div>
+<div class="pageWrapper tabSection">
+  <div class="d-none d-sm-block d-md-block d-lg-block">
+    <div class="tabSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-info']" routerLinkActive="active-link" title="QC Information">
+                QC Info</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-site-details']" routerLinkActive="active-link" title="Site Details">
+                Site Details
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-in-situ-parameters']" routerLinkActive="active-link"
+                title="In-Situ Parameters">In-Situ
+                Parameters
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-general-chemistry']" routerLinkActive="active-link" title="General Chemistry">General
+                Chemistry
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-in-organic-chemistry']" routerLinkActive="active-link"
+                title="In-Organic Chemistry">In-Organic
+                Chemistry
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-organic-chemistry']" routerLinkActive="active-link" title="Organic Chemistry">Organic
+                Chemistry
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-microbiology']" routerLinkActive="active-link" title="Microbiology">
+                Microbiology
+              </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" [routerLink]="['qc-upload-files']" routerLinkActive="active-link" title="Upload Files">
+                  Upload Files
+                </a>
+              </li>
+            <li>
+              <a href="javascript:void(0)" [routerLink]="['qc-remarks']" routerLinkActive="active-link" title="Remarks">
+                Remarks
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-sm-none d-md-none d-lg-none d-xs-block">
+    <div class="tabSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="row">
+        <div class="headerTitleMobile col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <select class="form-control" [(ngModel)]="mobileTabNav" (change)="tabRouteinMobile($event, mobileTabNav)">
+            <option value="qc-info">Qc Information</option> 
+            <option value="qc-site-details">Site Details</option>
+            <option value="qc-in-situ-parameters">In-Situ Parameters</option>
+            <option value="qc-general-chemistry">General Chemistry</option>
+            <option value="qc-in-organic-chemistry">In-Organic Chemistry</option>
+            <option value="qc-organic-chemistry">Organic Chemistry</option>
+            <option value="qc-microbiology">Microbiology</option>
+            <option value="qc-upload-files">Microbiology</option>
+            <option value="qc-remarks">Remarks</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+    <div class="silk-card border-success">
+      <!-- 
+        <div class="silk-card-title d-flex justify-content-between">
+            <div class="card-controls">
+            <a class="transition" data-widgster="expand" href="#"><i class="fa fa-chevron-down"></i></a>
+            <a class="transition" data-widgster="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
+            <a class="transition" data-widgster="close" href="#"><i class="fa fa-times"></i></a>
+          </div>
+        </div>
+      -->
+      <div class="widget-body">
+        <div class="tabContent">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <!-- footer section-->
 </div>

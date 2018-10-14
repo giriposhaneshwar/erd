@@ -6,25 +6,70 @@
     <div class="componentBody clearfix">
       <div class="row radioOptions" *ngIf="radioGroup == null">
         <div class="col-xs-12 col-sm-4">
-          <label for="manualEntry">
+          <!-- <label for="manualEntry">
             <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="manualEntry" name="dataEntryType"
               value="manualEntry" />
             <span>Manual Entry</span>
-          </label>
+          </label> -->
+          <!-- small box -->
+          <div class="box-sm bg-primary">
+            <div class="inner">
+              <h3></h3>
+              <p><label for="manualEntry">
+                  <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="manualEntry"
+                    name="dataEntryType" value="manualEntry" />
+                  <span>Manual Entry</span>
+                </label></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-shopping-bag"></i>
+            </div>
+            <a href="#" class="box-sm-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
         <div class="col-xs-12 col-sm-4">
-          <label for="importFromExcel">
+          <!-- <label for="importFromExcel">
             <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="importFromExcel"
               name="dataEntryType" value="importFromExcel" />
             <span>Import from Excel</span>
-          </label>
+          </label> -->
+          <div class="box-sm bg-success">
+            <div class="inner">
+              <h3></h3>
+              <p><label for="importFromExcel">
+                  <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="importFromExcel"
+                    name="dataEntryType" value="importFromExcel" />
+                  <span>Import from Excel</span>
+                </label></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bar-chart"></i>
+            </div>
+            <a href="#" class="box-sm-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
+
         <div class="col-xs-12 col-sm-4">
-          <label for="webService">
+          <!-- <label for="webService">
             <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="webService" name="dataEntryType"
               value="webService" />
             <span>Web Service</span>
-          </label>
+          </label> -->
+
+          <div class="box-sm bg-warning">
+            <div class="inner">
+              <h3></h3>
+              <p><label for="webService">
+                  <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="webService"
+                    name="dataEntryType" value="webService" />
+                  <span>Web Service</span>
+                </label></p>
+            </div>
+            <div class="icon">
+              <!-- <i class="fa fa-user-plus"></i> -->
+            </div>
+            <a href="#" class="box-sm-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
         </div>
       </div>
 
@@ -32,13 +77,75 @@
         <form class="form dataEntryForm">
           <div *ngIf="radioGroup == 'importFromExcel'" class="importFromExcel">
             <div class="formContainer">
-              <input type="file" name="importFromExcel" id="importFromExcel" [(ngModel)]="excelFile" (change)="uploadFile(excelFile)" />
+
+              <div class="container">
+                <div class="col-md-9 col-md-offset-3 col-sm-8 col-sm-offset-2 top">
+                  <div class="panel panel-primary border">
+                    <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i>Import Excel File</div>
+                    <div class="panel-body">
+                      <form class="form-inline" style="margin-top:2%;margin-bottom:2%">
+                        <div class="form-group">
+                          <label for="importFromExcel">File:</label>
+                          <input type="text" class="form-control fc-height" name="importFromExcel" id="importFromExcel"
+                            [(ngModel)]="excelFile" (change)="uploadFile(excelFile)" />
+                          <!-- <input type="text" class="form-control fc-height" id="file" placeholder="" name="file"> -->
+                        </div>
+                        <div style="width:3%"></div>
+                        <div class="form-group m-top">
+                          <label class="newbtn form-control fc-height">
+                            <i class="fa fa-ellipsis-h" style="color:#fff"></i>
+                            <input id="pic" type="file">
+                          </label>
+                        </div>
+                        <div style="width:3%"></div>
+                        <div class="form-group custom-file-upload">
+                          <input id="file-upload" type="file" />
+                          <button class="btn btn-primary gap gap-5 gap-lr">Import</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div *ngIf="radioGroup == 'webService'" class="webService">
             <div class="formContainer">
-              <div class="col-sm-6">
+              <!-- <div class="col-sm-6">
                 <input class="form-control" type="text" name="webService" [(ngModel)]="webService" placeholder="enter site url" />
+              </div> -->
+              <div class="container">
+                <div class="col-md-12 col-md-offset-12 col-sm-12 col-sm-offset-2 top" style="margin-bottom: 1em;">
+                  <div class="panel panel-primary ">
+                    <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> WebService</div>
+                    <div class="panel-body border">
+                      <div class="row">
+                        <div class="clearfix tbl tbl-per-20 text-right">Test Plan Category</div>
+                        <div class="clearfix tbl tbl-per-70">
+                          <select class="form-control" id="de-testPlanCategory">
+                            <option value="">Select Test Plan Category</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="clearfix tbl tbl-per-20 text-right">Test Plan Code</div>
+                        <div class="clearfix tbl tbl-per-70 text-left">
+                          <select class="form-control" id="de-testPlanCode">
+                            <option value="">Select Test Plan Code</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="clearfix tbl tbl-per-20 text-right">LIMS Sample Number</div>
+                        <div class="clearfix tbl tbl-per-70 text-left">
+                          <input class="form-control" type="text" name="webService" [(ngModel)]="webService"
+                            placeholder="LIMS Sample Number" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -50,3 +157,4 @@
       </div>
     </div>
   </div>
+</div>

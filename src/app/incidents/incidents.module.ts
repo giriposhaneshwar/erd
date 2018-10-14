@@ -9,6 +9,7 @@ import { DirectivesModule } from 'app/core/widgster/directives.module';
 import { BuoysIncidentsComponent } from './buoys/buoys-incidents.component';
 import { BloomsIncidentComponent } from './blooms/blooms-incidents.component';
 import {TabsModule } from 'ngx-bootstrap';
+import { VendorIncidentsComponent } from './vendor-incidents/vendor-incidents.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import {TabsModule } from 'ngx-bootstrap';
     TabsModule.forRoot(),
     RouterModule.forChild(IncidentsRoutes)
   ],
-  declarations: [BuoysIncidentsComponent, BloomsIncidentComponent]
+  declarations: [BuoysIncidentsComponent, BloomsIncidentComponent, VendorIncidentsComponent]
 })
 export class IncidentsModule { }

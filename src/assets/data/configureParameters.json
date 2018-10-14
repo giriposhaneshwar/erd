@@ -1,0 +1,52 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "paramId": "P01",
+            "name": "Param1",
+            "min": "20",
+            "max": "46",
+            "threshold": "40",
+            "status": "Active"
+        },
+        {
+            "sNo": 2,
+            "paramId": "P02",
+            "name": "Param2",
+            "min": "20",
+            "max": "46",
+            "threshold": "40",
+            "status": "Active"
+        },
+        {
+            "sNo": 3,
+            "paramId": "P03",
+            "name": "Param3",
+            "min": "20",
+            "max": "46",
+            "threshold": "40",
+            "status": "Active"
+        },
+        {
+            "sNo": 4,
+            "paramId": "P04",
+            "name": "Param4",
+            "min": "20",
+            "max": "46",
+            "threshold": "40",
+            "status": "Active"
+        },
+        {
+            "sNo": 5,
+            "paramId": "P05",
+            "name": "Param5",
+            "min": "20",
+            "max": "46",
+            "threshold": "40",
+            "status": "Active"
+        }
+        
+    ],
+    "Message": "Found 5 record(s).",
+    "Status": "Success"
+}

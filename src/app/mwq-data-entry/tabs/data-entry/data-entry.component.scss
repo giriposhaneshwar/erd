@@ -35,3 +35,93 @@
         }
     }
 }
+
+.panel-heading 
+{
+padding: 4px 15px;
+  border:none;
+} 
+.noborder
+{
+border:none !important;
+}
+.fc-height
+{
+height:27px;
+}
+.fc-width
+{
+width:20% !important;
+}
+#pic
+{
+display: none;
+}
+
+.newbtn
+{
+cursor: pointer;
+   background-color:#2274a5 ;
+
+}
+
+.custom-file-upload input[type="file"] {
+display: none;
+}
+.custom-file-upload .custom-file-upload {
+                border: 1px solid #ccc;
+                display: inline-block;
+                padding: 4px  9px;
+                cursor: pointer;
+}
+.btn-color
+{
+background-color:#2274a5 ;
+border-color:#2274a5 ;
+}
+.btn-color1
+{
+background-color:green;
+border-color:green;
+padding:0px 4px;
+}
+  .btn-color2
+{
+background-color:red;
+border-color:red;
+padding:0px 4px;
+}
+.panel-primary>.panel-color
+{
+  background-color:#2274a5  !important;
+}
+.heading
+{
+padding: 4px 15px;
+border: none;
+background-color:#2274a5  !important;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+color:#fff;
+
+}
+.scroll{
+height: 100px; overflow-y: scroll;
+}
+.white
+{
+  color:#fff;
+}
+.pabtn
+{
+  margin-top: 0px;
+}
+.border{
+border: 1px solid #303030;
+}
+.subbtn
+{
+  margin-left: 20%;
+  margin-top: 1%;
+}
+

@@ -7,6 +7,55 @@ import { Router } from "@angular/router";
   styleUrls: ["./in-situ-parameters.component.scss"]
 })
 export class InSituParametersComponent implements OnInit {
+  
+  temperatureSurface:any={
+    val1: 25,
+    val2: 65,
+    val3: 45,
+    val4: 15,
+    val5: 85
+  };
+
+  conductivitySurface:any={
+    val1: 25,
+    val2: 65,
+    val3: 45,
+    val4: 15,
+    val5: 85
+  };
+
+  salinitySurface: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  pHSurface: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  dissolvedOSurface: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  Chlorophyll_aSurface: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
   temperature: any = {
     val1: 25,
     val2: 65,
@@ -21,6 +70,47 @@ export class InSituParametersComponent implements OnInit {
     val4: 75,
     val5: 2
   };
+
+  salinity: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  pH: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  dissolvedO: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  Chlorophyll_a: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
+  sechiDisc: any = {
+    val1: 25,
+    val2: 65,
+    val3: 75,
+    val4: 75,
+    val5: 2
+  };
+
   constructor(public route: Router) {}
 
   inputOrderClass(data, key) {

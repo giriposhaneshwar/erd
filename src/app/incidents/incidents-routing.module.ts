@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
 import { BuoysIncidentsComponent } from './buoys/buoys-incidents.component';
 import { BloomsIncidentComponent } from './blooms/blooms-incidents.component';
+import { VendorIncidentsComponent } from './vendor-incidents/vendor-incidents.component';
 
 export const IncidentsRoutes: Routes = [{
   path: '',
   redirectTo: 'buoys-incidents',
   pathMatch: 'full',
-},{
+}, {
   path: '',
   children: [{
     path: 'buoys-incidents',
@@ -14,5 +15,8 @@ export const IncidentsRoutes: Routes = [{
   }, {
     path: 'blooms-incidents',
     component: BloomsIncidentComponent
+  }, {
+    path: 'vendor-incidents',
+    component: VendorIncidentsComponent
   }]
 }];

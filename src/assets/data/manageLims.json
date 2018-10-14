@@ -1,0 +1,11 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "name": "BUOYS Data",
+            "webServiceUrl": "http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20180108/20181010"
+        }
+    ],
+    "Message": "Found 1 record(s).",
+    "Status": "Success"
+}

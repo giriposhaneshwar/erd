@@ -26,7 +26,6 @@ export class HistoricalGraphDirective {
         : [];
     let metaData = this.generateMetaData(graphData);
     console.log("Graph Data", graphData, metaData);
-
     /* Generating Graph */
     var w = 150,
       h = 30,
@@ -43,19 +42,19 @@ export class HistoricalGraphDirective {
     let y = d3.scaleLinear().rangeRound([h, 0]);
     let line = d3
       .line()
-      .x(function(d) {
+      .x(function (d) {
         return x(d.x);
       })
-      .y(function(d) {
+      .y(function (d) {
         return y(d.y);
       });
     x.domain(
-      d3.extent(metaData, function(d) {
+      d3.extent(metaData, function (d) {
         return d.x;
       })
     );
     y.domain(
-      d3.extent(metaData, function(d) {
+      d3.extent(metaData, function (d) {
         return d.y;
       })
     );
@@ -90,7 +89,7 @@ export class HistoricalGraphDirective {
     var start = { x: 0, y: 0 };
     var end = { x: (data.length - 1) * xDiff, y: 0 };
     metaDataInner.push(start);
-    data.map(function(n, i) {
+    data.map(function (n, i) {
       metaDataInner.push({
         x: i * xDiff,
         y: n

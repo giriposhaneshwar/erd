@@ -19,6 +19,9 @@ export class SiteDataComponent implements OnInit {
     console.log("At Next Screen");
   }
 
+  siteDatePrev() {
+    this.route.navigate(["mwqDataEntry", "data-entry"]);
+  }
   constructor(public route: Router) {
     this.locadSiteCategoryData();
     this.loadSiteNameData();

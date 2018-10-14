@@ -19,7 +19,7 @@ export class MwqDataEntryComponent implements OnInit {
     this.route.navigate(["mwqDataEntry", data]);
   }
   ngOnInit() {
-    this.pageTitleService.setTitle("MJQ Data Entry");
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
     console.log("Executing Configurations", Config.appConfig.mainNav);
   }
 }

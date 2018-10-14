@@ -67,7 +67,7 @@ export class BuoysdashboardComponent implements OnInit {
     Message: ""
   };
   restItems: any = [];
-  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20180108/20181010';
+  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
   restItemsUrl = "assets/data/buoys.json";
 
   getRestItems(): void {

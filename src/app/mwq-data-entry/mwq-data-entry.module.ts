@@ -18,7 +18,7 @@ import { UploadFilesComponent } from "./tabs/upload-files/upload-files.component
 import { DemoMaterialModule } from "../material-demo.module";
 import { DataEntryComponent } from "./tabs/data-entry/data-entry.component";
 import { CalendarComponent } from "../calendar/calendar.component";
-import { HistoricalGraphDirective} from '../partials/historical-graph.directive';
+import { HistoricalGraphDirective } from '../partials/historical-graph.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +29,7 @@ import { HistoricalGraphDirective} from '../partials/historical-graph.directive'
     MatCardModule,
     DirectivesModule,
     DemoMaterialModule,
+    
     RouterModule.forChild(MwqDataEntryRoutes)
   ],
   declarations: [
@@ -42,6 +43,10 @@ import { HistoricalGraphDirective} from '../partials/historical-graph.directive'
     UploadFilesComponent,
     DataEntryComponent,
     HistoricalGraphDirective
+  ],
+  exports: [
+    MwqDataEntryComponent,HistoricalGraphDirective
   ]
+
 })
-export class MwqDataEntryModule {}
+export class MwqDataEntryModule { }

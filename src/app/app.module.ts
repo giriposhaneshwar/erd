@@ -28,6 +28,7 @@ import { MenuItems } from "./core/menu/menu-items/menu-items";
 import { HorizontalMenuItems } from "./core/menu/menu-items/horizontal-menu-items";
 import { PageTitleService } from "./core/page-title/page-title.service";
 import { Config } from "./appConfiguration/config";
+import { HistoricalGraphDirective } from "./partials/historical-graph.directive";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -54,6 +55,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuToggleModule,
     HttpModule,
     HttpClientModule,
+    
     // TourNgBootstrapModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -66,7 +68,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     SilkAppComponent,
     MainComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    
   ],
   bootstrap: [SilkAppComponent],
   providers: [
@@ -79,6 +82,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
+  ],
+  exports:[
+    
   ]
 })
 export class SilkAppModule {}

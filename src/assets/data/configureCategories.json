@@ -1,0 +1,32 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "categoryName": "Test Category Name1",
+            "status": "Active"
+        },
+        {
+            "sNo": 2,
+            "categoryName": "Test Category Name2",
+            "status": "Active"
+        },
+        {
+            "sNo": 3,
+            "categoryName": "Test Category Name3",
+            "status": "Active"
+        },
+        {
+            "sNo": 4,
+            "categoryName": "Test Category Name4",
+            "status": "Active"
+        },
+        {
+            "sNo": 5,
+            "categoryName": "Test Category Name5",
+            "status": "Active"
+        }
+        
+    ],
+    "Message": "Found 5 record(s).",
+    "Status": "Success"
+}

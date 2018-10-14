@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
+import { Router } from '@angular/router';
+import { Config } from '../appConfiguration/config';
 
 @Component({
   selector: 'ms-mwq-data-qc',
@@ -8,11 +10,19 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 })
 export class MwqDataQcComponent implements OnInit {
 
-  constructor(private pageTitleService: PageTitleService) { }
+  //constructor(private pageTitleService: PageTitleService) { }
 
-  ngOnInit() {
-    this.pageTitleService.setTitle("MJQ Data QC");
+  mobileTabNav: any = "qc-site-details";
+  constructor(
+    private pageTitleService: PageTitleService,
+    public route: Router
+  ) {}
+
+  tabRouteinMobile(evt, data) {
+    this.route.navigate(["mwqDataQc", data]);
   }
-
-
+  ngOnInit() {
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
+    console.log("Executing Configurations", Config.appConfig.mainNav);
+  }
 }

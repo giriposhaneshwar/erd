@@ -1,3 +1,33 @@
-<p>
-  download-buoys-data works!
-</p>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+    <div class="silk-card border-success">
+      <!-- <div class="silk-card-title d-flex justify-content-between">
+        <h4>Download BUOYS Data</h4>
+      </div> -->
+      <div class="widget-body">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+
+          <div class="widget-body">
+            <ngx-datatable class="material" [rows]="restItems" [columnMode]="'force'" [headerHeight]="50"
+              [footerHeight]="50" [rowHeight]="25" [limit]="15">
+              <ngx-datatable-column name="Site Name"></ngx-datatable-column>
+              <ngx-datatable-column name="Param1"></ngx-datatable-column>
+              <ngx-datatable-column name="Param2"></ngx-datatable-column>
+              <ngx-datatable-column name="Param3"></ngx-datatable-column>
+              <ngx-datatable-column name="Param4"></ngx-datatable-column>
+              <ngx-datatable-column name="Param5"></ngx-datatable-column>
+              <ngx-datatable-column name="Param6"></ngx-datatable-column>
+              <ngx-datatable-column name="Param7"></ngx-datatable-column>
+              <ngx-datatable-column name="Param8"></ngx-datatable-column>
+              <ngx-datatable-column name="Param9"></ngx-datatable-column>
+              <ngx-datatable-column name="Created Date"></ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

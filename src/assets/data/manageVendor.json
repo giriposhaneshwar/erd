@@ -1,0 +1,22 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "name": "Vendor1",
+            "emailId": "vendor1@gmail.com",
+            "phNo": "+91201423446",
+            "address": "RI",
+            "status": "Active"
+        },
+        {
+            "sNo": 2,
+            "name": "Vendor2",
+            "emailId": "vendor2@gmail.com",
+            "phNo": "+97150201423446",
+            "address": "Zu",
+            "status": "Active"
+        }
+    ],
+    "Message": "Found 2 record(s).",
+    "Status": "Success"
+}

@@ -22,6 +22,18 @@ const MENUITEMS: Menu[] = [
     icon: 'dashboard'
   },
   {
+    state: 'mwqDataEntry',
+    name: 'MWQDATAENTRY',
+    type: 'link',
+    icon: 'perm_data_setting'
+  },
+  {
+    state: 'mwqDataQc',
+    name: 'MWQDATAQC',
+    type: 'link',
+    icon: 'high_quality'
+  },
+  {
     state: 'alerts',
     name: 'ALERT',
     type: 'link',
@@ -35,21 +47,26 @@ const MENUITEMS: Menu[] = [
     children: [
       {state: 'buoys-incidents', name: 'BUOYS_INCIDENT'},
       {state: 'blooms-incidents', name: 'BLOOMS_INCIDENT'},
-     
+      {state: 'vendor-incidents', name: 'VENDOR_INCIDENT'},
     ]
   },
-
-  /*{
-    state: 'manageBuoys',
-    name: 'MANAGEBUOYS',
+  {
+    state: 'reports',
+    name: 'REPORTS',
     type: 'link',
-    icon: 'data_usage'
-  },{
-    state: 'manageMwqData',
-    name: 'MANAGEMWQDATA',
-    type: 'link',
-    icon: 'people'
-  },*/
+    icon: 'report'
+  },
+  {
+    state: 'downloadData',
+    name: 'DOWNLOADDATA',
+    type: 'sub',
+    icon: 'cloud_download',
+    children: [
+      {state: 'download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
+      {state: 'download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
+      {state: 'download-mwq-indicies-data', name: 'DOWNLOAD_MWQ_INDICIES_DATA'},
+    ]
+  },
   {
     state: 'manageMwqData',
     name: 'MANAGEMWQDATA',
@@ -65,49 +82,14 @@ const MENUITEMS: Menu[] = [
       {state: 'manage-lims-services', name: 'MANAGE_LIMS_SERVICES'},
     ]
   },
-  /*{
-    state: 'downloadData',
-    name: 'DOWNLOADDATA',
-    type: 'link',
-    icon: 'cloud_download'
-  },*/
-  {
-    state: 'downloadData',
-    name: 'DOWNLOADDATA',
-    type: 'sub',
-    icon: 'cloud_download',
-    children: [
-      {state: 'download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
-      {state: 'download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
-      {state: 'download-mwq-indicies-data', name: 'DOWNLOAD_MWQ_INDICIES_DATA'},
-    ]
-  },
-  {
-    state: 'reports',
-    name: 'REPORTS',
-    type: 'link',
-    icon: 'report'
-  },
-  {
-    state: 'mwqDataEntry',
-    name: 'MWQDATAENTRY',
-    type: 'link',
-    icon: 'perm_data_setting'
-  },
-  {
-    state: 'mwqDataQc',
-    name: 'MWQDATAQC',
-    type: 'link',
-    icon: 'high_quality'
-  },
-  {
+
+/*  {
     state: 'analytics',
     name: 'ANALYTICS',
     type: 'link',
     icon: 'import_export'
   },
-
-  /*{
+  {
     state: 'dashboard',
     name: 'HOME',
     type: 'link',

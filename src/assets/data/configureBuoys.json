@@ -1,0 +1,24 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "siteId": "S001",
+            "stationId": "St001",
+            "stationName": "Barakah",
+            "lattitude": "25.66318°",
+            "longitude": "56.60823°",
+            "status": "Active"
+        },
+        {
+            "sNo": 2,
+            "siteId": "S002",
+            "stationId": "St002",
+            "stationName": "Bateen Public Beach",
+            "lattitude": "25.66318°",
+            "longitude": "56.60823°",
+            "status": "Active"
+        }
+    ],
+    "Message": "Found 2 record(s).",
+    "Status": "Success"
+}

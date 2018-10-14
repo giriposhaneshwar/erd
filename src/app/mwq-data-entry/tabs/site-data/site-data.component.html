@@ -1,93 +1,120 @@
-<div class="silk-form-wizard">
-  <div class="clearfix" widget>
-    <div class="formContainer">
-      <form class="form">
-        <div class="form-group section seperator col-xs-12 col-sm-12">
-          <div class="row">
-            <div class="col-xs-12 col-sm-4">
-              <label>Project Name</label>
-              <input type="text" class="form-control" placeholder="SMPL31072018-001" />
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Site Category</label>
-              <!-- <input type="text" class="form-control" placeholder="site category" /> -->
-              <select class="form-control" [(ngModel)]="selectedSiteCategory" id="sd-text-siteCategoryy">
-                <option value="">select a category</option>
-                <option *ngFor="let siteCat of siteCategory" value="{{siteCat.siteCategoryName}}">{{siteCat.siteCategoryName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Site Name</label>
-              <!-- <input type="text" class="form-control" placeholder="site name" /> -->
-              <select class="form-control" id="sd-text-siteName" [(ngModel)]="selectedSiteName">
-                <option>Select SiteName</option>
-                <option *ngFor="let siteDet of siteDetails" let i=index value="{{siteDet.siteName}}">{{siteDet.siteName}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="form-group section col-xs-12 col-sm-12">
-          <div class="row">
-            <div class="col-xs-12 col-sm-4">
-              <label>Number</label>
-              <input type="text" class="form-control" placeholder="SMPL31072018-001" />
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Source</label>
-              <!-- <input type="text" class="form-control" placeholder="Source" /> -->
-              <select class="form-control" id="sd-text-source" [(ngModel)]="selectedSourceName">
-                <option>Select Source Name</option>
-                <option *ngFor="let sourceDet of sourceDetails" let i=index [value]="sourceDet.sourceName">{{sourceDet.sourceName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Preseration</label>
-              <!-- <input type="text" class="form-control" placeholder="Preservation" /> -->
-              <select class="form-control" id="sd-text-preservation" [(ngModel)]="selectedPreservation">
-                <option>Select Record</option>
-                <option *ngFor="let presrvDet of preservationDetails" let i=index [value]="presrvDet.preservationName">{{presrvDet.preservationName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Description</label>
-              <input type="text" class="form-control" placeholder="Description" />
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Date</label>
-              <input id="siteDataDatePicker" type="date" class="form-control" placeholder="Date" />
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Time</label>
-              <input type="time" class="form-control" placeholder="Time" />
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Sample By</label>
-              <!-- <input type="text" class="form-control" placeholder="Sample By" /> -->
-              <select class="form-control" id="sd-text-sampleBy" [(ngModel)]="selectedSampleBy">
-                <option>Select Record</option>
-                <option *ngFor="let sampleBy of sampleByDetails" let i=index [value]="sampleBy.sampleByName">{{sampleBy.sampleByName}}</option>
-              </select>
-            </div>
-            <div class="col-xs-12 col-sm-4">
-              <label>Event Type</label>
-              <!-- <input type="text" class="form-control" placeholder="Event Type" /> -->
-              <select class="form-control" id="sd-text-eventType" [(ngModel)]="selectedEventType">
-                <option>Select Record</option>
-                <option *ngFor="let eventType of eventTypeDetails" let i=index [value]="eventType.eventTypeName">{{eventType.eventTypeName}}</option>
-              </select>
+<div class="container">
+  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
+    <div class="panel panel-primary ">
+      <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>
+      <div class="panel-body border">
+        <form class="form">
+          <div class="col-sm-12 col-xs-12 formTableSection" style="margin-bottom: 1em;">
+            <div class="row">
+              <div class="clearfix tbl tbl-per-15 text-left">Project Name</div>
+              <div class="clearfix tbl tbl-per-20 text-left ">
+                <input type="text" class="form-control text-left" placeholder="SMPL31072018-001" />
+              </div>
+
+              <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+
+                <select class="form-control" id="sd-text-siteCategory">
+                  <option value="">Select a category</option>
+                  <option *ngFor="let siteCat of siteCategory" value="{{siteCat.siteCategoryName}}">{{siteCat.siteCategoryName}}</option>
+                </select>
+              </div>
+              <div class="clearfix tbl tbl-per-10 text-left">Site Name</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <select class="form-control" id="sd-text-siteName">
+                  <option value="">Select Name</option>
+                  <option *ngFor="let siteDet of siteDetails" value="{{siteDet.siteName}}">{{siteDet.siteName}}</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group section  col-xs-12 col-sm-12">
-          <div class="row text-right">
-            <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateEdit()">Edit</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top">
+    <div class="panel panel-primary ">
+      <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SAMPLE BASIC INFORMATION</div>
+      <div class="panel-body border">
+        <form class="form">
+          <div class="col-sm-12 col-xs-12 formTableSection" style="margin-bottom: 1em;">
+            <div class="row">
+              <div class="clearfix tbl tbl-per-15 text-left">Number</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <input type="text" class="form-control text-left" placeholder="SMPL31072018-001" />
+              </div>
+
+              <div class="clearfix tbl tbl-per-15 text-left">Source</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+
+                <!-- <select class="form-control" id="sd-text-source" [(ngModel)]="selectedSourceName"> -->
+                <select class="form-control" id="sd-text-source">
+                  <option>Select Source Name</option>
+                  <option *ngFor="let sourceDet of sourceDetails" value="{{sourceDet.sourceName}}">{{sourceDet.sourceName}}</option>
+                </select>
+              </div>
+              <div class="clearfix tbl tbl-per-10 text-left">Preservation</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+
+                <!-- <select class="form-control" id="sd-text-preservation" [(ngModel)]="selectedPreservation"> -->
+                <select class="form-control" id="sd-text-preservation">
+                  <option>Select Record</option>
+                  <option *ngFor="let presrvDet of preservationDetails" value="{{presrvDet.preservationName}}">{{presrvDet.preservationName}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="clearfix tbl tbl-per-15 text-left">Description</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <input type="text" class="form-control text-left" placeholder="SMPL31072018-001" />
+              </div>
+
+              <div class="clearfix tbl tbl-per-15 text-left">Date</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <input type="date" class="form-control text-left" placeholder="17/07/2018" />
+              </div>
+              <div class="clearfix tbl tbl-per-10 text-left">Time</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <input type="time" class="form-control text-left" placeholder="10:48" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="clearfix tbl tbl-per-15 text-left">Sample By*</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+
+                <!-- <select class="form-control" id="sd-text-sampleBy" [(ngModel)]="selectedSampleBy"> -->
+                <select class="form-control" id="sd-text-sampleBy">
+                  <option>Select Record</option>
+                  <option *ngFor="let sampleBy of sampleByDetails" value="{{sampleBy.sampleByName}}">{{sampleBy.sampleByName}}</option>
+                </select>
+              </div>
+
+              <div class="clearfix tbl tbl-per-15 text-left">Event Type</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+
+                <!-- <select class="form-control" id="sd-text-eventType" [(ngModel)]="selectedEventType"> -->
+                <select class="form-control" id="sd-text-eventType">
+                  <option>Select Record</option>
+                  <option *ngFor="let eventType of eventTypeDetails" [ngValue]="eventType">{{eventType.eventTypeName}}</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
+    <div class="row text-right">
+      <div class="col-xs-12 col-sm-12">
+        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,25 @@
-<p>
-  manage-lims-services works!
-</p>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+    <div class="silk-card border-success">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4>Manage LIMS Services</h4>
+      </div>
+      <div class="widget-body">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'force'"
+          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
+          <ngx-datatable-column name="S No"></ngx-datatable-column>
+          <ngx-datatable-column name="Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Web Service Url" >
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+              <span title="Double click to edit" (dblclick)="editing[rowIndex + '-webServiceUrl'] = true" *ngIf="!editing[rowIndex + '-webServiceUrl']">
+                {{value}}
+              </span>
+              <input autofocus (blur)="updateValue($event, 'webServiceUrl', rowIndex)" *ngIf="editing[rowIndex+ '-webServiceUrl']" type="text"
+                [value]="value" />
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>

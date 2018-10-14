@@ -1,0 +1,37 @@
+{
+    "BuoysList": [
+        {
+            "sNo": 1,
+            "siteId": "S001",
+            "siteName": "Test Site Name1",
+            "status": "Active"
+        },
+        {
+            "sNo": 2,
+            "siteId": "S002",
+            "siteName": "Test Site Name2",
+            "status": "Active"
+        },
+        {
+            "sNo": 3,
+            "siteId": "S003",
+            "siteName": "Test Site Name3",
+            "status": "Active"
+        },
+        {
+            "sNo": 4,
+            "siteId": "S004",
+            "siteName": "Test Site Name4",
+            "status": "Active"
+        },
+        {
+            "sNo": 5,
+            "siteId": "S005",
+            "siteName": "Test Category Name5",
+            "status": "Active"
+        }
+        
+    ],
+    "Message": "Found 5 record(s).",
+    "Status": "Success"
+}

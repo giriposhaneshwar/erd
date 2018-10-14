@@ -1,0 +1,190 @@
+<div class="row silk-form-wizard">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+      <div class="silk-card">
+        <div class="silk-card-title">
+          <div class="headerSection">
+            <div class="row">
+              <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <b>IN-SITU WATER QUALITY PARAMETERS</b>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<mat-divider></mat-divider>-->
+        <form class="form">
+          <div class="col-sm-12 section col-xs-12 formTableSection">
+            <div class="row formHeading">
+              <div class="clearfix tbl tbl-per-10 text-left"></div>
+              <div class="clearfix tbl tbl-per-20 text-left"><b>Surface</b></div>
+              <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
+              <div class="clearfix tbl tbl-per-15 text-center"><b>DeepWater</b></div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
+                <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="10M" />
+                <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="15M" />
+                <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="20M" />
+                <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="25M" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
+            </div>
+  
+  
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Tempurature</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]">
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" [ngClass]="{'red': temperature.val1 <= 35, 'orange': temperature.val1 <= 50 && temperature.val1 > 35, 'green': temperature.val1 > 50}"
+                  name="temperature.val1" [(ngModel)]="temperature.val1" class="form-control" />
+                <input type="text" [ngClass]="{'red': temperature.val2 <= 35, 'orange': temperature.val2 <= 50 && temperature.val2 > 35, 'green': temperature.val2 > 50}"
+                  name="temperature.val2" [(ngModel)]="temperature.val2" class="form-control" />
+                <input type="text" [ngClass]="{'red': temperature.val3 <= 35, 'orange': temperature.val3 <= 50 && temperature.val3 > 35, 'green': temperature.val3 > 50}"
+                  name="temperature.val3" [(ngModel)]="temperature.val3" class="form-control" />
+                <input type="text" [ngClass]="{'red': temperature.val4 <= 35, 'orange': temperature.val4 <= 50 && temperature.val4 > 35, 'green': temperature.val4 > 50}"
+                  name="temperature.val4" [(ngModel)]="temperature.val4" class="form-control" />
+                <input type="text" [ngClass]="{'red': temperature.val5 <= 35, 'orange': temperature.val5 <= 50 && temperature.val5 > 35, 'green': temperature.val5 > 50}"
+                  name="temperature.val5" [(ngModel)]="temperature.val5" class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">mS/gm (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+                  class="form-control" />
+                <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+                  class="form-control" />
+                <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+                  class="form-control" />
+                <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+                  class="form-control" />
+                <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+                  class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">ppt (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" name="salinity.val1" [(ngModel)]="salinity.val1" [ngClass]="{'red': salinity.val1 <= 35, 'orange': salinity.val1 <= 50 && salinity.val1 > 35, 'green': salinity.val1 > 50}"
+                  class="form-control" />
+                <input type="text" name="salinity.val2" [(ngModel)]="salinity.val2" [ngClass]="{'red': salinity.val2 <= 35, 'orange': salinity.val2 <= 50 && salinity.val2 > 35, 'green': salinity.val2 > 50}"
+                  class="form-control" />
+                <input type="text" name="salinity.val3" [(ngModel)]="salinity.val3" [ngClass]="{'red': salinity.val3 <= 35, 'orange': salinity.val3 <= 50 && salinity.val3 > 35, 'green': salinity.val3 > 50}"
+                  class="form-control" />
+                <input type="text" name="salinity.val4" [(ngModel)]="salinity.val4" [ngClass]="{'red': salinity.val4 <= 35, 'orange': salinity.val4 <= 50 && salinity.val4 > 35, 'green': salinity.val4 > 50}"
+                  class="form-control" />
+                <input type="text" name="salinity.val5" [(ngModel)]="salinity.val5" [ngClass]="{'red': salinity.val5 <= 35, 'orange': salinity.val5 <= 50 && salinity.val5 > 35, 'green': salinity.val5 > 50}"
+                  class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">mg/L (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[75, 68, 20, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" name="pH.val1" [(ngModel)]="pH.val1" [ngClass]="{'red': pH.val1 <= 35, 'orange': pH.val1 <= 50 && pH.val1 > 35, 'green': pH.val1 > 50}"
+                  class="form-control" />
+                <input type="text" name="pH.val2" [(ngModel)]="pH.val2" [ngClass]="{'red': pH.val2 <= 35, 'orange': pH.val2 <= 50 && pH.val2 > 35, 'green': pH.val2 > 50}"
+                  class="form-control" />
+                <input type="text" name="pH.val3" [(ngModel)]="pH.val3" [ngClass]="{'red': pH.val3 <= 35, 'orange': pH.val3 <= 50 && pH.val3 > 35, 'green': pH.val3 > 50}"
+                  class="form-control" />
+                <input type="text" name="pH.val4" [(ngModel)]="pH.val4" [ngClass]="{'red': pH.val4 <= 35, 'orange': pH.val4 <= 50 && pH.val4 > 35, 'green': pH.val4 > 50}"
+                  class="form-control" />
+                <input type="text" name="pH.val5" [(ngModel)]="pH.val5" [ngClass]="{'red': pH.val5 <= 35, 'orange': pH.val5 <= 50 && pH.val5 > 35, 'green': pH.val5 > 50}"
+                  class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Dissolved O_*</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">mg/L (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" name="dissolvedO.val1" [(ngModel)]="dissolvedO.val1" [ngClass]="{'red': dissolvedO.val1 <= 35, 'orange': dissolvedO.val1 <= 50 && dissolvedO.val1 > 35, 'green': dissolvedO.val1 > 50}"
+                  class="form-control" />
+                <input type="text" name="dissolvedO.val2" [(ngModel)]="dissolvedO.val2" [ngClass]="{'red': dissolvedO.val2 <= 35, 'orange': dissolvedO.val2 <= 50 && dissolvedO.val2 > 35, 'green': dissolvedO.val2 > 50}"
+                  class="form-control" />
+                <input type="text" name="dissolvedO.val3" [(ngModel)]="dissolvedO.val3" [ngClass]="{'red': dissolvedO.val3 <= 35, 'orange': dissolvedO.val3 <= 50 && dissolvedO.val3 > 35, 'green': dissolvedO.val3 > 50}"
+                  class="form-control" />
+                <input type="text" name="dissolvedO.val4" [(ngModel)]="dissolvedO.val4" [ngClass]="{'red': dissolvedO.val4 <= 35, 'orange': dissolvedO.val4 <= 50 && dissolvedO.val4 > 35, 'green': dissolvedO.val4 > 50}"
+                  class="form-control" />
+                <input type="text" name="dissolvedO.val5" [(ngModel)]="dissolvedO.val5" [ngClass]="{'red': dissolvedO.val5 <= 35, 'orange': dissolvedO.val5 <= 50 && dissolvedO.val5 > 35, 'green': dissolvedO.val5 > 50}"
+                  class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">ug/L (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+                <input type="text" name="Chlorophyll_a.val1" [(ngModel)]="Chlorophyll_a.val1" [ngClass]="{'red': Chlorophyll_a.val1 <= 35, 'orange': Chlorophyll_a.val1 <= 50 && Chlorophyll_a.val1 > 35, 'green': Chlorophyll_a.val1 > 50}"
+                  class="form-control" />
+                <input type="text" name="Chlorophyll_a.val2" [(ngModel)]="Chlorophyll_a.val2" [ngClass]="{'red': Chlorophyll_a.val2 <= 35, 'orange': Chlorophyll_a.val2 <= 50 && Chlorophyll_a.val2 > 35, 'green': Chlorophyll_a.val2 > 50}"
+                  class="form-control" />
+                <input type="text" name="Chlorophyll_a.val3" [(ngModel)]="Chlorophyll_a.val3" [ngClass]="{'red': Chlorophyll_a.val3 <= 35, 'orange': Chlorophyll_a.val3 <= 50 && Chlorophyll_a.val3 > 35, 'green': Chlorophyll_a.val3 > 50}"
+                  class="form-control" />
+                <input type="text" name="Chlorophyll_a.val4" [(ngModel)]="Chlorophyll_a.val4" [ngClass]="{'red': Chlorophyll_a.val4 <= 35, 'orange': Chlorophyll_a.val4 <= 50 && Chlorophyll_a.val4 > 35, 'green': Chlorophyll_a.val4 > 50}"
+                  class="form-control" />
+                <input type="text" name="Chlorophyll_a.val5" [(ngModel)]="Chlorophyll_a.val5" [ngClass]="{'red': Chlorophyll_a.val5 <= 35, 'orange': Chlorophyll_a.val5 <= 50 && Chlorophyll_a.val5 > 35, 'green': Chlorophyll_a.val5 > 50}"
+                  class="form-control" />
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            </div>
+            <div class="row formRow">
+              <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span>
+                <span class="pad l-15">Feet (at Surface)</span>
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center" qc-msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+              <div class="clearfix tbl tbl-per-15 text-left"></div>
+              <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
+  
+              </div>
+              <div class="clearfix tbl tbl-per-15 text-center"></div>
+            </div>
+          </div>
+          <div class="form-group mar t-20 col-xs-12 col-sm-12">
+            <div class="row text-right">
+              <div class="col-xs-12 col-sm-12">
+                <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+                <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+                <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
