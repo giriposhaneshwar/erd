@@ -8,6 +8,10 @@ import { Router } from "@angular/router";
 })
 export class MicroBiologyComponent implements OnInit {
 
+  totalColiform:any=  { val1: 65  };
+  enterococci:any= { val1: 65  };
+  fecalColiform:any= { val1: 65  };
+
   constructor(public route: Router) { }
 
   inputOrderClass(data, key) {

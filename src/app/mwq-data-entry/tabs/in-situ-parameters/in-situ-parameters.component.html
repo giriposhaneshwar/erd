@@ -178,8 +178,8 @@
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
               <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': sechiDisc.val1 <= 35, 'orange': sechiDisc.val1 <= 50 && sechiDisc.val1 > 35, 'green': sechiDisc.val1 > 50}"
-                name="sechiDisc.val1" [(ngModel)]="sechiDisc.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': sechiDiscSurface.val1 <= 35, 'orange': sechiDiscSurface.val1 <= 50 && sechiDiscSurface.val1 > 35, 'green': sechiDiscSurface.val1 > 50}"
+                name="sechiDiscSurface.val1" [(ngModel)]="sechiDiscSurface.val1" />
               <span class="pad l-15">Feet (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>

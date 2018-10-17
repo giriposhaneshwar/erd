@@ -23,8 +23,9 @@
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalPhosp.val1 <= 35, 'orange': totalPhosp.val1 <= 50 && totalPhosp.val1 > 35, 'green': totalPhosp.val1 > 50}"
+                name="totalPhosp.val1" [(ngModel)]="totalPhosp.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -44,8 +45,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Nitrogen.</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalNitrogen.val1 <= 35, 'orange': totalNitrogen.val1 <= 50 && totalNitrogen.val1 > 35, 'green': totalNitrogen.val1 > 50}"
+                name="totalNitrogen.val1" [(ngModel)]="totalNitrogen.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -65,8 +67,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitriteN.val1 <= 35, 'orange': nitriteN.val1 <= 50 && nitriteN.val1 > 35, 'green': nitriteN.val1 > 50}"
+                name="nitriteN.val1" [(ngModel)]="nitriteN.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -86,8 +89,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitrateN.val1 <= 35, 'orange': nitrateN.val1 <= 50 && nitrateN.val1 > 35, 'green': nitrateN.val1 > 50}"
+                name="nitrateN.val1" [(ngModel)]="nitrateN.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -108,8 +112,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Silicate-Sl</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': silicateSl.val1 <= 35, 'orange': silicateSl.val1 <= 50 && silicateSl.val1 > 35, 'green': silicateSl.val1 > 50}"
+                name="silicateSl.val1" [(ngModel)]="silicateSl.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -130,8 +135,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ammoniaN.val1 <= 35, 'orange': ammoniaN.val1 <= 50 && ammoniaN.val1 > 35, 'green': ammoniaN.val1 > 50}"
+                name="ammoniaN.val1" [(ngModel)]="ammoniaN.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -151,8 +157,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': phosphateP.val1 <= 35, 'orange': phosphateP.val1 <= 50 && phosphateP.val1 > 35, 'green': phosphateP.val1 > 50}"
+                name="phosphateP.val1" [(ngModel)]="phosphateP.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -172,8 +179,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">BOD</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': bod.val1 <= 35, 'orange': bod.val1 <= 50 && bod.val1 > 35, 'green': bod.val1 > 50}"
+                name="bod.val1" [(ngModel)]="bod.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -193,8 +201,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">TSS</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': tss.val1 <= 35, 'orange': tss.val1 <= 50 && tss.val1 > 35, 'green': tss.val1 > 50}"
+                name="tss.val1" [(ngModel)]="tss.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L

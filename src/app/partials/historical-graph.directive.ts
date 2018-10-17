@@ -58,6 +58,7 @@ export class HistoricalGraphDirective {
         return d.y;
       })
     );
+    
 
     /*g.append("g")
          .attr("transform", "translate(0," + h + ")")

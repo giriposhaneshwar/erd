@@ -7,6 +7,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./organic-chemistry.component.scss"]
 })
 export class OrganicChemistryComponent implements OnInit {
+
+  oc_totalPhosp:any=  { val1: 65 };
+  oc_tph:any= { val1: 34};
+
   constructor(public route: Router) {}
   siteDatePrev() {
     this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);

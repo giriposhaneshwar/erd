@@ -25,8 +25,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Coliform</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center microbiology">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalColiform.val1 <= 35, 'orange': totalColiform.val1 <= 50 && totalColiform.val1 > 35, 'green': totalColiform.val1 > 50}"
+                name="totalColiform.val1" [(ngModel)]="totalColiform.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
@@ -51,9 +52,10 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Enterococci</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center microbiology">
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': enterococci.val1 <= 35, 'orange': enterococci.val1 <= 50 && enterococci.val1 > 35, 'green': enterococci.val1 > 50}"
+                  name="enterococci.val1" [(ngModel)]="enterococci.val1" />
+              </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
@@ -77,9 +79,10 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Fecal Coliform</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center microbiology">
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': fecalColiform.val1 <= 35, 'orange': fecalColiform.val1 <= 50 && fecalColiform.val1 > 35, 'green': fecalColiform.val1 > 50}"
+                  name="fecalColiform.val1" [(ngModel)]="fecalColiform.val1" />
+              </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>

@@ -47,7 +47,7 @@ const MENUITEMS: Menu[] = [
     children: [
       {state: 'buoys-incidents', name: 'BUOYS_INCIDENT'},
       {state: 'blooms-incidents', name: 'BLOOMS_INCIDENT'},
-      {state: 'vendor-incidents', name: 'VENDOR_INCIDENT'},
+      /*{state: 'vendor-incidents', name: 'VENDOR_INCIDENT'},*/
     ]
   },
   {

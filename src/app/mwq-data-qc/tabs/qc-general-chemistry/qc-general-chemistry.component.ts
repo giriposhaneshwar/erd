@@ -8,6 +8,42 @@ import { Router } from '@angular/router';
 })
 export class QcGeneralChemistryComponent implements OnInit {
 
+  totalPhosp:any={
+    val1: 65
+  };
+
+  totalNitrogen:any={
+    val1: 25
+  };
+
+  nitriteN:any={
+    val1: 67
+  };
+
+  nitrateN:any={
+    val1: 59
+  };
+
+  silicateSl:any={
+    val1: 86
+  };
+
+  ammoniaN:any={
+    val1: 25
+  };
+
+  phosphateP:any={
+    val1: 34
+  };
+
+  bod:any={
+    val1: 55
+  };
+
+  tss:any={
+    val1: 45
+  };
+
   constructor(public route: Router) { }
 
   inputOrderClass(data, key) {

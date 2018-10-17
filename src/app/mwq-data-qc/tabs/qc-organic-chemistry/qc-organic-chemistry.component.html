@@ -25,8 +25,9 @@
   
             <div class="row formRow">
               <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <input type="text" class="form-control text-center" />
+              <div class="clearfix tbl tbl-per-10 text-center qc-organicChemistry">
+                  <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_totalPhosp.val1 <= 35, 'orange': oc_totalPhosp.val1 <= 50 && oc_totalPhosp.val1 > 35, 'green': oc_totalPhosp.val1 > 50}"
+                    name="oc_totalPhosp.val1" [(ngModel)]="oc_totalPhosp.val1" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-center">
                 ug/L
@@ -51,8 +52,9 @@
   
             <div class="row formRow">
               <div class="clearfix tbl tbl-per-15 text-left">TPH</div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <input type="text" class="form-control text-center" />
+              <div class="clearfix tbl tbl-per-10 text-center qc-organicChemistry">
+                  <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_tph.val1 <= 35, 'orange': oc_tph.val1 <= 50 && oc_tph.val1 > 35, 'green': oc_tph.val1 > 50}"
+                    name="oc_tph.val1" [(ngModel)]="oc_tph.val1" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-center">
                 ug/L

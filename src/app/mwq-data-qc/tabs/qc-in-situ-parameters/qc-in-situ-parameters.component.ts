@@ -8,6 +8,33 @@ import { Router } from '@angular/router';
 })
 export class QcInSituParametersComponent implements OnInit {
 
+  temperatureSurface:any={
+    val1: 25,
+  };
+
+  conductivitySurface:any={
+    val1: 25,
+  };
+
+  salinitySurface: any = {
+    val1: 25,
+  };
+
+  pHSurface: any = {
+    val1: 25,
+  };
+
+  dissolvedOSurface: any = {
+    val1: 25,
+  };
+
+  Chlorophyll_aSurface: any = {
+    val1: 25,
+  };
+  sechidisc_surface: any = {
+    val1: 25,
+  };
+
   temperature: any = {
     val1: 25,
     val2: 65,

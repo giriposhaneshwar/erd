@@ -1,0 +1,33 @@
+.qcInOrganicChemistryValues{
+    >input{
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        width:  75%;
+        height: 30px;
+        font-size: 12px;
+        padding: 0px;
+        text-align: center;
+        &.inputOutline {
+            border: none;
+            outline: none;
+            box-shadow: none;
+            background: transparent;
+            font-weight: bold;
+            font-size: inherit;
+        }
+
+        &.green {
+            background-color: #2abd2a;
+            color: #fff;
+        }
+        &.orange {
+            background-color: #f60;
+            color: #000;
+        }
+        &.red {
+            background-color: #c00;
+            color: #fff;
+        }
+    }
+}

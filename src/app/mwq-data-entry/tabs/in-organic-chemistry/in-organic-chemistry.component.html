@@ -23,8 +23,9 @@
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Cadmium</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_cadmium.val1 <= 35, 'orange': iow_cadmium.val1 <= 50 && iow_cadmium.val1 > 35, 'green': iow_cadmium.val1 > 50}"
+                name="iow_cadmium.val1" [(ngModel)]="iow_cadmium.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -44,8 +45,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_chromium.val1 <= 35, 'orange': iow_chromium.val1 <= 50 && iow_chromium.val1 > 35, 'green': iow_chromium.val1 > 50}"
+                name="iow_chromium.val1" [(ngModel)]="iow_chromium.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -65,8 +67,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_cobalt.val1 <= 35, 'orange': iow_cobalt.val1 <= 50 && iow_cobalt.val1 > 35, 'green': iow_cobalt.val1 > 50}"
+                name="iow_cobalt.val1" [(ngModel)]="iow_cobalt.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -86,8 +89,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_copper.val1 <= 35, 'orange': iow_copper.val1 <= 50 && iow_copper.val1 > 35, 'green': iow_copper.val1 > 50}"
+                name="iow_copper.val1" [(ngModel)]="iow_copper.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -108,8 +112,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_lead.val1 <= 35, 'orange': iow_lead.val1 <= 50 && iow_lead.val1 > 35, 'green': iow_lead.val1 > 50}"
+                name="iow_lead.val1" [(ngModel)]="iow_lead.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -130,8 +135,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_manganese.val1 <= 35, 'orange': iow_manganese.val1 <= 50 && iow_manganese.val1 > 35, 'green': iow_manganese.val1 > 50}"
+                name="iow_manganese.val1" [(ngModel)]="iow_manganese.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -151,8 +157,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_nickel.val1 <= 35, 'orange': iow_nickel.val1 <= 50 && iow_nickel.val1 > 35, 'green': iow_nickel.val1 > 50}"
+                name="iow_nickel.val1" [(ngModel)]="iow_nickel.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -172,8 +179,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_zinc.val1 <= 35, 'orange': iow_zinc.val1 <= 50 && iow_zinc.val1 > 35, 'green': iow_zinc.val1 > 50}"
+                name="iow_zinc.val1" [(ngModel)]="iow_zinc.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -193,8 +201,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_iron.val1 <= 35, 'orange': iow_iron.val1 <= 50 && iow_iron.val1 > 35, 'green': iow_iron.val1 > 50}"
+                name="iow_iron.val1" [(ngModel)]="iow_iron.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -214,8 +223,9 @@
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
-            <div class="clearfix tbl tbl-per-10 text-left">
-              <input type="text" class="form-control text-center" />
+            <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iow_mercury.val1 <= 35, 'orange': iow_mercury.val1 <= 50 && iow_mercury.val1 > 35, 'green': iow_mercury.val1 > 50}"
+                name="iow_mercury.val1" [(ngModel)]="iow_mercury.val1" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -242,7 +252,7 @@
               <div class="headerSection">
                 <div class="row">
                   <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <b>IN-ORGANIC CHEMISTRY(WATER)</b>
+                    <b>Inorganic Chemistry (Sediment)</b>
                   </div>
                 </div>
               </div>
@@ -260,8 +270,9 @@
                 </div>
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Cadmium</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_cadmium.val1 <= 35, 'orange': ios_cadmium.val1 <= 50 && ios_cadmium.val1 > 35, 'green': ios_cadmium.val1 > 50}"
+                        name="ios_cadmium.val1" [(ngModel)]="ios_cadmium.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -281,8 +292,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_chromium.val1 <= 35, 'orange': ios_chromium.val1 <= 50 && ios_chromium.val1 > 35, 'green': ios_chromium.val1 > 50}"
+                        name="ios_chromium.val1" [(ngModel)]="ios_chromium.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -302,8 +314,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_cobalt.val1 <= 35, 'orange': ios_cobalt.val1 <= 50 && ios_cobalt.val1 > 35, 'green': ios_cobalt.val1 > 50}"
+                        name="ios_cobalt.val1" [(ngModel)]="ios_cobalt.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -323,8 +336,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_copper.val1 <= 35, 'orange': ios_copper.val1 <= 50 && ios_copper.val1 > 35, 'green': ios_copper.val1 > 50}"
+                        name="ios_copper.val1" [(ngModel)]="ios_copper.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -345,8 +359,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_lead.val1 <= 35, 'orange': ios_lead.val1 <= 50 && ios_lead.val1 > 35, 'green': ios_lead.val1 > 50}"
+                        name="ios_lead.val1" [(ngModel)]="ios_lead.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -367,8 +382,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_manganese.val1 <= 35, 'orange': ios_manganese.val1 <= 50 && ios_manganese.val1 > 35, 'green': ios_manganese.val1 > 50}"
+                        name="ios_manganese.val1" [(ngModel)]="ios_manganese.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -388,8 +404,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_nickel.val1 <= 35, 'orange': ios_nickel.val1 <= 50 && ios_nickel.val1 > 35, 'green': ios_nickel.val1 > 50}"
+                        name="ios_nickel.val1" [(ngModel)]="ios_nickel.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -409,8 +426,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_zinc.val1 <= 35, 'orange': ios_zinc.val1 <= 50 && ios_zinc.val1 > 35, 'green': ios_zinc.val1 > 50}"
+                        name="ios_zinc.val1" [(ngModel)]="ios_zinc.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -430,8 +448,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_iron.val1 <= 35, 'orange': ios_iron.val1 <= 50 && ios_iron.val1 > 35, 'green': ios_iron.val1 > 50}"
+                        name="ios_iron.val1" [(ngModel)]="ios_iron.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -451,8 +470,9 @@
 
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
-                  <div class="clearfix tbl tbl-per-10 text-left">
-                    <input type="text" class="form-control text-center" />
+                  <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ios_mercury.val1 <= 35, 'orange': ios_mercury.val1 <= 50 && ios_mercury.val1 > 35, 'green': ios_mercury.val1 > 50}"
+                        name="ios_mercury.val1" [(ngModel)]="ios_mercury.val1" />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
