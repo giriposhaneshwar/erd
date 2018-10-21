@@ -10,6 +10,7 @@ import { Config } from "../appConfiguration/config";
 })
 export class MwqDataEntryComponent implements OnInit {
   mobileTabNav: any = "data-entry";
+  mondalOpen: Boolean = false;
   constructor(
     private pageTitleService: PageTitleService,
     public route: Router

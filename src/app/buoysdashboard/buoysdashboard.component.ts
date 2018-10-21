@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 })
 export class BuoysdashboardComponent implements OnInit {
   ngDatarows = [];
-
+  mondalOpen: Boolean = false;
   /*columns = [
     { name: 'Site Name' },
     { name: 'Temparature' },
@@ -72,10 +72,15 @@ export class BuoysdashboardComponent implements OnInit {
 
   getRestItems(): void {
     this.restItemsServiceGetRestItems().subscribe(restItems => {
-
       this.getRestItemsResponse = restItems;
-      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
-        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
+      if (
+        this.getRestItemsResponse != undefined &&
+        this.getRestItemsResponse.hasOwnProperty("Status")
+      ) {
+        if (
+          this.getRestItemsResponse.Status === "Success" &&
+          this.getRestItemsResponse.hasOwnProperty("BuoysList")
+        ) {
           if (
             this.getRestItemsResponse.BuoysList != undefined &&
             this.getRestItemsResponse.BuoysList.length > 0
@@ -86,6 +91,14 @@ export class BuoysdashboardComponent implements OnInit {
       }
       console.log("----restItems----", this.restItems);
     });
+  }
+
+  mondalWindowOpen(selector: String) {
+    this.mondalOpen = true;
+      // alert("Open Model : " + selector);
+  }
+  mondalWindowDestroy(selector: String){
+    this.mondalOpen = false;
   }
 
   // Rest Items Service: Read all REST Items

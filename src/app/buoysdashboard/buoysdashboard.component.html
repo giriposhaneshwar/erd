@@ -1,3 +1,15 @@
+<div class="pageWrapper headerSection">
+  <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+      <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        Buoys Dashboard
+      </div>
+      <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+        <a href="javascript:void(0)" (click)="mondalOpen = !mondalOpen"><i class="fa fa-gear"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
     <div class="silk-card border-success">
@@ -20,7 +32,7 @@
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Blue Green Algae" >
+            <ngx-datatable-column name="Blue Green Algae">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value
                   + "k"}}</div>
@@ -65,16 +77,21 @@
 
             <ngx-datatable-column name="Efficiency" [width]="160">
               <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="progress mb-2">
-                      <div class="efficiency" [style.width]="value + '%'"  
-                        aria-valuenow="value"
-                        [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <= 25, 'aboveAvg' : value>= 51}">{{value}}%</div>
-                   </div>
+                <div class="progress mb-2">
+                  <div class="efficiency" [style.width]="value + '%'" aria-valuenow="value" [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <= 25, 'aboveAvg' : value>= 51}">{{value}}%</div>
+                </div>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
         </mat-card>
       </div>
     </div>
+  </div>
+</div>
+<div class="mondalWindow" [ngClass]="mondalOpen ? 'open' : 'close'">
+  <a href="javascript:void(0)" class="closeBtn" (click)="mondalOpen = false"><i class="glyphicon glyphicon-remove"></i></a>
+  <div class="modalBody">
+    <h1>Monda Window {{modalOpen | json}}</h1>
+
   </div>
 </div>

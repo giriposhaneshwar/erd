@@ -11,6 +11,7 @@ export class HistoricalGraphDirective {
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
     this.draw();
+    console.log("ele", this.element);
   }
   draw() {
     let ele = $(this.element);

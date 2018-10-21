@@ -102,3 +102,10 @@
 <div class="row">
   <!-- footer section-->
 </div>
+<div class="mondalWindow" [ngClass]="mondalOpen ? 'open' : 'close'">
+  <a href="javascript:void(0)" class="closeBtn" (click)="mondalOpen = false"><i class="glyphicon glyphicon-remove"></i></a>
+  <div class="modalBody">
+    <h1>Monda Window {{modalOpen | json}}</h1>
+
+  </div>
+</div>

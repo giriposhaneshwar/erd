@@ -1,4 +1,51 @@
 <div class="row">
+<div class="col-sm-12">
+<a href="javascript:void(0)" class="nav-link" (click)="end.toggle()">
+    <div class="more-links">
+        <i class="fa fa-info"></i>
+    </div>
+</a>
+<mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+    <div class="scroll">
+        <mat-toolbar class="bg-primary">
+            <h3>Notifications</h3>
+        </mat-toolbar>
+        <div class="pt-4 pb-3 pr-3 pl-3">
+            <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Holy guacamole!</strong> You should check.
+            </div>
+            <div class="alert bg-primary alert-dismissible fade show mb-2" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Heads Up!</strong> some of those fields below.
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Deleted 3 Files</strong> You should check.
+            </div>
+            <div class="alert bg-primary alert-dismissible fade show mb-2" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Holy guacamole!</strong> those fields below.
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show mb-2" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Update Plan</strong> maxime animi excepturi.
+            </div>
+        </div>
+    </div>
+</mat-sidenav>
+</div>
+
     <div class="col-lg-3 col-xs-6 res-md-6">
         <!-- small box -->
         <div class="box-sm bg-primary">
