@@ -3,6 +3,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { fadeInAnimation } from 'app/core/route-animation/route.animation';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { DownloadMwqDataService } from './download-mwq-data.service';
 
 @Component({
   selector: 'ms-download-mwq-data',
@@ -14,7 +15,8 @@ export class DownloadMwqDataComponent implements OnInit {
 
   constructor(
     private pageTitleService: PageTitleService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private excelService: DownloadMwqDataService) {
     this.getRestItems();
  
   }
@@ -31,7 +33,7 @@ export class DownloadMwqDataComponent implements OnInit {
   };
   restItems: any = [];
   //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/mwqBuoysData.json";
+  restItemsUrl = "assets/data/downloadMwqData.json";
 
   getRestItems(): void {
     this.restItemsServiceGetRestItems().subscribe(restItems => {
@@ -56,4 +58,7 @@ export class DownloadMwqDataComponent implements OnInit {
     return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
   }
 
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.restItems, 'MWQ_Data');
+  }
 }

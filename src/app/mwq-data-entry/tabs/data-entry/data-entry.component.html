@@ -46,7 +46,8 @@
             <div class="icon">
               <i class="fa fa-bar-chart"></i>
             </div>
-            <a href="#" class="box-sm-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="javascript:void(0)" class="box-sm-footer" (click)="radioGroup = 'importFromExcel'" id="importFromExcel">More info 
+              <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -69,7 +70,7 @@
             <div class="icon">
               <!-- <i class="fa fa-user-plus"></i> -->
             </div>
-            <a href="#" class="box-sm-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="javascript:void(0)" class="box-sm-footer"  (click)="radioGroup = 'webService'" id="webService">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
       </div>
@@ -88,14 +89,15 @@
                         <div class="form-group">
                           <label for="importFromExcel">File:</label>
                           <input type="text" class="form-control fc-height" name="importFromExcel" id="importFromExcel"
-                            [(ngModel)]="excelFile" (change)="uploadFile(excelFile)" />
+                            [(ngModel)]="excelFileinput" readonly />
                           <!-- <input type="text" class="form-control fc-height" id="file" placeholder="" name="file"> -->
                         </div>
                         <div style="width:3%"></div>
                         <div class="form-group m-top">
                           <label class="newbtn form-control fc-height">
                             <i class="fa fa-ellipsis-h" style="color:#fff"></i>
-                            <input id="pic" type="file">
+                            <input type="file" class="form-control fc-height" name="importFromExcel" id="pic"
+                            [(ngModel)]="excelFile" (change)="uploadFile(excelFile, 'pic')" />
                           </label>
                         </div>
                         <div style="width:3%"></div>

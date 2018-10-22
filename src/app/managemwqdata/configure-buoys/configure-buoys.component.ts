@@ -10,6 +10,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 })
 export class ConfigureBuoysComponent implements OnInit {
   editing = {};
+  modalShowWindow: Boolean = false;
   //rows = [];
 
   getRestItemsResponse: any = {
@@ -63,5 +64,15 @@ export class ConfigureBuoysComponent implements OnInit {
     this.restItems[rowIndex][cell] = event.target.value;
     this.restItems = [...this.restItems];
     console.log('UPDATED!', this.restItems[rowIndex][cell]);
+  }
+  addTableRow() {
+    this.openModal();
+  }
+
+  openModal() {
+    this.modalShowWindow = true;
+  }
+  closeModal() {
+    this.modalShowWindow = false;
   }
 }

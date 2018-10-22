@@ -11,6 +11,7 @@ export class DataEntryComponent implements OnInit {
   excelFile: any;
   importUploadFiles: any;
   webService: any;
+  uploadFileName: any;
   constructor(public route: Router) {}
 
   handleFormChange(data) {
@@ -24,8 +25,10 @@ export class DataEntryComponent implements OnInit {
     this.radioGroup = null;
   }
 
-  uploadFile(data) {
-    let files = document.getElementById("importFromExcel");
+  uploadFile(data, selector) {
+    let files = document.getElementById(selector);
+    this.uploadFileName = files.files[0].name;
+    this.excelFileinput = this.uploadFileName;
     /* if (files != undefined && files.files != undefined) {
       console.log("Uploaded File", files.files);
       let fd = new FormData();

@@ -1,27 +1,25 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-      <div class="silk-card border-success">
-        <!-- <div class="silk-card-title d-flex justify-content-between">
-          <h4>Download BUOYS Data</h4>
-        </div> -->
-        <div class="widget-body">
-  
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-  
-            <div class="widget-body">
-              <ngx-datatable class="material" [rows]="restItems" [columnMode]="'force'" [headerHeight]="50"
-                [footerHeight]="50" [rowHeight]="25" [limit]="15">
-                <ngx-datatable-column name="Site Name"></ngx-datatable-column>
-                <ngx-datatable-column name="Microbial Index"></ngx-datatable-column>
-                <ngx-datatable-column name="Eurthopian Index"></ngx-datatable-column>
-                <ngx-datatable-column name="Segment Index"></ngx-datatable-column>
-                <ngx-datatable-column name="Month"></ngx-datatable-column>
-              </ngx-datatable>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+    <div class="silk-card border-success">
+      <div class="widget-body">
+        <ngx-datatable class="material" [rows]="restItems" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+          [rowHeight]="25" [limit]="10">
+          <ngx-datatable-column name="Site Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Microbial Index"></ngx-datatable-column>
+          <ngx-datatable-column name="Eurthopian Index"></ngx-datatable-column>
+          <ngx-datatable-column name="Segment Index"></ngx-datatable-column>
+          <ngx-datatable-column name="Month-Year"></ngx-datatable-column>
+        </ngx-datatable>
+
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="exportAsXLSX()">Export to Excel</button>
+              <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button> -->
             </div>
           </div>
         </div>
-  
-  
       </div>
     </div>
   </div>
+</div>

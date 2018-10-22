@@ -55,7 +55,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuToggleModule,
     HttpModule,
     HttpClientModule,
-    
+       
     // TourNgBootstrapModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

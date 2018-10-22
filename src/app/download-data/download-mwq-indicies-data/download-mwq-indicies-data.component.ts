@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.service';
 @Component({
   selector: 'ms-download-mwq-indicies-data',
   templateUrl: './download-mwq-indicies-data.component.html',
@@ -11,7 +12,8 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
 
   constructor(
     private pageTitleService: PageTitleService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private excelService: DownloadMwqIndicesDataService) {
     this.getRestItems();
  
   }
@@ -51,5 +53,9 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
   // Rest Items Service: Read all REST Items
   restItemsServiceGetRestItems() {
     return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
+  }
+
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.restItems, 'MWQ_Indices_Data');
   }
 }

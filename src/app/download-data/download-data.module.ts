@@ -10,6 +10,10 @@ import { DirectivesModule } from 'app/core/widgster/directives.module';
 import { DownloadMwqIndiciesDataComponent } from './download-mwq-indicies-data/download-mwq-indicies-data.component';
 import { DownloadBuoysDataComponent } from './download-buoys-data/download-buoys-data.component';
 import { DownloadMwqDataComponent } from './download-mwq-data/download-mwq-data.component';
+import { DownloadBuoysDataService } from './download-buoys-data/download-buoys-data.service';
+import { DownloadMwqDataService } from './download-mwq-data/download-mwq-data.service';
+import { DownloadMwqIndicesDataService } from './download-mwq-indicies-data/download-mwq-indices-data.service';
+
 
 @NgModule({
   imports: [
@@ -22,6 +26,7 @@ import { DownloadMwqDataComponent } from './download-mwq-data/download-mwq-data.
     DirectivesModule,
     RouterModule.forChild(DownloadDataRoutes)
   ],
-  declarations: [DownloadDataComponent,DownloadMwqIndiciesDataComponent,DownloadBuoysDataComponent,DownloadMwqDataComponent]
+  declarations: [DownloadDataComponent,DownloadMwqIndiciesDataComponent,DownloadBuoysDataComponent,DownloadMwqDataComponent],
+  providers: [DownloadBuoysDataService,DownloadMwqDataService,DownloadMwqIndicesDataService]
 })
 export class DownloadDataModule { }

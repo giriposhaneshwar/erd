@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { DownloadBuoysDataService } from './download-buoys-data.service';
 
 @Component({
   selector: 'ms-download-buoys-data',
@@ -10,17 +11,15 @@ import { map } from 'rxjs/operators';
 })
 export class DownloadBuoysDataComponent implements OnInit {
 
-  constructor(
-    private pageTitleService: PageTitleService,
-    private http: HttpClient) {
+  constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
+    private excelService: DownloadBuoysDataService) {
     this.getRestItems();
- 
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
-  
+
 
   getRestItemsResponse: any = {
     BuoysList: [],
@@ -29,7 +28,7 @@ export class DownloadBuoysDataComponent implements OnInit {
   };
   restItems: any = [];
   //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/mwqBuoysData.json";
+  restItemsUrl = "assets/data/downloadBuoysData.json";
 
   getRestItems(): void {
     this.restItemsServiceGetRestItems().subscribe(restItems => {
@@ -52,5 +51,9 @@ export class DownloadBuoysDataComponent implements OnInit {
   // Rest Items Service: Read all REST Items
   restItemsServiceGetRestItems() {
     return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
+  }
+
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.restItems, 'BUOYS_Data');
   }
 }

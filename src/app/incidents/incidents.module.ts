@@ -10,6 +10,7 @@ import { BuoysIncidentsComponent } from './buoys/buoys-incidents.component';
 import { BloomsIncidentComponent } from './blooms/blooms-incidents.component';
 import {TabsModule } from 'ngx-bootstrap';
 import { VendorIncidentsComponent } from './vendor-incidents/vendor-incidents.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import { VendorIncidentsComponent } from './vendor-incidents/vendor-incidents.co
     MatCardModule, 
     DirectivesModule,
     TabsModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAFgM81Qz-SwfTzUsr4F51AgDj0HdN88CQ'
+    }),
     RouterModule.forChild(IncidentsRoutes)
   ],
   declarations: [BuoysIncidentsComponent, BloomsIncidentComponent, VendorIncidentsComponent]

@@ -59,8 +59,7 @@ export class HistoricalGraphDirective {
         return d.y;
       })
     );
-    
-
+   
     /*g.append("g")
          .attr("transform", "translate(0," + h + ")")
          .call(d3.axisBottom(x))
@@ -84,7 +83,6 @@ export class HistoricalGraphDirective {
       .attr("stroke-width", 2)
       .attr("d", line);
   }
-
   generateMetaData(data) {
     var xDiff = parseInt(d3.max(data) / data.length);
     var metaDataInner = [];

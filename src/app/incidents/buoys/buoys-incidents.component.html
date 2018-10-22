@@ -20,7 +20,7 @@
         <div class="silk-card-content">
           <div class="form-group row">
             <div class="col-3">
-              <input class="form-control" type="text" placeholder="Search">
+              <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)' >
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
@@ -43,7 +43,7 @@
       </div>
       <div class="silk-card-content widget-body">
         <div class="table-responsive">
-          <ngx-datatable class="material sorting customTable" [rows]="buoysIncidentRows" [columnMode]="'force'"
+          <ngx-datatable #table class="material sorting customTable" [rows]="buoysIncidentRows" [columnMode]="'force'"
             [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selectedValue"
             [selectionType]="'single'" (select)='onSelect($event)'>
             <ngx-datatable-column name="Incident Severity">
