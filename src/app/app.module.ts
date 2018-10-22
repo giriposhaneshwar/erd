@@ -55,7 +55,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuToggleModule,
     HttpModule,
     HttpClientModule,
-       
+
     // TourNgBootstrapModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
@@ -65,12 +65,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }
     })
   ],
-  declarations: [
-    SilkAppComponent,
-    MainComponent,
-    AuthLayoutComponent,
-    
-  ],
+  declarations: [SilkAppComponent, MainComponent, AuthLayoutComponent],
   bootstrap: [SilkAppComponent],
   providers: [
     MenuItems,
@@ -83,8 +78,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
-  exports:[
-    
-  ]
+  exports: []
 })
 export class SilkAppModule {}

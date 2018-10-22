@@ -1,43 +1,42 @@
 <div class="container-fluid">
-  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
-    <div class="panel panel-primary ">
-      <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>
-      <div class="panel-body border">
-        <form class="form">
+  <form class="form">
+
+    <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
+      <div class="panel panel-primary ">
+        <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>
+        <div class="panel-body border">
           <div class="col-sm-12 col-xs-12 formTableSection" style="margin-bottom: 1em;">
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Project Name</div>
               <div class="clearfix tbl tbl-per-20 text-left ">
-                <input type="text" class="form-control text-left" placeholder="SMPL31072018-001" />
+                <input type="text" [(ngModel)]="siteData.projectName" name="projectName" class="form-control text-left" placeholder="SMPL31072018-001" />
               </div>
 
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>
               <div class="clearfix tbl tbl-per-20 text-left">
 
-                <select class="form-control" id="sd-text-siteCategory">
+                <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteData.category" name="category">
                   <option value="">Select a category</option>
                   <option *ngFor="let siteCat of siteCategory" value="{{siteCat.siteCategoryName}}">{{siteCat.siteCategoryName}}</option>
                 </select>
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Site Name</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <select class="form-control" id="sd-text-siteName">
+                <select class="form-control" id="sd-text-siteName" [(ngModel)]="siteData.siteName" name="siteName">
                   <option value="">Select Name</option>
                   <option *ngFor="let siteDet of siteDetails" value="{{siteDet.siteName}}">{{siteDet.siteName}}</option>
                 </select>
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top">
-    <div class="panel panel-primary ">
-      <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SAMPLE BASIC INFORMATION</div>
-      <div class="panel-body border">
-        <form class="form">
+    <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top">
+      <div class="panel panel-primary ">
+        <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SAMPLE BASIC INFORMATION</div>
+        <div class="panel-body border">
           <div class="col-sm-12 col-xs-12 formTableSection" style="margin-bottom: 1em;">
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Number</div>
@@ -103,18 +102,19 @@
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
-    <div class="row text-right">
-      <div class="col-xs-12 col-sm-12">
-        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
-        <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+    <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
+      <div class="row text-right">
+        <div class="col-xs-12 col-sm-12">
+          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave(siteData)">Save</button>
+          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
+
 </div>

@@ -29,7 +29,7 @@ import { HistoricalGraphDirective } from '../partials/historical-graph.directive
     MatCardModule,
     DirectivesModule,
     DemoMaterialModule,
-    
+
     RouterModule.forChild(MwqDataEntryRoutes)
   ],
   declarations: [
@@ -44,9 +44,6 @@ import { HistoricalGraphDirective } from '../partials/historical-graph.directive
     DataEntryComponent,
     HistoricalGraphDirective
   ],
-  exports: [
-    MwqDataEntryComponent,HistoricalGraphDirective
-  ]
-
+  exports: [MwqDataEntryComponent, HistoricalGraphDirective]
 })
-export class MwqDataEntryModule { }
+export class MwqDataEntryModule {}

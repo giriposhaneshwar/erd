@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import { AppStorageService } from "../../../appConfiguration/app-config.service";
 
 @Component({
   selector: "ms-data-entry",
@@ -12,11 +13,23 @@ export class DataEntryComponent implements OnInit {
   importUploadFiles: any;
   webService: any;
   uploadFileName: any;
-  constructor(public route: Router) {}
+  dataEntry: any;
+  dataEntryKey: String = "dataEntry";
+  constructor(public route: Router, public localStore: AppStorageService) {
+    let data = {
+      name: "giriy",
+      id: 1,
+      location: "hyderabad"
+    };
+    
+    
+    // this.localStore.store.delete('user');
+    // this.localStore.store.set("user", { id: 1, name: "test" });
+  }
 
   handleFormChange(data) {
     console.log("Data Submit", data);
-
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     if (data == "manualEntry") {
       this.route.navigate(["mwqDataEntry", "site-details"]);
     }
@@ -47,5 +60,12 @@ export class DataEntryComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if(localData.status == "success"){
+      this.dataEntry = localData.data;
+    }else{
+      this.dataEntry = {};
+    }
+  }
 }

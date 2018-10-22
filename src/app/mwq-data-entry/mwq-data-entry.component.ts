@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { PageTitleService } from "app/core/page-title/page-title.service";
 import { Config } from "../appConfiguration/config";
+import { AppStorageService } from "../appConfiguration/app-config.service";
+
 
 @Component({
   selector: "ms-mwq-data-entry",
@@ -13,7 +15,8 @@ export class MwqDataEntryComponent implements OnInit {
   mondalOpen: Boolean = false;
   constructor(
     private pageTitleService: PageTitleService,
-    public route: Router
+    public route: Router,
+    public localStore: AppStorageService
   ) {}
 
   tabRouteinMobile(evt, data) {

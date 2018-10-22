@@ -18,3 +18,9 @@ export class REST_API {
     }
   }
 }
+
+export class Storage{
+  public static setKey = () => {
+    alert(1);
+  }
+}
