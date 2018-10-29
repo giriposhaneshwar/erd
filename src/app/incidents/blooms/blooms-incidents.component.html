@@ -41,34 +41,26 @@
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
   </div>
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
-        <div class="silk-card border-success pb-0">
-          <div class="silk-card-title d-flex justify-content-between">
-          </div>
-          <div class="silk-card-content widget-body">
-            <div class="table-responsive">
-              <ngx-datatable class="material sorting customTable" [rows]="bllomIncidentRows" [columnMode]="'force'"
-                [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15"
-                [selected]="selectedRow" [selectionType]="'single'" (select)='onSelect($event)'>
-                <ngx-datatable-column name="Incident Severity">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                    <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
-                                       'text-warning mr-2' : value=== 'Avg',
-                                       'text-danger mr-2': value=== 'High' 
-                      }"></i>
-                  </ng-template>
-                </ngx-datatable-column>
-                <ngx-datatable-column name="Incident Description"></ngx-datatable-column>
-                <ngx-datatable-column name="Incident Reported DateTime">
-                  <small class="text-muted"><i class="fa fa-clock-o"></i> {{value}}</small>
-                </ngx-datatable-column>
-              </ngx-datatable>
-            </div>
-          </div>
-        </div>
-      </div>
+  <tabset>
+    <tab heading="Incidents">
+      <ngx-datatable class="material sorting customTable" [rows]="bllomIncidentRows" [columnMode]="'force'" [columns]="columns"
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selectedRow"
+        [selectionType]="'single'" (select)='onSelect($event)'>
+        <ngx-datatable-column name="Incident Severity">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
+                               'text-warning mr-2' : value=== 'Avg',
+                               'text-danger mr-2': value=== 'High' 
+              }"></i>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Incident Description"></ngx-datatable-column>
+        <ngx-datatable-column name="Incident Reported DateTime">
+          <small class="text-muted"><i class="fa fa-clock-o"></i> {{value}}</small>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </tab>
+    <tab heading="History">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
         <div class="silk-card border-success pb-0">
           <div class="silk-card-title d-flex justify-content-between">
@@ -113,11 +105,8 @@
               </tbody>
             </table>
           </div>
-
-
         </div>
       </div>
-    </div>
-  </div>
-
+    </tab>
+  </tabset>
 </div>

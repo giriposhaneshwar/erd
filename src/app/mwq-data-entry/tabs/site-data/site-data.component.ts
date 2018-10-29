@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
 import * as $ from '../../../../../node_modules/jquery/dist/jquery.min.js';
+import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 
 @Component({
   selector: "ms-site-data",
@@ -10,20 +12,52 @@ import * as $ from '../../../../../node_modules/jquery/dist/jquery.min.js';
 })
 export class SiteDataComponent implements OnInit {
   dataEntry: any;
-  dataEntryKey: String = "dataEntry";
-  dataComponentKey: String = "siteData";
+  dataEntryKey: string = "dataEntry";
+  dataComponentKey: string = "siteDetails";
+  sampleInformationKey: string = "sampleInformation";
+
   siteData: any = {
-    siteName: "",
     projectName: "",
-    category: ""
+    siteCategory: "",
+    siteName: ""
   };
+
+  sampleInformation: any = {
+    sampleRefNum: "",
+    sampleSource: "",
+    samplePreservation: "",
+    sampleDescription: "",
+    sampleDate: "",
+    sampleTime: "",
+    sampleBy: "",
+    sampleEventType: ""
+  };
+
+
+  siteCategory = [];
+  siteDetails = [];
+  sourceDetails = [];
+  preservationDetails = [];
+  sampleByDetails = [];
+  eventTypeDetails = [];
+
+  siteCategoryResp: any;
+  siteNameResp: any;
+  sourceNameResp: any;
+  preservationResp: any;
+  sampleByResp: any;
+  eventTypeResp: any;
+
+  public siteDataform: FormGroup;
+  
   siteDateEdit() {
     console.log("At Edit Screen");
   }
-  siteDateSave(data) {
-    this.dataEntry[this.dataComponentKey] = data;
+  siteDetailsSave(siteDetailsdata, sampleInfoData) {
+    this.dataEntry[this.dataComponentKey] = siteDetailsdata;
+    this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    console.log("At Save Screen", data);
+    console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }
   siteDateNext() {
     this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
@@ -33,8 +67,10 @@ export class SiteDataComponent implements OnInit {
   siteDatePrev() {
     this.route.navigate(["mwqDataEntry", "data-entry"]);
   }
-  constructor(public route: Router, public localStore: AppStorageService) {
-    this.locadSiteCategoryData();
+  constructor(public route: Router, public localStore: AppStorageService,
+    private mwqDataEntryService: MwqDataEntryService,
+    private fb: FormBuilder) {
+    this.loaadSiteCategoryData();
     this.loadSiteNameData();
     this.loadSourceNameData();
     this.loadPreservationData();
@@ -42,128 +78,81 @@ export class SiteDataComponent implements OnInit {
     this.loadEventTypeData();
   }
 
-  siteCategory = [];
-  siteDetails = [];
-  sourceDetails = [];
-  preservationDetails = [];
-  sampleByDetails = [];
-  eventTypeDetails = [];
-
-  selectedSiteCategory: any;
-  selectedSiteName: any;
-  selectedSourceName: any;
-  selectedPreservation: any;
-  selectedSampleBy: any;
-  selectedEventType: any;
-
   ngOnInit() {
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
       this.dataEntry = localData.data;
-      if(this.dataEntry.hasOwnProperty(this.dataComponentKey)){
+      if (this.dataEntry.hasOwnProperty(this.dataComponentKey)) {
         this.siteData = this.dataEntry[this.dataComponentKey];
-      }else{
+        this.sampleInformation = this.dataEntry[this.sampleInformationKey];
+      } else {
         this.dataEntry = {};
         this.dataEntry[this.dataComponentKey] = this.siteData;
+        this.dataEntry[this.sampleInformationKey] = this.sampleInformation;
         this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       }
     } else {
       this.dataEntry = {};
       this.dataEntry[this.dataComponentKey] = this.siteData;
+      this.dataEntry[this.sampleInformationKey] = this.sampleInformation;
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
-    this.selectedEventType = [this.eventTypeDetails[0]];
+    //this.selectedEventType = [this.eventTypeDetails[0]];
+
+    this.siteDataform = this.fb.group({
+      //projectName: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+      projectName: ['', Validators.required]
+    });
   }
 
   loadEventTypeData() {
-    this.fetchEventTypeData(data => {
-      this.selectedEventType = [data[1]];
-      this.eventTypeDetails = data;
+    this.mwqDataEntryService.fetchEventTypeData().subscribe((resp) => {
+      this.eventTypeResp = resp;
+      this.eventTypeDetails = this.eventTypeResp.getEventbyResult.EventByList;
+      console.log("----eventTypeDetails----", this.eventTypeDetails);
     });
-  }
-
-  fetchEventTypeData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/eventType.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
   }
 
   loadSampleByData() {
-    this.fetchSampleByData(data => {
-      this.sampleByDetails = data;
+    this.mwqDataEntryService.fetchSampleByData().subscribe((resp) => {
+      this.sampleByResp = resp;
+      this.sampleByDetails = this.sampleByResp.getSamplebyResult.SampleByList;
+      console.log("----sampleByDetails----", this.sampleByDetails);
     });
-  }
-
-  fetchSampleByData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/sampleBy.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
   }
 
   loadPreservationData() {
-    this.fetchPreservationData(data => {
-      this.preservationDetails = data;
+    this.mwqDataEntryService.fetchPreservationData().subscribe((resp) => {
+      this.preservationResp = resp;
+      this.preservationDetails = this.preservationResp.getPreservationResult.PreservationList;
+      console.log("----preservationDetails----", this.preservationDetails);
     });
-  }
-
-  fetchPreservationData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/preservation.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
   }
 
   loadSourceNameData() {
-    this.fetchSourceNameData(data => {
-      this.sourceDetails = data;
+    this.mwqDataEntryService.fetchSourceNameData().subscribe((resp) => {
+      this.sourceNameResp = resp;
+      this.sourceDetails = this.sourceNameResp.getSourceResult.SourceList;
+      console.log("----sourceDetails----", this.sourceDetails);
     });
-  }
-
-  fetchSourceNameData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/source.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
   }
 
   loadSiteNameData() {
-    this.fetchSiteNameData(data => {
-      this.siteDetails = data;
+    this.mwqDataEntryService.fetchSiteNameData().subscribe((resp) => {
+      this.siteNameResp = resp;
+      this.siteDetails = this.siteNameResp.getSiteResult.SiteList;
+      console.log("----siteDetails----", this.siteDetails);
     });
   }
 
-  fetchSiteNameData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/siteName.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
-  }
-
-  locadSiteCategoryData() {
-    this.fetchSiteCategoryData(data => {
-      this.siteCategory = data;
+  loaadSiteCategoryData() {
+    this.mwqDataEntryService.fetchSiteCategoryData().subscribe((resp) => {
+      this.siteCategoryResp = resp;
+      this.siteCategory = this.siteCategoryResp.getCategoryResult.CategoryList;
+      console.log("----siteCategory----", this.siteCategory);
     });
   }
-  fetchSiteCategoryData(cb) {
-    const req = new XMLHttpRequest();
-    req.open("GET", `assets/data/siteCategory.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
-  }
+
 }

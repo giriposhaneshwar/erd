@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { AppStorageService } from 'app/appConfiguration/app-config.service';
+import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 
 @Component({
   selector: 'ms-general-chemistry',
@@ -8,81 +10,78 @@ import { Router } from "@angular/router";
 })
 export class GeneralChemistryComponent implements OnInit {
 
-  totalPhosp:any={
-    val1: 65,
-    val2: 34,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  dataEntry: any;
+  dataEntryKey: string = "dataEntry";
+  totalPhospComponentKey: string = "TotalPhosp";
+  totalNitrogenComponentKey: string = "Total-Nitrogen";
+  nitriteNComponentKey: string = "Nitrite-N";
+  nitrateNComponentKey: string = "Nitrate-N";
+  silicateSlComponentKey: string = "Silicate-Sl";
+  ammoniaNComponentKey: string = "Ammonia-N";
+  phosphatePComponentKey: string = "Phosphate-P";
+  bodComponentKey: string = "BOD";
+  tssComponentKey: string = "TSS";
+
+  totalPhosp: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  totalNitrogen:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  totalNitrogen: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  nitriteN:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  nitriteN: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  nitrateN:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  nitrateN: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  silicateSl:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  silicateSl: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  ammoniaN:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  ammoniaN: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  phosphateP:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  phosphateP: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  bod:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  bod: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
-  tss:any={
-    val1: 25,
-    val2: 65,
-    val3: 45,
-    val4: 15,
-    val5: 85
+  tss: any = {
+    surfaceValue: "",
+    mql: "",
+    testMethod: "",
   };
 
 
 
-  constructor(public route: Router) { }
+  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+    this.loadMQLData();
+    this.loadTestMethodData();
+  }
 
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);
@@ -91,7 +90,19 @@ export class GeneralChemistryComponent implements OnInit {
     this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
     console.log("At Edit Screen");
   }
-  siteDateSave() {
+  generalChemistryDetailsSave(totalPhosp, totalNitrogen, nitriteN, nitrateN, silicateSl, ammoniaN, phosphateP, bod, tss) {
+
+    this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
+    this.dataEntry[this.totalNitrogenComponentKey] = totalNitrogen;
+    this.dataEntry[this.nitriteNComponentKey] = nitriteN;
+    this.dataEntry[this.nitrateNComponentKey] = nitrateN;
+    this.dataEntry[this.silicateSlComponentKey] = silicateSl;
+    this.dataEntry[this.ammoniaNComponentKey] = ammoniaN;
+    this.dataEntry[this.phosphatePComponentKey] = phosphateP;
+    this.dataEntry[this.bodComponentKey] = bod;
+    this.dataEntry[this.tssComponentKey] = tss;
+
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At Save Screen");
   }
   siteDateNext() {
@@ -100,6 +111,83 @@ export class GeneralChemistryComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get DAta
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if (localData.status == "success") {
+      this.dataEntry = localData.data;
+      if (this.dataEntry.hasOwnProperty(this.totalPhospComponentKey)) {
+        this.totalPhosp = this.dataEntry[this.totalPhospComponentKey];
+        this.totalNitrogen = this.dataEntry[this.totalNitrogenComponentKey];
+        this.nitriteN = this.dataEntry[this.nitriteNComponentKey];
+        this.nitrateN = this.dataEntry[this.nitrateNComponentKey];
+        this.silicateSl = this.dataEntry[this.silicateSlComponentKey];
+        this.ammoniaN = this.dataEntry[this.ammoniaNComponentKey];
+        this.phosphateP = this.dataEntry[this.phosphatePComponentKey];
+        this.bod = this.dataEntry[this.bodComponentKey];
+        this.tss = this.dataEntry[this.tssComponentKey];
+
+      } else {
+        // this.dataEntry = {};
+        this.dataEntry[this.totalPhospComponentKey] = this.totalPhosp;
+        this.dataEntry[this.totalNitrogenComponentKey] = this.totalNitrogen;
+        this.dataEntry[this.nitriteNComponentKey] = this.nitriteN;
+        this.dataEntry[this.nitrateNComponentKey] = this.nitrateN;
+        this.dataEntry[this.silicateSlComponentKey] = this.silicateSl;
+        this.dataEntry[this.ammoniaNComponentKey] = this.ammoniaN;
+        this.dataEntry[this.phosphatePComponentKey] = this.phosphateP;
+        this.dataEntry[this.bodComponentKey] = this.bod;
+        this.dataEntry[this.tssComponentKey] = this.tss;
+
+
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+      }
+    } else {
+      // this.dataEntry = {};
+      this.dataEntry[this.totalPhospComponentKey] = this.totalPhosp;
+      this.dataEntry[this.totalNitrogenComponentKey] = this.totalNitrogen;
+      this.dataEntry[this.nitriteNComponentKey] = this.nitriteN;
+      this.dataEntry[this.nitrateNComponentKey] = this.nitrateN;
+      this.dataEntry[this.silicateSlComponentKey] = this.silicateSl;
+      this.dataEntry[this.ammoniaNComponentKey] = this.ammoniaN;
+      this.dataEntry[this.phosphatePComponentKey] = this.phosphateP;
+      this.dataEntry[this.bodComponentKey] = this.bod;
+      this.dataEntry[this.tssComponentKey] = this.tss;
+    }
+    console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
+
+  mwqDetails = [];
+  mwqResp: any;
+
+  testMethodDetails = [];
+  testMethodResp: any;
+
+  extractionMethodDetails = [];
+  extractionMethodResp: any;
+
+  loadMQLData() {
+    this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
+      this.mwqResp = resp;
+      this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
+      console.log("----mwqDetails----", this.mwqDetails);
+    });
+  }
+
+  loadTestMethodData() {
+    this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
+      this.testMethodResp = resp;
+      this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
+      console.log("----testMethodDetails----", this.testMethodDetails);
+    });
+  }
+
+  /*loaadExtractionMethodData() {
+    this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
+      this.extractionMethodResp = resp;
+      this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
+      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
+    });
+  }
+*/
 
 }

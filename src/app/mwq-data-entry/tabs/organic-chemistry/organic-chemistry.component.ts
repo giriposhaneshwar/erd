@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AppStorageService } from "app/appConfiguration/app-config.service";
+import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 
 @Component({
   selector: "ms-organic-chemistry",
@@ -8,16 +10,87 @@ import { Router } from "@angular/router";
 })
 export class OrganicChemistryComponent implements OnInit {
 
-  oc_totalPhosp:any=  { val1: 65 };
-  oc_tph:any= { val1: 34};
+  dataEntry: any;
+  dataEntryKey: string = "dataEntry";
+  oc_totalPhospComponentKey: string = "Total_Phosp";
+  oc_tphComponentKey: string = "TPH";
+  
+  oc_totalPhosp:any=  { surfaceValue: "",  mql: "",  extractionMethod:"" , testMethod: "" };
+  oc_tph:any= { surfaceValue: "",  mql: "",  extractionMethod:"" , testMethod: "" };
 
-  constructor(public route: Router) {}
+  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+    this.loadMQLData();
+    this.loadTestMethodData();
+    this.loaadExtractionMethodData();
+  }
   siteDatePrev() {
     this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
   }
-  siteDateSave() {}
+  organicChemistrySiteDetailsSave(oc_totalPhosp,oc_tph) {
+    this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
+    this.dataEntry[this.oc_tphComponentKey] = oc_tph;
+
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    console.log("At organicChemistrySiteDetails Screen");
+  }
   siteDateNext() {
     this.route.navigate(["mwqDataEntry", "microbiology"]);
   }
-  ngOnInit() {}
+  ngOnInit() {
+    // get DAta
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if (localData.status == "success") {
+      this.dataEntry = localData.data;
+      if (this.dataEntry.hasOwnProperty(this.oc_totalPhospComponentKey)) {
+        this.oc_totalPhosp = this.dataEntry[this.oc_totalPhospComponentKey];
+        this.oc_tph = this.dataEntry[this.oc_tphComponentKey];
+        
+      } else {
+        // this.dataEntry = {};
+        this.dataEntry[this.oc_totalPhospComponentKey] = this.oc_totalPhosp;
+        this.dataEntry[this.oc_tphComponentKey] = this.oc_tph;
+       
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+      }
+    } else {
+      // this.dataEntry = {};
+      this.dataEntry[this.oc_totalPhospComponentKey] = this.oc_totalPhosp;
+      this.dataEntry[this.oc_tphComponentKey] = this.oc_tph;
+    }
+    console.log("Data Entry", this.dataEntryKey, this.dataEntry);
+  }
+
+  mwqDetails = [];
+  mwqResp: any;
+
+  testMethodDetails = [];
+  testMethodResp: any;
+
+  extractionMethodDetails = [];
+  extractionMethodResp: any;
+
+  loadMQLData() {
+    this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
+      this.mwqResp = resp;
+      this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
+      console.log("----mwqDetails----", this.mwqDetails);
+    });
+  }
+
+  loadTestMethodData() {
+    this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
+      this.testMethodResp = resp;
+      this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
+      console.log("----testMethodDetails----", this.testMethodDetails);
+    });
+  }
+
+  loaadExtractionMethodData() {
+    this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
+      this.extractionMethodResp = resp;
+      this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
+      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
+    });
+  }
+
 }

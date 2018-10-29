@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-      <!--<mat-divider></mat-divider>-->
+      
       <form class="form">
         <div class="col-sm-12 col-xs-12 formTableSection">
           <div class="row formHeading">
@@ -24,21 +24,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalPhosp.val1 <= 35, 'orange': totalPhosp.val1 <= 50 && totalPhosp.val1 > 35, 'green': totalPhosp.val1 > 50}"
-                name="totalPhosp.val1" [(ngModel)]="totalPhosp.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
+                name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalPhosp.testMethod" name="totalPhospTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -46,21 +48,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Nitrogen.</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalNitrogen.val1 <= 35, 'orange': totalNitrogen.val1 <= 50 && totalNitrogen.val1 > 35, 'green': totalNitrogen.val1 > 50}"
-                name="totalNitrogen.val1" [(ngModel)]="totalNitrogen.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': totalNitrogen.surfaceValue <= 35, 'orange': totalNitrogen.surfaceValue <= 50 && totalNitrogen.surfaceValue > 35, 'green': totalNitrogen.surfaceValue > 50}"
+                name="totalNitrogen.surfaceValue" [(ngModel)]="totalNitrogen.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalNitrogen.testMethod" name="totalNitrogenTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.testMethodName}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -68,21 +72,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitriteN.val1 <= 35, 'orange': nitriteN.val1 <= 50 && nitriteN.val1 > 35, 'green': nitriteN.val1 > 50}"
-                name="nitriteN.val1" [(ngModel)]="nitriteN.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitriteN.surfaceValue <= 35, 'orange': nitriteN.surfaceValue <= 50 && nitriteN.surfaceValue > 35, 'green': nitriteN.surfaceValue > 50}"
+                name="nitriteN.surfaceValue" [(ngModel)]="nitriteN.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitriteN.testMethod" name="nitriteNTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -90,21 +96,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitrateN.val1 <= 35, 'orange': nitrateN.val1 <= 50 && nitrateN.val1 > 35, 'green': nitrateN.val1 > 50}"
-                name="nitrateN.val1" [(ngModel)]="nitrateN.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': nitrateN.surfaceValue <= 35, 'orange': nitrateN.surfaceValue <= 50 && nitrateN.surfaceValue > 35, 'green': nitrateN.surfaceValue > 50}"
+                name="nitrateN.surfaceValue" [(ngModel)]="nitrateN.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitrateN.testMethod" name="nitrateNTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -113,21 +121,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Silicate-Sl</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': silicateSl.val1 <= 35, 'orange': silicateSl.val1 <= 50 && silicateSl.val1 > 35, 'green': silicateSl.val1 > 50}"
-                name="silicateSl.val1" [(ngModel)]="silicateSl.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': silicateSl.surfaceValue <= 35, 'orange': silicateSl.surfaceValue <= 50 && silicateSl.surfaceValue > 35, 'green': silicateSl.surfaceValue > 50}"
+                name="silicateSl.surfaceValue" [(ngModel)]="silicateSl.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="silicateSl.testMethod" name="silicateSlTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -136,21 +146,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ammoniaN.val1 <= 35, 'orange': ammoniaN.val1 <= 50 && ammoniaN.val1 > 35, 'green': ammoniaN.val1 > 50}"
-                name="ammoniaN.val1" [(ngModel)]="ammoniaN.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': ammoniaN.surfaceValue <= 35, 'orange': ammoniaN.surfaceValue <= 50 && ammoniaN.surfaceValue > 35, 'green': ammoniaN.surfaceValue > 50}"
+                name="ammoniaN.surfaceValue" [(ngModel)]="ammoniaN.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="ammoniaN.testMethod" name="ammoniaNTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -158,21 +170,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': phosphateP.val1 <= 35, 'orange': phosphateP.val1 <= 50 && phosphateP.val1 > 35, 'green': phosphateP.val1 > 50}"
-                name="phosphateP.val1" [(ngModel)]="phosphateP.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': phosphateP.surfaceValue <= 35, 'orange': phosphateP.surfaceValue <= 50 && phosphateP.surfaceValue > 35, 'green': phosphateP.surfaceValue > 50}"
+                name="phosphateP.surfaceValue" [(ngModel)]="phosphateP.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="phosphateP.testMethod" name="phosphatePTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -180,21 +194,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">BOD</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': bod.val1 <= 35, 'orange': bod.val1 <= 50 && bod.val1 > 35, 'green': bod.val1 > 50}"
-                name="bod.val1" [(ngModel)]="bod.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': bod.surfaceValue <= 35, 'orange': bod.surfaceValue <= 50 && bod.surfaceValue > 35, 'green': bod.surfaceValue > 50}"
+                name="bod.surfaceValue" [(ngModel)]="bod.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="bod.testMethod" name="bodTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -202,21 +218,23 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">TSS</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': tss.val1 <= 35, 'orange': tss.val1 <= 50 && tss.val1 > 35, 'green': tss.val1 > 50}"
-                name="tss.val1" [(ngModel)]="tss.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': tss.surfaceValue <= 35, 'orange': tss.surfaceValue <= 50 && tss.surfaceValue > 35, 'green': tss.surfaceValue > 50}"
+                name="tss.surfaceValue" [(ngModel)]="tss.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="tss.testMethod" name="tssTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -225,7 +243,7 @@
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="generalChemistryDetailsSave(totalPhosp,totalNitrogen,nitriteN,nitrateN,silicateSl,ammoniaN,phosphateP,bod,tss)">Save</button>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
             </div>
           </div>

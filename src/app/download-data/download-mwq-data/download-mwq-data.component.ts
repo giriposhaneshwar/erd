@@ -4,6 +4,7 @@ import { fadeInAnimation } from 'app/core/route-animation/route.animation';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { DownloadMwqDataService } from './download-mwq-data.service';
+import { DownloadDataService } from '../download-data.service';
 
 @Component({
   selector: 'ms-download-mwq-data',
@@ -16,8 +17,10 @@ export class DownloadMwqDataComponent implements OnInit {
   constructor(
     private pageTitleService: PageTitleService,
     private http: HttpClient,
-    private excelService: DownloadMwqDataService) {
-    this.getRestItems();
+    private excelService: DownloadMwqDataService,
+    private downloadDataService: DownloadDataService) {
+    //this.getRestItems();
+    this.downloadMwqData();
  
   }
 
@@ -50,6 +53,17 @@ export class DownloadMwqDataComponent implements OnInit {
         }
       }
       console.log("----restItems----", this.restItems);
+    });
+  }
+
+  downloadMwqDataDetails = [];
+  downloadMwqDataResp: any;
+
+  downloadMwqData() {
+    this.downloadDataService.downloadMwqData().subscribe((resp) => {
+      this.downloadMwqDataResp = resp;
+      this.downloadMwqDataDetails = this.downloadMwqDataResp.GetIndicesResult.IndicesListData;
+      console.log("----downloadMwqDataDetails----", this.downloadMwqDataResp.GetIndicesResult.Message);
     });
   }
 

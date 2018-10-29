@@ -3,6 +3,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.service';
+import { DownloadDataService } from '../download-data.service';
 @Component({
   selector: 'ms-download-mwq-indicies-data',
   templateUrl: './download-mwq-indicies-data.component.html',
@@ -10,52 +11,38 @@ import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.servi
 })
 export class DownloadMwqIndiciesDataComponent implements OnInit {
 
-  constructor(
-    private pageTitleService: PageTitleService,
-    private http: HttpClient,
-    private excelService: DownloadMwqIndicesDataService) {
-    this.getRestItems();
- 
-  }
-
-  ngOnInit() {
-    this.pageTitleService.setTitle("Marine Water Quality Management System");
-  }
-  
-
   getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,
     Message: ""
   };
-  restItems: any = [];
-  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/mwqIndicesData.json";
 
-  getRestItems(): void {
-    this.restItemsServiceGetRestItems().subscribe(restItems => {
+  downloadMwqIndicesdDetails = [];
+  downloadMwqIndicesResp: any;
 
-      this.getRestItemsResponse = restItems;
-      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
-        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
-          if (
-            this.getRestItemsResponse.BuoysList != undefined &&
-            this.getRestItemsResponse.BuoysList.length > 0
-          ) {
-            this.restItems = this.getRestItemsResponse.BuoysList;
-          }
-        }
-      }
-      console.log("----restItems----", this.restItems);
+
+  constructor(private pageTitleService: PageTitleService,
+    private http: HttpClient,
+    private excelService: DownloadMwqIndicesDataService,
+    private downloadDataService: DownloadDataService) {
+
+    this.downloadMwqIndicesData();
+  }
+
+  ngOnInit() {
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
+  }
+
+
+  downloadMwqIndicesData() {
+    this.downloadDataService.downloadIndicesData().subscribe((resp) => {
+      this.downloadMwqIndicesResp = resp;
+      this.downloadMwqIndicesdDetails = this.downloadMwqIndicesResp.getIndices_dataResult.IndicesDataList;
+      console.log("----mwqDetaidownloadMwqIndicesdDetailsls----", this.downloadMwqIndicesResp.getIndices_dataResult.Message);
     });
   }
 
-  // Rest Items Service: Read all REST Items
-  restItemsServiceGetRestItems() {
-    return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
-  }
-
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.restItems, 'MWQ_Indices_Data');
+    this.excelService.exportAsExcelFile(this.downloadMwqIndicesdDetails, 'MWQ_Indices_Data');
   }
 }

@@ -17,7 +17,7 @@
             <div class="clearfix tbl tbl-per-10 text-left"></div>
             <div class="clearfix tbl tbl-per-20 text-left"><b>Surface</b></div>
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
-            <div class="clearfix tbl tbl-per-15 text-center"><b>DeepWater</b></div>
+            <div class="clearfix tbl tbl-per-15 text-center"><b>Bottom</b></div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="10M" />
@@ -28,29 +28,31 @@
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
           </div>
 
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Tempurature</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Temperature</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': temperatureSurface.val1 <= 35, 'orange': temperatureSurface.val1 <= 50 && temperatureSurface.val1 > 35, 'green': temperatureSurface.val1 > 50}"
-                name="temperatureSurface.val1" [(ngModel)]="temperatureSurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': temperature.surfaceValue <= 35, 'orange': temperature.surfaceValue <= 50 && temperature.surfaceValue > 35, 'green': temperature.surfaceValue > 50}"
+                name="temperatureSurfaceVal" [(ngModel)]="temperature.surfaceValue" />
               <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]">
             </div>
-            <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div> -->
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': temperature.bottomValue <= 35, 'orange': temperature.bottomValue <= 50 && temperature.bottomValue > 35, 'green': temperature.bottomValue > 50}"
+                name="temperatureBottomVal" [(ngModel)]="temperature.bottomValue" />
+            </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" [ngClass]="{'red': temperature.val1 <= 35, 'orange': temperature.val1 <= 50 && temperature.val1 > 35, 'green': temperature.val1 > 50}"
-                name="temperature.val1" [(ngModel)]="temperature.val1" class="form-control" />
-              <input type="text" [ngClass]="{'red': temperature.val2 <= 35, 'orange': temperature.val2 <= 50 && temperature.val2 > 35, 'green': temperature.val2 > 50}"
-                name="temperature.val2" [(ngModel)]="temperature.val2" class="form-control" />
-              <input type="text" [ngClass]="{'red': temperature.val3 <= 35, 'orange': temperature.val3 <= 50 && temperature.val3 > 35, 'green': temperature.val3 > 50}"
-                name="temperature.val3" [(ngModel)]="temperature.val3" class="form-control" />
-              <input type="text" [ngClass]="{'red': temperature.val4 <= 35, 'orange': temperature.val4 <= 50 && temperature.val4 > 35, 'green': temperature.val4 > 50}"
-                name="temperature.val4" [(ngModel)]="temperature.val4" class="form-control" />
-              <input type="text" [ngClass]="{'red': temperature.val5 <= 35, 'orange': temperature.val5 <= 50 && temperature.val5 > 35, 'green': temperature.val5 > 50}"
-                name="temperature.val5" [(ngModel)]="temperature.val5" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
+                name="tempbottom5m" [(ngModel)]="temperature.bottom5m" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.bottom10m <= 35, 'orange': temperature.bottom10m <= 50 && temperature.bottom10m > 35, 'green': temperature.bottom10m > 50}"
+                name="tempbottom10m" [(ngModel)]="temperature.bottom10m" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.bottom15m <= 35, 'orange': temperature.bottom15m <= 50 && temperature.bottom15m > 35, 'green': temperature.bottom15m > 50}"
+                name="tempbottom15m" [(ngModel)]="temperature.bottom15m" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.bottom20m <= 35, 'orange': temperature.bottom20m <= 50 && temperature.bottom20m > 35, 'green': temperature.bottom20m > 50}"
+                name="tempbottom20m" [(ngModel)]="temperature.bottom20m" class="form-control" />
+              <input type="text" [ngClass]="{'red': temperature.bottom25m <= 35, 'orange': temperature.bottom25m <= 50 && temperature.bottom25m > 35, 'green': temperature.bottom25m > 50}"
+                name="tempbottom25m" [(ngModel)]="temperature.bottom25m" class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
           </div>
@@ -58,22 +60,26 @@
             <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
               <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': conductivitySurface.val1 <= 35, 'orange': conductivitySurface.val1 <= 50 && conductivitySurface.val1 > 35, 'green': conductivitySurface.val1 > 50}"
-                name="conductivitySurface.val1" [(ngModel)]="conductivitySurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': conductivity.surfaceValue <= 35, 'orange': conductivity.surfaceValue <= 50 && conductivity.surfaceValue > 35, 'green': conductivity.surfaceValue > 50}"
+                name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" />
               <span class="pad l-15">mS/gm (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
-            <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': conductivity.bottomValue <= 35, 'orange': conductivity.bottomValue <= 50 && conductivity.bottomValue > 35, 'green': conductivity.bottomValue > 50}"
+                name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" />
+            </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" name="conductivity.val1" [(ngModel)]="conductivity.val1" [ngClass]="{'red': conductivity.val1 <= 35, 'orange': conductivity.val1 <= 50 && conductivity.val1 > 35, 'green': conductivity.val1 > 50}"
+              <input type="text" name="conductivity.bottom5m" [(ngModel)]="conductivity.bottom5m" [ngClass]="{'red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
                 class="form-control" />
-              <input type="text" name="conductivity.val2" [(ngModel)]="conductivity.val2" [ngClass]="{'red': conductivity.val2 <= 35, 'orange': conductivity.val2 <= 50 && conductivity.val2 > 35, 'green': conductivity.val2 > 50}"
+              <input type="text" name="conductivity.bottom10m" [(ngModel)]="conductivity.bottom10m" [ngClass]="{'red': conductivity.bottom10m <= 35, 'orange': conductivity.bottom10m <= 50 && conductivity.bottom10m > 35, 'green': conductivity.bottom10m > 50}"
                 class="form-control" />
-              <input type="text" name="conductivity.val3" [(ngModel)]="conductivity.val3" [ngClass]="{'red': conductivity.val3 <= 35, 'orange': conductivity.val3 <= 50 && conductivity.val3 > 35, 'green': conductivity.val3 > 50}"
+              <input type="text" name="conductivity.bottom15m" [(ngModel)]="conductivity.bottom15m" [ngClass]="{'red': conductivity.bottom15m <= 35, 'orange': conductivity.bottom15m <= 50 && conductivity.bottom15m > 35, 'green': conductivity.bottom15m > 50}"
                 class="form-control" />
-              <input type="text" name="conductivity.val4" [(ngModel)]="conductivity.val4" [ngClass]="{'red': conductivity.val4 <= 35, 'orange': conductivity.val4 <= 50 && conductivity.val4 > 35, 'green': conductivity.val4 > 50}"
+              <input type="text" name="conductivity.bottom20m" [(ngModel)]="conductivity.bottom20m" [ngClass]="{'red': conductivity.bottom20m <= 35, 'orange': conductivity.bottom20m <= 50 && conductivity.bottom20m > 35, 'green': conductivity.bottom20m > 50}"
                 class="form-control" />
-              <input type="text" name="conductivity.val5" [(ngModel)]="conductivity.val5" [ngClass]="{'red': conductivity.val5 <= 35, 'orange': conductivity.val5 <= 50 && conductivity.val5 > 35, 'green': conductivity.val5 > 50}"
+              <input type="text" name="conductivity.bottom25m" [(ngModel)]="conductivity.bottom25m" [ngClass]="{'red': conductivity.bottom25m <= 35, 'orange': conductivity.bottom25m <= 50 && conductivity.bottom25m > 35, 'green': conductivity.bottom25m > 50}"
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -81,23 +87,26 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': salinitySurface.val1 <= 35, 'orange': salinitySurface.val1 <= 50 && salinitySurface.val1 > 35, 'green': salinitySurface.val1 > 50}"
-                name="salinitySurface.val1" [(ngModel)]="salinitySurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': salinity.surfaceValue <= 35, 'orange': salinity.surfaceValue <= 50 && salinity.surfaceValue > 35, 'green': salinity.surfaceValue > 50}"
+                name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" />
               <span class="pad l-15">ppt (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
-            <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div> -->
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': salinity.bottomValue <= 35, 'orange': salinity.bottomValue <= 50 && salinity.bottomValue > 35, 'green': salinity.bottomValue > 50}"
+                name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" />
+            </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" name="salinity.val1" [(ngModel)]="salinity.val1" [ngClass]="{'red': salinity.val1 <= 35, 'orange': salinity.val1 <= 50 && salinity.val1 > 35, 'green': salinity.val1 > 50}"
+              <input type="text" name="salinity.bottom5m" [(ngModel)]="salinity.bottom5m" [ngClass]="{'red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
                 class="form-control" />
-              <input type="text" name="salinity.val2" [(ngModel)]="salinity.val2" [ngClass]="{'red': salinity.val2 <= 35, 'orange': salinity.val2 <= 50 && salinity.val2 > 35, 'green': salinity.val2 > 50}"
+              <input type="text" name="salinity.bottom10m" [(ngModel)]="salinity.bottom10m" [ngClass]="{'red': salinity.bottom10m <= 35, 'orange': salinity.bottom10m <= 50 && salinity.bottom10m > 35, 'green': salinity.bottom10m > 50}"
                 class="form-control" />
-              <input type="text" name="salinity.val3" [(ngModel)]="salinity.val3" [ngClass]="{'red': salinity.val3 <= 35, 'orange': salinity.val3 <= 50 && salinity.val3 > 35, 'green': salinity.val3 > 50}"
+              <input type="text" name="salinity.bottom15m" [(ngModel)]="salinity.bottom15m" [ngClass]="{'red': salinity.bottom15m <= 35, 'orange': salinity.bottom15m <= 50 && salinity.bottom15m > 35, 'green': salinity.bottom15m > 50}"
                 class="form-control" />
-              <input type="text" name="salinity.val4" [(ngModel)]="salinity.val4" [ngClass]="{'red': salinity.val4 <= 35, 'orange': salinity.val4 <= 50 && salinity.val4 > 35, 'green': salinity.val4 > 50}"
+              <input type="text" name="salinity.bottom20m" [(ngModel)]="salinity.bottom20m" [ngClass]="{'red': salinity.bottom20m <= 35, 'orange': salinity.bottom20m <= 50 && salinity.bottom20m > 35, 'green': salinity.bottom20m > 50}"
                 class="form-control" />
-              <input type="text" name="salinity.val5" [(ngModel)]="salinity.val5" [ngClass]="{'red': salinity.val5 <= 35, 'orange': salinity.val5 <= 50 && salinity.val5 > 35, 'green': salinity.val5 > 50}"
+              <input type="text" name="salinity.bottom25m" [(ngModel)]="salinity.bottom25m" [ngClass]="{'red': salinity.bottom25m <= 35, 'orange': salinity.bottom25m <= 50 && salinity.bottom25m > 35, 'green': salinity.bottom25m > 50}"
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -105,23 +114,26 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': pHSurface.val1 <= 35, 'orange': pHSurface.val1 <= 50 && pHSurface.val1 > 35, 'green': pHSurface.val1 > 50}"
-                name="pHSurface.val1" [(ngModel)]="pHSurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
+                name="pH.surfaceValue" [(ngModel)]="pH.surfaceValue" />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[75, 68, 20, 40, 55, 45]"></div>
-            <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
+                name="pH.bottomValue" [(ngModel)]="pH.bottomValue" />
+            </div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" name="pH.val1" [(ngModel)]="pH.val1" [ngClass]="{'red': pH.val1 <= 35, 'orange': pH.val1 <= 50 && pH.val1 > 35, 'green': pH.val1 > 50}"
+              <input type="text" name="pH.bottom5m" [(ngModel)]="pH.bottom5m" [ngClass]="{'red': pH.bottom5m <= 35, 'orange': pH.bottom5m <= 50 && pH.bottom5m > 35, 'green': pH.bottom5m > 50}"
                 class="form-control" />
-              <input type="text" name="pH.val2" [(ngModel)]="pH.val2" [ngClass]="{'red': pH.val2 <= 35, 'orange': pH.val2 <= 50 && pH.val2 > 35, 'green': pH.val2 > 50}"
+              <input type="text" name="pH.bottom10m" [(ngModel)]="pH.bottom10m" [ngClass]="{'red': pH.bottom10m <= 35, 'orange': pH.bottom10m <= 50 && pH.bottom10m > 35, 'green': pH.bottom10m > 50}"
                 class="form-control" />
-              <input type="text" name="pH.val3" [(ngModel)]="pH.val3" [ngClass]="{'red': pH.val3 <= 35, 'orange': pH.val3 <= 50 && pH.val3 > 35, 'green': pH.val3 > 50}"
+              <input type="text" name="pH.bottom15m" [(ngModel)]="pH.bottom15m" [ngClass]="{'red': pH.bottom15m <= 35, 'orange': pH.bottom15m <= 50 && pH.bottom15m > 35, 'green': pH.bottom15m > 50}"
                 class="form-control" />
-              <input type="text" name="pH.val4" [(ngModel)]="pH.val4" [ngClass]="{'red': pH.val4 <= 35, 'orange': pH.val4 <= 50 && pH.val4 > 35, 'green': pH.val4 > 50}"
+              <input type="text" name="pH.bottom20m" [(ngModel)]="pH.bottom20m" [ngClass]="{'red': pH.bottom20m <= 35, 'orange': pH.bottom20m <= 50 && pH.bottom20m > 35, 'green': pH.bottom20m > 50}"
                 class="form-control" />
-              <input type="text" name="pH.val5" [(ngModel)]="pH.val5" [ngClass]="{'red': pH.val5 <= 35, 'orange': pH.val5 <= 50 && pH.val5 > 35, 'green': pH.val5 > 50}"
+              <input type="text" name="pH.bottom25m" [(ngModel)]="pH.bottom25m" [ngClass]="{'red': pH.bottom25m <= 35, 'orange': pH.bottom25m <= 50 && pH.bottom25m > 35, 'green': pH.bottom25m > 50}"
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -129,23 +141,26 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Dissolved O_*</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': dissolvedOSurface.val1 <= 35, 'orange': dissolvedOSurface.val1 <= 50 && dissolvedOSurface.val1 > 35, 'green': dissolvedOSurface.val1 > 50}"
-                name="dissolvedOSurface.val1" [(ngModel)]="dissolvedOSurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': dissolvedO.surfaceValue <= 35, 'orange': dissolvedO.surfaceValue <= 50 && dissolvedO.surfaceValue > 35, 'green': dissolvedO.surfaceValue > 50}"
+                name="dissolvedO.surfaceValue" [(ngModel)]="dissolvedO.surfaceValue" />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
-            <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': dissolvedO.bottomValue <= 35, 'orange': dissolvedO.bottomValue <= 50 && dissolvedO.bottomValue > 35, 'green': dissolvedO.bottomValue > 50}"
+                name="dissolvedO.bottomValue" [(ngModel)]="dissolvedO.bottomValue" />
+            </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" name="dissolvedO.val1" [(ngModel)]="dissolvedO.val1" [ngClass]="{'red': dissolvedO.val1 <= 35, 'orange': dissolvedO.val1 <= 50 && dissolvedO.val1 > 35, 'green': dissolvedO.val1 > 50}"
+              <input type="text" name="dissolvedO.bottom5m" [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
                 class="form-control" />
-              <input type="text" name="dissolvedO.val2" [(ngModel)]="dissolvedO.val2" [ngClass]="{'red': dissolvedO.val2 <= 35, 'orange': dissolvedO.val2 <= 50 && dissolvedO.val2 > 35, 'green': dissolvedO.val2 > 50}"
+              <input type="text" name="dissolvedO.bottom10m" [(ngModel)]="dissolvedO.bottom10m" [ngClass]="{'red': dissolvedO.bottom10m <= 35, 'orange': dissolvedO.bottom10m <= 50 && dissolvedO.bottom10m > 35, 'green': dissolvedO.bottom10m > 50}"
                 class="form-control" />
-              <input type="text" name="dissolvedO.val3" [(ngModel)]="dissolvedO.val3" [ngClass]="{'red': dissolvedO.val3 <= 35, 'orange': dissolvedO.val3 <= 50 && dissolvedO.val3 > 35, 'green': dissolvedO.val3 > 50}"
+              <input type="text" name="dissolvedO.bottom15m" [(ngModel)]="dissolvedO.bottom15m" [ngClass]="{'red': dissolvedO.bottom15m <= 35, 'orange': dissolvedO.bottom15m <= 50 && dissolvedO.bottom15m > 35, 'green': dissolvedO.bottom15m > 50}"
                 class="form-control" />
-              <input type="text" name="dissolvedO.val4" [(ngModel)]="dissolvedO.val4" [ngClass]="{'red': dissolvedO.val4 <= 35, 'orange': dissolvedO.val4 <= 50 && dissolvedO.val4 > 35, 'green': dissolvedO.val4 > 50}"
+              <input type="text" name="dissolvedO.bottom20m" [(ngModel)]="dissolvedO.bottom20m" [ngClass]="{'red': dissolvedO.bottom20m <= 35, 'orange': dissolvedO.bottom20m <= 50 && dissolvedO.bottom20m > 35, 'green': dissolvedO.bottom20m > 50}"
                 class="form-control" />
-              <input type="text" name="dissolvedO.val5" [(ngModel)]="dissolvedO.val5" [ngClass]="{'red': dissolvedO.val5 <= 35, 'orange': dissolvedO.val5 <= 50 && dissolvedO.val5 > 35, 'green': dissolvedO.val5 > 50}"
+              <input type="text" name="dissolvedO.bottom25m" [(ngModel)]="dissolvedO.bottom25m" [ngClass]="{'red': dissolvedO.bottom25m <= 35, 'orange': dissolvedO.bottom25m <= 50 && dissolvedO.bottom25m > 35, 'green': dissolvedO.bottom25m > 50}"
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -153,23 +168,26 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': Chlorophyll_aSurface.val1 <= 35, 'orange': Chlorophyll_aSurface.val1 <= 50 && Chlorophyll_aSurface.val1 > 35, 'green': Chlorophyll_aSurface.val1 > 50}"
-                name="Chlorophyll_aSurface.val1" [(ngModel)]="Chlorophyll_aSurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': Chlorophyll_a.surfaceValue <= 35, 'orange': Chlorophyll_a.surfaceValue <= 50 && Chlorophyll_a.surfaceValue > 35, 'green': Chlorophyll_a.surfaceValue > 50}"
+                name="Chlorophyll_a.surfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" />
               <span class="pad l-15">ug/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
-            <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div>
+            <!-- <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div> -->
+            <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': Chlorophyll_a.bottomValue <= 35, 'orange': Chlorophyll_a.bottomValue <= 50 && Chlorophyll_a.bottomValue > 35, 'green': Chlorophyll_a.bottomValue > 50}"
+                name="Chlorophyll_a.bottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" />
+            </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
-              <input type="text" name="Chlorophyll_a.val1" [(ngModel)]="Chlorophyll_a.val1" [ngClass]="{'red': Chlorophyll_a.val1 <= 35, 'orange': Chlorophyll_a.val1 <= 50 && Chlorophyll_a.val1 > 35, 'green': Chlorophyll_a.val1 > 50}"
+              <input type="text" name="Chlorophyll_a.bottom5m" [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
                 class="form-control" />
-              <input type="text" name="Chlorophyll_a.val2" [(ngModel)]="Chlorophyll_a.val2" [ngClass]="{'red': Chlorophyll_a.val2 <= 35, 'orange': Chlorophyll_a.val2 <= 50 && Chlorophyll_a.val2 > 35, 'green': Chlorophyll_a.val2 > 50}"
+              <input type="text" name="Chlorophyll_a.bottom10m" [(ngModel)]="Chlorophyll_a.bottom10m" [ngClass]="{'red': Chlorophyll_a.bottom10m <= 35, 'orange': Chlorophyll_a.bottom10m <= 50 && Chlorophyll_a.bottom10m > 35, 'green': Chlorophyll_a.bottom10m > 50}"
                 class="form-control" />
-              <input type="text" name="Chlorophyll_a.val3" [(ngModel)]="Chlorophyll_a.val3" [ngClass]="{'red': Chlorophyll_a.val3 <= 35, 'orange': Chlorophyll_a.val3 <= 50 && Chlorophyll_a.val3 > 35, 'green': Chlorophyll_a.val3 > 50}"
+              <input type="text" name="Chlorophyll_a.bottom15m" [(ngModel)]="Chlorophyll_a.bottom15m" [ngClass]="{'red': Chlorophyll_a.bottom15m <= 35, 'orange': Chlorophyll_a.bottom15m <= 50 && Chlorophyll_a.bottom15m > 35, 'green': Chlorophyll_a.bottom15m > 50}"
                 class="form-control" />
-              <input type="text" name="Chlorophyll_a.val4" [(ngModel)]="Chlorophyll_a.val4" [ngClass]="{'red': Chlorophyll_a.val4 <= 35, 'orange': Chlorophyll_a.val4 <= 50 && Chlorophyll_a.val4 > 35, 'green': Chlorophyll_a.val4 > 50}"
+              <input type="text" name="Chlorophyll_a.bottom20m" [(ngModel)]="Chlorophyll_a.bottom20m" [ngClass]="{'red': Chlorophyll_a.bottom20m <= 35, 'orange': Chlorophyll_a.bottom20m <= 50 && Chlorophyll_a.bottom20m > 35, 'green': Chlorophyll_a.bottom20m > 50}"
                 class="form-control" />
-              <input type="text" name="Chlorophyll_a.val5" [(ngModel)]="Chlorophyll_a.val5" [ngClass]="{'red': Chlorophyll_a.val5 <= 35, 'orange': Chlorophyll_a.val5 <= 50 && Chlorophyll_a.val5 > 35, 'green': Chlorophyll_a.val5 > 50}"
+              <input type="text" name="Chlorophyll_a.bottom25m" [(ngModel)]="Chlorophyll_a.bottom25m" [ngClass]="{'red': Chlorophyll_a.bottom25m <= 35, 'orange': Chlorophyll_a.bottom25m <= 50 && Chlorophyll_a.bottom25m > 35, 'green': Chlorophyll_a.bottom25m > 50}"
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -177,9 +195,8 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': sechiDiscSurface.val1 <= 35, 'orange': sechiDiscSurface.val1 <= 50 && sechiDiscSurface.val1 > 35, 'green': sechiDiscSurface.val1 > 50}"
-                name="sechiDiscSurface.val1" [(ngModel)]="sechiDiscSurface.val1" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': sechiDisc.surfaceValue <= 35, 'orange': sechiDisc.surfaceValue <= 50 && sechiDisc.surfaceValue > 35, 'green': sechiDisc.surfaceValue > 50}"
+                name="sechiDisc.surfaceValue" [(ngModel)]="sechiDisc.surfaceValue" />
               <span class="pad l-15">Feet (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
@@ -194,7 +211,7 @@
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)">Save</button>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
             </div>
           </div>

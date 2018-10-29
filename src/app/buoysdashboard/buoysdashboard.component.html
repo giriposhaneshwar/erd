@@ -16,12 +16,13 @@
       <div class="silk-card-title d-flex justify-content-between">
         <h4>BUOYS Information</h4>
       </div>
-      <!-- {{ngDatarows | json}}-->
+      <!-- {{ngDatarows | json}}
+      {{ date | date }}-->
       <div class="widget-body">
         <mat-card style="padding: 0;">
           <ngx-datatable class="material sorting customTable" [rows]="restItems" [sortType]="'multi'" [columnMode]="'force'"
             [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
-            <ngx-datatable-column name="SiteName"></ngx-datatable-column>
+            <ngx-datatable-column name="SiteId"></ngx-datatable-column>
             <ngx-datatable-column name="Temparature" [cellClass]="getCellClass">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
@@ -38,7 +39,7 @@
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Battery">
+            <ngx-datatable-column name="Battary">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
@@ -58,13 +59,13 @@
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="DOmgl">
+            <ngx-datatable-column name="DOxy">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="pH">
+            <ngx-datatable-column name="PH">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
@@ -160,7 +161,7 @@
       </label>
     </div>
     <div class="text-center">
-      <button class="btn btn-primary">Apply</button>
+      <button class="btn btn-primary" (click)="chooseDatesPeriod(fromDateFilter,toDateFilter)">Apply</button>
     </div>
 
   </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { AppStorageService } from 'app/appConfiguration/app-config.service';
+import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 
 @Component({
   selector: 'ms-micro-biology',
@@ -8,11 +10,22 @@ import { Router } from "@angular/router";
 })
 export class MicroBiologyComponent implements OnInit {
 
-  totalColiform:any=  { val1: 65  };
-  enterococci:any= { val1: 65  };
-  fecalColiform:any= { val1: 65  };
+  dataEntry: any;
+  dataEntryKey: string = "dataEntry";
+  totalColiformComponentKey: string = "Total_Coliform";
+  enterococciComponentKey: string = "Enterococci";
+  fecalColiformComponentKey: string = "Fecal_Coliform";
 
-  constructor(public route: Router) { }
+  totalColiform: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
+  enterococci: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
+  fecalColiform: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
+
+
+  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+    this.loadMQLData();
+    this.loadTestMethodData();
+    this.loaadExtractionMethodData();
+  }
 
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);
@@ -21,7 +34,14 @@ export class MicroBiologyComponent implements OnInit {
     this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
     console.log("At organic-chemistry Screen");
   }
-  siteDateSave() {
+  microBiologySiteDateSave(totalColiform, enterococci, fecalColiform) {
+
+    this.dataEntry[this.totalColiformComponentKey] = totalColiform;
+    this.dataEntry[this.enterococciComponentKey] = enterococci;
+    this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
+
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    console.log("At organicChemistrySiteDetails Screen");
     console.log("At Save Screen");
   }
   siteDateNext() {
@@ -30,6 +50,64 @@ export class MicroBiologyComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get DAta
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if (localData.status == "success") {
+      this.dataEntry = localData.data;
+      if (this.dataEntry.hasOwnProperty(this.totalColiformComponentKey)) {
+        this.totalColiform = this.dataEntry[this.totalColiformComponentKey];
+        this.enterococci = this.dataEntry[this.enterococciComponentKey];
+        this.fecalColiform = this.dataEntry[this.fecalColiformComponentKey];
+
+      } else {
+        // this.dataEntry = {};
+        this.dataEntry[this.totalColiformComponentKey] = this.totalColiform;
+        this.dataEntry[this.enterococciComponentKey] = this.enterococci;
+        this.dataEntry[this.fecalColiformComponentKey] = this.fecalColiform;
+
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+      }
+    } else {
+      // this.dataEntry = {};
+      this.dataEntry[this.totalColiformComponentKey] = this.totalColiform;
+      this.dataEntry[this.enterococciComponentKey] = this.enterococci;
+      this.dataEntry[this.fecalColiformComponentKey] = this.fecalColiform;
+    }
+    console.log("Data Entry", this.dataEntryKey, this.dataEntry);
+
+  }
+
+  mwqDetails = [];
+  mwqResp: any;
+
+  testMethodDetails = [];
+  testMethodResp: any;
+
+  extractionMethodDetails = [];
+  extractionMethodResp: any;
+
+  loadMQLData() {
+    this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
+      this.mwqResp = resp;
+      this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
+      console.log("----mwqDetails----", this.mwqDetails);
+    });
+  }
+
+  loadTestMethodData() {
+    this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
+      this.testMethodResp = resp;
+      this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
+      console.log("----testMethodDetails----", this.testMethodDetails);
+    });
+  }
+
+  loaadExtractionMethodData() {
+    this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
+      this.extractionMethodResp = resp;
+      this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
+      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
+    });
   }
 
 }

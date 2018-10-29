@@ -26,26 +26,29 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
-                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_totalPhosp.val1 <= 35, 'orange': oc_totalPhosp.val1 <= 50 && oc_totalPhosp.val1 > 35, 'green': oc_totalPhosp.val1 > 50}"
-                  name="oc_totalPhosp.val1" [(ngModel)]="oc_totalPhosp.val1" />
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_totalPhosp.surfaceValue <= 35, 'orange': oc_totalPhosp.surfaceValue <= 50 && oc_totalPhosp.surfaceValue > 35, 'green': oc_totalPhosp.surfaceValue > 50}"
+                  name="oc_totalPhosp.surfaceValue" [(ngModel)]="oc_totalPhosp.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[50, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_totalPhosp.mql" name="oc_totalPhospMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.extractionMethod" name="oc_totalPhospExtractionMethod">
                 <option>Extraction Method</option>
+                <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.testMethod" name="oc_totalPhospTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -53,26 +56,29 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">TPH</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
-                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_tph.val1 <= 35, 'orange': oc_tph.val1 <= 50 && oc_tph.val1 > 35, 'green': oc_tph.val1 > 50}"
-                  name="oc_tph.val1" [(ngModel)]="oc_tph.val1" />
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': oc_tph.surfaceValue <= 35, 'orange': oc_tph.surfaceValue <= 50 && oc_tph.surfaceValue > 35, 'green': oc_tph.surfaceValue > 50}"
+                  name="oc_tph.surfaceValue" [(ngModel)]="oc_tph.surfaceValue" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_tph.mql" name="oc_tphMql">
                 <option>Select MQL</option>
+                <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.extractionMethod" name="oc_tphExtractionMethod">
                 <option>Extraction Method</option>
+                <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.testMethod" name="oc_tphTestMethod">
                 <option>Select Test Method</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
@@ -81,7 +87,7 @@
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Save</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="organicChemistrySiteDetailsSave(oc_totalPhosp,oc_tph)">Save</button>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
             </div>
           </div>
