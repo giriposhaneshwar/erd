@@ -48,13 +48,13 @@ export class QcHistoricalGraphDirective implements OnInit {
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     let x = scale.scaleLinear().rangeRound([0, w]);
     let y = scale.scaleLinear().rangeRound([h, 0]);
-    let line = d3.svg
+    let line = d3
       .line()
       .x(function(d) {
-        return x();
+        return x(d.x);
       })
       .y(function(d) {
-        return y();
+        return y(d.y);
       });
     x.domain(
       d3.extent(metaData, function(d) {
