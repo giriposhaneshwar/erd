@@ -1,17 +1,17 @@
-import { Directive, ElementRef } from "@angular/core";
+import { Directive, ElementRef, OnInit } from "@angular/core";
 import * as d3 from "d3";
+import * as scale from "d3-scale";
+
 import * as $ from "jquery/dist/jquery.min.js";
 declare var $: any;
 
 @Directive({
   selector: "[msHistoricalGraph]"
 })
-export class HistoricalGraphDirective {
-  element: ElementRef;
+export class HistoricalGraphDirective implements OnInit {
+  element: HTMLInputElement;
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
-    this.draw();
-    console.log("ele", this.element);
   }
   draw() {
     let ele = $(this.element);
@@ -19,7 +19,7 @@ export class HistoricalGraphDirective {
       .select(this.element)
       .append("div")
       .attr("class", "graphHolder");
-    console.log("Width", $(".graphHolder"));
+    console.log("Width ", $(".graphHolder"));
     let canvas = graphHolder.append("svg");
     let graphData =
       ele[0].attributes.graphData.value != undefined
@@ -39,23 +39,25 @@ export class HistoricalGraphDirective {
     let g = canvas
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    let x = d3.scaleLinear().rangeRound([0, w]);
-    let y = d3.scaleLinear().rangeRound([h, 0]);
-    let line = d3
+    let x = scale.scaleLinear().rangeRound([0, w]);
+    let y = scale.scaleLinear().rangeRound([h, 0]);
+    let line = d3.svg
       .line()
-      .x(function (d) {
-        return x(d.x);
+      .x(function(d) {
+        console.log("Line X Axis", d);
+        return x();
       })
-      .y(function (d) {
-        return y(d.y);
+      .y(function(d) {
+        console.log("Line Y Axis", d);
+        return y();
       });
     x.domain(
-      d3.extent(metaData, function (d) {
+      d3.extent(metaData, function(d) {
         return d.x;
       })
     );
     y.domain(
-      d3.extent(metaData, function (d) {
+      d3.extent(metaData, function(d) {
         return d.y;
       })
     );
@@ -83,12 +85,12 @@ export class HistoricalGraphDirective {
       .attr("d", line);
   }
   generateMetaData(data) {
-    var xDiff = parseInt(d3.max(data) / data.length);
+    var xDiff = Math.round(d3.max(data) / data.length);
     var metaDataInner = [];
     var start = { x: 0, y: 0 };
     var end = { x: (data.length - 1) * xDiff, y: 0 };
     metaDataInner.push(start);
-    data.map(function (n, i) {
+    data.map(function(n, i) {
       metaDataInner.push({
         x: i * xDiff,
         y: n
@@ -99,4 +101,8 @@ export class HistoricalGraphDirective {
     return metaDataInner;
   }
 
+  ngOnInit() {
+    this.draw();
+    console.log("ele", this.element);
+  }
 }

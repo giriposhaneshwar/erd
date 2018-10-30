@@ -11,6 +11,7 @@ export class DataEntryComponent implements OnInit {
   radioGroup: any = null;
   excelFile: any;
   importUploadFiles: any;
+  excelFileinput: any;
   webService: any;
   uploadFileName: any;
   dataEntry: any;
@@ -21,8 +22,7 @@ export class DataEntryComponent implements OnInit {
       id: 1,
       location: "hyderabad"
     };
-    
-    
+
     // this.localStore.store.delete('user');
     // this.localStore.store.set("user", { id: 1, name: "test" });
   }
@@ -38,9 +38,13 @@ export class DataEntryComponent implements OnInit {
     this.radioGroup = null;
   }
 
-  uploadFile(data, selector) {
-    let files = document.getElementById(selector);
-    this.uploadFileName = files.files[0].name;
+  uploadFile(selector) {
+    let uploadedFile = document.getElementById(selector);
+    if(uploadedFile.hasOwnProperty('files')){
+      // this.uploadFileName = uploadedFile.files[0].name;
+    }else{
+      this.uploadFileName = "";
+    }
     this.excelFileinput = this.uploadFileName;
     /* if (files != undefined && files.files != undefined) {
       console.log("Uploaded File", files.files);
@@ -62,9 +66,9 @@ export class DataEntryComponent implements OnInit {
 
   ngOnInit() {
     let localData = this.localStore.store.get(this.dataEntryKey);
-    if(localData.status == "success"){
+    if (localData.status == "success") {
       this.dataEntry = localData.data;
-    }else{
+    } else {
       this.dataEntry = {};
     }
   }

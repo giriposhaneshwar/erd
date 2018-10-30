@@ -155,4 +155,8 @@ export class SiteDataComponent implements OnInit {
     });
   }
 
+  submitSiteData(data) {
+    console.log("Site DAta Form Submited", data);
+  }
+
 }

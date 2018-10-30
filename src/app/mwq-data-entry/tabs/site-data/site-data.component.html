@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <!-- <form class="form" [formGroup]="siteDataform"> -->
-    <form class="form">
+  <form class="form" (ngSubmit)="f.form.valid && submitSiteData(siteData)" #f="ngForm">
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
       <div class="panel panel-primary ">
         <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>
@@ -17,10 +17,10 @@
                     You must include a first name.
                   </small>
                 </mat-form-field> -->
-                <input type="text" [(ngModel)]="siteData.projectName" class="form-control text-left"
-                  placeholder="SMPL31072018-001" name="projectName" />
-               
-                
+                <input type="text" [(ngModel)]="siteData.projectName" class="form-control text-left" placeholder="SMPL31072018-001"
+                  name="projectName" />
+
+
               </div>
 
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>
