@@ -26,14 +26,14 @@ export class QcHistoricalGraphDirective implements OnInit {
       .select(this.element)
       .append("div")
       .attr("class", "graphHolder");
-    console.log("Width ", $(".graphHolder"));
+    //console.log("Width ", $(".graphHolder"));
     let canvas = graphHolder.append("svg");
     let graphData =
       ele[0].attributes.graphData.value != undefined
         ? JSON.parse(ele[0].attributes.graphData.value)
         : [];
     let metaData = this.generateMetaData(graphData);
-    console.log("Graph Data", graphData, metaData);
+    //console.log("Graph Data", graphData, metaData);
     /* Generating Graph */
     var w = 150,
       h = 30,
@@ -67,6 +67,7 @@ export class QcHistoricalGraphDirective implements OnInit {
       })
     );
 
+
     /*g.append("g")
          .attr("transform", "translate(0," + h + ")")
          .call(d3.axisBottom(x))
@@ -90,7 +91,6 @@ export class QcHistoricalGraphDirective implements OnInit {
       .attr("stroke-width", 2)
       .attr("d", line);
   }
-
   generateMetaData(data) {
     var xDiff = Math.round(d3.max(data) / data.length);
     var metaDataInner = [];
@@ -104,7 +104,7 @@ export class QcHistoricalGraphDirective implements OnInit {
       });
     });
     metaDataInner.push(end);
-    console.log(metaDataInner);
+   // console.log(metaDataInner);
     return metaDataInner;
   }
 }

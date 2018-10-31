@@ -48,17 +48,35 @@ export class SiteDataComponent implements OnInit {
   sampleByResp: any;
   eventTypeResp: any;
 
-  public siteDataform: FormGroup;
-  
+  //public siteDataform: FormGroup;
+//   isValidFormSubmitted = null;
+
+//   siteDataform = new FormGroup({
+//     projectName: new FormControl('', [Validators.required])
+   
+//  });
+
   siteDateEdit() {
     console.log("At Edit Screen");
   }
   siteDetailsSave(siteDetailsdata, sampleInfoData) {
+
+    // this.isValidFormSubmitted = false;
+    //  if (this.siteDataform.invalid) {
+    //     return;
+    //  }
+    //  this.isValidFormSubmitted = true;
+
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }
+
+//   get projectName() {
+//     return this.siteDataform.get('projectName');
+//  }
+
   siteDateNext() {
     this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
     console.log("At Next Screen");
@@ -101,10 +119,10 @@ export class SiteDataComponent implements OnInit {
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
     //this.selectedEventType = [this.eventTypeDetails[0]];
 
-    this.siteDataform = this.fb.group({
-      //projectName: new FormControl({ value: '' }, Validators.compose([Validators.required])),
-      projectName: ['', Validators.required]
-    });
+    // this.siteDataform = this.fb.group({
+    //   //projectName: new FormControl({ value: '' }, Validators.compose([Validators.required])),
+    //   projectName: ['', Validators.required]
+    // });
   }
 
   loadEventTypeData() {

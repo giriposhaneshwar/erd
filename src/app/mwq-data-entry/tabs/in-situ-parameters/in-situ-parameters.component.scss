@@ -29,6 +29,10 @@
             background-color: #c00;
             color: #fff;
         }
+        &.white {
+            background-color: #fff;
+            color: #000;
+        }
     }
 }
 
@@ -64,6 +68,10 @@
             background-color: #c00;
             color: #fff;
         }
+        &.white {
+            background-color: #fff;
+            color: #000;
+        }
     }
 }
 
@@ -98,5 +106,32 @@
             background-color: #c00;
             color: #fff;
         }
+        &.white {
+            background-color: #fff;
+            color: #000;
+        }
     }
 }
+
+
+
+input:invalid {
+    background-color: #ffdddd;
+  }
+  
+//   form:invalid {
+//     border: 5px solid #ffdddd;
+//   }
+  
+  input:valid {
+    background-color: #ddffdd;
+  }
+  
+//   form:valid {
+//     border: 5px solid #ddffdd;
+//   }
+    
+  
+  input:required:invalid {
+    border-color: #C00000;
+  }

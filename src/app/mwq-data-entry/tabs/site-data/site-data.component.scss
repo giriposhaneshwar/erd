@@ -109,4 +109,22 @@ border: 1px solid #303030;
   margin-top: 1%;
 }
 
+input:invalid {
+  background-color: #ffffff;
+}
+input:valid {
+  background-color: #ffffff;
+}
+input:required:invalid {
+  border-color: #C00000;
+}
 
+select:valid {
+  background-color: #ffffff;
+}
+select:invalid {
+  border-color: #C00000;
+}
+select:required:invalid {
+  border-color: #C00000;
+}

@@ -19,14 +19,14 @@ export class HistoricalGraphDirective implements OnInit {
       .select(this.element)
       .append("div")
       .attr("class", "graphHolder");
-    console.log("Width ", $(".graphHolder"));
+    //console.log("Width ", $(".graphHolder"));
     let canvas = graphHolder.append("svg");
     let graphData =
       ele[0].attributes.graphData.value != undefined
         ? JSON.parse(ele[0].attributes.graphData.value)
         : [];
     let metaData = this.generateMetaData(graphData);
-    console.log("Graph Data", graphData, metaData);
+    //console.log("Graph Data", graphData, metaData);
     /* Generating Graph */
     var w = 150,
       h = 30,
@@ -44,11 +44,11 @@ export class HistoricalGraphDirective implements OnInit {
     let line = d3
       .line()
       .x(function(d) {
-        console.log("Line X Axis", d);
+       // console.log("Line X Axis", d);
         return x(d.x);
       })
       .y(function(d) {
-        console.log("Line Y Axis", d);
+       // console.log("Line Y Axis", d);
         return y(d.y);
       });
     x.domain(
@@ -74,7 +74,6 @@ export class HistoricalGraphDirective implements OnInit {
          .attr("y", 6)
          .attr("dy", "0.71em")
          .attr("text-anchor", "end");*/
-
     g.append("path")
       .datum(metaData)
       .attr("fill", "#4682b422")
@@ -97,12 +96,12 @@ export class HistoricalGraphDirective implements OnInit {
       });
     });
     metaDataInner.push(end);
-    console.log(metaDataInner);
+    //console.log(metaDataInner);
     return metaDataInner;
   }
 
   ngOnInit() {
     this.draw();
-    console.log("ele", this.element);
+    //console.log("ele", this.element);
   }
 }

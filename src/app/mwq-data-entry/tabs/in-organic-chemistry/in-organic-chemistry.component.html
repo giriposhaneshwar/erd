@@ -11,7 +11,8 @@
         </div>
       </div>
       <!--<mat-divider></mat-divider>-->
-      <form class="form">
+      <form class="form" name="form" (ngSubmit)="f.form.valid && inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury)"
+      #f="ngForm" novalidate>
         <div class="col-sm-12 col-xs-12 formTableSection">
           <div class="row formHeading">
             <div class="clearfix tbl tbl-per-15 text-center"></div>
@@ -24,22 +25,25 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Cadmium</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_cadmium.surfaceValue <= 35, 'orange': iocw_cadmium.surfaceValue <= 50 && iocw_cadmium.surfaceValue > 35, 'green': iocw_cadmium.surfaceValue > 50}"
-                name="iocw_cadmium.surfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_cadmium.surfaceValue == '','red': iocw_cadmium.surfaceValue <= 35, 'orange': iocw_cadmium.surfaceValue <= 50 && iocw_cadmium.surfaceValue > 35, 'green': iocw_cadmium.surfaceValue > 50}"
+                name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue" #iocw_cadmiumSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_cadmiumSurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cadmium.mql" name="iocw_cadmiumMql">
-                <option>Select MQL</option>
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cadmium.mql" name="iocw_cadmiumMql" #iocw_cadmiumMql="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && iocw_cadmiumMql.invalid }" required>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_cadmium.testMethod" name="iocw_cadmiumtestMethod">
-                <option>Select Test Method</option>
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_cadmium.testMethod" name="iocw_cadmiumtestMethod" #iocw_cadmiumtestMethod="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && iocw_cadmiumtestMethod.invalid }" required>
+                <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -48,22 +52,25 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_chromium.surfaceValue <= 35, 'orange': iocw_chromium.surfaceValue <= 50 && iocw_chromium.surfaceValue > 35, 'green': iocw_chromium.surfaceValue > 50}"
-                name="iocw_chromium.surfaceValue" [(ngModel)]="iocw_chromium.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_chromium.surfaceValue == '','red': iocw_chromium.surfaceValue <= 35, 'orange': iocw_chromium.surfaceValue <= 50 && iocw_chromium.surfaceValue > 35, 'green': iocw_chromium.surfaceValue > 50}"
+                name="iocw_chromiumSurfaceValue" [(ngModel)]="iocw_chromium.surfaceValue" #iocw_chromiumSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_chromium.mql" name="iocw_chromiumMql">
-                <option>Select MQL</option>
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_chromium.mql" name="iocw_chromiumMql" #iocw_chromiumMql="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumMql.invalid }" required>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_chromium.testMethod" name="iocw_chromiumTestMethod">
-                <option>Select Test Method</option>
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_chromium.testMethod" name="iocw_chromiumTestMethod" #iocw_chromiumTestMethod="ngModel"
+              [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumTestMethod.invalid }" required>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -72,8 +79,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_cobalt.surfaceValue <= 35, 'orange': iocw_cobalt.surfaceValue <= 50 && iocw_cobalt.surfaceValue > 35, 'green': iocw_cobalt.surfaceValue > 50}"
-                name="iocw_cobalt.surfaceValue" [(ngModel)]="iocw_cobalt.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_cobalt.surfaceValue == '','red': iocw_cobalt.surfaceValue <= 35, 'orange': iocw_cobalt.surfaceValue <= 50 && iocw_cobalt.surfaceValue > 35, 'green': iocw_cobalt.surfaceValue > 50}"
+                name="iocw_cobaltSurfaceValue" [(ngModel)]="iocw_cobalt.surfaceValue" #iocw_cobaltSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -81,13 +89,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cobalt.mql" name="iocw_cobaltMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_cobalt.testMethod" name="iocw_cobaltTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -96,8 +104,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_copper.surfaceValue <= 35, 'orange': iocw_copper.surfaceValue <= 50 && iocw_copper.surfaceValue > 35, 'green': iocw_copper.surfaceValue > 50}"
-                name="iocw_copper.surfaceValue" [(ngModel)]="iocw_copper.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_copper.surfaceValue == '','red': iocw_copper.surfaceValue <= 35, 'orange': iocw_copper.surfaceValue <= 50 && iocw_copper.surfaceValue > 35, 'green': iocw_copper.surfaceValue > 50}"
+                name="iocw_copperSurfaceValue" [(ngModel)]="iocw_copper.surfaceValue"  #iocw_copperSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_copperSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -105,13 +114,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_copper.mql" name="iocw_copperMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_copper.testMethod" name="iocw_coppertestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -121,8 +130,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_lead.surfaceValue <= 35, 'orange': iocw_lead.surfaceValue <= 50 && iocw_lead.surfaceValue > 35, 'green': iocw_lead.surfaceValue > 50}"
-                name="iocw_lead.surfaceValue" [(ngModel)]="iocw_lead.surfaceValue" />
+                <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_lead.surfaceValue == '','red': iocw_lead.surfaceValue <= 35, 'orange': iocw_lead.surfaceValue <= 50 && iocw_lead.surfaceValue > 35, 'green': iocw_lead.surfaceValue > 50}"
+                name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue" #iocw_leadSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_leadSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -130,13 +140,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_lead.mql" name="iocw_leadMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_lead.testMethod" name="iocw_leadtestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -146,8 +156,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_manganese.surfaceValue <= 35, 'orange': iocw_manganese.surfaceValue <= 50 && iocw_manganese.surfaceValue > 35, 'green': iocw_manganese.surfaceValue > 50}"
-                name="iocw_manganese.surfaceValue" [(ngModel)]="iocw_manganese.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_manganese.surfaceValue == '','red': iocw_manganese.surfaceValue <= 35, 'orange': iocw_manganese.surfaceValue <= 50 && iocw_manganese.surfaceValue > 35, 'green': iocw_manganese.surfaceValue > 50}"
+                name="iocw_manganeseSurfaceValue" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_manganeseSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -155,13 +166,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_manganese.mql" name="iocw_manganeseMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_manganese.testMethod" name="iocw_manganeseTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -170,8 +181,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_nickel.surfaceValue <= 35, 'orange': iocw_nickel.surfaceValue <= 50 && iocw_nickel.surfaceValue > 35, 'green': iocw_nickel.surfaceValue > 50}"
-                name="iocw_nickel.surfaceValue" [(ngModel)]="iocw_nickel.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_nickel.surfaceValue == '','red': iocw_nickel.surfaceValue <= 35, 'orange': iocw_nickel.surfaceValue <= 50 && iocw_nickel.surfaceValue > 35, 'green': iocw_nickel.surfaceValue > 50}"
+                name="iocw_nickelSurfaceValue" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -179,13 +191,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_nickel.mql" name="iocw_nickelMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_nickel.testMethod" name="iocw_nickelTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -194,8 +206,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_zinc.surfaceValue <= 35, 'orange': iocw_zinc.surfaceValue <= 50 && iocw_zinc.surfaceValue > 35, 'green': iocw_zinc.surfaceValue > 50}"
-                name="iocw_zinc.surfaceValue" [(ngModel)]="iocw_zinc.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_zinc.surfaceValue == '','red': iocw_zinc.surfaceValue <= 35, 'orange': iocw_zinc.surfaceValue <= 50 && iocw_zinc.surfaceValue > 35, 'green': iocw_zinc.surfaceValue > 50}"
+                name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue" #iocw_zincSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_zincSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -203,13 +216,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_zinc.mql" name="iocw_zincMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_zinc.testMethod" name="iocw_zincTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -218,8 +231,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_iron.surfaceValue <= 35, 'orange': iocw_iron.surfaceValue <= 50 && iocw_iron.surfaceValue > 35, 'green': iocw_iron.surfaceValue > 50}"
-                name="iocw_iron.surfaceValue" [(ngModel)]="iocw_iron.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_iron.surfaceValue == '','red': iocw_iron.surfaceValue <= 35, 'orange': iocw_iron.surfaceValue <= 50 && iocw_iron.surfaceValue > 35, 'green': iocw_iron.surfaceValue > 50}"
+                name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue" #iocw_ironSurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_ironSurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -227,13 +241,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_iron.mql" name="iocw_ironMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_iron.testMethod" name="iocw_ironTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -242,8 +256,9 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocw_mercury.surfaceValue <= 35, 'orange': iocw_mercury.surfaceValue <= 50 && iocw_mercury.surfaceValue > 35, 'green': iocw_mercury.surfaceValue > 50}"
-                name="iocw_mercury.surfaceValue" [(ngModel)]="iocw_mercury.surfaceValue" />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocw_mercury.surfaceValue == '','red': iocw_mercury.surfaceValue <= 35, 'orange': iocw_mercury.surfaceValue <= 50 && iocw_mercury.surfaceValue > 35, 'green': iocw_mercury.surfaceValue > 50}"
+                name="iocw_mercurySurfaceValue" [(ngModel)]="iocw_mercury.surfaceValue" #iocw_mercurySurfaceValue="ngModel"
+                [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }" required/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -251,13 +266,13 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_mercury.mql" name="iocw_mercuryMql">
-                <option>Select MQL</option>
+                <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_mercury.testMethod" name="iocw_mercuryTestMethod">
-                <option>Select Test Method</option>
+               <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
@@ -291,8 +306,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Cadmium</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_cadmium.surfaceValue <= 35, 'orange': iocs_cadmium.surfaceValue <= 50 && iocs_cadmium.surfaceValue > 35, 'green': iocs_cadmium.surfaceValue > 50}"
-                        name="iocs_cadmium.surfaceValue" [(ngModel)]="iocs_cadmium.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_cadmium.surfaceValue == '','red': iocs_cadmium.surfaceValue <= 35, 'orange': iocs_cadmium.surfaceValue <= 50 && iocs_cadmium.surfaceValue > 35, 'green': iocs_cadmium.surfaceValue > 50}"
+                        name="iocs_cadmiumSurfaceValue" [(ngModel)]="iocs_cadmium.surfaceValue" #iocw_mercurySurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -300,13 +316,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cadmium.mql" name="iocs_cadmiumMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_cadmium.testMethod" name="iocs_cadmiumTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -315,8 +331,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_chromium.surfaceValue <= 35, 'orange': iocs_chromium.surfaceValue <= 50 && iocs_chromium.surfaceValue > 35, 'green': iocs_chromium.surfaceValue > 50}"
-                        name="iocs_chromium.surfaceValue" [(ngModel)]="iocs_chromium.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_chromium.surfaceValue == '','red': iocs_chromium.surfaceValue <= 35, 'orange': iocs_chromium.surfaceValue <= 50 && iocs_chromium.surfaceValue > 35, 'green': iocs_chromium.surfaceValue > 50}"
+                        name="iocs_chromiumSurfaceValue" [(ngModel)]="iocs_chromium.surfaceValue" #iocs_chromiumSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_chromiumSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -324,13 +341,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_chromium.mql" name="iocs_chromiumMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control"  [(ngModel)]="iocs_chromium.testMethod" name="iocs_chromiumTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -339,8 +356,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_cobalt.surfaceValue <= 35, 'orange': iocs_cobalt.surfaceValue <= 50 && iocs_cobalt.surfaceValue > 35, 'green': iocs_cobalt.surfaceValue > 50}"
-                        name="iocs_cobalt.surfaceValue" [(ngModel)]="iocs_cobalt.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_cobalt.surfaceValue == '','red': iocs_cobalt.surfaceValue <= 35, 'orange': iocs_cobalt.surfaceValue <= 50 && iocs_cobalt.surfaceValue > 35, 'green': iocs_cobalt.surfaceValue > 50}"
+                        name="iocs_cobaltSurfaceValue" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_cobaltSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -348,13 +366,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cobalt.mql" name="iocs_cobaltMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control"  [(ngModel)]="iocs_cobalt.testMethod" name="iocs_cobaltTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -363,8 +381,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_copper.surfaceValue <= 35, 'orange': iocs_copper.surfaceValue <= 50 && iocs_copper.surfaceValue > 35, 'green': iocs_copper.surfaceValue > 50}"
-                        name="iocs_copper.surfaceValue" [(ngModel)]="iocs_copper.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_copper.surfaceValue == '','red': iocs_copper.surfaceValue <= 35, 'orange': iocs_copper.surfaceValue <= 50 && iocs_copper.surfaceValue > 35, 'green': iocs_copper.surfaceValue > 50}"
+                        name="iocs_copperSurfaceValue" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_copperSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -372,13 +391,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_copper.mql" name="iocs_copperMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_copper.testMethod" name="iocs_copperTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -388,8 +407,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_lead.surfaceValue <= 35, 'orange': iocs_lead.surfaceValue <= 50 && iocs_lead.surfaceValue > 35, 'green': iocs_lead.surfaceValue > 50}"
-                        name="iocs_lead.surfaceValue" [(ngModel)]="iocs_lead.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_lead.surfaceValue == '','red': iocs_lead.surfaceValue <= 35, 'orange': iocs_lead.surfaceValue <= 50 && iocs_lead.surfaceValue > 35, 'green': iocs_lead.surfaceValue > 50}"
+                        name="iocs_leadSurfaceValue" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_leadSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -397,13 +417,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_lead.mql" name="iocs_leadMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_lead.testMethod" name="iocs_leadTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -413,8 +433,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_manganese.surfaceValue <= 35, 'orange': iocs_manganese.surfaceValue <= 50 && iocs_manganese.surfaceValue > 35, 'green': iocs_manganese.surfaceValue > 50}"
-                        name="iocs_manganese.surfaceValue" [(ngModel)]="iocs_manganese.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_manganese.surfaceValue == '','red': iocs_manganese.surfaceValue <= 35, 'orange': iocs_manganese.surfaceValue <= 50 && iocs_manganese.surfaceValue > 35, 'green': iocs_manganese.surfaceValue > 50}"
+                        name="iocs_manganeseSurfaceValue" [(ngModel)]="iocs_manganese.surfaceValue" #iocs_manganeseSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_manganeseSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -422,13 +443,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_manganese.mql" name="iocs_manganeseMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_manganese.testMethod" name="iocs_manganeseTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -437,8 +458,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_nickel.surfaceValue <= 35, 'orange': iocs_nickel.surfaceValue <= 50 && iocs_nickel.surfaceValue > 35, 'green': iocs_nickel.surfaceValue > 50}"
-                        name="iocs_nickel.surfaceValue" [(ngModel)]="iocs_nickel.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_nickel.surfaceValue == '','red': iocs_nickel.surfaceValue <= 35, 'orange': iocs_nickel.surfaceValue <= 50 && iocs_nickel.surfaceValue > 35, 'green': iocs_nickel.surfaceValue > 50}"
+                        name="iocs_nickelSurfaceValue" [(ngModel)]="iocs_nickel.surfaceValue" #iocs_nickelSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -446,13 +468,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_nickel.mql" name="iocs_nickelMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_nickel.testMethod" name="iocs_nickelTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -461,8 +483,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_zinc.surfaceValue <= 35, 'orange': iocs_zinc.surfaceValue <= 50 && iocs_zinc.surfaceValue > 35, 'green': iocs_zinc.surfaceValue > 50}"
-                        name="iocs_zinc.surfaceValue" [(ngModel)]="iocs_zinc.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_zinc.surfaceValue == '','red': iocs_zinc.surfaceValue <= 35, 'orange': iocs_zinc.surfaceValue <= 50 && iocs_zinc.surfaceValue > 35, 'green': iocs_zinc.surfaceValue > 50}"
+                        name="iocs_zincSurfaceValue" [(ngModel)]="iocs_zinc.surfaceValue" #iocs_zincSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_zincSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -470,13 +493,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_zinc.mql" name="iocs_zincMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_zinc.testMethod" name="iocs_zincTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -485,8 +508,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_iron.surfaceValue <= 35, 'orange': iocs_iron.surfaceValue <= 50 && iocs_iron.surfaceValue > 35, 'green': iocs_iron.surfaceValue > 50}"
-                        name="iocs_iron.surfaceValue" [(ngModel)]="iocs_iron.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_iron.surfaceValue == '','red': iocs_iron.surfaceValue <= 35, 'orange': iocs_iron.surfaceValue <= 50 && iocs_iron.surfaceValue > 35, 'green': iocs_iron.surfaceValue > 50}"
+                        name="iocs_ironSurfaceValue" [(ngModel)]="iocs_iron.surfaceValue" #iocs_ironSurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_ironSurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -494,13 +518,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_iron.mql" name="iocs_ironMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_iron.testMethod" name="iocs_ironTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -509,8 +533,9 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'red': iocs_mercury.surfaceValue <= 35, 'orange': iocs_mercury.surfaceValue <= 50 && iocs_mercury.surfaceValue > 35, 'green': iocs_mercury.surfaceValue > 50}"
-                        name="iocs_mercury.surfaceValue" [(ngModel)]="iocs_mercury.surfaceValue" />
+                      <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': iocs_mercury.surfaceValue == '','red': iocs_mercury.surfaceValue <= 35, 'orange': iocs_mercury.surfaceValue <= 50 && iocs_mercury.surfaceValue > 35, 'green': iocs_mercury.surfaceValue > 50}"
+                        name="iocs_mercurySurfaceValue" [(ngModel)]="iocs_mercury.surfaceValue" #iocs_mercurySurfaceValue="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && iocs_mercurySurfaceValue.invalid }" required/>
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
@@ -518,13 +543,13 @@
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_mercury.mql" name="iocs_mercuryMql">
-                      <option>Select MQL</option>
+                      <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
                   </div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_mercury.testMethod" name="iocs_mercuryTestMethod">
-                      <option>Select Test Method</option>
+                     <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
                   </div>
@@ -539,7 +564,8 @@
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury)">Save</button>
+            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury)">Save</button> -->
+            <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
           </div>
         </div>
