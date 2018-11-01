@@ -108,7 +108,11 @@ border: 1px solid #303030;
   margin-left: 20%;
   margin-top: 1%;
 }
-
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #C00000;
+}
+/* 
 input:invalid {
   background-color: #ffffff;
 }
@@ -127,4 +131,4 @@ select:invalid {
 }
 select:required:invalid {
   border-color: #C00000;
-}
+} */

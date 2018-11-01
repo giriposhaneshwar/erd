@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <!-- <form class="form" [formGroup]="siteDataform" (ngSubmit)="siteDetailsSave(siteData,sampleInformation)"> -->
-  <form class="form" name="form" (ngSubmit)="f.form.valid && siteDetailsSave(siteData,sampleInformation)" #f="ngForm"
-    novalidate>
+  <form name="form" (ngSubmit)="f.form.valid && siteDetailsSave()" #f="ngForm" novalidate>
     <!-- <form class="form" name="form"> -->
+ 
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
       <div class="panel panel-primary ">
         <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>
@@ -11,11 +11,15 @@
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Project Name</div>
               <div class="clearfix tbl tbl-per-20 text-left ">
-                <input type="text" [(ngModel)]="siteData.projectName" class="form-control text-left" placeholder="SMPL31072018-001"
-                  name="projectName" #projectName="ngModel" [ngClass]="{ 'is-valid': f.submitted && projectName.invalid }"
-                  required />
+                <input  type="text" 
+                        [(ngModel)]="siteData.projectName" 
+                        class="form-control text-left" 
+                        placeholder="SMPL31072018-001"
+                        name="projectName" 
+                        #projectName="ngModel" 
+                        [ngClass]="{'ng-invalid': (f.submitted && projectName.invalid) }"
+                        required />
               </div>
-
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteData.siteCategory" name="category"
@@ -129,10 +133,10 @@
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
       <div class="row text-right">
         <div class="col-xs-12 col-sm-12">
-          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
-          <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
+          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+          <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Save</button>
           <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDetailsSave(siteData,sampleInformation)">Save</button> -->
-          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
         </div>
       </div>
     </div>
