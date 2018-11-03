@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <!-- <form class="form" [formGroup]="siteDataform" (ngSubmit)="siteDetailsSave(siteData,sampleInformation)"> -->
-  <form name="form" (ngSubmit)="f.form.valid && siteDetailsSave()" #f="ngForm" novalidate>
+  <form name="form" (ngSubmit)="f.form.valid && siteDetailsSave(siteData,sampleInformation)" #f="ngForm" novalidate>
     <!-- <form class="form" name="form"> -->
  
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
@@ -17,7 +17,7 @@
                         placeholder="SMPL31072018-001"
                         name="projectName" 
                         #projectName="ngModel" 
-                        [ngClass]="{'ng-invalid': (f.submitted && projectName.invalid) }"
+                        [ngClass]="{'is-invalid': (f.submitted && projectName.invalid) }"
                         required />
               </div>
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>

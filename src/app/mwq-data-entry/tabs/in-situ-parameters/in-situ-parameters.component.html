@@ -32,18 +32,17 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Temperature</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': temperature.surfaceValue == '','red': temperature.surfaceValue <= 35, 'orange': temperature.surfaceValue <= 50 && temperature.surfaceValue > 35, 'green': temperature.surfaceValue > 50}"
-                name="temperatureSurfaceVal" [(ngModel)]="temperature.surfaceValue" #temperatureSurfaceVal="ngModel"
-                [ngClass]="{ 'has': f.submitted && temperatureSurfaceVal.invalid }" required />
+              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 'white': temperature.surfaceValue == '','red': temperature.surfaceValue <= 35, 'orange': temperature.surfaceValue <= 50 && temperature.surfaceValue > 35, 'green': temperature.surfaceValue > 50}"
+                name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" required />
               <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]">
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': temperature.bottomValue == '','red': temperature.bottomValue <= 35, 'orange': temperature.bottomValue <= 50 && temperature.bottomValue > 35, 'green': temperature.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureBottomVal.invalid),'white': temperature.bottomValue == '','red': temperature.bottomValue <= 35, 'orange': temperature.bottomValue <= 50 && temperature.bottomValue > 35, 'green': temperature.bottomValue > 50}"
                 name="temperatureBottomVal" [(ngModel)]="temperature.bottomValue" #temperatureBottomVal="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && temperatureBottomVal.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
@@ -62,19 +61,18 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <!-- <span><input type="text" class="form-control tbl tbl-per-30" placeholder="45" /></span> -->
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': conductivity.surfaceValue == '','red': conductivity.surfaceValue <= 35, 'orange': conductivity.surfaceValue <= 50 && conductivity.surfaceValue > 35, 'green': conductivity.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivitySurfaceVal.invalid),'white': conductivity.surfaceValue == '','red': conductivity.surfaceValue <= 35, 'orange': conductivity.surfaceValue <= 50 && conductivity.surfaceValue > 35, 'green': conductivity.surfaceValue > 50}"
                 name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" #conductivitySurfaceVal="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && conductivitySurfaceVal.invalid }" required />
+                required />
 
               <span class="pad l-15">mS/gm (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': conductivity.bottomValue == '','red': conductivity.bottomValue <= 35, 'orange': conductivity.bottomValue <= 50 && conductivity.bottomValue > 35, 'green': conductivity.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),'white': conductivity.bottomValue == '','red': conductivity.bottomValue <= 35, 'orange': conductivity.bottomValue <= 50 && conductivity.bottomValue > 35, 'green': conductivity.bottomValue > 50}"
                 name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" #conductivityBottomVal="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && conductivityBottomVal.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" name="conductivity.bottom5m" [(ngModel)]="conductivity.bottom5m" [ngClass]="{'white': conductivity.bottom5m == '','red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
@@ -93,20 +91,15 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': salinity.surfaceValue == '','red': salinity.surfaceValue <= 35, 'orange': salinity.surfaceValue <= 50 && salinity.surfaceValue > 35, 'green': salinity.surfaceValue > 50}"
-                name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel" [ngClass]="{ 'is-invalid': f.submitted && conductivitySurfaceVal.invalid }"
-                required />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),'white': salinity.surfaceValue == '','red': salinity.surfaceValue <= 35, 'orange': salinity.surfaceValue <= 50 && salinity.surfaceValue > 35, 'green': salinity.surfaceValue > 50}"
+                name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel" required />
               <span class="pad l-15">ppt (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': salinity.bottomValue == '','red': salinity.bottomValue <= 35, 'orange': salinity.bottomValue <= 50 && salinity.bottomValue > 35, 'green': salinity.bottomValue > 50}"
-                name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && conductivitySurfaceVal.invalid }"
-                required />
-              <!-- <div *ngIf="f.submitted && salinityBottomValue.invalid" class="invalid-feedback">
-                <div *ngIf="salinityBottomValue.errors.required">Salinity Bottom value required</div>
-              </div> -->
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),'white': salinity.bottomValue == '','red': salinity.bottomValue <= 35, 'orange': salinity.bottomValue <= 50 && salinity.bottomValue > 35, 'green': salinity.bottomValue > 50}"
+                name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" name="salinity.bottom5m" [(ngModel)]="salinity.bottom5m" [ngClass]="{'white': salinity.bottom5m == '','red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
@@ -125,25 +118,14 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': pH.surfaceValue == '','red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
-                name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pHsurfaceValue.invalid }"
-                required />
-              <!-- <div *ngIf="f.submitted && pHsurfaceValue.invalid" class="invalid-feedback">
-                <div *ngIf="pHsurfaceValue.errors.required">pH Surface value required</div>
-              </div> -->
-
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHsurfaceValue.invalid),'white': pH.surfaceValue == '','red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
+                name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[75, 68, 20, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
-                name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && pHbottomValue.invalid }"
-                required />
-
-              <!-- <div *ngIf="f.submitted && pHbottomValue.invalid" class="invalid-feedback">
-                <div *ngIf="pHbottomValue.errors.required">pH Bottom value required</div>
-              </div> -->
-
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
+                name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required />
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
@@ -161,26 +143,19 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Dissolved O_*</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Dissolved_O_</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': dissolvedO.surfaceValue == '','red': dissolvedO.surfaceValue <= 35, 'orange': dissolvedO.surfaceValue <= 50 && dissolvedO.surfaceValue > 35, 'green': dissolvedO.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),'white': dissolvedO.surfaceValue == '','red': dissolvedO.surfaceValue <= 35, 'orange': dissolvedO.surfaceValue <= 50 && dissolvedO.surfaceValue > 35, 'green': dissolvedO.surfaceValue > 50}"
                 name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && dissolvedOsurfaceValue.invalid }" required />
-              <!-- <div *ngIf="f.submitted && dissolvedOsurfaceValue.invalid" class="invalid-feedback">
-                <div *ngIf="dissolvedOsurfaceValue.errors.required">Dissolved O_* Surface value required</div>
-              </div> -->
+                required />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': dissolvedO.bottomValue == '','red': dissolvedO.bottomValue <= 35, 'orange': dissolvedO.bottomValue <= 50 && dissolvedO.bottomValue > 35, 'green': dissolvedO.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),'white': dissolvedO.bottomValue == '','red': dissolvedO.bottomValue <= 35, 'orange': dissolvedO.bottomValue <= 50 && dissolvedO.bottomValue > 35, 'green': dissolvedO.bottomValue > 50}"
                 name="dissolvedObottomValue" [(ngModel)]="dissolvedO.bottomValue" #dissolvedObottomValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && dissolvedObottomValue.invalid }" required />
-
-              <!-- <div *ngIf="f.submitted && dissolvedObottomValue.invalid" class="invalid-feedback">
-                <div *ngIf="dissolvedObottomValue.errors.required">Dissolved O_* Bottom value required</div>
-              </div> -->
+                required />
             </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" name="dissolvedO.bottom5m" [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'white': dissolvedO.bottom5m == '','red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
@@ -199,19 +174,17 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': Chlorophyll_a.surfaceValue == '','red': Chlorophyll_a.surfaceValue <= 35, 'orange': Chlorophyll_a.surfaceValue <= 50 && Chlorophyll_a.surfaceValue > 35, 'green': Chlorophyll_a.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aSurfaceValue.invalid),'white': Chlorophyll_a.surfaceValue == '','red': Chlorophyll_a.surfaceValue <= 35, 'orange': Chlorophyll_a.surfaceValue <= 50 && Chlorophyll_a.surfaceValue > 35, 'green': Chlorophyll_a.surfaceValue > 50}"
                 name="Chlorophyll_aSurfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" #Chlorophyll_aSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && Chlorophyll_aSurfaceValue.invalid }" required />
-
+                required />
               <span class="pad l-15">ug/L (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': Chlorophyll_a.bottomValue == '','red': Chlorophyll_a.bottomValue <= 35, 'orange': Chlorophyll_a.bottomValue <= 50 && Chlorophyll_a.bottomValue > 35, 'green': Chlorophyll_a.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),'white': Chlorophyll_a.bottomValue == '','red': Chlorophyll_a.bottomValue <= 35, 'orange': Chlorophyll_a.bottomValue <= 50 && Chlorophyll_a.bottomValue > 35, 'green': Chlorophyll_a.bottomValue > 50}"
                 name="Chlorophyll_aBottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" #Chlorophyll_aBottomValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && Chlorophyll_aBottomValue.invalid }" required />
-
+                required />
             </div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid">
               <input type="text" name="Chlorophyll_a.bottom5m" [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'white': Chlorophyll_a.bottom5m == '','red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
@@ -226,28 +199,19 @@
                 class="form-control" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
-            <!-- <div *ngIf="f.submitted && Chlorophyll_aSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="Chlorophyll_aSurfaceValue.errors.required">Chlorophyll_a* Surface value required</div>
-            </div>
-            <div *ngIf="f.submitted && Chlorophyll_aBottomValue.invalid" class="invalid-feedback">
-              <div *ngIf="Chlorophyll_aBottomValue.errors.required">Chlorophyll_a* Bottom value required</div>
-            </div> -->
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': sechiDisc.surfaceValue == '','red': sechiDisc.surfaceValue <= 35, 'orange': sechiDisc.surfaceValue <= 50 && sechiDisc.surfaceValue > 35, 'green': sechiDisc.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && sechiDiscSurfaceValue.invalid),'white': sechiDisc.surfaceValue == '','red': sechiDisc.surfaceValue <= 35, 'orange': sechiDisc.surfaceValue <= 50 && sechiDisc.surfaceValue > 35, 'green': sechiDisc.surfaceValue > 50}"
                 name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && sechiDiscSurfaceValue.invalid }" required />
+                required />
               <span class="pad l-15">Feet (at Surface)</span>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-left"></div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid"></div>
             <div class="clearfix tbl tbl-per-15 text-center"></div>
-            <!-- <div *ngIf="f.submitted && sechiDiscSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="sechiDiscSurfaceValue.errors.required">Sechi Disc Surface value required</div>
-            </div> -->
           </div>
         </div>
         <div class="form-group mar t-20 col-xs-12 col-sm-12">

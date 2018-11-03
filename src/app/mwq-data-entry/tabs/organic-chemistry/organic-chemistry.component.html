@@ -27,28 +27,34 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': oc_totalPhosp.surfaceValue == '','red': oc_totalPhosp.surfaceValue <= 35, 'orange': oc_totalPhosp.surfaceValue <= 50 && oc_totalPhosp.surfaceValue > 35, 'green': oc_totalPhosp.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospSurfaceValue.invalid),'white': oc_totalPhosp.surfaceValue == '','red': oc_totalPhosp.surfaceValue <= 35, 'orange': oc_totalPhosp.surfaceValue <= 50 && oc_totalPhosp.surfaceValue > 35, 'green': oc_totalPhosp.surfaceValue > 50}"
                 name="oc_totalPhospSurfaceValue" [(ngModel)]="oc_totalPhosp.surfaceValue" #oc_totalPhospSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && oc_totalPhospSurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[50, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_totalPhosp.mql" name="oc_totalPhospMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_totalPhosp.mql" name="oc_totalPhospMql"
+                #oc_totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospMql.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.extractionMethod" name="oc_totalPhospExtractionMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.extractionMethod" name="oc_totalPhospExtractionMethod"
+                #oc_totalPhospExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospExtractionMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.testMethod" name="oc_totalPhospTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.testMethod" name="oc_totalPhospTestMethod"
+                #oc_totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -58,28 +64,32 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">TPH</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': oc_tph.surfaceValue == '','red': oc_tph.surfaceValue <= 35, 'orange': oc_tph.surfaceValue <= 50 && oc_tph.surfaceValue > 35, 'green': oc_tph.surfaceValue > 50}"
-                name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && oc_tphSurfaceValue.invalid }"
-                required />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_tphSurfaceValue.invalid),'white': oc_tph.surfaceValue == '','red': oc_tph.surfaceValue <= 35, 'orange': oc_tph.surfaceValue <= 50 && oc_tph.surfaceValue > 35, 'green': oc_tph.surfaceValue > 50}"
+                name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_tph.mql" name="oc_tphMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_tph.mql" name="oc_tphMql" #oc_tphMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && oc_tphMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.extractionMethod" name="oc_tphExtractionMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.extractionMethod" name="oc_tphExtractionMethod"
+                #oc_tphExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_tphExtractionMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.testMethod" name="oc_tphTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.testMethod" name="oc_tphTestMethod"
+                #oc_tphTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_tphTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>

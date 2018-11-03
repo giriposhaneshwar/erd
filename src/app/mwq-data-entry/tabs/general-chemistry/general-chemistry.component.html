@@ -25,255 +25,252 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': totalPhosp.surfaceValue == '','red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),'white': totalPhosp.surfaceValue == '','red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
                 name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" #totalPhospSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && totalPhospSurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql"
+                #totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalPhosp.testMethod" name="totalPhospTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalPhosp.testMethod" name="totalPhospTestMethod"
+                #totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && totalPhospSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="totalPhospSurfaceValue.errors.required">Total Phosp Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Nitrogen.</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': totalNitrogen.surfaceValue == '','red': totalNitrogen.surfaceValue <= 35, 'orange': totalNitrogen.surfaceValue <= 50 && totalNitrogen.surfaceValue > 35, 'green': totalNitrogen.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),'white': totalNitrogen.surfaceValue == '','red': totalNitrogen.surfaceValue <= 35, 'orange': totalNitrogen.surfaceValue <= 50 && totalNitrogen.surfaceValue > 35, 'green': totalNitrogen.surfaceValue > 50}"
                 name="totalNitrogenSurfaceValue" [(ngModel)]="totalNitrogen.surfaceValue" #totalNitrogenSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && totalNitrogenSurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql"
+                #totalNitrogenMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenMql.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalNitrogen.testMethod" name="totalNitrogenTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalNitrogen.testMethod" name="totalNitrogenTestMethod"
+                #totalNitrogenTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
-                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.testMethodName}}">{{testMethDet.testMethodName}}</option>
+                <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && totalNitrogenSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="totalNitrogenSurfaceValue.errors.required">Total Nitrogen Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': nitriteN.surfaceValue == '','red': nitriteN.surfaceValue <= 35, 'orange': nitriteN.surfaceValue <= 50 && nitriteN.surfaceValue > 35, 'green': nitriteN.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),'white': nitriteN.surfaceValue == '','red': nitriteN.surfaceValue <= 35, 'orange': nitriteN.surfaceValue <= 50 && nitriteN.surfaceValue > 35, 'green': nitriteN.surfaceValue > 50}"
                 name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && nitriteNsurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql" #nitriteNMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitriteN.testMethod" name="nitriteNTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitriteN.testMethod" name="nitriteNTestMethod"
+                #nitriteNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && nitriteNTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && nitriteNsurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="nitriteNsurfaceValue.errors.required">Nitrite-N Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': nitrateN.surfaceValue == '','red': nitrateN.surfaceValue <= 35, 'orange': nitrateN.surfaceValue <= 50 && nitrateN.surfaceValue > 35, 'green': nitrateN.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),'white': nitrateN.surfaceValue == '','red': nitrateN.surfaceValue <= 35, 'orange': nitrateN.surfaceValue <= 50 && nitrateN.surfaceValue > 35, 'green': nitrateN.surfaceValue > 50}"
                 name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && nitrateNsurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql" #nitrateNMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitrateN.testMethod" name="nitrateNTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="nitrateN.testMethod" name="nitrateNTestMethod"
+                #nitrateNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && nitrateNTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && nitrateNsurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="nitrateNsurfaceValue.errors.required">Nitrate-N Surface value required</div>
-            </div> -->
           </div>
 
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Silicate-Sl</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': silicateSl.surfaceValue == '','red': silicateSl.surfaceValue <= 35, 'orange': silicateSl.surfaceValue <= 50 && silicateSl.surfaceValue > 35, 'green': silicateSl.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),'white': silicateSl.surfaceValue == '','red': silicateSl.surfaceValue <= 35, 'orange': silicateSl.surfaceValue <= 50 && silicateSl.surfaceValue > 35, 'green': silicateSl.surfaceValue > 50}"
                 name="silicateSlsurfaceValue" [(ngModel)]="silicateSl.surfaceValue" #silicateSlsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && silicateSlsurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql"
+                #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="silicateSl.testMethod" name="silicateSlTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="silicateSl.testMethod" name="silicateSlTestMethod"
+                #silicateSlTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && silicateSlsurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="silicateSlsurfaceValue.errors.required">Silicate-Sl Surface value required</div>
-            </div> -->
           </div>
 
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': ammoniaN.surfaceValue == '','red': ammoniaN.surfaceValue <= 35, 'orange': ammoniaN.surfaceValue <= 50 && ammoniaN.surfaceValue > 35, 'green': ammoniaN.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),'white': ammoniaN.surfaceValue == '','red': ammoniaN.surfaceValue <= 35, 'orange': ammoniaN.surfaceValue <= 50 && ammoniaN.surfaceValue > 35, 'green': ammoniaN.surfaceValue > 50}"
                 name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && ammoniaNsurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql" #ammoniaNMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="ammoniaN.testMethod" name="ammoniaNTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="ammoniaN.testMethod" name="ammoniaNTestMethod"
+                #ammoniaNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && ammoniaNTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && ammoniaNsurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="ammoniaNsurfaceValue.errors.required">Ammonia-N Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': phosphateP.surfaceValue == '','red': phosphateP.surfaceValue <= 35, 'orange': phosphateP.surfaceValue <= 50 && phosphateP.surfaceValue > 35, 'green': phosphateP.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && phosphatePsurfaceValue.invalid),'white': phosphateP.surfaceValue == '','red': phosphateP.surfaceValue <= 35, 'orange': phosphateP.surfaceValue <= 50 && phosphateP.surfaceValue > 35, 'green': phosphateP.surfaceValue > 50}"
                 name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue" #phosphatePsurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && phosphatePsurfaceValue.invalid }" required />
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql"
+                #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="phosphateP.testMethod" name="phosphatePTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="phosphateP.testMethod" name="phosphatePTestMethod"
+                #phosphatePTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && phosphatePsurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="phosphatePsurfaceValue.errors.required">Phosphate-P Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">BOD</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': bod.surfaceValue == '','red': bod.surfaceValue <= 35, 'orange': bod.surfaceValue <= 50 && bod.surfaceValue > 35, 'green': bod.surfaceValue > 50}"
-                name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue" #bodSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && bodSurfaceValue.invalid }"
-                required />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),'white': bod.surfaceValue == '','red': bod.surfaceValue <= 35, 'orange': bod.surfaceValue <= 50 && bod.surfaceValue > 35, 'green': bod.surfaceValue > 50}"
+                name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue" #bodSurfaceValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql" #bodMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && bodMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="bod.testMethod" name="bodTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="bod.testMethod" name="bodTestMethod"
+                #bodTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && bodTestMethod.invalid)}" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && bodSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="bodSurfaceValue.errors.required">BOD Surface value required</div>
-            </div> -->
           </div>
 
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">TSS</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': tss.surfaceValue == '','red': tss.surfaceValue <= 35, 'orange': tss.surfaceValue <= 50 && tss.surfaceValue > 35, 'green': tss.surfaceValue > 50}"
-                name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue" #tssSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tssSurfaceValue.invalid }"
-                required />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && tssSurfaceValue.invalid),'white': tss.surfaceValue == '','red': tss.surfaceValue <= 35, 'orange': tss.surfaceValue <= 50 && tss.surfaceValue > 35, 'green': tss.surfaceValue > 50}"
+                name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue" #tssSurfaceValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql" #tssMql="ngModel"
+                [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="tss.testMethod" name="tssTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="tss.testMethod" name="tssTestMethod"
+                #tssTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && tssTestMethod.invalid)}" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
-            <!-- <div *ngIf="f.submitted && tssSurfaceValue.invalid" class="invalid-feedback">
-              <div *ngIf="tssSurfaceValue.errors.required">TSS Surface value required</div>
-            </div> -->
           </div>
         </div>
         <div class="form-group mar t-20 col-xs-12 col-sm-12">

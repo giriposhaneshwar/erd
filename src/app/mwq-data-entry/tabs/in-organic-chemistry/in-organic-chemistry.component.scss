@@ -74,23 +74,27 @@
     }
 }
 
-input:invalid {
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #C00000;
+}
+/*
+ input:invalid {
     background-color: #ffdddd;
+}
+  
+form:invalid {
+    border: 5px solid #ffdddd;
   }
   
-//   form:invalid {
-//     border: 5px solid #ffdddd;
-//   }
-  
-  input:valid {
+input:valid {
     background-color: #ddffdd;
   }
   
-//   form:valid {
-//     border: 5px solid #ddffdd;
-//   }
-    
-  
-  input:required:invalid {
-    border-color: #C00000;
+form:valid {
+    border: 5px solid #ddffdd;
   }
+    
+input:required:invalid {
+    border-color: #C00000;
+  } */

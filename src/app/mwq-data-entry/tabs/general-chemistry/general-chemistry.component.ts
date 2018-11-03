@@ -13,12 +13,12 @@ export class GeneralChemistryComponent implements OnInit {
   dataEntry: any;
   dataEntryKey: string = "dataEntry";
   totalPhospComponentKey: string = "TotalPhosp";
-  totalNitrogenComponentKey: string = "Total-Nitrogen";
-  nitriteNComponentKey: string = "Nitrite-N";
-  nitrateNComponentKey: string = "Nitrate-N";
-  silicateSlComponentKey: string = "Silicate-Sl";
-  ammoniaNComponentKey: string = "Ammonia-N";
-  phosphatePComponentKey: string = "Phosphate-P";
+  totalNitrogenComponentKey: string = "Total_Nitrogen";
+  nitriteNComponentKey: string = "Nitrite_N";
+  nitrateNComponentKey: string = "Nitrate_N";
+  silicateSlComponentKey: string = "Silicate_Sl";
+  ammoniaNComponentKey: string = "Ammonia_N";
+  phosphatePComponentKey: string = "Phosphate_P";
   bodComponentKey: string = "BOD";
   tssComponentKey: string = "TSS";
 

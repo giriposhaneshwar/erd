@@ -16,12 +16,12 @@ export class SiteDataComponent implements OnInit {
   dataComponentKey: string = "siteDetails";
   sampleInformationKey: string = "sampleInformation";
 
+
   siteData: any = {
     projectName: "",
     siteCategory: "",
     siteName: ""
   };
-
   sampleInformation: any = {
     sampleRefNum: "",
     sampleSource: "",
@@ -32,7 +32,6 @@ export class SiteDataComponent implements OnInit {
     sampleBy: "",
     sampleEventType: ""
   };
-
 
   siteCategory = [];
   siteDetails = [];
@@ -48,34 +47,15 @@ export class SiteDataComponent implements OnInit {
   sampleByResp: any;
   eventTypeResp: any;
 
-  //public siteDataform: FormGroup;
-//   isValidFormSubmitted = null;
-
-//   siteDataform = new FormGroup({
-//     projectName: new FormControl('', [Validators.required])
-   
-//  });
-
   siteDateEdit() {
     console.log("At Edit Screen");
   }
   siteDetailsSave(siteDetailsdata, sampleInfoData) {
-
-    // this.isValidFormSubmitted = false;
-    //  if (this.siteDataform.invalid) {
-    //     return;
-    //  }
-    //  this.isValidFormSubmitted = true;
-
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }
-
-//   get projectName() {
-//     return this.siteDataform.get('projectName');
-//  }
 
   siteDateNext() {
     this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
@@ -116,6 +96,7 @@ export class SiteDataComponent implements OnInit {
       this.dataEntry[this.sampleInformationKey] = this.sampleInformation;
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
+   
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
     //this.selectedEventType = [this.eventTypeDetails[0]];
 

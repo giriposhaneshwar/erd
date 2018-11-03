@@ -13,7 +13,6 @@ export class QcHistoricalGraphDirective implements OnInit {
   element: HTMLInputElement;
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
-    
   }
 
   ngOnInit() {

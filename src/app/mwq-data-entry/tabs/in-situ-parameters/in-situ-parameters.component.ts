@@ -15,9 +15,9 @@ export class InSituParametersComponent implements OnInit {
   conductivityComponentKey: string = "Conductivity";
   salinityComponentKey: string = "Salinity";
   pHComponentKey: string = "pH";
-  dissolvedOComponentKey: string = "Dissolved O_";
+  dissolvedOComponentKey: string = "Dissolved_O_";
   chlorophyll_aComponentKey: string = "Chlorophyll_a";
-  sechiDiscComponentKey: string = "Sechi Disc";
+  sechiDiscComponentKey: string = "Sechi_Disc";
 
 
   temperature: any = {

@@ -10,7 +10,11 @@
           </div>
         </div>
       </div>
-      <!--<mat-divider></mat-divider>-->
+      <div *ngIf="saveMwqDataEntryResp"> Record saved successf ully
+    <!--     <alert type="success">
+          <strong>Well done!</strong> You successfully read this important alert message.
+      </alert> -->
+      </div> 
       <form class="form" name="form" (ngSubmit)="f.form.valid && microBiologySiteDateSave(totalColiform,enterococci,fecalColiform)"
         #f="ngForm" novalidate>
         <div class="col-sm-12 col-xs-12 formTableSection">
@@ -23,32 +27,37 @@
             <div class="clearfix tbl tbl-per-15 text-center"><b>Extraction Method</b></div>
             <div class="clearfix tbl tbl-per-20 text-center"><b>Test Method</b></div>
           </div>
-
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Coliform</div>
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': totalColiform.surfaceValue == '','red': totalColiform.surfaceValue <= 35, 'orange': totalColiform.surfaceValue <= 50 && totalColiform.surfaceValue > 35, 'green': totalColiform.surfaceValue > 50}"
-                name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue"  #totalColiformSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && totalColiformSurfaceValue.invalid }" required />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalColiformSurfaceValue.invalid),'white': totalColiform.surfaceValue == '','red': totalColiform.surfaceValue <= 35, 'orange': totalColiform.surfaceValue <= 50 && totalColiform.surfaceValue > 35, 'green': totalColiform.surfaceValue > 50}"
+                name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue" #totalColiformSurfaceValue="ngModel"
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalColiform.mql" name="totalColiformMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalColiform.mql" name="totalColiformMql"
+                #totalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformMql.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.extractionMethod" name="totalColiformExtractionMethod">
-               <option value="" disabled selected hidden>Select Extraction Method</option>
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.extractionMethod" name="totalColiformExtractionMethod"
+                #totalColiformExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformExtractionMethod.invalid)}"
+                required>
+                <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.testMethod" name="totalColiformTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.testMethod" name="totalColiformTestMethod"
+                #totalColiformTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -58,28 +67,33 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Enterococci</div>
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': enterococci.surfaceValue == '','red': enterococci.surfaceValue <= 35, 'orange': enterococci.surfaceValue <= 50 && enterococci.surfaceValue > 35, 'green': enterococci.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && enterococciSurfaceValue.invalid),'white': enterococci.surfaceValue == '','red': enterococci.surfaceValue <= 35, 'orange': enterococci.surfaceValue <= 50 && enterococci.surfaceValue > 35, 'green': enterococci.surfaceValue > 50}"
                 name="enterococciSurfaceValue" [(ngModel)]="enterococci.surfaceValue" #enterococciSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && enterococciSurfaceValue.invalid }" required/>
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="enterococci.mql" name="enterococciMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="enterococci.mql" name="enterococciMql"
+                #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.extractionMethod" name="enterococciExtractionMethod">
-               <option value="" disabled selected hidden>Select Extraction Method</option>
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.extractionMethod" name="enterococciExtractionMethod"
+                #enterococciExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciExtractionMethod.invalid)}"
+                required>
+                <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.testMethod" name="enterococciTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.testMethod" name="enterococciTestMethod"
+                #enterococciTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -89,28 +103,34 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Fecal Coliform</div>
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'white': fecalColiform.surfaceValue == '','red': fecalColiform.surfaceValue <= 35, 'orange': fecalColiform.surfaceValue <= 50 && fecalColiform.surfaceValue > 35, 'green': fecalColiform.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && fecalColiformSurfaceValue.invalid),'white': fecalColiform.surfaceValue == '','red': fecalColiform.surfaceValue <= 35, 'orange': fecalColiform.surfaceValue <= 50 && fecalColiform.surfaceValue > 35, 'green': fecalColiform.surfaceValue > 50}"
                 name="fecalColiformSurfaceValue" [(ngModel)]="fecalColiform.surfaceValue" #fecalColiformSurfaceValue="ngModel"
-                [ngClass]="{ 'is-invalid': f.submitted && fecalColiformSurfaceValue.invalid }" required/>
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="oc-text-MQL" class="form-control" [(ngModel)]="fecalColiform.mql" name="fecalColiformMql">
+              <select id="oc-text-MQL" class="form-control" [(ngModel)]="fecalColiform.mql" name="fecalColiformMql"
+                #fecalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformMql.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.extractionMethod" name="fecalColiformExtractionMethod">
-               <option value="" disabled selected hidden>Select Extraction Method</option>
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.extractionMethod" name="fecalColiformExtractionMethod"
+                #fecalColiformExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformExtractionMethod.invalid)}"
+                required>
+                <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-20 text-center">
-              <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.testMethod" name="fecalColiformTestMethod">
+              <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.testMethod" name="fecalColiformTestMethod"
+                #fecalColiformTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformTestMethod.invalid)}"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>

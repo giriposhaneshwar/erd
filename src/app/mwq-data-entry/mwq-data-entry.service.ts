@@ -12,62 +12,71 @@ export class MwqDataEntryService {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetCategory", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetCategory", bodyParams, { headers: headers_value })
   }
 
   fetchSiteNameData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetSite", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetSite", bodyParams, { headers: headers_value })
   }
 
   fetchSourceNameData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetSource", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetSource", bodyParams, { headers: headers_value })
   }
 
   fetchPreservationData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetPreservation", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetPreservation", bodyParams, { headers: headers_value })
   }
 
-  fetchSampleByData(): Observable<any[]>  {
+  fetchSampleByData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetSampleby ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetSampleby ", bodyParams, { headers: headers_value })
   }
 
-  fetchEventTypeData(): Observable<any[]>  {
+  fetchEventTypeData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetEventby ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetEventby ", bodyParams, { headers: headers_value })
   }
 
-  fetchMQLData(): Observable<any[]>  {
+  fetchMQLData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetMQL ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetMQL ", bodyParams, { headers: headers_value })
   }
 
-  fetchTestMethodData(): Observable<any[]>  {
+  fetchTestMethodData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetTestMethod ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetTestMethod ", bodyParams, { headers: headers_value })
   }
 
-  fetchExtractionMethodData(): Observable<any[]>  {
+  fetchExtractionMethodData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl+"/GetExtraction ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetExtraction ", bodyParams, { headers: headers_value })
+  }
+
+  saveMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
+
+/*     console.log(" ---------------- " + JSON.stringify(jsonMwqDataEntryInfo));
+    let bodyParams = jsonMwqDataEntryInfo; */
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/loadData", JSON.stringify(jsonMwqDataEntryInfo), { headers: headers_value })
   }
 }
