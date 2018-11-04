@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
+import { ToastsManager } from "ng6-toastr/ng2-toastr";
 
 @Component({
   selector: "ms-data-entry",
@@ -16,12 +17,18 @@ export class DataEntryComponent implements OnInit {
   uploadFileName: any;
   dataEntry: any;
   dataEntryKey: String = "dataEntry";
-  constructor(public route: Router, public localStore: AppStorageService) {
+  constructor(
+    public route: Router,
+    public localStore: AppStorageService,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
+  ) {
     let data = {
       name: "giriy",
       id: 1,
       location: "hyderabad"
     };
+    this.toastr.setRootViewContainerRef(vcr);
 
     // this.localStore.store.delete('user');
     // this.localStore.store.set("user", { id: 1, name: "test" });
@@ -40,9 +47,9 @@ export class DataEntryComponent implements OnInit {
 
   uploadFile(selector) {
     let uploadedFile = document.getElementById(selector);
-    if(uploadedFile.hasOwnProperty('files')){
+    if (uploadedFile.hasOwnProperty("files")) {
       // this.uploadFileName = uploadedFile.files[0].name;
-    }else{
+    } else {
       this.uploadFileName = "";
     }
     this.excelFileinput = this.uploadFileName;

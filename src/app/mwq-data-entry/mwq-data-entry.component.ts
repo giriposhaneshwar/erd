@@ -4,7 +4,6 @@ import { PageTitleService } from "app/core/page-title/page-title.service";
 import { Config } from "../appConfiguration/config";
 import { AppStorageService } from "../appConfiguration/app-config.service";
 
-
 @Component({
   selector: "ms-mwq-data-entry",
   templateUrl: "./mwq-data-entry.component.html",
@@ -13,6 +12,8 @@ import { AppStorageService } from "../appConfiguration/app-config.service";
 export class MwqDataEntryComponent implements OnInit {
   mobileTabNav: any = "data-entry";
   mondalOpen: Boolean = false;
+  currentRoute: any[];
+  loadModule: String = "dataEntry";
   constructor(
     private pageTitleService: PageTitleService,
     public route: Router,
@@ -23,6 +24,15 @@ export class MwqDataEntryComponent implements OnInit {
     this.route.navigate(["mwqDataEntry", data]);
   }
   ngOnInit() {
+    let currentUrl = this.route.url;
+    this.currentRoute = currentUrl.split("/");
+    if (this.currentRoute[1] == "mwqDataQc"){
+      this.loadModule = "dataQc";
+      this.route.navigate(["mwqDataQc", "qc-info"]);
+    } else if (this.currentRoute[1] == "mwqDataEntry"){
+      this.loadModule = "dataEntry";
+    }
+    // "/mwqDataQc/site-details"
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     console.log("Executing Configurations", Config.appConfig.mainNav);
   }

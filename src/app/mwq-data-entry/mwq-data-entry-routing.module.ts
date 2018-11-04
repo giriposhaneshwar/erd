@@ -10,6 +10,8 @@ import { InOrganicChemistryComponent } from './tabs/in-organic-chemistry/in-orga
 import { OrganicChemistryComponent } from './tabs/organic-chemistry/organic-chemistry.component';
 import { MicroBiologyComponent } from './tabs/micro-biology/micro-biology.component';
 import { UploadFilesComponent } from './tabs/upload-files/upload-files.component';
+import { QcInfoComponent } from './tabs/qc-info/qc-info.component';
+import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
 
 export const MwqDataEntryRoutes: Routes = [{
   path: '',
@@ -18,14 +20,16 @@ export const MwqDataEntryRoutes: Routes = [{
       component: MwqDataEntryComponent,
       children: [
         { path: '', redirectTo: 'data-entry', pathMatch: 'full' },
+        { path: 'qc-info', component: QcInfoComponent },
         { path: 'data-entry', component: DataEntryComponent},
         { path: 'site-details', component: SiteDataComponent},
         { path: 'in-situ-parameters', component: InSituParametersComponent},
         { path: 'general-chemistry', component: GeneralChemistryComponent},
         { path: 'in-organic-chemistry', component: InOrganicChemistryComponent},
         { path: 'organic-chemistry', component: OrganicChemistryComponent},
-        { path: 'microbiology', component: MicroBiologyComponent},
-        { path: 'upload-files', component: UploadFilesComponent}
+        { path: 'microbiol', component: MicroBiologyComponent},
+        { path: 'upload-files', component: UploadFilesComponent},
+        { path: 'qc-remarks', component: QcRemarksComponent }
       ]
   }]
 }];

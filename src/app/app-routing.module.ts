@@ -45,7 +45,8 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'mwqDataQc',
-        loadChildren: './mwq-data-qc/mwq-data-qc.module#MwqDataQcModule'
+        // loadChildren: './mwq-data-qc/mwq-data-qc.module#MwqDataQcModule'
+        loadChildren: './mwq-data-entry/mwq-data-entry.module#MwqDataEntryModule'
       },
       {
         path: 'analytics',
