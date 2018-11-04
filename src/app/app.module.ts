@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
 // import { TourNgBootstrapModule } from 'ngx-tour-ng-bootstrap';
-
 import { DemoMaterialModule } from "./material-demo.module";
 
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
@@ -29,7 +28,7 @@ import { HorizontalMenuItems } from "./core/menu/menu-items/horizontal-menu-item
 import { PageTitleService } from "./core/page-title/page-title.service";
 import { Config } from "./appConfiguration/config";
 import { HistoricalGraphDirective } from "./partials/historical-graph.directive";
-
+import { ToastModule } from 'ng6-toastr/ng2-toastr';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -46,6 +45,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,

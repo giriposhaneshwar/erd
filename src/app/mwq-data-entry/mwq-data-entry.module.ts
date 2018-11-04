@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ToastModule } from 'ng6-toastr/ng2-toastr';
 
 import { MwqDataEntryRoutes } from "./mwq-data-entry-routing.module";
 import { MwqDataEntryComponent } from "./mwq-data-entry.component";
@@ -19,6 +20,8 @@ import { DemoMaterialModule } from "../material-demo.module";
 import { DataEntryComponent } from "./tabs/data-entry/data-entry.component";
 import { CalendarComponent } from "../calendar/calendar.component";
 import { HistoricalGraphDirective } from '../partials/historical-graph.directive';
+import { QcInfoComponent } from './tabs/qc-info/qc-info.component';
+import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +32,7 @@ import { HistoricalGraphDirective } from '../partials/historical-graph.directive
     MatCardModule,
     DirectivesModule,
     DemoMaterialModule,
-
+    ToastModule.forRoot(),
     RouterModule.forChild(MwqDataEntryRoutes)
   ],
   declarations: [
@@ -42,6 +45,8 @@ import { HistoricalGraphDirective } from '../partials/historical-graph.directive
     MicroBiologyComponent,
     UploadFilesComponent,
     DataEntryComponent,
+    QcInfoComponent,
+    QcRemarksComponent,
     HistoricalGraphDirective
   ],
   exports: [MwqDataEntryComponent, HistoricalGraphDirective]

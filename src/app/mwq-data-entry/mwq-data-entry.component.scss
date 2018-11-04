@@ -22,19 +22,29 @@
     }
     .tabSection{
         display: block;
+        &.dataQc{
+            ul>li{
+                width: calc(100% / 9 - 1px);
+            }
+        }
+        &.dataEntry{
+            ul>li {
+                width: calc(100% / 8 - 1px);
+            }
+        }
         ul{
             margin: 0px;
             padding: 0px;
             list-style: none;
             >li{
                 display: inline-block;
-                width: calc(100% / 8 - 1px);
                 text-align: center;
                 margin-right: 1px;
                 background-color: #ccc;
                 padding: 8px 5px;
                 border-radius: 8px 8px 0px 0px;
                 position: relative;
+                
                 >a{
                     font-weight: bold;
                     text-decoration: none;
