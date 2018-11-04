@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
-import { ToastsManager } from "ng6-toastr/ng2-toastr";
+import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 
 @Component({
   selector: "ms-data-entry",
@@ -29,6 +29,8 @@ export class DataEntryComponent implements OnInit {
       location: "hyderabad"
     };
     this.toastr.setRootViewContainerRef(vcr);
+    this.toastr.success('You are awesome!', 'Success!', { toastLife: 10000, positionClass: "toast-top-center" });
+    this.toastr.error('You are awesome!', 'Failed!', { toastLife: 10000, positionClass: "toast-top-center" });
 
     // this.localStore.store.delete('user');
     // this.localStore.store.set("user", { id: 1, name: "test" });

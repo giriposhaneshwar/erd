@@ -34,6 +34,7 @@
               "node_modules/simple-line-icons/scss/simple-line-icons.scss",
               "node_modules/dragula/dist/dragula.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/ng6-toastr/ng2-toastr.css",
               "src/assets/cropper/cropper.css",
               "src/assets/scss/style.scss"
             ],
@@ -43,6 +44,7 @@
               "node_modules/hammerjs/hammer.js",
               "node_modules/sortablejs/Sortable.js",
               "node_modules/ace-builds/src-min/ace.js",
+              "node_modules/ng6-toastr/ng2-toastr.js",
               "node_modules/ace-builds/src-min/theme-eclipse.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/d3/build/d3.min.js",
