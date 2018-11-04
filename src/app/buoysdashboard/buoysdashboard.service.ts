@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class BuoysDashboardService {
 
-  buoysDashboardDataUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/getBuoysdata';
+  buoysDashboardDataUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
   //buoysDashboardDataUrl = 'http://localhost:8080/buoys/fetchBuoysData';
   
   res: any;
@@ -23,7 +23,7 @@ export class BuoysDashboardService {
 
   buoysDashboardData(): Observable<any[]> {
 
-    let bodyParams = { "fromDate": "2017-01-04", "toDate": "2017-01-05" };
+    let bodyParams = { "fromDate": "2017-01-04", "toDate": "2017-01-05","user":1 };
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.buoysDashboardDataUrl, bodyParams, { headers: headers_value })

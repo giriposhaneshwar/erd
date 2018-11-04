@@ -1,0 +1,16 @@
+{
+    "getProjectNameResult": {
+        "ProjectNameList": [
+            {
+                "Project_Id": 1,
+                "Project_Name": "Ecological Monitoring"
+            },
+            {
+                "Project_Id": 2,
+                "Project_Name": "Marine Water Quality Public Health"
+            }
+        ],
+        "Message": "Found 2 record(s).",
+        "Status": "Success"
+    }
+}

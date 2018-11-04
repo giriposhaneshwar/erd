@@ -98,8 +98,8 @@ export class BuoysdashboardComponent implements OnInit {
       //this.restItems = resp;
       console.log("----resp----", resp);
       this.res = resp;
-      console.log(this.res.getBuoysdataResult.BuoysList);
-      this.restItems = this.res.getBuoysdataResult.BuoysList;
+      console.log(this.res.getAveragevalueResult.AvgList);
+      this.restItems = this.res.getAveragevalueResult.AvgList;
     });
   }
 }
