@@ -4,6 +4,7 @@ import { AppStorageService } from "../../../appConfiguration/app-config.service"
 import * as $ from '../../../../../node_modules/jquery/dist/jquery.min.js';
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
+import { Config } from '../../../appConfiguration/config';
 
 @Component({
   selector: "ms-site-data",
@@ -65,9 +66,12 @@ export class SiteDataComponent implements OnInit {
   siteDatePrev() {
     this.route.navigate(["mwqDataEntry", "data-entry"]);
   }
-  constructor(public route: Router, public localStore: AppStorageService,
+  constructor(
+    public route: Router, 
+    public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    public config: Config) {
     this.loaadSiteCategoryData();
     this.loadSiteNameData();
     this.loadSourceNameData();
@@ -77,6 +81,11 @@ export class SiteDataComponent implements OnInit {
   }
 
   ngOnInit() {
+    let module  = this.config.getModuleName();
+    // store qc in dataEntryt
+    /* if(module.module == "mwqDataQc"){
+      this.localStore.store.set(this.dataEntryKey, this.localStore.store.get('qcData'));
+    } */
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
@@ -96,7 +105,7 @@ export class SiteDataComponent implements OnInit {
       this.dataEntry[this.sampleInformationKey] = this.sampleInformation;
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
-   
+
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
     //this.selectedEventType = [this.eventTypeDetails[0]];
 

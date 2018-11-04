@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { AppStorageService } from 'app/appConfiguration/app-config.service';
 import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
+import { Config } from '../../../appConfiguration/config';
+import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 
 @Component({
   selector: 'ms-micro-biology',
@@ -22,7 +24,13 @@ export class MicroBiologyComponent implements OnInit {
   js = {};
   //jsonMwqDataEntryInfo :any;
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+  constructor(public route: Router, 
+    public toastr: ToastsManager, 
+    vcr: ViewContainerRef,
+    public config: Config,
+    public localStore: AppStorageService, 
+    private mwqDataEntryService: MwqDataEntryService) {
+      this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
     this.loaadExtractionMethodData();
@@ -41,7 +49,7 @@ export class MicroBiologyComponent implements OnInit {
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
     this.js["jsonInput"] = this.dataEntry;
-    this.localStore.store.set(this.dataEntryKey, this.js);
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
     /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
     console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
@@ -120,6 +128,7 @@ export class MicroBiologyComponent implements OnInit {
     this.mwqDataEntryService.saveMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
       this.saveMwqDataEntryResp = resp;
       console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp);
+      this.toastr.success(this.saveMwqDataEntryResp.loadDataResult, "Success");
     });
   }
 

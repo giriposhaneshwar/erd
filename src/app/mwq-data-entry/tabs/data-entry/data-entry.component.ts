@@ -23,14 +23,9 @@ export class DataEntryComponent implements OnInit {
     public toastr: ToastsManager,
     vcr: ViewContainerRef
   ) {
-    let data = {
-      name: "giriy",
-      id: 1,
-      location: "hyderabad"
-    };
     this.toastr.setRootViewContainerRef(vcr);
-    this.toastr.success('You are awesome!', 'Success!', { toastLife: 10000, positionClass: "toast-top-center" });
-    this.toastr.error('You are awesome!', 'Failed!', { toastLife: 10000, positionClass: "toast-top-center" });
+    // this.toastr.success('You are awesome!', 'Success!', { toastLife: 10000, positionClass: "toast-top-center" });
+    // this.toastr.error('You are awesome!', 'Failed!', { toastLife: 10000, positionClass: "toast-top-center" });
 
     // this.localStore.store.delete('user');
     // this.localStore.store.set("user", { id: 1, name: "test" });
@@ -74,6 +69,7 @@ export class DataEntryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.localStore.store.set(this.dataEntryKey, {});
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
       this.dataEntry = localData.data;

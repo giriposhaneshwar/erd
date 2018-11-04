@@ -475,3 +475,20 @@
     }
 
 }
+
+.datatable-header-cell-label {
+    font-size: 1.1em;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.datatable-body-cell{
+    &:first-child{
+        .datatable-body-cell-label{
+            text-align: center;
+        }
+    }
+}

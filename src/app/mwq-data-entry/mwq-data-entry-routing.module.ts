@@ -27,7 +27,7 @@ export const MwqDataEntryRoutes: Routes = [{
         { path: 'general-chemistry', component: GeneralChemistryComponent},
         { path: 'in-organic-chemistry', component: InOrganicChemistryComponent},
         { path: 'organic-chemistry', component: OrganicChemistryComponent},
-        { path: 'microbiol', component: MicroBiologyComponent},
+        { path: 'microbiology', component: MicroBiologyComponent},
         { path: 'upload-files', component: UploadFilesComponent},
         { path: 'qc-remarks', component: QcRemarksComponent }
       ]

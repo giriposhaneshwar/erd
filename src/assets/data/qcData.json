@@ -1,0 +1,259 @@
+[
+    {
+        "jsonInput": {
+            "siteDetails": {
+                "projectName": "6",
+                "siteCategory": "9",
+                "siteName": "10"
+            },
+            "sampleInformation": {
+                "sampleRefNum": "24",
+                "sampleSource": "2",
+                "samplePreservation": "2",
+                "sampleDescription": "45",
+                "sampleDate": "2018-11-08",
+                "sampleTime": "18:06",
+                "sampleBy": "1",
+                "sampleEventType": "1"
+            },
+            "Temparature": {
+                "surfaceValue": "34",
+                "bottomValue": "56",
+                "bottom5m": "4",
+                "bottom10m": "6",
+                "bottom15m": "45",
+                "bottom20m": "56",
+                "bottom25m": "43"
+            },
+            "Conductivity": {
+                "surfaceValue": "21",
+                "bottomValue": "56",
+                "bottom5m": "56",
+                "bottom10m": "4",
+                "bottom15m": "4",
+                "bottom20m": "3",
+                "bottom25m": "3"
+            },
+            "Salinity": {
+                "surfaceValue": "36",
+                "bottomValue": "53",
+                "bottom5m": "9",
+                "bottom10m": "9",
+                "bottom15m": "9",
+                "bottom20m": "9",
+                "bottom25m": "9"
+            },
+            "pH": {
+                "surfaceValue": "45",
+                "bottomValue": "9",
+                "bottom5m": "9",
+                "bottom10m": "9",
+                "bottom15m": "99",
+                "bottom20m": "9",
+                "bottom25m": "9"
+            },
+            "Dissolved_O_": {
+                "surfaceValue": "56",
+                "bottomValue": "98",
+                "bottom5m": "4",
+                "bottom10m": "45",
+                "bottom15m": "34",
+                "bottom20m": "45",
+                "bottom25m": "64"
+            },
+            "Chlorophyll_a": {
+                "surfaceValue": "34",
+                "bottomValue": "54",
+                "bottom5m": "56",
+                "bottom10m": "6",
+                "bottom15m": "4",
+                "bottom20m": "4",
+                "bottom25m": "4"
+            },
+            "Sechi_Disc": {
+                "surfaceValue": "54",
+                "bottomValue": "",
+                "bottom5m": "",
+                "bottom10m": "",
+                "bottom15m": "",
+                "bottom20m": "",
+                "bottom25m": ""
+            },
+            "TotalPhosp": {
+                "surfaceValue": "45",
+                "mql": "3",
+                "testMethod": "9"
+            },
+            "Total_Nitrogen": {
+                "surfaceValue": "42",
+                "mql": "2",
+                "testMethod": "9"
+            },
+            "Nitrite_N": {
+                "surfaceValue": "67",
+                "mql": "3",
+                "testMethod": "10"
+            },
+            "Nitrate_N": {
+                "surfaceValue": "75",
+                "mql": "2",
+                "testMethod": "13"
+            },
+            "Silicate_Sl": {
+                "surfaceValue": "35",
+                "mql": "3",
+                "testMethod": "2"
+            },
+            "Ammonia_N": {
+                "surfaceValue": "54",
+                "mql": "2",
+                "testMethod": "12"
+            },
+            "Phosphate_P": {
+                "surfaceValue": "54",
+                "mql": "3",
+                "testMethod": "8"
+            },
+            "BOD": {
+                "surfaceValue": "44",
+                "mql": "3",
+                "testMethod": "11"
+            },
+            "TSS": {
+                "surfaceValue": "35",
+                "mql": "2",
+                "testMethod": "9"
+            },
+            "Cadmium_Water": {
+                "surfaceValue": "45",
+                "mql": "3",
+                "testMethod": "2"
+            },
+            "Chromium_Water": {
+                "surfaceValue": "45",
+                "mql": "2",
+                "testMethod": "1"
+            },
+            "Cobalt_Water": {
+                "surfaceValue": "43",
+                "mql": "2",
+                "testMethod": "8"
+            },
+            "Copper_Water": {
+                "surfaceValue": "45",
+                "mql": "3",
+                "testMethod": "3"
+            },
+            "Lead_Water": {
+                "surfaceValue": "23",
+                "mql": "3",
+                "testMethod": "11"
+            },
+            "Manganese_Water": {
+                "surfaceValue": "12",
+                "mql": "2",
+                "testMethod": "5"
+            },
+            "Nickel_Water": {
+                "surfaceValue": "34",
+                "mql": "3",
+                "testMethod": "5"
+            },
+            "Zinc_Water": {
+                "surfaceValue": "53",
+                "mql": "3",
+                "testMethod": "6"
+            },
+            "Iron_Water": {
+                "surfaceValue": "32",
+                "mql": "3",
+                "testMethod": "14"
+            },
+            "Mercury_Water": {
+                "surfaceValue": "45",
+                "mql": "3",
+                "testMethod": "12"
+            },
+            "Cadmium_Sediment": {
+                "surfaceValue": "67",
+                "mql": "2",
+                "testMethod": "6"
+            },
+            "Chromium_Sediment": {
+                "surfaceValue": "67",
+                "mql": "3",
+                "testMethod": "6"
+            },
+            "Cobalt_Sediment": {
+                "surfaceValue": "34",
+                "mql": "2",
+                "testMethod": "6"
+            },
+            "Copper_Sediment": {
+                "surfaceValue": "67",
+                "mql": "3",
+                "testMethod": "7"
+            },
+            "Lead_Sediment": {
+                "surfaceValue": "56",
+                "mql": "3",
+                "testMethod": "11"
+            },
+            "Manganese_Sediment": {
+                "surfaceValue": "43",
+                "mql": "2",
+                "testMethod": "7"
+            },
+            "Nickel_Sediment": {
+                "surfaceValue": "34",
+                "mql": "2",
+                "testMethod": "5"
+            },
+            "Zinc_Sediment": {
+                "surfaceValue": "56",
+                "mql": "3",
+                "testMethod": "10"
+            },
+            "Iron_Sediment": {
+                "surfaceValue": "67",
+                "mql": "2",
+                "testMethod": "6"
+            },
+            "Mercury_Sediment": {
+                "surfaceValue": 12,
+                "mql": "3",
+                "testMethod": "8"
+            },
+            "Total_Phosp": {
+                "surfaceValue": "56",
+                "mql": "2",
+                "extractionMethod": "2",
+                "testMethod": "11"
+            },
+            "TPH": {
+                "surfaceValue": "34",
+                "mql": "2",
+                "extractionMethod": "2",
+                "testMethod": "14"
+            },
+            "Total_Coliform": {
+                "surfaceValue": "76",
+                "mql": "3",
+                "extractionMethod": "2",
+                "testMethod": "8"
+            },
+            "Enterococci": {
+                "surfaceValue": "65",
+                "mql": "3",
+                "extractionMethod": "2",
+                "testMethod": "12"
+            },
+            "Fecal_Coliform": {
+                "surfaceValue": "34",
+                "mql": "2",
+                "extractionMethod": "2",
+                "testMethod": "15"
+            }
+        }
+    }
+]

@@ -6,7 +6,15 @@ import { Observable } from 'rxjs';
 export class MwqDataEntryService {
 
   apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
+  jsonapiUrl ="assets/data/projectNames.json";
   constructor(private http: HttpClient) { }
+
+  fetchSiteNamesData(): Observable<any[]> {
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.get<any[]>(this.jsonapiUrl)
+  }
 
   fetchSiteCategoryData(): Observable<any[]> {
     let bodyParams = {};
