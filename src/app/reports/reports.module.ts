@@ -8,6 +8,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from 'app/core/widgster/directives.module';
+import { CompareParamsComponent } from './compare-params/compare-params.component';
+import { SitesPerformanceComponent } from './sites-performance/sites-performance.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 
 @NgModule({
@@ -21,6 +24,6 @@ import { DirectivesModule } from 'app/core/widgster/directives.module';
     DirectivesModule,
     RouterModule.forChild(ReportRoutes)
   ],
-  declarations: [ReportsComponent]
+  declarations: [ReportsComponent,  AnalyticsComponent, CompareParamsComponent, SitesPerformanceComponent]
 })
 export class ReportsModule { }

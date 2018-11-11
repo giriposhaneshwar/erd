@@ -1,20 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class MwqDataEntryService {
 
   apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
-  jsonapiUrl ="assets/data/projectNames.json";
+  jsonapiUrl = "assets/data/projectNames.json";
   constructor(private http: HttpClient) { }
-
-  fetchSiteNamesData(): Observable<any[]> {
-    let bodyParams = {};
-    let headers_value = new HttpHeaders();
-    headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.get<any[]>(this.jsonapiUrl)
-  }
 
   fetchSiteCategoryData(): Observable<any[]> {
     let bodyParams = {};
@@ -79,10 +73,19 @@ export class MwqDataEntryService {
     return this.http.post<any[]>(this.apiUrl + "/GetExtraction ", bodyParams, { headers: headers_value })
   }
 
-  saveMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
+  fetchProjectNamesData(): Observable<any[]> {
+    /*     
+        let bodyParams = {};
+        let headers_value = new HttpHeaders();
+        headers_value = headers_value.set('Content-Type', 'application/json');
+        return this.http.post<any[]>(this.apiUrl + "/GetExtraction ", bodyParams, { headers: headers_value }) 
+    */
+    return this.http.get<any[]>(this.jsonapiUrl).pipe(map(data => data));
+  }
 
-/*     console.log(" ---------------- " + JSON.stringify(jsonMwqDataEntryInfo));
-    let bodyParams = jsonMwqDataEntryInfo; */
+  saveMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
+    /*     console.log(" ---------------- " + JSON.stringify(jsonMwqDataEntryInfo));
+        let bodyParams = jsonMwqDataEntryInfo; */
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/loadData", JSON.stringify(jsonMwqDataEntryInfo), { headers: headers_value })

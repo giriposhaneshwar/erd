@@ -12,7 +12,7 @@ export class HistoricalGraphDirective implements OnInit {
   element: HTMLInputElement;
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
-    console.log("this.element", this.element);
+    /* console.log("this.element", this.element); */
   }
   draw() {
     let ele = $(this.element);

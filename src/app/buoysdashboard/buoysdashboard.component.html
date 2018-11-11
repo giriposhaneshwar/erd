@@ -22,16 +22,25 @@
         <mat-card style="padding: 0;">
           <ngx-datatable class="material sorting customTable" [rows]="restItems" [sortType]="'multi'" [columnMode]="'force'"
             [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
-            <ngx-datatable-column name="SiteId"></ngx-datatable-column>
-            <ngx-datatable-column name="Temparature" [cellClass]="getCellClass">
+            <ngx-datatable-column name="Station Id"></ngx-datatable-column>
+<!--             <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Station Id</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.DataField}}
+              </ng-template>
+            </ngx-datatable-column> -->
+            <ngx-datatable-column name="Station Name"></ngx-datatable-column>
+            <ngx-datatable-column name="Temperature" [cellClass]="getCellClass">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Blue Green Algae">
               <ng-template let-value="value" ngx-datatable-cell-template>
-                <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value
-                  + "k"}}</div>
+                <!-- <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value + "k"}}</div> -->
+                <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Conductivity">
@@ -39,7 +48,7 @@
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Battary">
+            <ngx-datatable-column name="Battery">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
@@ -59,13 +68,13 @@
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="DOxy">
+            <ngx-datatable-column name="Dissolved">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="PH">
+            <ngx-datatable-column name="pH">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>

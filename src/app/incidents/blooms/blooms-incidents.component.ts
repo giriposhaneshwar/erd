@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { PageTitleService } from '../../core/page-title/page-title.service';
 import { fadeInAnimation } from '../../core/route-animation/route.animation';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { IncidentsService } from '../incidents.service';
 
 @Component({
   selector: 'ms-blooms',
@@ -20,6 +21,8 @@ export class BloomsIncidentComponent implements OnInit {
   bllomIncidentRows = [];
   selectedRow = [];
   temp = [];
+  bloomsIncidentDetails = [];
+  bloomsIncidentResp: any;
 
   columns: any[] = [
     { prop: 'bloomIncidentId'} , 
@@ -31,27 +34,38 @@ export class BloomsIncidentComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private pageTitleService: PageTitleService) { 
-    this.fetch((data) => {
+  constructor(private pageTitleService: PageTitleService, private incidentsService:IncidentsService) { 
+    /* this.fetch((data) => {
       this.temp = [...data];
       this.selectedRow = [data[2]];
       this.bllomIncidentRows = data;
-    });
+    }); */
+    this.loadBloomIncidentsData();
   }
 
   ngOnInit() {
-    this.pageTitleService.setTitle("Bloom Incidents");
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
    }
 
-  fetch(cb) {
+/*   fetch(cb) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/blooms_incidents.json`);
-
     req.onload = () => {
       cb(JSON.parse(req.response));
     };
-
     req.send();
+  } */
+
+  loadBloomIncidentsData(): void {
+    this.incidentsService.getBloomsIncidentData().subscribe((resp) => {
+      this.bloomsIncidentResp = resp;
+      this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
+      console.log("----bloomsIncidentDetails 1----", this.bloomsIncidentDetails);
+      this.selectedRow = [this.bloomsIncidentDetails[1]];
+      this.temp = [...this.bloomsIncidentDetails];
+
+      console.log("----bloomsIncidentDetails 2----", this.bloomsIncidentDetails);
+    });
   }
 
   onSelect({ selected }) {
@@ -59,19 +73,17 @@ export class BloomsIncidentComponent implements OnInit {
   }
 
   onActivate(event) {
-    console.log('Activate Event', event);
+    //console.log('Activate Event', event);
   }
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-
     // filter our data
       const temp = this.temp.filter(function(d) {
-      return d.incidentDescription.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.incidentid.toLowerCase().indexOf(val) !== -1 || !val;
     });
-
     // update the rows
-    this.bllomIncidentRows = temp;
+    this.bloomsIncidentDetails = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }

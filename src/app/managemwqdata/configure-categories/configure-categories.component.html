@@ -1,31 +1,40 @@
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-      <div class="silk-card border-success">
-        <div class="silk-card-title d-flex justify-content-between">
-          <h4>Configure Categories</h4>
-        </div>
-        <div class="widget-body">
-            <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-            [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
-            <ngx-datatable-column name="S No"></ngx-datatable-column>
-            <ngx-datatable-column name="Category Name"></ngx-datatable-column>
-            <ngx-datatable-column name="Status">
-                <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                  <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                    {{value}}
-                  </span>
-                  <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
-                    [value]="value">
-                    <option value="Active">Active</option>
-                    <option value="In Active">In Active</option>
-                  </select>
-                </ng-template>
-              </ngx-datatable-column>
-          </ngx-datatable>
-        </div>
+<div class="pageWrapper headerSection">
+  <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+      <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
+        Configure Categories
+      </div>
+      <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+        <a href="javascript:void(0)" (click)="mondalOpen = !mondalOpen"><i class="fa fa-gear"></i></a>
       </div>
     </div>
   </div>
-
-
-  
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+    <div class="silk-card border-success">
+      <div class="silk-card-title d-flex justify-content-between">
+        <!-- <h4>Configure Categories</h4> -->
+      </div>
+      <div class="widget-body">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
+          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
+          <ngx-datatable-column name="S No"></ngx-datatable-column>
+          <ngx-datatable-column name="Category Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Status">
+            <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+              <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
+                {{value}}
+              </span>
+              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
+                [value]="value">
+                <option value="Active">Active</option>
+                <option value="In Active">In Active</option>
+              </select>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>

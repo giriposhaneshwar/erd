@@ -14,13 +14,13 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
-        <h4>Alert Details</h4>
+        <!-- <h4>Alert Details</h4> -->
       </div>
       <div class="silk-card">
         <div class="silk-card-content">
           <div class="form-group row">
             <div class="col-3">
-              <input class="form-control" type="text" placeholder="Search">
+              <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)'>
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
@@ -43,23 +43,23 @@
       <div class="widget-body">
         <mat-card style="padding: 0;">
           <!--<ngx-datatable class="material sorting customTable" [rows]="alertRows" [headerHeight]="50">-->
-          <ngx-datatable class="material sorting customTable" [rows]="alertRows" [columnMode]="'force'" [columns]="columns"
-            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selected"
+          <ngx-datatable  #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'force'" [columns]="columns"
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="15" [selected]="selected"
             [selectionType]="'single'" (activate)="onActivate($event)" (select)='onSelect($event)'>
-            <ngx-datatable-column name="Alert Severity">
+            <ngx-datatable-column name="Severity">
               <ng-template let-value="value" ngx-datatable-cell-template>
 
                 <!--<i class="fa fa-arrow-up ">{{value}}</i>-->
                 <i class="fa fa-arrow-up text-align: center;" [ngClass]="{'text-success mr-2': value=== 'Low',
-                                   'text-warning mr-2' : value=== 'Avg',
+                                   'text-warning mr-2' : value=== 'Medium',
                                    'text-danger mr-2': value=== 'High' 
                   }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Alert Description"></ngx-datatable-column>
+            <ngx-datatable-column name="Description"></ngx-datatable-column>
 
             <!--<small class="text-muted"><i class="fa fa-clock-o"></i></small>-->
-            <ngx-datatable-column name="Alert Reported DateTime"></ngx-datatable-column>
+            <ngx-datatable-column name="Createddate"></ngx-datatable-column>
 
           </ngx-datatable>
         </mat-card>
@@ -77,31 +77,31 @@
           <tbody class="ng-tns-c6-0" *ngFor='let sel of selected'>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Alert Id</td>
-              <td class="ng-tns-c6-0"> {{sel.alertId}}</td>
+              <td class="ng-tns-c6-0"> {{sel.alertid}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Site Name</td>
-              <td class="ng-tns-c6-0">{{sel.siteName}}</td>
+              <td class="ng-tns-c6-0">{{sel.siteid}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Sensor</td>
-              <td class="ng-tns-c6-0">{{sel.sensorId}}</td>
+              <td class="ng-tns-c6-0">{{sel.sensor}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Description</td>
-              <td class="ng-tns-c6-0">{{sel.alertDescription}}</td>
+              <td class="ng-tns-c6-0">{{sel.description}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Severity</td>
-              <td class="ng-tns-c6-0">{{sel.alertSeverity}}</td>
+              <td class="ng-tns-c6-0">{{sel.severity}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Status</td>
               <td class="ng-tns-c6-0">{{sel.status}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
-              <td class="ng-tns-c6-0">Buoys ID</td>
-              <td class="ng-tns-c6-0">{{sel.buoysId}}</td>
+              <td class="ng-tns-c6-0">Created By</td>
+              <td class="ng-tns-c6-0">{{sel.createdby}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0" colspan="2">

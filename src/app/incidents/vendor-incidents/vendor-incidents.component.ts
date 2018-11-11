@@ -43,7 +43,7 @@ export class VendorIncidentsComponent implements OnInit {
   }
 
   onActivate(event) {
-    console.log('Activate Event', event);
+   // console.log('Activate Event', event);
   }
 
 }

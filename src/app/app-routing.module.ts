@@ -47,13 +47,11 @@ export const AppRoutes: Routes = [
         path: 'mwqDataQc',
         // loadChildren: './mwq-data-qc/mwq-data-qc.module#MwqDataQcModule'
         loadChildren: './mwq-data-entry/mwq-data-entry.module#MwqDataEntryModule'
-      },
+      }/*,
       {
         path: 'analytics',
         loadChildren: './analytics/analytics.module#AnalyticsModule'
       },
-
-
       {
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
@@ -105,7 +103,7 @@ export const AppRoutes: Routes = [
       }, {
         path: 'editor',
         loadChildren: './editor/editor.module#EditorDemoModule'
-      }]
+      }*/]
   }, {
     path: '',
     component: AuthLayoutComponent,

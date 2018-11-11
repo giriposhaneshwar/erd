@@ -53,8 +53,13 @@ const MENUITEMS: Menu[] = [
   {
     state: 'reports',
     name: 'REPORTS',
-    type: 'link',
-    icon: 'report'
+    type: 'sub',
+    icon: 'report',
+    children: [
+      {state: 'analytics', name: 'ANALYTICS'},
+      {state: 'compare-params', name: 'COMPARE_PARAMS'},
+      {state: 'sites-performance', name: 'SITES_PERFORMANCE'},
+    ]
   },
   {
     state: 'downloadData',

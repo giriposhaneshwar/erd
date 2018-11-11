@@ -10,6 +10,7 @@
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
     <div class="silk-card border-success">
@@ -43,19 +44,19 @@
       </div>
       <div class="silk-card-content widget-body">
         <div class="table-responsive">
-          <ngx-datatable #table class="material sorting customTable" [rows]="buoysIncidentRows" [columnMode]="'force'"
-            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="15" [selected]="selectedValue"
+          <ngx-datatable #table class="material sorting customTable" [rows]="buoysIncidentDetails" [columnMode]="'force'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="15" [selected]="selectedValue"
             [selectionType]="'single'" (select)='onSelect($event)'>
-            <ngx-datatable-column name="Incident Severity">
-              <ng-template let-value="value" ngx-datatable-cell-template>
+            <ngx-datatable-column name="Siteid">
+              <!-- <ng-template let-value="value" ngx-datatable-cell-template>
                 <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
                                      'text-warning mr-2' : value=== 'Avg',
                                      'text-danger mr-2': value=== 'High' 
                     }"></i>
-              </ng-template>
+              </ng-template> -->
             </ngx-datatable-column>
-            <ngx-datatable-column name="Incident Description"></ngx-datatable-column>
-            <ngx-datatable-column name="Incident Reported DateTime">
+            <ngx-datatable-column name="Incidentname"></ngx-datatable-column>
+            <ngx-datatable-column name="Updatedby">
               <small class="text-muted"><i class="fa fa-clock-o"></i> {{value}}</small>
             </ngx-datatable-column>
           </ngx-datatable>
@@ -76,11 +77,11 @@
               <tbody class="ng-tns-c6-0" *ngFor='let sel of selectedValue'>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Incident Id</td>
-                  <td class="ng-tns-c6-0">{{sel.buoysIncidentId}}</td>
+                  <td class="ng-tns-c6-0">{{sel.incidentid}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Incident Name</td>
-                  <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+                  <td class="ng-tns-c6-0">{{sel.incidentname}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Location (Lat/Long)</td>
@@ -92,7 +93,7 @@
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Site ID</td>
-                  <td class="ng-tns-c6-0">{{sel.siteId}}</td>
+                  <td class="ng-tns-c6-0">{{sel.siteid}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Alert ID</td>
@@ -108,20 +109,21 @@
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Created By</td>
-                  <td class="ng-tns-c6-0">{{sel.createdBy}}</td>
+                  <td class="ng-tns-c6-0">{{sel.updatedby}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Created Date</td>
-                  <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
+                  <td class="ng-tns-c6-0">{{sel.updateddate}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Status</td>
-                  <td class="ng-tns-c6-0">
+                 <!--  <td class="ng-tns-c6-0">
                     <select id="exampleSelect1" value="{{sel.status}}">
                       <option>Closed</option>
                       <option>Re-Open</option>
                     </select>
-                  </td>
+                  </td> -->
+                  <td class="ng-tns-c6-0">{{sel.status}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Remarks</td>

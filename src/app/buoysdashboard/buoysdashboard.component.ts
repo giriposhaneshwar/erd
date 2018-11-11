@@ -64,25 +64,17 @@ export class BuoysdashboardComponent implements OnInit {
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private buoysDashboardService: BuoysDashboardService) {
-    //this.getRestItems();
-    this.getPostItems();
+    this.showBuoysDashboardData();
   }
-
-
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.todayDate = setInterval(() => {
     }, 900000);
-
-
   }
-
-
   res: any;
   restItems: any = [];
   getTestMethodResult = {};
-  //restItemsUrl = "assets/data/buoys.json";
 
   mondalWindowOpen(selector: String) {
     this.mondalOpen = true;
@@ -91,15 +83,25 @@ export class BuoysdashboardComponent implements OnInit {
     this.mondalOpen = false;
   }
 
-
-
-  getPostItems(): void {
+  showBuoysDashboardData(): void {
     this.buoysDashboardService.buoysDashboardData().subscribe((resp) => {
       //this.restItems = resp;
-      console.log("----resp----", resp);
       this.res = resp;
       console.log(this.res.getAveragevalueResult.AvgList);
       this.restItems = this.res.getAveragevalueResult.AvgList;
+      let obj = [];
+      for (let item in this.restItems) {
+        let nItem = {};
+        for (let key in this.restItems[item]) {
+          let rowItem = this.restItems[item][key];
+          if (rowItem == "" || rowItem == null) {
+            rowItem = "-";
+          }
+          nItem[key] = rowItem;
+        }
+        obj.push(nItem);
+      }
+      this.restItems = obj;
     });
   }
 }

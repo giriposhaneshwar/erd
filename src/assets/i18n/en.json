@@ -23,6 +23,8 @@
   "DOWNLOAD_MWQ_DATA":"MWQ Data",
   "DOWNLOAD_BUOYS_DATA":"BUOYS Data",
   "DOWNLOAD_MWQ_INDICIES_DATA":"MWQ Indicies Data",
+  "COMPARE_PARAMS" :"Compare Parameters",
+  "SITES_PERFORMANCE" :"Sites Performance",
   
   "HOME": "Dashboard",   
   "EMAILS" : "Emails",

@@ -102,7 +102,12 @@ const HORIZONTALMENUITEMS = [
     state: 'reports',
     name: 'REPORTS',
     type: 'link',
-    icon: 'report'
+    icon: 'report',
+    children: [
+      {state: 'reports/analytics', name: 'ANALYTICS'},
+      {state: 'reports/compare-params', name: 'COMPARE_PARAMS'},
+      {state: 'reports/sites-performance', name: 'SITES_PERFORMANCE'},
+    ]
   },
   {
     state: 'mwqDataEntry',

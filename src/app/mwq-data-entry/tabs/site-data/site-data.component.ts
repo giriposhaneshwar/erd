@@ -35,18 +35,25 @@ export class SiteDataComponent implements OnInit {
   };
 
   siteCategory = [];
-  siteDetails = [];
-  sourceDetails = [];
-  preservationDetails = [];
-  sampleByDetails = [];
-  eventTypeDetails = [];
-
   siteCategoryResp: any;
+
+  siteDetails = [];
   siteNameResp: any;
+
+  sourceDetails = [];
   sourceNameResp: any;
+
+  preservationDetails = [];
   preservationResp: any;
+
+  sampleByDetails = [];
   sampleByResp: any;
+
+  eventTypeDetails = [];
   eventTypeResp: any;
+
+  projectNamesDetails = [];
+  projectNamesResp: any;
 
   siteDateEdit() {
     console.log("At Edit Screen");
@@ -67,7 +74,7 @@ export class SiteDataComponent implements OnInit {
     this.route.navigate(["mwqDataEntry", "data-entry"]);
   }
   constructor(
-    public route: Router, 
+    public route: Router,
     public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService,
     private fb: FormBuilder,
@@ -78,10 +85,11 @@ export class SiteDataComponent implements OnInit {
     this.loadPreservationData();
     this.loadSampleByData();
     this.loadEventTypeData();
+    this.loadProjectNames();
   }
 
   ngOnInit() {
-    let module  = this.config.getModuleName();
+    let module = this.config.getModuleName();
     // store qc in dataEntryt
     /* if(module.module == "mwqDataQc"){
       this.localStore.store.set(this.dataEntryKey, this.localStore.store.get('qcData'));
@@ -155,11 +163,20 @@ export class SiteDataComponent implements OnInit {
     });
   }
 
+
   loaadSiteCategoryData() {
     this.mwqDataEntryService.fetchSiteCategoryData().subscribe((resp) => {
       this.siteCategoryResp = resp;
       this.siteCategory = this.siteCategoryResp.getCategoryResult.CategoryList;
       console.log("----siteCategory----", this.siteCategory);
+    });
+  }
+
+  loadProjectNames(): void {
+    this.mwqDataEntryService.fetchProjectNamesData().subscribe(restItems => {
+      this.projectNamesResp = restItems;
+      this.projectNamesDetails = this.projectNamesResp.getProjectNameResult.ProjectNameList;
+      console.log("----projectNamesDetails----", this.projectNamesDetails);
     });
   }
 

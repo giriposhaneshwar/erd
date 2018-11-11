@@ -2,6 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { fadeInAnimation } from '../../core/route-animation/route.animation';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { IncidentsService } from '../incidents.service';
 
 @Component({
   selector: 'ms-buoys-incidents',
@@ -14,10 +15,12 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 })
 export class BuoysIncidentsComponent implements OnInit {
 
-  buoysIncidentRows = [];
+  //buoysIncidentRows = [];
   selectedValue = [];
   temp = [];
-
+  buoysIncidentDetails = [];
+  buoysIncidentResp: any;
+  
   columns: any[] = [
     { prop: 'buoysIncidentId' },
     { name: 'Incident Description' },
@@ -27,18 +30,15 @@ export class BuoysIncidentsComponent implements OnInit {
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private pageTitleService: PageTitleService) {
-    this.fetch((data) => {
-      this.temp = [...data];
-      this.selectedValue = [data[2]];
-      this.buoysIncidentRows = data;
-    });
+  
+  constructor(private pageTitleService: PageTitleService, private incidentsService:IncidentsService) {
+   this.loadBuoysIncidentsData();
   }
 
   ngOnInit() {
-    this.pageTitleService.setTitle("BUOYS Incidents");
+    this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
-
+/* 
   fetch(cb) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/buoys_incidents.json`);
@@ -46,6 +46,17 @@ export class BuoysIncidentsComponent implements OnInit {
       cb(JSON.parse(req.response));
     };
     req.send();
+  } */
+
+  loadBuoysIncidentsData(): void {
+    this.incidentsService.getBuoysIncidentData().subscribe((resp) => {
+      this.buoysIncidentResp = resp;
+      this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
+      this.selectedValue = [this.buoysIncidentDetails[1]];
+      this.temp = [...this.buoysIncidentDetails];
+
+      console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
+    });
   }
 
   onSelect({ selected }) {
@@ -53,19 +64,17 @@ export class BuoysIncidentsComponent implements OnInit {
   }
 
   onActivate(event) {
-    console.log('Activate Event', event);
+   // console.log('Activate Event', event);
   }
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-
     // filter our data
       const temp = this.temp.filter(function(d) {
-      return d.incidentDescription.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.incidentname.toLowerCase().indexOf(val) !== -1 || !val;
     });
-
     // update the rows
-    this.buoysIncidentRows = temp;
+    this.buoysIncidentDetails = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
   }

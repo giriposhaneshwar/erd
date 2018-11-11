@@ -30,7 +30,7 @@ export class BuoysDashboardService {
   }
 
 
-  restItemsUrl = "http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetTestMethod";
+ /*  restItemsUrl = "http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetTestMethod";
   getRestItems(): void {
     this.restItemsServiceGetRestItems().subscribe(data => {
       this.res = data;
@@ -55,5 +55,5 @@ export class BuoysDashboardService {
   restItemsServiceGetRestItems() {
     return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
   }
-
+ */
 }

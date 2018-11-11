@@ -19,8 +19,8 @@ export class DownloadMwqDataComponent implements OnInit {
     private http: HttpClient,
     private excelService: DownloadMwqDataService,
     private downloadDataService: DownloadDataService) {
-    //this.getRestItems();
-    this.downloadMwqData();
+    this.getRestItems();
+    //this.downloadMwqData();
  
   }
 
@@ -48,11 +48,11 @@ export class DownloadMwqDataComponent implements OnInit {
             this.getRestItemsResponse.BuoysList != undefined &&
             this.getRestItemsResponse.BuoysList.length > 0
           ) {
-            this.restItems = this.getRestItemsResponse.BuoysList;
+            this.downloadMwqDataDetails = this.getRestItemsResponse.BuoysList;
           }
         }
       }
-      console.log("----restItems----", this.restItems);
+      console.log("----downloadMwqDataDetails----", this.downloadMwqDataDetails);
     });
   }
 
