@@ -36,14 +36,23 @@ export class UploadFilesComponent implements OnInit {
     let formData = this.localStore.store.get("dataEntry");
     let fd  = new FormData();
 
-    fd.append('file', uploadedFile[0]);
+    if(uploadedFile.length > 1){
+      for (let i = 0; i < uploadedFile.length; i++) {
+        let item = uploadedFile[i];
+        fd.append("file" + i, item);
+      }
+    }else{
+      fd.append('file', uploadedFile[0]);
+    }
+    
+
+    
     // const dummy = {test: "testing", id: 1, name: "test name"};
     fd.append("dataEntry", JSON.stringify(formData));
 
     console.log("Uploaded file", evt, data, fd);
 
     this.api.postFileUpload(fd).subscribe(resp => {
-      debugger;
       console.log("----postFileUpload----", resp);
     });
 
