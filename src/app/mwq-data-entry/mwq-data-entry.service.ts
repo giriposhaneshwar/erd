@@ -16,6 +16,15 @@ export class MwqDataEntryService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetCategory", bodyParams, { headers: headers_value })
   }
+  postFileUpload(data): Observable<any[]> {
+    let bodyParams = JSON.stringify(data);
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set("Content-Type", "application/json");
+    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
+    return this.http.post<any[]>("http://localhost/php/", data, {
+      headers: headers_value
+    });
+  }
 
   fetchSiteNameData(): Observable<any[]> {
     let bodyParams = {};
