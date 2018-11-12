@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit } from "@angular/core";
+import { Directive, ElementRef, OnInit, Input, OnChanges } from "@angular/core";
 import * as d3 from "d3";
 import * as scale from "d3-scale";
 
@@ -10,6 +10,7 @@ declare var $: any;
 })
 export class HistoricalGraphDirective implements OnInit {
   element: HTMLInputElement;
+  @Input('graphData') graphData: any;
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
     /* console.log("this.element", this.element); */
@@ -20,12 +21,9 @@ export class HistoricalGraphDirective implements OnInit {
       .select(this.element)
       .append("div")
       .attr("class", "graphHolder");
-    //console.log("Width ", $(".graphHolder"));
+    console.log("Width ", this.graphData);
     let canvas = graphHolder.append("svg");
-    let graphData =
-      ele[0].attributes.graphData.value != undefined
-        ? JSON.parse(ele[0].attributes.graphData.value)
-        : [];
+    let graphData = this.graphData;
     let metaData = this.generateMetaData(graphData);
     //console.log("Graph Data", graphData, metaData);
     /* Generating Graph */
@@ -104,5 +102,8 @@ export class HistoricalGraphDirective implements OnInit {
   ngOnInit() {
     this.draw();
     //console.log("ele", this.element);
+  }
+  ngOnChange() {
+    this.draw();
   }
 }

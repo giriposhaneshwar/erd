@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { PageTitleService } from "app/core/page-title/page-title.service";
 import { Config } from "../appConfiguration/config";
 import { AppStorageService } from "../appConfiguration/app-config.service";
+import { MwqDataEntryService } from './mwq-data-entry.service';
 
 @Component({
   selector: "ms-mwq-data-entry",
@@ -18,11 +19,21 @@ export class MwqDataEntryComponent implements OnInit {
   constructor(
     private pageTitleService: PageTitleService,
     public route: Router,
-    public localStore: AppStorageService
+    public localStore: AppStorageService,
+    public api: MwqDataEntryService
   ) { }
 
   tabRouteinMobile(evt, data) {
     this.route.navigate(["mwqDataEntry", data]);
+  }
+
+  getHistoricalGraphData () {
+    // fetchHistoricalGraph;
+    this.api.fetchHistoricalGraph().subscribe(resp => {
+      let data = resp[0];
+      this.localStore.store.set('graphData', data);
+      console.log("----getHistoricalGraphData----", data);
+    });
   }
   ngOnInit() {
     let currentUrl = this.route.url;
@@ -40,5 +51,7 @@ export class MwqDataEntryComponent implements OnInit {
     /* Getting Local Store Roles */
     let roles  = this.localStore.store.get('role');
     this.role = roles.data;
+
+    this.getHistoricalGraphData();
   }
 }

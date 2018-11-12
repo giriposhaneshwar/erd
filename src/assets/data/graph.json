@@ -1,0 +1,61 @@
+[{
+    "historicalGraphOutput": {
+        "insituParams": {
+            "Temparature_Surface": ["30", "40", "50"],
+            "Conductivity_Surface": ["30", "40", "50"],
+            "Salinity_Surface": ["30", "40", "50"],
+            "pH_Surface": ["30", "40", "50"],
+            "Dissolved_O_Surface": ["30", "40", "50"],
+            "Chlorophyll_a_Surface": ["30", "40", "50"],
+            "Sechi_Disc_Surface": ["30", "40", "50"],
+            "Temparature_Bottom": ["30", "40", "50"],
+            "Conductivity_Bottom": ["30", "40", "50"],
+            "Salinity_Bottom": ["30", "40", "50"],
+            "pH_Bottom": ["30", "40", "50"],
+            "Dissolved_O_Bottom": ["30", "40", "50"],
+            "Chlorophyll_a_Bottom": ["30", "40", "50"]
+        },
+        "generalChemistry": {
+            "TotalPhosp": ["30", "40", "50"],
+            "Total_Nitrogen": ["30", "40", "50"],
+            "Nitrite_N": ["30", "40", "50"],
+            "Nitrate_N": ["30", "40", "50"],
+            "Silicate_Sl": ["30", "40", "50"],
+            "Ammonia_N": ["30", "40", "50"],
+            "Phosphate_P": ["30", "40", "50"],
+            "BOD": ["30", "40", "50"],
+            "TSS": ["30", "40", "50"]
+        },
+        "inOrganicChemistry": {
+            "Cadmium_Water": ["30", "40", "50"],
+            "Chromium_Water": ["30", "40", "50"],
+            "Cobalt_Water": ["30", "40", "50"],
+            "Copper_Water": ["30", "40", "50"],
+            "Lead_Water": ["30", "40", "50"],
+            "Manganese_Water": ["30", "40", "50"],
+            "Nickel_Water": ["30", "40", "50"],
+            "Zinc_Water": ["30", "40", "50"],
+            "Iron_Water": ["30", "40", "50"],
+            "Mercury_Water": ["30", "40", "50"],
+            "Cadmium_Sediment": ["30", "40", "50"],
+            "Chromium_Sediment": ["30", "40", "50"],
+            "Cobalt_Sediment": ["30", "40", "50"],
+            "Copper_Sediment": ["30", "40", "50"],
+            "Lead_Sediment": ["30", "40", "50"],
+            "Manganese_Sediment": ["30", "40", "50"],
+            "Nickel_Sediment": ["30", "40", "50"],
+            "Zinc_Sediment": ["30", "40", "50"],
+            "Iron_Sediment": ["30", "40", "50"],
+            "Mercury_Sediment": ["30", "40", "50"]
+        },
+        "organicChemistry": {
+            "Total_Phosp": ["30", "40", "50"],
+            "TPH": ["30", "40", "50"]
+        },
+        "microBiology": {
+            "Total_Coliform": ["30", "40", "50"],
+            "Enterococci": ["30", "40", "50"],
+            "Fecal_Coliform": ["30", "40", "50"]
+        }
+    }
+}]

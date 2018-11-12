@@ -25,6 +25,14 @@ export class MwqDataEntryService {
       headers: headers_value
     });
   }
+  fetchHistoricalGraph(): Observable<any[]> {
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set("Content-Type", "application/json");
+    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
+    return this.http.get<any[]>("../../assets/data/graph.json", {
+      headers: headers_value
+    });
+  }
 
   fetchSiteNameData(): Observable<any[]> {
     let bodyParams = {};

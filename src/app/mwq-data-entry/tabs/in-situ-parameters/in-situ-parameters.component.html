@@ -34,9 +34,9 @@
             <div class="clearfix tbl tbl-per-20 text-left insituValuesSurface">
               <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 'white': temperature.surfaceValue == '','red': temperature.surfaceValue <= 35, 'orange': temperature.surfaceValue <= 50 && temperature.surfaceValue > 35, 'green': temperature.surfaceValue > 50}"
                 name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" required />
-              <span class="pad l-15"><sup>°</sup>C (at Surface)</span>
+              <span class="pad l-15"><sup>°</sup>C (at Surface) </span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]">
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Surface">
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
@@ -56,7 +56,7 @@
               <input type="text" [ngClass]="{'white': temperature.bottom25m == '','red': temperature.bottom25m <= 35, 'orange': temperature.bottom25m <= 50 && temperature.bottom25m > 35, 'green': temperature.bottom25m > 50}"
                 name="tempbottom25m" [(ngModel)]="temperature.bottom25m" class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
@@ -67,7 +67,7 @@
 
               <span class="pad l-15">mS/gm (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),'white': conductivity.bottomValue == '','red': conductivity.bottomValue <= 35, 'orange': conductivity.bottomValue <= 50 && conductivity.bottomValue > 35, 'green': conductivity.bottomValue > 50}"
@@ -86,7 +86,7 @@
               <input type="text" name="conductivity.bottom25m" [(ngModel)]="conductivity.bottom25m" [ngClass]="{'white': conductivity.bottom25m == '','red': conductivity.bottom25m <= 35, 'orange': conductivity.bottom25m <= 50 && conductivity.bottom25m > 35, 'green': conductivity.bottom25m > 50}"
                 class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
@@ -95,7 +95,7 @@
                 name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel" required />
               <span class="pad l-15">ppt (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),'white': salinity.bottomValue == '','red': salinity.bottomValue <= 35, 'orange': salinity.bottomValue <= 50 && salinity.bottomValue > 35, 'green': salinity.bottomValue > 50}"
@@ -113,7 +113,7 @@
               <input type="text" name="salinity.bottom25m" [(ngModel)]="salinity.bottom25m" [ngClass]="{'white': salinity.bottom25m == '','red': salinity.bottom25m <= 35, 'orange': salinity.bottom25m <= 50 && salinity.bottom25m > 35, 'green': salinity.bottom25m > 50}"
                 class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
@@ -122,7 +122,7 @@
                 name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[75, 68, 20, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Surface"></div>
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
                 name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required />
@@ -140,7 +140,7 @@
               <input type="text" name="pH.bottom25m" [(ngModel)]="pH.bottom25m" [ngClass]="{'white': pH.bottom25m == '','red': pH.bottom25m <= 35, 'orange': pH.bottom25m <= 50 && pH.bottom25m > 35, 'green': pH.bottom25m > 50}"
                 class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Dissolved_O_</div>
@@ -150,7 +150,7 @@
                 required />
               <span class="pad l-15">mg/L (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph  [graphData]="graphData.Dissolved_O_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),'white': dissolvedO.bottomValue == '','red': dissolvedO.bottomValue <= 35, 'orange': dissolvedO.bottomValue <= 50 && dissolvedO.bottomValue > 35, 'green': dissolvedO.bottomValue > 50}"
@@ -169,7 +169,7 @@
               <input type="text" name="dissolvedO.bottom25m" [(ngModel)]="dissolvedO.bottom25m" [ngClass]="{'white': dissolvedO.bottom25m == '','red': dissolvedO.bottom25m <= 35, 'orange': dissolvedO.bottom25m <= 50 && dissolvedO.bottom25m > 35, 'green': dissolvedO.bottom25m > 50}"
                 class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph  [graphData]="graphData.Dissolved_O_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
@@ -179,7 +179,7 @@
                 required />
               <span class="pad l-15">ug/L (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph  [graphData]="graphData.Chlorophyll_a_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-15 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),'white': Chlorophyll_a.bottomValue == '','red': Chlorophyll_a.bottomValue <= 35, 'orange': Chlorophyll_a.bottomValue <= 50 && Chlorophyll_a.bottomValue > 35, 'green': Chlorophyll_a.bottomValue > 50}"
@@ -198,7 +198,7 @@
               <input type="text" name="Chlorophyll_a.bottom25m" [(ngModel)]="Chlorophyll_a.bottom25m" [ngClass]="{'white': Chlorophyll_a.bottom25m == '','red': Chlorophyll_a.bottom25m <= 35, 'orange': Chlorophyll_a.bottom25m <= 50 && Chlorophyll_a.bottom25m > 35, 'green': Chlorophyll_a.bottom25m > 50}"
                 class="form-control" />
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph   [graphData]="graphData.Chlorophyll_a_Bottom"></div>
           </div>
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
@@ -208,7 +208,7 @@
                 required />
               <span class="pad l-15">Feet (at Surface)</span>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph  [graphData]="graphData.Sechi_Disc_Surface"></div>
             <div class="clearfix tbl tbl-per-15 text-left"></div>
             <div class="clearfix tbl tbl-per-25 text-center insituValuesGrid"></div>
             <div class="clearfix tbl tbl-per-15 text-center"></div>
