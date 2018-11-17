@@ -37,7 +37,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Coliform"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalColiform.mql" name="totalColiformMql"
                 #totalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformMql.invalid)}"
@@ -74,7 +74,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Enterococci"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="enterococci.mql" name="enterococciMql"
                 #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" required>
@@ -110,7 +110,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Fecal_Coliform"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="fecalColiform.mql" name="fecalColiformMql"
                 #fecalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformMql.invalid)}"

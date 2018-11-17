@@ -6,7 +6,8 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class MwqDataEntryService {
 
-  apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
+  //apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
+  apiUrl = 'http://localhost/MWQWebservice/MWQSitesRestServices.svc';
   jsonapiUrl = "assets/data/projectNames.json";
   constructor(private http: HttpClient) { }
 
@@ -19,9 +20,10 @@ export class MwqDataEntryService {
   postFileUpload(data): Observable<any[]> {
     let bodyParams = JSON.stringify(data);
     let headers_value = new HttpHeaders();
-    headers_value = headers_value.set("Content-Type", "application/json");
+    //headers_value = headers_value.set("Content-Type", "application/json");
+    headers_value = headers_value.set("enctype", "multipart/form-data");
     headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
-    return this.http.post<any[]>("http://localhost/php/", data, {
+    return this.http.post<any[]>("http://localhost:8080/uploadFile", data, {
       headers: headers_value
     });
   }
@@ -91,13 +93,13 @@ export class MwqDataEntryService {
   }
 
   fetchProjectNamesData(): Observable<any[]> {
-    /*     
+        
         let bodyParams = {};
         let headers_value = new HttpHeaders();
         headers_value = headers_value.set('Content-Type', 'application/json');
-        return this.http.post<any[]>(this.apiUrl + "/GetExtraction ", bodyParams, { headers: headers_value }) 
-    */
-    return this.http.get<any[]>(this.jsonapiUrl).pipe(map(data => data));
+        return this.http.post<any[]>(this.apiUrl + "/GetProjects ", bodyParams, { headers: headers_value }) 
+   
+    // return this.http.get<any[]>(this.jsonapiUrl).pipe(map(data => data));
   }
 
   saveMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
@@ -106,5 +108,13 @@ export class MwqDataEntryService {
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/loadData", JSON.stringify(jsonMwqDataEntryInfo), { headers: headers_value })
+  }
+
+  updateMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
+    /*     console.log(" ---------------- " + JSON.stringify(jsonMwqDataEntryInfo));
+        let bodyParams = jsonMwqDataEntryInfo; */
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/updateData", JSON.stringify(jsonMwqDataEntryInfo), { headers: headers_value })
   }
 }

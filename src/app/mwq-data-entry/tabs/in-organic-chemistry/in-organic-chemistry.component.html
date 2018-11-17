@@ -32,7 +32,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select class="form-control" [(ngModel)]="iocw_cadmium.mql" name="iocw_cadmiumMql" #iocw_cadmiumMql="ngModel"
                 [ngClass]="{ 'is-invalid': (f.submitted && iocw_cadmiumMql.invalid)}" required>
@@ -60,7 +60,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_chromium.mql" name="iocw_chromiumMql"
                 #iocw_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumMql.invalid }"
@@ -89,7 +89,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cobalt.mql" name="iocw_cobaltMql"
                 #iocw_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltMql.invalid }" required>
@@ -118,7 +118,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_copper.mql" name="iocw_copperMql"
                 #iocw_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_copperMql.invalid }" required>
@@ -147,7 +147,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_lead.mql" name="iocw_leadMql"
                 #iocw_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_leadMql.invalid }" required>
@@ -176,7 +176,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_manganese.mql" name="iocw_manganeseMql"
                 #iocw_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_manganeseMql.invalid }"
@@ -205,7 +205,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_nickel.mql" name="iocw_nickelMql"
                 #iocw_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelMql.invalid }" required>
@@ -233,7 +233,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_zinc.mql" name="iocw_zincMql"
                 #iocw_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincMql.invalid }" required>
@@ -261,7 +261,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_iron.mql" name="iocw_ironMql"
                 #iocw_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironMql.invalid }" required>
@@ -289,7 +289,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Water"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_mercury.mql" name="iocw_mercuryMql"
                 #iocw_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercuryMql.invalid }"
@@ -339,7 +339,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cadmium.mql" name="iocs_cadmiumMql"
                       #iocs_cadmiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cadmiumMql.invalid }"
@@ -368,7 +368,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_chromium.mql" name="iocs_chromiumMql"
                       #iocs_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_chromiumMql.invalid }"
@@ -397,7 +397,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cobalt.mql" name="iocs_cobaltMql"
                       #iocs_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cobaltMql.invalid }"
@@ -426,7 +426,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_copper.mql" name="iocs_copperMql"
                       #iocs_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_copperMql.invalid }"
@@ -456,7 +456,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_lead.mql" name="iocs_leadMql"
                       #iocs_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_leadMql.invalid }"
@@ -486,7 +486,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_manganese.mql" name="iocs_manganeseMql"
                       #iocs_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_manganeseMql.invalid }"
@@ -515,7 +515,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_nickel.mql" name="iocs_nickelMql"
                       #iocs_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelMql.invalid }"
@@ -544,7 +544,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_zinc.mql" name="iocs_zincMql"
                       #iocs_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincMql.invalid }"
@@ -573,7 +573,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_iron.mql" name="iocs_ironMql"
                       #iocs_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironMql.invalid }"
@@ -602,7 +602,7 @@
                   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div>
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Sediment"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_mercury.mql" name="iocs_mercuryMql"
                       #iocs_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercuryMql.invalid }"

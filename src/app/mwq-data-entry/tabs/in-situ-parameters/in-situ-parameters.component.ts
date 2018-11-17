@@ -20,75 +20,13 @@ export class InSituParametersComponent implements OnInit {
   graphData: any;
   graphDataKey: string = "insituParams";
 
-  temperature: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  conductivity: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  salinity: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  pH: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  dissolvedO: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  Chlorophyll_a: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
-
-  sechiDisc: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: ""
-  };
+  temperature: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  conductivity: any = {surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  salinity: any ={surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  pH: any = {surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  dissolvedO: any = {surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  Chlorophyll_a: any = {surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  sechiDisc: any = {surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
 
   ngOnInit() {
     // get DAta
@@ -97,7 +35,7 @@ export class InSituParametersComponent implements OnInit {
     this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
     setTimeout(() => {
       this.graphData.Sechi_Disc_Surface = ["30", "80", "20", "95"];
-    },5000);
+    }, 5000);
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.temperatureComponentKey)) {
@@ -135,7 +73,7 @@ export class InSituParametersComponent implements OnInit {
     //this.selectedEventType = [this.eventTypeDetails[0]];
   }
 
-  constructor(public route: Router, public localStore: AppStorageService) {}
+  constructor(public route: Router, public localStore: AppStorageService) { }
 
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);

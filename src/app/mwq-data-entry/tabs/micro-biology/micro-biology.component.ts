@@ -24,6 +24,10 @@ export class MicroBiologyComponent implements OnInit {
   js = {};
   //jsonMwqDataEntryInfo :any;
 
+  
+  graphData: any;
+  graphDataKey: string = "microBiology";
+
   constructor(public route: Router, 
     public toastr: ToastsManager, 
     vcr: ViewContainerRef,
@@ -36,6 +40,7 @@ export class MicroBiologyComponent implements OnInit {
     this.loaadExtractionMethodData();
   }
 
+  
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);
   }
@@ -64,6 +69,9 @@ export class MicroBiologyComponent implements OnInit {
   ngOnInit() {
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
+    let graphData = this.localStore.store.get("graphData");
+    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
+    
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.totalColiformComponentKey)) {

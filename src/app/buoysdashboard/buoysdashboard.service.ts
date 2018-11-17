@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class BuoysDashboardService {
 
-  buoysDashboardDataUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
+//  buoysDashboardDataUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
+  buoysDashboardDataUrl = 'http://localhost/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
   //buoysDashboardDataUrl = 'http://localhost:8080/buoys/fetchBuoysData';
   
   res: any;

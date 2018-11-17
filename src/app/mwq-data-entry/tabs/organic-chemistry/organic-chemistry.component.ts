@@ -14,6 +14,9 @@ export class OrganicChemistryComponent implements OnInit {
   dataEntryKey: string = "dataEntry";
   oc_totalPhospComponentKey: string = "Total_Phosp";
   oc_tphComponentKey: string = "TPH";
+
+  graphData: any;
+  graphDataKey: string = "organicChemistry";
   
   oc_totalPhosp:any=  { surfaceValue: "",  mql: "",  extractionMethod:"" , testMethod: "" };
   oc_tph:any= { surfaceValue: "",  mql: "",  extractionMethod:"" , testMethod: "" };
@@ -39,6 +42,9 @@ export class OrganicChemistryComponent implements OnInit {
   ngOnInit() {
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
+    let graphData = this.localStore.store.get("graphData");
+    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
+
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.oc_totalPhospComponentKey)) {

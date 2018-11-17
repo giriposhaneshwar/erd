@@ -34,6 +34,9 @@ export class InOrganicChemistryComponent implements OnInit {
   iocs_ironComponentKey: string = "Iron_Sediment";
   iocs_mercuryComponentKey: string = "Mercury_Sediment";
 
+  graphData: any;
+  graphDataKey: string = "inOrganicChemistry";
+
   iocw_cadmium:any=  { surfaceValue: "",  mql: "",  testMethod: "" };
   iocw_chromium:any= { surfaceValue: "",  mql: "",  testMethod: "" };
   iocw_cobalt:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
@@ -99,6 +102,9 @@ export class InOrganicChemistryComponent implements OnInit {
   ngOnInit() {
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
+    let graphData = this.localStore.store.get("graphData");
+    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
+    
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.iocw_cadmiumComponentKey)) {

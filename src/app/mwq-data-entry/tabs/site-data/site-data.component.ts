@@ -32,6 +32,7 @@ export class SiteDataComponent implements OnInit {
     sampleTime: "",
     sampleBy: "",
     sampleEventType: ""
+   
   };
 
   siteCategory = [];
@@ -173,9 +174,9 @@ export class SiteDataComponent implements OnInit {
   }
 
   loadProjectNames(): void {
-    this.mwqDataEntryService.fetchProjectNamesData().subscribe(restItems => {
+    this.mwqDataEntryService.fetchProjectNamesData().subscribe((restItems) => {
       this.projectNamesResp = restItems;
-      this.projectNamesDetails = this.projectNamesResp.getProjectNameResult.ProjectNameList;
+      this.projectNamesDetails = this.projectNamesResp.GetProjectsResult.ProjectList;
       console.log("----projectNamesDetails----", this.projectNamesDetails);
     });
   }

@@ -32,7 +32,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TotalPhosp"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql"
                 #totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospMql.invalid)}" required>
@@ -60,7 +60,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Nitrogen"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql"
                 #totalNitrogenMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenMql.invalid)}"
@@ -89,7 +89,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrite_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql" #nitriteNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required>
@@ -117,7 +117,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrate_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql" #nitrateNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" required>
@@ -146,7 +146,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Silicate_Sl"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql"
                 #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" required>
@@ -175,7 +175,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Ammonia_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql" #ammoniaNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" required>
@@ -203,7 +203,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Phosphate_P"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql"
                 #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" required>
@@ -230,7 +230,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.BOD"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql" #bodMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && bodMql.invalid)}" required>
@@ -256,7 +256,7 @@
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph graphData="[45, 48, 35, 40, 55, 45]"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql" #tssMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" required>

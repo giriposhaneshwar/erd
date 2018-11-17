@@ -21,62 +21,18 @@ export class GeneralChemistryComponent implements OnInit {
   phosphatePComponentKey: string = "Phosphate_P";
   bodComponentKey: string = "BOD";
   tssComponentKey: string = "TSS";
+  graphData: any;
+  graphDataKey: string = "generalChemistry";
 
-  totalPhosp: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  totalNitrogen: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  nitriteN: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  nitrateN: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  silicateSl: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  ammoniaN: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  phosphateP: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  bod: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-  tss: any = {
-    surfaceValue: "",
-    mql: "",
-    testMethod: "",
-  };
-
-
+  totalPhosp: any = {    surfaceValue: "",    mql: "",    testMethod: "" };
+  totalNitrogen: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  nitriteN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  nitrateN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  silicateSl: any = {    surfaceValue: "",    mql: "",    testMethod: ""};
+  ammoniaN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  phosphateP: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  bod: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  tss: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
 
   constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
     this.loadMQLData();
@@ -111,8 +67,15 @@ export class GeneralChemistryComponent implements OnInit {
   }
 
   ngOnInit() {
+
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
+    let graphData = this.localStore.store.get("graphData");
+    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
+    /* setTimeout(() => {
+      this.graphData.Sechi_Disc_Surface = ["30", "80", "20", "95"];
+    }, 5000);
+ */
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.totalPhospComponentKey)) {

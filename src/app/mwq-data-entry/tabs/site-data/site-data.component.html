@@ -23,7 +23,7 @@
                 <select class="form-control" [(ngModel)]="siteData.projectName" name="projectName"
                   #projectName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }" required>
                   <option value="" disabled selected hidden>Select Project Name</option>
-                  <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.Project_Id}}">{{prjNames.Project_Name}}</option>
+                  <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.projectID}}">{{prjNames.projectName}}</option>
                 </select>
               </div>
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>

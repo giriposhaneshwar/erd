@@ -38,12 +38,12 @@ export class AppStorageService {
       this.lc.clear();
     },
     encode: (data) => {
-      return btoa(data);
-      // return data;
+      //return btoa(data);
+       return data;
     },
     decode: (data) => {
-      return atob(data);
-      // return data;
+     // return atob(data);
+       return data;
     }
   };
 

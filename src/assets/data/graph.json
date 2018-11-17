@@ -1,16 +1,16 @@
 [{
     "historicalGraphOutput": {
         "insituParams": {
-            "Temparature_Surface": ["30", "40", "50"],
-            "Conductivity_Surface": ["30", "40", "50"],
-            "Salinity_Surface": ["30", "40", "50"],
-            "pH_Surface": ["30", "40", "50"],
-            "Dissolved_O_Surface": ["30", "40", "50"],
+            "Temparature_Surface": ["60", "57", "50"],
+            "Conductivity_Surface": ["80", "10", "50"],
+            "Salinity_Surface": ["30", "20", "60"],
+            "pH_Surface": ["70", "40", "50"],
+            "Dissolved_O_Surface": ["20", "10", "70"],
             "Chlorophyll_a_Surface": ["30", "40", "50"],
             "Sechi_Disc_Surface": ["30", "40", "50"],
             "Temparature_Bottom": ["30", "40", "50"],
             "Conductivity_Bottom": ["30", "40", "50"],
-            "Salinity_Bottom": ["30", "40", "50"],
+            "Salinity_Bottom": ["30", "60", "50"],
             "pH_Bottom": ["30", "40", "50"],
             "Dissolved_O_Bottom": ["30", "40", "50"],
             "Chlorophyll_a_Bottom": ["30", "40", "50"]
