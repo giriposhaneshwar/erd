@@ -21,7 +21,7 @@ export class HistoricalGraphDirective implements OnInit {
       .select(this.element)
       .append("div")
       .attr("class", "graphHolder");
-    console.log("Width ", this.graphData);
+    //console.log("Width ", this.graphData);
     let canvas = graphHolder.append("svg");
     let graphData = this.graphData;
     let metaData = this.generateMetaData(graphData);

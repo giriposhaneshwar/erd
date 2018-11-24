@@ -25,8 +25,8 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),'white': totalPhosp.surfaceValue == '','red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
-                name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" #totalPhospSurfaceValue="ngModel"
+              <input type="text" autocomplete="off" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),'white': totalPhosp.surfaceValue == '','red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
+              name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" #totalPhospSurfaceValue="ngModel"
                 required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -55,7 +55,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),'white': totalNitrogen.surfaceValue == '','red': totalNitrogen.surfaceValue <= 35, 'orange': totalNitrogen.surfaceValue <= 50 && totalNitrogen.surfaceValue > 35, 'green': totalNitrogen.surfaceValue > 50}"
                 name="totalNitrogenSurfaceValue" [(ngModel)]="totalNitrogen.surfaceValue" #totalNitrogenSurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -84,7 +84,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),'white': nitriteN.surfaceValue == '','red': nitriteN.surfaceValue <= 35, 'orange': nitriteN.surfaceValue <= 50 && nitriteN.surfaceValue > 35, 'green': nitriteN.surfaceValue > 50}"
                 name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -112,7 +112,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),'white': nitrateN.surfaceValue == '','red': nitrateN.surfaceValue <= 35, 'orange': nitrateN.surfaceValue <= 50 && nitrateN.surfaceValue > 35, 'green': nitrateN.surfaceValue > 50}"
                 name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -141,7 +141,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),'white': silicateSl.surfaceValue == '','red': silicateSl.surfaceValue <= 35, 'orange': silicateSl.surfaceValue <= 50 && silicateSl.surfaceValue > 35, 'green': silicateSl.surfaceValue > 50}"
                 name="silicateSlsurfaceValue" [(ngModel)]="silicateSl.surfaceValue" #silicateSlsurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -170,7 +170,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),'white': ammoniaN.surfaceValue == '','red': ammoniaN.surfaceValue <= 35, 'orange': ammoniaN.surfaceValue <= 50 && ammoniaN.surfaceValue > 35, 'green': ammoniaN.surfaceValue > 50}"
                 name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -198,7 +198,7 @@
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && phosphatePsurfaceValue.invalid),'white': phosphateP.surfaceValue == '','red': phosphateP.surfaceValue <= 35, 'orange': phosphateP.surfaceValue <= 50 && phosphateP.surfaceValue > 35, 'green': phosphateP.surfaceValue > 50}"
                 name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue" #phosphatePsurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -225,7 +225,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">BOD</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),'white': bod.surfaceValue == '','red': bod.surfaceValue <= 35, 'orange': bod.surfaceValue <= 50 && bod.surfaceValue > 35, 'green': bod.surfaceValue > 50}"
-                name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue" #bodSurfaceValue="ngModel" required />
+                name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue" #bodSurfaceValue="ngModel" required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -251,7 +251,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">TSS</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && tssSurfaceValue.invalid),'white': tss.surfaceValue == '','red': tss.surfaceValue <= 35, 'orange': tss.surfaceValue <= 50 && tss.surfaceValue > 35, 'green': tss.surfaceValue > 50}"
-                name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue" #tssSurfaceValue="ngModel" required />
+                name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue" #tssSurfaceValue="ngModel" required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -276,10 +276,10 @@
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="genChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="generalChemistryDetailsSave(totalPhosp,totalNitrogen,nitriteN,nitrateN,silicateSl,ammoniaN,phosphateP,bod,tss)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="genChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

@@ -78,7 +78,7 @@ const MENUITEMS: Menu[] = [
     type: 'sub',
     icon: 'data_usage',
     children: [
-      {state: 'configure-buoys', name: 'CONFIGURE_BUOYS'},
+     /* {state: 'configure-buoys', name: 'CONFIGURE_BUOYS'},*/
       {state: 'configure-parameters', name: 'CONFIGURE_PARAMETERS'},
       {state: 'configure-categories', name: 'CONFIGURE_CATEGORIES'},
       {state: 'manage-stations', name: 'MANAGE_STATIONS'},

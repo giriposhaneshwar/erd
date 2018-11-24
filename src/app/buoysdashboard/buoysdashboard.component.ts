@@ -21,6 +21,13 @@ export class BuoysdashboardComponent implements OnInit {
   mondalOpen: Boolean = false;
   todayDate: any;
   date: Date;
+  res: any;
+  restItems: any = [];
+  getTestMethodResult = {};
+  radioGroup : any=null;
+  fromDateFilter : any;
+  toDateFilter : any;
+  
   handleFormChange(data) {
 
     if (data == "lastModified") {
@@ -72,9 +79,6 @@ export class BuoysdashboardComponent implements OnInit {
     this.todayDate = setInterval(() => {
     }, 900000);
   }
-  res: any;
-  restItems: any = [];
-  getTestMethodResult = {};
 
   mondalWindowOpen(selector: String) {
     this.mondalOpen = true;

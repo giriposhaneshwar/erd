@@ -12,7 +12,8 @@ export class ConfigureBuoysComponent implements OnInit {
   editing = {};
   modalShowWindow: Boolean = false;
   //rows = [];
-
+  mondalOpen:any;
+  
   getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,
@@ -68,7 +69,7 @@ export class ConfigureBuoysComponent implements OnInit {
   addTableRow() {
     this.openModal();
   }
-
+  siteDatePrev(){}
   openModal() {
     this.modalShowWindow = true;
   }

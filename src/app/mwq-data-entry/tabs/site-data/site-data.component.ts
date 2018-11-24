@@ -31,8 +31,8 @@ export class SiteDataComponent implements OnInit {
     sampleDate: "",
     sampleTime: "",
     sampleBy: "",
-    sampleEventType: ""
-   
+    sampleEventType: "",
+    createdBy: "DeptUser"
   };
 
   siteCategory = [];
@@ -56,24 +56,8 @@ export class SiteDataComponent implements OnInit {
   projectNamesDetails = [];
   projectNamesResp: any;
 
-  siteDateEdit() {
-    console.log("At Edit Screen");
-  }
-  siteDetailsSave(siteDetailsdata, sampleInfoData) {
-    this.dataEntry[this.dataComponentKey] = siteDetailsdata;
-    this.dataEntry[this.sampleInformationKey] = sampleInfoData;
-    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
-  }
+  module: String;
 
-  siteDateNext() {
-    this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
-    console.log("At Next Screen");
-  }
-
-  siteDatePrev() {
-    this.route.navigate(["mwqDataEntry", "data-entry"]);
-  }
   constructor(
     public route: Router,
     public localStore: AppStorageService,
@@ -90,7 +74,9 @@ export class SiteDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    let module = this.config.getModuleName();
+    let mod = this.config.getModuleName();
+    this.module = mod.module;
+    console.log("----module name----" + this.module);
     // store qc in dataEntryt
     /* if(module.module == "mwqDataQc"){
       this.localStore.store.set(this.dataEntryKey, this.localStore.store.get('qcData'));
@@ -128,7 +114,7 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchEventTypeData().subscribe((resp) => {
       this.eventTypeResp = resp;
       this.eventTypeDetails = this.eventTypeResp.getEventbyResult.EventByList;
-      console.log("----eventTypeDetails----", this.eventTypeDetails);
+      // console.log("----eventTypeDetails----", this.eventTypeDetails);
     });
   }
 
@@ -136,7 +122,7 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchSampleByData().subscribe((resp) => {
       this.sampleByResp = resp;
       this.sampleByDetails = this.sampleByResp.getSamplebyResult.SampleByList;
-      console.log("----sampleByDetails----", this.sampleByDetails);
+      // console.log("----sampleByDetails----", this.sampleByDetails);
     });
   }
 
@@ -144,7 +130,7 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchPreservationData().subscribe((resp) => {
       this.preservationResp = resp;
       this.preservationDetails = this.preservationResp.getPreservationResult.PreservationList;
-      console.log("----preservationDetails----", this.preservationDetails);
+      // console.log("----preservationDetails----", this.preservationDetails);
     });
   }
 
@@ -152,7 +138,7 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchSourceNameData().subscribe((resp) => {
       this.sourceNameResp = resp;
       this.sourceDetails = this.sourceNameResp.getSourceResult.SourceList;
-      console.log("----sourceDetails----", this.sourceDetails);
+      // console.log("----sourceDetails----", this.sourceDetails);
     });
   }
 
@@ -160,16 +146,15 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchSiteNameData().subscribe((resp) => {
       this.siteNameResp = resp;
       this.siteDetails = this.siteNameResp.getSiteResult.SiteList;
-      console.log("----siteDetails----", this.siteDetails);
+      // console.log("----siteDetails----", this.siteDetails);
     });
   }
-
 
   loaadSiteCategoryData() {
     this.mwqDataEntryService.fetchSiteCategoryData().subscribe((resp) => {
       this.siteCategoryResp = resp;
       this.siteCategory = this.siteCategoryResp.getCategoryResult.CategoryList;
-      console.log("----siteCategory----", this.siteCategory);
+      // console.log("----siteCategory----", this.siteCategory);
     });
   }
 
@@ -177,12 +162,40 @@ export class SiteDataComponent implements OnInit {
     this.mwqDataEntryService.fetchProjectNamesData().subscribe((restItems) => {
       this.projectNamesResp = restItems;
       this.projectNamesDetails = this.projectNamesResp.GetProjectsResult.ProjectList;
-      console.log("----projectNamesDetails----", this.projectNamesDetails);
+      // console.log("----projectNamesDetails----", this.projectNamesDetails);
     });
   }
 
-  submitSiteData(data) {
-    console.log("Site DAta Form Submited", data);
+  siteDateEdit() {
+    console.log("At Edit Screen");
   }
 
+  siteDetailsSave(siteDetailsdata, sampleInfoData) {
+    this.dataEntry[this.dataComponentKey] = siteDetailsdata;
+    this.dataEntry[this.sampleInformationKey] = sampleInfoData;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    // console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
+  }
+
+  siteDataTabNext(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
+      console.log("At mwqDataEntry - in-situ-parameters Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "in-situ-parameters"]);
+      console.log("At mwqDataQc - in-situ-parameters Screen");
+    }
+  }
+
+  siteDataTabPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "data-entry"]);
+      console.log("At mwqDataEntry - data-entry Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "qc-info"]);
+      console.log("At mwqDataQc - data-entry Screen");
+    }
+  }
 }

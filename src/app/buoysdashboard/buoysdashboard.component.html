@@ -32,7 +32,7 @@
               </ng-template>
             </ngx-datatable-column> -->
             <ngx-datatable-column name="Station Name"></ngx-datatable-column>
-            <ngx-datatable-column name="Temperature" [cellClass]="getCellClass">
+            <ngx-datatable-column name="Temperature">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <div [ngClass]="{'avg': value >= 26 && value <= 50, 'belowAvg' : value <=25, 'aboveAvg' : value>= 51}">{{value}}</div>
               </ng-template>

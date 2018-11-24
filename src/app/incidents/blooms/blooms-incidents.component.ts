@@ -23,7 +23,9 @@ export class BloomsIncidentComponent implements OnInit {
   temp = [];
   bloomsIncidentDetails = [];
   bloomsIncidentResp: any;
-
+  value : any;
+  mondalOpen:any;
+  
   columns: any[] = [
     { prop: 'bloomIncidentId'} , 
     { name: 'Incident Description' }, 

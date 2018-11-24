@@ -18,10 +18,12 @@
       </div>
       <div class="widget-body">
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
-          <ngx-datatable-column name="S No"></ngx-datatable-column>
+          [footerHeight]="50" [rowHeight]="30" [rows]="sitesListDetails">
           <ngx-datatable-column name="Site Id"></ngx-datatable-column>
+          <ngx-datatable-column name="Site Code"></ngx-datatable-column>
           <ngx-datatable-column name="Site Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Category Name"></ngx-datatable-column>
+          <ngx-datatable-column name="Description"></ngx-datatable-column>
           <ngx-datatable-column name="Status">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">

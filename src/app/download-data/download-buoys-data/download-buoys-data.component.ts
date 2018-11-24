@@ -10,7 +10,7 @@ import { DownloadBuoysDataService } from './download-buoys-data.service';
   styleUrls: ['./download-buoys-data.component.scss']
 })
 export class DownloadBuoysDataComponent implements OnInit {
-
+  mondalOpen : any;
   constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
     private excelService: DownloadBuoysDataService) {
     this.getRestItems();

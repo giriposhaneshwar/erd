@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Config } from 'app/appConfiguration/config';
+import { AppStorageService } from 'app/appConfiguration/app-config.service';
+import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
+import { ToastsManager } from 'ng6-toastr';
 
 @Component({
   selector: 'ms-qc-remarks',
@@ -7,25 +11,87 @@ import { Router } from '@angular/router';
   styleUrls: ['./qc-remarks.component.scss']
 })
 export class QcRemarksComponent implements OnInit {
-
-  siteDateEdit() {
-    console.log("At Edit Screen");
+  updatedBy='QC Admin';
+  dataEntry: any;
+  dataEntryKey: string = "dataEntry";
+  qcCommentsInfoKey: string = "sampleInformation";
+  sampleInformation: any = {
+    statusId: "",
+    qCComments: "",
+    updatedBy:""
+  };
+  module: String;
+  js = {};
+  updateMwqDataEntryQcResp: any;
+ 
+  constructor(public route: Router,
+    public config: Config,
+    public localStore: AppStorageService,
+    public api: MwqDataEntryService,
+    vcr: ViewContainerRef,
+    public toastr: ToastsManager) {   
+      this.toastr.setRootViewContainerRef(vcr);    
+    }
+    
+    ngOnInit() {
+      
+      console.log(this.sampleInformation.updatedBy)
+      // this.sampleInformation.updatedBy='new val';
+    let mod = this.config.getModuleName();
+    this.module = mod.module;
+    console.log("----module name----" + this.module);
+    
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if (localData.status == "success") {
+      this.dataEntry = localData.data;
+      if (this.dataEntry.hasOwnProperty(this.qcCommentsInfoKey)) {
+        this.sampleInformation = this.dataEntry[this.qcCommentsInfoKey];
+      } else {
+        this.dataEntry = {};
+        this.dataEntry[this.qcCommentsInfoKey] = this.sampleInformation;
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+      }
+    } else {
+      this.dataEntry = {};
+      this.dataEntry[this.qcCommentsInfoKey] = this.sampleInformation;
+      this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    }
+    //console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
-  siteDateSave() {
-    console.log("At Save Screen");
-  }
-  siteDateNext() {
-    this.route.navigate(["mwqDataQc", "qc-remarks"]);
-    console.log("At Next Screen");
+
+
+  qCRemarksBtnTabNavSave(sampleInformation) {
+    this.sampleInformation.updatedBy=this.updatedBy;
+    this.dataEntry[this.qcCommentsInfoKey] = sampleInformation;
+    this.js["jsonInput"] = this.dataEntry;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    console.log("At QC Update Screen" + JSON.stringify(this.js));
+    this.updateMwqDataEntryQcData(this.js);
   }
 
-  siteDatePrev() {
-    this.route.navigate(["mwqDataQc", "qc-upload-files"]);
+  updateMwqDataEntryQcData(jsonMwqDataEntryInfo) {
+    this.api.updateMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
+      this.updateMwqDataEntryQcResp = resp;
+      console.log("----updateMwqDataEntryQcResp----", this.updateMwqDataEntryQcResp);
+      if(this.updateMwqDataEntryQcResp.updateDataResult === "Record updated successfully"){
+        this.toastr.success( this.updateMwqDataEntryQcResp.updateDataResult,"Success",);
+        this.route.navigate(["mwqDataQc", "qc-info"]);
+      }
+     else{
+      this.toastr.error( this.updateMwqDataEntryQcResp.updateDataResult,"Failed",);
+     }
+    });
   }
 
-  constructor(public route: Router) { }
-
-  ngOnInit() {
+  qCRemarksBtnTabNavPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "microbiology"]);
+      console.log("At mwqDataEntry - microbiology Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "upload-files"]);
+      console.log("At mwqDataQc - upload-files Screen");
+    }
   }
 
 }

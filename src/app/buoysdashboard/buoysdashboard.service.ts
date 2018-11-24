@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Config } from 'app/appConfiguration/config';
 
 @Injectable({ providedIn: 'root' })
 export class BuoysDashboardService {
 
-//  buoysDashboardDataUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
-  buoysDashboardDataUrl = 'http://localhost/MWQWebservice/MWQSitesRestServices.svc/GetAveragevalue';
-  //buoysDashboardDataUrl = 'http://localhost:8080/buoys/fetchBuoysData';
-  
   res: any;
   restItems: any = [];
   getTestMethodResult = {};
@@ -20,14 +17,14 @@ export class BuoysDashboardService {
     Message: ""
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private config:Config) { }
 
   buoysDashboardData(): Observable<any[]> {
 
     let bodyParams = { "fromDate": "2017-01-04", "toDate": "2017-01-05","user":1 };
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.buoysDashboardDataUrl, bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.config.API_URL+ "/GetAveragevalue", bodyParams, { headers: headers_value })
   }
 
 

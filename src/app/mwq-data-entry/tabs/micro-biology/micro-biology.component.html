@@ -32,7 +32,7 @@
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalColiformSurfaceValue.invalid),'white': totalColiform.surfaceValue == '','red': totalColiform.surfaceValue <= 35, 'orange': totalColiform.surfaceValue <= 50 && totalColiform.surfaceValue > 35, 'green': totalColiform.surfaceValue > 50}"
                 name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue" #totalColiformSurfaceValue="ngModel"
-                required />
+                autocomplete="off" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
@@ -69,7 +69,7 @@
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && enterococciSurfaceValue.invalid),'white': enterococci.surfaceValue == '','red': enterococci.surfaceValue <= 35, 'orange': enterococci.surfaceValue <= 50 && enterococci.surfaceValue > 35, 'green': enterococci.surfaceValue > 50}"
                 name="enterococciSurfaceValue" [(ngModel)]="enterococci.surfaceValue" #enterococciSurfaceValue="ngModel"
-                required />
+                autocomplete="off" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
@@ -105,7 +105,7 @@
             <div class="clearfix tbl tbl-per-10 text-center microbiology">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && fecalColiformSurfaceValue.invalid),'white': fecalColiform.surfaceValue == '','red': fecalColiform.surfaceValue <= 35, 'orange': fecalColiform.surfaceValue <= 50 && fecalColiform.surfaceValue > 35, 'green': fecalColiform.surfaceValue > 50}"
                 name="fecalColiformSurfaceValue" [(ngModel)]="fecalColiform.surfaceValue" #fecalColiformSurfaceValue="ngModel"
-                required />
+                autocomplete="off" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               cfu/100ml
@@ -140,10 +140,10 @@
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologyTabNavPrev(module)">Previous</button>
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologySiteDateSave(totalColiform,enterococci,fecalColiform)">Save</button> -->
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologyTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

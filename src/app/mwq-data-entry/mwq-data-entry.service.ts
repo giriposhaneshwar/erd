@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Config } from 'app/appConfiguration/config';
 
 @Injectable({ providedIn: 'root' })
 export class MwqDataEntryService {
 
   //apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
-  apiUrl = 'http://localhost/MWQWebservice/MWQSitesRestServices.svc';
   jsonapiUrl = "assets/data/projectNames.json";
-  constructor(private http: HttpClient) { }
+
+  apiUrl: any;
+  constructor(private http: HttpClient, private config: Config) {
+    this.apiUrl = this.config.API_URL;
+  }
 
   fetchSiteCategoryData(): Observable<any[]> {
     let bodyParams = {};
@@ -27,13 +31,19 @@ export class MwqDataEntryService {
       headers: headers_value
     });
   }
+
   fetchHistoricalGraph(): Observable<any[]> {
+    let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set("Content-Type", "application/json");
-    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
-    return this.http.get<any[]>("../../assets/data/graph.json", {
-      headers: headers_value
-    });
+    return this.http.post<any[]>(this.apiUrl + "/GetParmsHistrocalData", bodyParams, { headers: headers_value })
+  }
+
+  fetchParametersValdationValues(): Observable<any[]> {
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set("Content-Type", "application/json");
+    return this.http.post<any[]>(this.apiUrl + "/GetparamatersValdationValues", bodyParams, { headers: headers_value })
   }
 
   fetchSiteNameData(): Observable<any[]> {
@@ -93,12 +103,12 @@ export class MwqDataEntryService {
   }
 
   fetchProjectNamesData(): Observable<any[]> {
-        
-        let bodyParams = {};
-        let headers_value = new HttpHeaders();
-        headers_value = headers_value.set('Content-Type', 'application/json');
-        return this.http.post<any[]>(this.apiUrl + "/GetProjects ", bodyParams, { headers: headers_value }) 
-   
+
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetProjects ", bodyParams, { headers: headers_value })
+
     // return this.http.get<any[]>(this.jsonapiUrl).pipe(map(data => data));
   }
 
@@ -108,6 +118,20 @@ export class MwqDataEntryService {
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/loadData", JSON.stringify(jsonMwqDataEntryInfo), { headers: headers_value })
+  }
+
+  fetchQcInfoData(): Observable<any[]> {
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetQcInfo ", bodyParams, { headers: headers_value })
+  }
+
+  fetchDataEntryRecord(sampleRefNo): Observable<any[]> {
+    let bodyParams = { "sampleRefNum": sampleRefNo };
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetDataEntryRecord ", bodyParams, { headers: headers_value })
   }
 
   updateMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {

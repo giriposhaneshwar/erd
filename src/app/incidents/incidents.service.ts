@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Config } from 'app/appConfiguration/config';
 
 @Injectable({ providedIn: 'root' })
 export class IncidentsService {
-    apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
-    constructor(private http: HttpClient) { }
+    apiUrl: any;
+    constructor(private http: HttpClient, private config: Config) {
+      this.apiUrl = this.config.API_URL;
+    }
+  
 
 
     getBuoysIncidentData(): Observable<any[]> {

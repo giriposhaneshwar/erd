@@ -12,7 +12,7 @@ export class ConfigureParametersComponent implements OnInit {
 
   editing = {};
   //rows = [];
-
+  mondalOpen:any;
   getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,

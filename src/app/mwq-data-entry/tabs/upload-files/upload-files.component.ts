@@ -15,23 +15,25 @@ export class UploadFilesComponent implements OnInit {
 
   dataEntry: any;
   dataEntryKey: string = "dataEntry";
-  uploadFilesKey: string = "FileUpload";
+  uploadFilesInfoKey: string = "sampleInformation";
 
   module: String;
   uploadFile: any;
 
-  uploadFilesInfo: any = {
-    createdBy: "DeptUser_DE",
+  sampleInformation: any = {
     dataEntryComments: ""
   };
+  js = {};
+  file: any;
 
+  saveMwqDataEntryResp: any;
   constructor(
     public route: Router,
     public config: Config,
     public toastr: ToastsManager,
     public localStore: AppStorageService,
     vcr: ViewContainerRef,
-    public api: MwqDataEntryService
+    public api: MwqDataEntryService,
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
@@ -39,9 +41,26 @@ export class UploadFilesComponent implements OnInit {
   ngOnInit() {
     let mod = this.config.getModuleName();
     this.module = mod.module;
+    console.log("----module name----" + this.module);
+
+    let localData = this.localStore.store.get(this.dataEntryKey);
+    if (localData.status == "success") {
+      this.dataEntry = localData.data;
+      if (this.dataEntry.hasOwnProperty(this.uploadFilesInfoKey)) {
+        this.sampleInformation = this.dataEntry[this.uploadFilesInfoKey];
+      } else {
+        this.dataEntry = {};
+        this.dataEntry[this.uploadFilesInfoKey] = this.sampleInformation;
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+      }
+    } else {
+      this.dataEntry = {};
+      this.dataEntry[this.uploadFilesInfoKey] = this.sampleInformation;
+      this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    }
+    console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
 
-  file: any;
   fileChanged(e) {
     this.file = e.target.files[0];
     console.log("File Changed --", this.file.name, this.file.size);
@@ -49,10 +68,7 @@ export class UploadFilesComponent implements OnInit {
   }
 
   uploadDocument() {
-
     // files is a FileList object (similar to NodeList)
-    
-
     // object for allowed media types
     var accept = {
       binary: ["image/png", "image/jpeg"],
@@ -60,12 +76,11 @@ export class UploadFilesComponent implements OnInit {
     };
 
     for (var i = 0; i < this.file.length; i++) {
-      let file = this.file[i];
-
+      let uploadedFileData = this.file[i];
       // if file type could be detected
-      if (file !== null) {
-        let data = file.getAsBinary();
-        console.log("---------",data,"---------",this.file);
+      if (uploadedFileData !== null) {
+        let data = uploadedFileData.getAsBinary();
+        console.log("---------", data, "---------", this.file);
         /* if (accept.binary.indexOf(file.type) > -1) {
           // file is a binary, which we accept
          
@@ -84,7 +99,6 @@ export class UploadFilesComponent implements OnInit {
       output = fileReader.result;
       console.log("---" + fileReader.result);
     }
-
       var binary = atob(this.file.split(',')[1]);
      var array = [];
      for (var i = 0; i < binary.length; i++) {
@@ -106,7 +120,6 @@ export class UploadFilesComponent implements OnInit {
     } else {
       fd.append('file', uploadedFile[0]);
     }
-
     // const dummy = {test: "testing", id: 1, name: "test name"};
     fd.append("dataEntry", JSON.stringify(formData));
 
@@ -114,7 +127,6 @@ export class UploadFilesComponent implements OnInit {
     this.api.postFileUpload(fd).subscribe(resp => {
       console.log("----postFileUpload----", resp);
     });
-
   }
 
   updateMWQDataInfo() {
@@ -131,7 +143,47 @@ export class UploadFilesComponent implements OnInit {
     console.log("At Save Screen");
   }
 
-  siteDatePrev() {
-    this.route.navigate(["mwqDataEntry", "microbiology"]);
+
+  dataEntrySave(sampleInformation) {
+    this.dataEntry[this.uploadFilesInfoKey] = sampleInformation;
+    this.js["jsonInput"] = this.dataEntry;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+
+    /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
+    console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
+    console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo)); */
+    this.saveMwqData(this.js);
+  }
+
+  
+  uploadBtnTabNavPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "microbiology"]);
+      console.log("At mwqDataEntry - microbiology Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "microbiology"]);
+      console.log("At mwqDataQc - microbiology Screen");
+    }
+    // this.route.navigate(["mwqDataEntry", "microbiology"]);
+  }
+
+  uploadBtnTabNavNext(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "qc-remarks"]);
+      console.log("At mwqDataEntry - qc-remarks Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "qc-remarks"]);
+      console.log("At mwqDataQc - qc-remarks Screen");
+    }
+    this.route.navigate(["mwqDataQc", "qc-remarks"]);
+  }
+  saveMwqData(jsonMwqDataEntryInfo) {
+    this.api.saveMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
+      this.saveMwqDataEntryResp = resp;
+      console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp);
+      this.toastr.success(this.saveMwqDataEntryResp.loadDataResult, "Success");
+    });
   }
 }

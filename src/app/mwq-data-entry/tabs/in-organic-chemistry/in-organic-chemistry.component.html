@@ -27,7 +27,7 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_cadmiumSurfaceValue.invalid),'white': iocw_cadmium.surfaceValue == '','red': iocw_cadmium.surfaceValue <= 35, 'orange': iocw_cadmium.surfaceValue <= 50 && iocw_cadmium.surfaceValue > 35, 'green': iocw_cadmium.surfaceValue > 50}"
                 name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue" #iocw_cadmiumSurfaceValue="ngModel"
-                required />
+                required autocomplete="off"/>
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -54,7 +54,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_chromiumSurfaceValue.invalid),'white': iocw_chromium.surfaceValue == '','red': iocw_chromium.surfaceValue <= 35, 'orange': iocw_chromium.surfaceValue <= 50 && iocw_chromium.surfaceValue > 35, 'green': iocw_chromium.surfaceValue > 50}"
-                name="iocw_chromiumSurfaceValue" [(ngModel)]="iocw_chromium.surfaceValue" #iocw_chromiumSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_chromiumSurfaceValue" [(ngModel)]="iocw_chromium.surfaceValue" #iocw_chromiumSurfaceValue="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumSurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -83,7 +83,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_cobaltSurfaceValue.invalid),'white': iocw_cobalt.surfaceValue == '','red': iocw_cobalt.surfaceValue <= 35, 'orange': iocw_cobalt.surfaceValue <= 50 && iocw_cobalt.surfaceValue > 35, 'green': iocw_cobalt.surfaceValue > 50}"
-                name="iocw_cobaltSurfaceValue" [(ngModel)]="iocw_cobalt.surfaceValue" #iocw_cobaltSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_cobaltSurfaceValue" [(ngModel)]="iocw_cobalt.surfaceValue" #iocw_cobaltSurfaceValue="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltSurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -112,7 +112,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_copperSurfaceValue.invalid),'white': iocw_copper.surfaceValue == '','red': iocw_copper.surfaceValue <= 35, 'orange': iocw_copper.surfaceValue <= 50 && iocw_copper.surfaceValue > 35, 'green': iocw_copper.surfaceValue > 50}"
-                name="iocw_copperSurfaceValue" [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel"
+              autocomplete="off"name="iocw_copperSurfaceValue" [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel"
                 required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -141,7 +141,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_leadSurfaceValue.invalid),'white': iocw_lead.surfaceValue == '','red': iocw_lead.surfaceValue <= 35, 'orange': iocw_lead.surfaceValue <= 50 && iocw_lead.surfaceValue > 35, 'green': iocw_lead.surfaceValue > 50}"
-                name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue" #iocw_leadSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue" #iocw_leadSurfaceValue="ngModel"
                 required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -170,7 +170,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_manganeseSurfaceValue.invalid),'white': iocw_manganese.surfaceValue == '','red': iocw_manganese.surfaceValue <= 35, 'orange': iocw_manganese.surfaceValue <= 50 && iocw_manganese.surfaceValue > 35, 'green': iocw_manganese.surfaceValue > 50}"
-                name="iocw_manganeseSurfaceValue" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_manganeseSurfaceValue" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel"
                 required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -199,7 +199,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_nickelSurfaceValue.invalid),'white': iocw_nickel.surfaceValue == '','red': iocw_nickel.surfaceValue <= 35, 'orange': iocw_nickel.surfaceValue <= 50 && iocw_nickel.surfaceValue > 35, 'green': iocw_nickel.surfaceValue > 50}"
-                name="iocw_nickelSurfaceValue" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_nickelSurfaceValue" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel"
                 required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -227,7 +227,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_zincSurfaceValue.invalid),'white': iocw_zinc.surfaceValue == '','red': iocw_zinc.surfaceValue <= 35, 'orange': iocw_zinc.surfaceValue <= 50 && iocw_zinc.surfaceValue > 35, 'green': iocw_zinc.surfaceValue > 50}"
-                name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue" #iocw_zincSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue" #iocw_zincSurfaceValue="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && iocw_zincSurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -255,7 +255,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_ironSurfaceValue.invalid),'white': iocw_iron.surfaceValue == '','red': iocw_iron.surfaceValue <= 35, 'orange': iocw_iron.surfaceValue <= 50 && iocw_iron.surfaceValue > 35, 'green': iocw_iron.surfaceValue > 50}"
-                name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue" #iocw_ironSurfaceValue="ngModel"
+              autocomplete="off" name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue" #iocw_ironSurfaceValue="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && iocw_ironSurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -283,7 +283,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_mercurySurfaceValue.invalid),'white': iocw_mercury.surfaceValue == '','red': iocw_mercury.surfaceValue <= 35, 'orange': iocw_mercury.surfaceValue <= 50 && iocw_mercury.surfaceValue > 35, 'green': iocw_mercury.surfaceValue > 50}"
-                name="iocw_mercurySurfaceValue" [(ngModel)]="iocw_mercury.surfaceValue" #iocw_mercurySurfaceValue="ngModel"
+              autocomplete="off" name="iocw_mercurySurfaceValue" [(ngModel)]="iocw_mercury.surfaceValue" #iocw_mercurySurfaceValue="ngModel"
                 [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -333,7 +333,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Cadmium</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_cadmiumSurfaceValue.invalid),'white': iocs_cadmium.surfaceValue == '','red': iocs_cadmium.surfaceValue <= 35, 'orange': iocs_cadmium.surfaceValue <= 50 && iocs_cadmium.surfaceValue > 35, 'green': iocs_cadmium.surfaceValue > 50}"
-                      name="iocs_cadmiumSurfaceValue" [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_cadmiumSurfaceValue" [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel"
                       required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -362,7 +362,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Chromium</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_chromiumSurfaceValue.invalid),'white': iocs_chromium.surfaceValue == '','red': iocs_chromium.surfaceValue <= 35, 'orange': iocs_chromium.surfaceValue <= 50 && iocs_chromium.surfaceValue > 35, 'green': iocs_chromium.surfaceValue > 50}"
-                      name="iocs_chromiumSurfaceValue" [(ngModel)]="iocs_chromium.surfaceValue"
+                    autocomplete="off" name="iocs_chromiumSurfaceValue" [(ngModel)]="iocs_chromium.surfaceValue"
                       #iocs_chromiumSurfaceValue="ngModel" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -391,7 +391,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Cobalt</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_cobaltSurfaceValue.invalid),'white': iocs_cobalt.surfaceValue == '','red': iocs_cobalt.surfaceValue <= 35, 'orange': iocs_cobalt.surfaceValue <= 50 && iocs_cobalt.surfaceValue > 35, 'green': iocs_cobalt.surfaceValue > 50}"
-                      name="iocs_cobaltSurfaceValue" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_cobaltSurfaceValue" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel"
                       required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -420,7 +420,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Copper</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_copperSurfaceValue.invalid),'white': iocs_copper.surfaceValue == '','red': iocs_copper.surfaceValue <= 35, 'orange': iocs_copper.surfaceValue <= 50 && iocs_copper.surfaceValue > 35, 'green': iocs_copper.surfaceValue > 50}"
-                      name="iocs_copperSurfaceValue" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_copperSurfaceValue" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel"
                       required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -450,7 +450,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Lead</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_leadSurfaceValue.invalid),'white': iocs_lead.surfaceValue == '','red': iocs_lead.surfaceValue <= 35, 'orange': iocs_lead.surfaceValue <= 50 && iocs_lead.surfaceValue > 35, 'green': iocs_lead.surfaceValue > 50}"
-                      name="iocs_leadSurfaceValue" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_leadSurfaceValue" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel"
                       required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -480,7 +480,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Manganese</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_manganeseSurfaceValue.invalid),'white': iocs_manganese.surfaceValue == '','red': iocs_manganese.surfaceValue <= 35, 'orange': iocs_manganese.surfaceValue <= 50 && iocs_manganese.surfaceValue > 35, 'green': iocs_manganese.surfaceValue > 50}"
-                      name="iocs_manganeseSurfaceValue" [(ngModel)]="iocs_manganese.surfaceValue"
+                    autocomplete="off" name="iocs_manganeseSurfaceValue" [(ngModel)]="iocs_manganese.surfaceValue"
                       #iocs_manganeseSurfaceValue="ngModel" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -509,7 +509,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Nickel</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_nickelSurfaceValue.invalid),'white': iocs_nickel.surfaceValue == '','red': iocs_nickel.surfaceValue <= 35, 'orange': iocs_nickel.surfaceValue <= 50 && iocs_nickel.surfaceValue > 35, 'green': iocs_nickel.surfaceValue > 50}"
-                      name="iocs_nickelSurfaceValue" [(ngModel)]="iocs_nickel.surfaceValue" #iocs_nickelSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_nickelSurfaceValue" [(ngModel)]="iocs_nickel.surfaceValue" #iocs_nickelSurfaceValue="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelSurfaceValue.invalid }" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -538,7 +538,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Zinc</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_zincSurfaceValue.invalid),'white': iocs_zinc.surfaceValue == '','red': iocs_zinc.surfaceValue <= 35, 'orange': iocs_zinc.surfaceValue <= 50 && iocs_zinc.surfaceValue > 35, 'green': iocs_zinc.surfaceValue > 50}"
-                      name="iocs_zincSurfaceValue" [(ngModel)]="iocs_zinc.surfaceValue" #iocs_zincSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_zincSurfaceValue" [(ngModel)]="iocs_zinc.surfaceValue" #iocs_zincSurfaceValue="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && iocs_zincSurfaceValue.invalid }" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -567,7 +567,7 @@
                   <div class="clearfix tbl tbl-per-15 text-left">Iron</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_ironSurfaceValue.invalid),'white': iocs_iron.surfaceValue == '','red': iocs_iron.surfaceValue <= 35, 'orange': iocs_iron.surfaceValue <= 50 && iocs_iron.surfaceValue > 35, 'green': iocs_iron.surfaceValue > 50}"
-                      name="iocs_ironSurfaceValue" [(ngModel)]="iocs_iron.surfaceValue" #iocs_ironSurfaceValue="ngModel"
+                    autocomplete="off" name="iocs_ironSurfaceValue" [(ngModel)]="iocs_iron.surfaceValue" #iocs_ironSurfaceValue="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && iocs_ironSurfaceValue.invalid }" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -595,8 +595,8 @@
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-15 text-left">Mercury</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
-                    <input type="number" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_mercurySurfaceValue.invalid),'white': iocs_mercury.surfaceValue == '','red': iocs_mercury.surfaceValue <= 35, 'orange': iocs_mercury.surfaceValue <= 50 && iocs_mercury.surfaceValue > 35, 'green': iocs_mercury.surfaceValue > 50}"
-                      name="iocs_mercurySurfaceValue" [(ngModel)]="iocs_mercury.surfaceValue" #iocs_mercurySurfaceValue="ngModel"
+                    <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_mercurySurfaceValue.invalid),'white': iocs_mercury.surfaceValue == '','red': iocs_mercury.surfaceValue <= 35, 'orange': iocs_mercury.surfaceValue <= 50 && iocs_mercury.surfaceValue > 35, 'green': iocs_mercury.surfaceValue > 50}"
+                    autocomplete="off" name="iocs_mercurySurfaceValue" [(ngModel)]="iocs_mercury.surfaceValue" #iocs_mercurySurfaceValue="ngModel"
                       [ngClass]="{ 'is-invalid': f.submitted && iocs_mercurySurfaceValue.invalid }" required />
                   </div>
                   <div class="clearfix tbl tbl-per-10 text-center">
@@ -629,10 +629,10 @@
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrgChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrgChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

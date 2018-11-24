@@ -10,8 +10,16 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="table-responsive">
-                <table summary="This table shows how to create responsive tables using Bootstrap's default functionality"
-                  class="table table-bordered table-hover">
+                <!-- <ngx-datatable class="material fullscreen" style="top: 52px" [columnMode]="'force'" [headerHeight]="50"
+                  [footerHeight]="0" [rowHeight]="50" [scrollbarV]="true" [scrollbarH]="true" [rows]="qcInfoDetails">
+                  <ngx-datatable-column name="Site Id" [width]="80"></ngx-datatable-column>
+                  <ngx-datatable-column name="Site Name" [width]="300"></ngx-datatable-column>
+                  <ngx-datatable-column name="Category"></ngx-datatable-column>
+                  <ngx-datatable-column name="Sample Ref Number"></ngx-datatable-column>
+                  <ngx-datatable-column name="Mwq Uploaded Date" [width]="300"></ngx-datatable-column>
+                  <ngx-datatable-column name="Status" [width]="300"></ngx-datatable-column>
+                </ngx-datatable> -->
+                <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
                       <th>Site Id</th>
@@ -25,48 +33,19 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>S001</td>
-                      <td></td>
-                      <td></td>
-                      <td>SMPL31072018-001</td>
-                      <td>31/07/2018 10:48 AM</td>
-                      <td>--</td>
-                      <td>Submitted</td>
-                      <td><a href="javascript:void(0)" (click)="qcEditRow()">Edit</a></td>
+                    <tr *ngFor="let item of qcInfoDetails">
+                      <td>{{item.siteID}}</td>
+                      <td>{{item.siteName}}</td>
+                      <td>{{item.category}}</td>
+                      <td>{{item.sampleRefNumber}}</td>
+                      <td>{{item.mwqUploadedDate}}</td>
+                      <td>{{item.updatedBy}}</td>
+                      <td>{{item.status}}</td>
+                      <td><a href="javascript:void(0)" (click)="qcEditRow(item.sampleRefNumber)">Edit</a></td>
                     </tr>
-
-                    <tr>
-                      <td>S001</td>
-                      <td></td>
-                      <td></td>
-                      <td>SMPL17082018-002</td>
-                      <td>17/08/2018 11:21 AM</td>
-                      <td>--</td>
-                      <td>Submitted</td>
-                      <td><i>EDIT</i></td>
-                    </tr>
-
-                    <tr>
-                      <td>S001</td>
-                      <td></td>
-                      <td></td>
-                      <td>SMPL04092018-001</td>
-                      <td>04/09/2018 12:28 PM</td>
-                      <td>--</td>
-                      <td>Submitted</td>
-                      <td><i>EDIT</i></td>
-                    </tr>
-
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <!-- <td colspan="5" class="text-center">Data retrieved from <a href="http://www.infoplease.com/ipa/A0855611.html"
-                          target="_blank">infoplease</a> and <a href="http://www.worldometers.info/world-population/population-by-country/"
-                          target="_blank">worldometers</a>.</td> -->
-                    </tr>
-                  </tfoot>
                 </table>
+
               </div>
               <!--end of .table-responsive-->
             </div>

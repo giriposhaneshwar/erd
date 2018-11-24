@@ -21,57 +21,86 @@ export class MicroBiologyComponent implements OnInit {
   totalColiform: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
   enterococci: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
   fecalColiform: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
-  js = {};
-  //jsonMwqDataEntryInfo :any;
 
-  
+  //jsonMwqDataEntryInfo :any;
   graphData: any;
   graphDataKey: string = "microBiology";
 
-  constructor(public route: Router, 
-    public toastr: ToastsManager, 
+  mwqDetails = [];
+  mwqResp: any;
+
+  testMethodDetails = [];
+  testMethodResp: any;
+
+  extractionMethodDetails = [];
+  extractionMethodResp: any;
+  saveMwqDataEntryResp: any;
+
+  module: String;
+
+  constructor(public route: Router,
+    public toastr: ToastsManager,
     vcr: ViewContainerRef,
     public config: Config,
-    public localStore: AppStorageService, 
+    public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService) {
-      this.toastr.setRootViewContainerRef(vcr);
+    this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
     this.loaadExtractionMethodData();
   }
 
-  
+
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);
   }
-  siteDatePrev() {
-    this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
-    console.log("At organic-chemistry Screen");
+  microBiologyTabNavPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
+      console.log("At mwqDataEntry - organic-chemistry Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "organic-chemistry"]);
+      console.log("At mwqDataQc - organic-chemistry Screen");
+    }
+    //this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
+    //console.log("At organic-chemistry Screen");
   }
   microBiologySiteDateSave(totalColiform, enterococci, fecalColiform) {
 
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
-    this.js["jsonInput"] = this.dataEntry;
+    // this.js["jsonInput"] = this.dataEntry;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
     /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
     console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
     console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo)); */
-    this.saveMwqData(this.js);
+    //this.saveMwqData(this.js);
   }
-  siteDateNext() {
-    this.route.navigate(["mwqDataEntry", "upload-files"]);
-    console.log("At upload-files Screen");
+  microBiologyTabNavNext(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "upload-files"]);
+      console.log("At mwqDataEntry - upload-files Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "upload-files"]);
+      console.log("At mwqDataQc - upload-files Screen");
+    }
+    // this.route.navigate(["mwqDataEntry", "upload-files"]);
+    // console.log("At upload-files Screen");
   }
 
   ngOnInit() {
+    let mod = this.config.getModuleName();
+    this.module = mod.module;
+    console.log("----module name----" + this.module);
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
-    let graphData = this.localStore.store.get("graphData");
-    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
-    
+    let microBiologyGraphData = this.localStore.store.get("graphData");
+    this.graphData = microBiologyGraphData.data.microBiology;
+
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.totalColiformComponentKey)) {
@@ -94,25 +123,15 @@ export class MicroBiologyComponent implements OnInit {
       this.dataEntry[this.fecalColiformComponentKey] = this.fecalColiform;
     }
     //console.log(this.js);
-    console.log("Data Entry", this.dataEntryKey, this.js);
+    //console.log("Data Entry", this.dataEntryKey, this.js);
 
   }
-
-  mwqDetails = [];
-  mwqResp: any;
-
-  testMethodDetails = [];
-  testMethodResp: any;
-
-  extractionMethodDetails = [];
-  extractionMethodResp: any;
-  saveMwqDataEntryResp: any;
 
   loadMQLData() {
     this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
       this.mwqResp = resp;
       this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
-      console.log("----mwqDetails----", this.mwqDetails);
+      //   console.log("----mwqDetails----", this.mwqDetails);
     });
   }
 
@@ -120,7 +139,7 @@ export class MicroBiologyComponent implements OnInit {
     this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
       this.testMethodResp = resp;
       this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
-      console.log("----testMethodDetails----", this.testMethodDetails);
+      //  console.log("----testMethodDetails----", this.testMethodDetails);
     });
   }
 
@@ -128,16 +147,7 @@ export class MicroBiologyComponent implements OnInit {
     this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
       this.extractionMethodResp = resp;
       this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
-      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
+      //  console.log("----extractionMethodDetails----", this.extractionMethodDetails);
     });
   }
-
-  saveMwqData(jsonMwqDataEntryInfo) {
-    this.mwqDataEntryService.saveMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
-      this.saveMwqDataEntryResp = resp;
-      console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp);
-      this.toastr.success(this.saveMwqDataEntryResp.loadDataResult, "Success");
-    });
-  }
-
 }

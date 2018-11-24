@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ManageMwqDataService } from '../managemwqdata.service';
 
 @Component({
   selector: 'ms-configure-categories',
@@ -11,59 +12,34 @@ import { map } from 'rxjs/operators';
 export class ConfigureCategoriesComponent implements OnInit {
 
   editing = {};
-  //rows = [];
+  mondalOpen: any;
+  categoryListDetails = [];
+  categoryListResp: any;
 
-  getRestItemsResponse: any = {
-    BuoysList: [],
-    Status: null,
-    Message: ""
-  };
-
-  constructor(
-    private pageTitleService: PageTitleService,
-    private http: HttpClient) {
-    this.getRestItems();
-
+  constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
+    private manageMwqDataService: ManageMwqDataService) 
+  {
+     this.loadCategoryList();
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
 
-
-  restItems: any = [];
-  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/configureCategories.json";
-
-  getRestItems(): void {
-    this.restItemsServiceGetRestItems().subscribe(restItems => {
-
-      this.getRestItemsResponse = restItems;
-      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
-        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
-          if (
-            this.getRestItemsResponse.BuoysList != undefined &&
-            this.getRestItemsResponse.BuoysList.length > 0
-          ) {
-            this.restItems = this.getRestItemsResponse.BuoysList;
-          }
-        }
-      }
-      console.log("----restItems----", this.restItems);
+  loadCategoryList() {
+    this.manageMwqDataService.fetchCategoryList().subscribe((resp) => {
+      this.categoryListResp = resp;
+      this.categoryListDetails = this.categoryListResp.GetCategoryListResult.CategoryLists;
+      console.log("----categoryListDetails----", this.categoryListDetails);
     });
-  }
-
-  // Rest Items Service: Read all REST Items
-  restItemsServiceGetRestItems() {
-    return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
   }
 
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex)
     this.editing[rowIndex + '-' + cell] = false;
-    this.restItems[rowIndex][cell] = event.target.value;
-    this.restItems = [...this.restItems];
-    console.log('UPDATED!', this.restItems[rowIndex][cell]);
+     this.categoryListDetails[rowIndex][cell] = event.target.value;
+    this.categoryListDetails = [...this.categoryListDetails];
+    console.log('UPDATED!', this.categoryListDetails[rowIndex][cell]);
   }
 
 }

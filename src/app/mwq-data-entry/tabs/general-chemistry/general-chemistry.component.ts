@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AppStorageService } from 'app/appConfiguration/app-config.service';
 import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
+import { Config } from 'app/appConfiguration/config';
 
 @Component({
   selector: 'ms-general-chemistry',
@@ -24,28 +25,28 @@ export class GeneralChemistryComponent implements OnInit {
   graphData: any;
   graphDataKey: string = "generalChemistry";
 
-  totalPhosp: any = {    surfaceValue: "",    mql: "",    testMethod: "" };
-  totalNitrogen: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  nitriteN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  nitrateN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  silicateSl: any = {    surfaceValue: "",    mql: "",    testMethod: ""};
-  ammoniaN: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  phosphateP: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  bod: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
-  tss: any = {    surfaceValue: "",    mql: "",    testMethod: ""  };
+  
+  totalPhosp: any = { surfaceValue: "", mql: "", testMethod: "" };
+  totalNitrogen: any = { surfaceValue: "", mql: "", testMethod: "" };
+  nitriteN: any = { surfaceValue: "", mql: "", testMethod: "" };
+  nitrateN: any = { surfaceValue: "", mql: "", testMethod: "" };
+  silicateSl: any = { surfaceValue: "", mql: "", testMethod: "" };
+  ammoniaN: any = { surfaceValue: "", mql: "", testMethod: "" };
+  phosphateP: any = { surfaceValue: "", mql: "", testMethod: "" };
+  bod: any = { surfaceValue: "", mql: "", testMethod: "" };
+  tss: any = { surfaceValue: "", mql: "", testMethod: "" };
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+  module: String;
+
+  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService, public config: Config) {
     this.loadMQLData();
     this.loadTestMethodData();
   }
 
   inputOrderClass(data, key) {
-    console.log("INput Data", data, key);
+    console.log("Input Data", data, key);
   }
-  siteDatePrev() {
-    this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
-    console.log("At Edit Screen");
-  }
+
   generalChemistryDetailsSave(totalPhosp, totalNitrogen, nitriteN, nitrateN, silicateSl, ammoniaN, phosphateP, bod, tss) {
 
     this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
@@ -61,17 +62,42 @@ export class GeneralChemistryComponent implements OnInit {
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At Save Screen");
   }
-  siteDateNext() {
-    this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
-    console.log("At Next Screen");
+
+  genChemTabNavPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
+      console.log("At mwqDataEntry - in-situ-parameters Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "in-situ-parameters"]);
+      console.log("At mwqDataQc - in-situ-parameters Screen");
+    }
+    // this.route.navigate(["mwqDataEntry", "in-situ-parameters"]);
+    // console.log("At Edit Screen");
+  }
+  genChemTabNavNext(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
+      console.log("At mwqDataEntry - in-organic-chemistry Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "in-organic-chemistry"]);
+      console.log("At mwqDataQc - in-organic-chemistry Screen");
+    }
+    // this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
+    // console.log("At Next Screen");
   }
 
   ngOnInit() {
+    let mod = this.config.getModuleName();
+    this.module = mod.module;
+    console.log("----module name----" + this.module);
 
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
-    let graphData = this.localStore.store.get("graphData");
-    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
+    let generalChemistrygraphData = this.localStore.store.get("graphData");
+    this.graphData = generalChemistrygraphData.data.generalChemistry;
+   
     /* setTimeout(() => {
       this.graphData.Sechi_Disc_Surface = ["30", "80", "20", "95"];
     }, 5000);
@@ -132,7 +158,7 @@ export class GeneralChemistryComponent implements OnInit {
     this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
       this.mwqResp = resp;
       this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
-      console.log("----mwqDetails----", this.mwqDetails);
+      // console.log("----mwqDetails----", this.mwqDetails);
     });
   }
 
@@ -140,7 +166,7 @@ export class GeneralChemistryComponent implements OnInit {
     this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
       this.testMethodResp = resp;
       this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
-      console.log("----testMethodDetails----", this.testMethodDetails);
+      //console.log("----testMethodDetails----", this.testMethodDetails);
     });
   }
 

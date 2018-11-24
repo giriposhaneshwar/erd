@@ -13,7 +13,8 @@ import { DownloadDataService } from '../download-data.service';
  
 })
 export class DownloadMwqDataComponent implements OnInit {
-
+  mondalOpen : any;
+  
   constructor(
     private pageTitleService: PageTitleService,
     private http: HttpClient,

@@ -12,7 +12,7 @@ export class ManageLimsServicesComponent implements OnInit {
 
   editing = {};
   //rows = [];
-
+  mondalOpen:any;
   getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,

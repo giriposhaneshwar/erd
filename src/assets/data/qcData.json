@@ -23,7 +23,10 @@
                 "bottom10m": "6",
                 "bottom15m": "45",
                 "bottom20m": "56",
-                "bottom25m": "43"
+                "bottom25m": "43",
+                "bottom35m": "56",
+                "bottom30m": "67",
+                "bottom40m": "78"
             },
             "Conductivity": {
                 "surfaceValue": "21",
@@ -32,7 +35,10 @@
                 "bottom10m": "4",
                 "bottom15m": "4",
                 "bottom20m": "3",
-                "bottom25m": "3"
+                "bottom25m": "3",
+                "bottom35m": "23",
+                "bottom30m": "45",
+                "bottom40m": "34"
             },
             "Salinity": {
                 "surfaceValue": "36",
@@ -41,7 +47,10 @@
                 "bottom10m": "9",
                 "bottom15m": "9",
                 "bottom20m": "9",
-                "bottom25m": "9"
+                "bottom25m": "9",
+                "bottom30m": "23",
+                "bottom35m": "11",
+                "bottom40m": "34"
             },
             "pH": {
                 "surfaceValue": "45",
@@ -50,7 +59,10 @@
                 "bottom10m": "9",
                 "bottom15m": "99",
                 "bottom20m": "9",
-                "bottom25m": "9"
+                "bottom25m": "9",
+                "bottom30m": "45",
+                "bottom35m": "56",
+                "bottom40m": "65"
             },
             "Dissolved_O_": {
                 "surfaceValue": "56",
@@ -59,7 +71,10 @@
                 "bottom10m": "45",
                 "bottom15m": "34",
                 "bottom20m": "45",
-                "bottom25m": "64"
+                "bottom25m": "64",
+                "bottom30m": "43",
+                "bottom35m": "56",
+                "bottom40m": "56"
             },
             "Chlorophyll_a": {
                 "surfaceValue": "34",
@@ -68,7 +83,10 @@
                 "bottom10m": "6",
                 "bottom15m": "4",
                 "bottom20m": "4",
-                "bottom25m": "4"
+                "bottom25m": "4",
+                "bottom30m": "32",
+                "bottom35m": "45",
+                "bottom40m": "65"
             },
             "Sechi_Disc": {
                 "surfaceValue": "54",

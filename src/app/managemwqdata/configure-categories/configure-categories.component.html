@@ -17,16 +17,24 @@
         <!-- <h4>Configure Categories</h4> -->
       </div>
       <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
-          <ngx-datatable-column name="S No"></ngx-datatable-column>
-          <ngx-datatable-column name="Category Name"></ngx-datatable-column>
-          <ngx-datatable-column name="Status">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'"
+          [rowHeight]="30" [rows]="categoryListDetails">
+          <ngx-datatable-column name="Category Id" [width]="150">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Category Name" [width]="500">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Status" [width]="300">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
                 {{value}}
               </span>
-              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
+              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', categoryId)"
                 [value]="value">
                 <option value="Active">Active</option>
                 <option value="In Active">In Active</option>
@@ -34,6 +42,25 @@
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
+        <!--         <ngx-datatable #mydatatable class="material" [rows]="categoryListDetails" [columnMode]="'standard'" 
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="30">
+
+          <ngx-datatable-column name="Category Id" [width]="150">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Category Name" [width]="500">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Status" [width]="300">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable> -->
       </div>
     </div>
   </div>

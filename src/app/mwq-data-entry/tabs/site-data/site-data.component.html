@@ -59,7 +59,7 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleRefNum" name="refNum"
                   placeholder="SMPL31072018-001" #refNum="ngModel" [ngClass]="{ 'is-invalid': f.submitted && refNum.invalid }"
-                  required />
+                  required autocomplete="off"/>
                 <!-- <div *ngIf="f.submitted && refNum.invalid" class="invalid-feedback">
                   <div *ngIf="refNum.errors.required">Number is required</div>
                 </div> -->
@@ -90,7 +90,7 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
                   name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
-                  required />
+                  required autocomplete="off"/>
                 <!-- <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
                   <div *ngIf="description.errors.required">Description is required</div>
                 </div> -->
@@ -98,13 +98,13 @@
 
               <div class="clearfix tbl tbl-per-15 text-left">Date</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <input type="date" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate"
-                  #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required />
+                <input type="date" value="11-23-2018" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate"
+                  #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required/>
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Time</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="time" class="form-control text-left" [(ngModel)]="sampleInformation.sampleTime" name="sampleTime"
-                  #sampleTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleTime.invalid }" required />
+                  #sampleTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleTime.invalid }" required/>
               </div>
             </div>
 
@@ -139,10 +139,10 @@
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
       <div class="row text-right">
         <div class="col-xs-12 col-sm-12">
-          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button>
           <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Save</button>
           <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDetailsSave(siteData,sampleInformation)">Save</button> -->
-          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabNext(module)">Next</button>
         </div>
       </div>
     </div>

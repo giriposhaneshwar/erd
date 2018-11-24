@@ -19,6 +19,7 @@ export class AlertsComponent implements OnInit {
   alertsDetails = [];
   alertsResp: any;
   temp = [];
+  mondalOpen : any;
   columns: any[] = [
     { prop: 'alertId' },
     { name: 'Description' },

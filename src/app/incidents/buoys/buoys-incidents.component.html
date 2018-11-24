@@ -109,11 +109,11 @@
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Created By</td>
-                  <td class="ng-tns-c6-0">{{sel.updatedby}}</td>
+                  <td class="ng-tns-c6-0"></td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Created Date</td>
-                  <td class="ng-tns-c6-0">{{sel.updateddate}}</td>
+                  <td class="ng-tns-c6-0">{{sel.updatedby}}</td>
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Status</td>
@@ -128,7 +128,7 @@
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Remarks</td>
                   <td class="ng-tns-c6-0">
-                    <textarea class="form-control" id="exampleTextarea" rows="3" value="{{sel.remarks}}"></textarea>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" [(ngModel)]="sel.remarks"></textarea>
                   </td>
                 </tr>
                 <tr class="ng-tns-c6-0">

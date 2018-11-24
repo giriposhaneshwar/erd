@@ -25,11 +25,11 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
+            <div class="clearfix tbl tbl-per-15 text-left">PCB</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospSurfaceValue.invalid),'white': oc_totalPhosp.surfaceValue == '','red': oc_totalPhosp.surfaceValue <= 35, 'orange': oc_totalPhosp.surfaceValue <= 50 && oc_totalPhosp.surfaceValue > 35, 'green': oc_totalPhosp.surfaceValue > 50}"
                 name="oc_totalPhospSurfaceValue" [(ngModel)]="oc_totalPhosp.surfaceValue" #oc_totalPhospSurfaceValue="ngModel"
-                required />
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -65,7 +65,7 @@
             <div class="clearfix tbl tbl-per-15 text-left">TPH</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_tphSurfaceValue.invalid),'white': oc_tph.surfaceValue == '','red': oc_tph.surfaceValue <= 35, 'orange': oc_tph.surfaceValue <= 50 && oc_tph.surfaceValue > 35, 'green': oc_tph.surfaceValue > 50}"
-                name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel" required />
+              autocomplete="off"  name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               ug/L
@@ -99,10 +99,10 @@
         <div class="form-group section mar t-20  col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Previous</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="orgChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="organicChemistrySiteDetailsSave(oc_totalPhosp,oc_tph)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateNext()">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="orgChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

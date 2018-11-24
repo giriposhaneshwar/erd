@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
+import { Config } from "app/appConfiguration/config";
 
 @Component({
   selector: "ms-in-organic-chemistry",
@@ -37,39 +38,49 @@ export class InOrganicChemistryComponent implements OnInit {
   graphData: any;
   graphDataKey: string = "inOrganicChemistry";
 
-  iocw_cadmium:any=  { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_chromium:any= { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_cobalt:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_copper:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_lead:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_manganese:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_nickel:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_zinc:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_iron:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocw_mercury:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  
-  iocs_cadmium:any=  { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_chromium:any= { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_cobalt:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_copper:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_lead:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_manganese:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_nickel:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_zinc:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_iron:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
-  iocs_mercury:any=   { surfaceValue: "",  mql: "",  testMethod: "" };
+  iocw_cadmium: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_chromium: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_cobalt: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_copper: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_lead: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_manganese: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_nickel: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_zinc: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_iron: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocw_mercury: any = { surfaceValue: "", mql: "", testMethod: "" };
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService) {
+  iocs_cadmium: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_chromium: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_cobalt: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_copper: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_lead: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_manganese: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_nickel: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_zinc: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_iron: any = { surfaceValue: "", mql: "", testMethod: "" };
+  iocs_mercury: any = { surfaceValue: "", mql: "", testMethod: "" };
+
+  module: String;
+
+  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService, public config: Config) {
     this.loadMQLData();
     this.loadTestMethodData();
   }
 
-  siteDatePrev() {
-    this.route.navigate(["mwqDataEntry", "general-chemistry"]);
+  inOrgChemTabNavPrev(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "general-chemistry"]);
+      console.log("At mwqDataEntry - general-chemistry Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "general-chemistry"]);
+      console.log("At mwqDataQc - general-chemistry Screen");
+    }
+    // this.route.navigate(["mwqDataEntry", "general-chemistry"]);
   }
-  inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,
-    iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,
-    iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury) {
+  inOrganicChemistryDetailsSave(iocw_cadmium, iocw_chromium, iocw_cobalt, iocw_copper, iocw_lead, iocw_manganese,
+    iocw_nickel, iocw_zinc, iocw_iron, iocw_mercury, iocs_cadmium, iocs_chromium, iocs_cobalt, iocs_copper, iocs_lead,
+    iocs_manganese, iocs_nickel, iocs_zinc, iocs_iron, iocs_mercury) {
 
     this.dataEntry[this.iocw_cadmiumComponentKey] = iocw_cadmium;
     this.dataEntry[this.iocw_chromiumComponentKey] = iocw_chromium;
@@ -96,15 +107,27 @@ export class InOrganicChemistryComponent implements OnInit {
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At inOrganicChemistryDetails Save Screen");
   }
-  siteDateNext() {
-    this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
+  inOrgChemTabNavNext(module) {
+    if (module === "mwqDataEntry") {
+      this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
+      console.log("At mwqDataEntry - organic-chemistry Screen");
+    }
+    else {
+      this.route.navigate(["mwqDataQc", "organic-chemistry"]);
+      console.log("At mwqDataQc - organic-chemistry Screen");
+    }
+    //this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
   }
   ngOnInit() {
+    let mod = this.config.getModuleName();
+    this.module = mod.module;
+    console.log("----module name----" + this.module);
+
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
-    let graphData = this.localStore.store.get("graphData");
-    this.graphData = graphData.data.historicalGraphOutput[this.graphDataKey];
-    
+    let inOrganicChemistrygraphData = this.localStore.store.get("graphData");
+    this.graphData = inOrganicChemistrygraphData.data.inOrganicChemistry;
+
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.iocw_cadmiumComponentKey)) {
@@ -143,7 +166,7 @@ export class InOrganicChemistryComponent implements OnInit {
         this.dataEntry[this.iocw_zincComponentKey] = this.iocw_zinc;
         this.dataEntry[this.iocw_ironComponentKey] = this.iocw_iron;
         this.dataEntry[this.iocw_mercuryComponentKey] = this.iocw_mercury;
-    
+
         this.dataEntry[this.iocs_cadmiumComponentKey] = this.iocs_cadmium;
         this.dataEntry[this.iocs_chromiumComponentKey] = this.iocs_chromium;
         this.dataEntry[this.iocs_cobaltComponentKey] = this.iocs_cobalt;
@@ -154,32 +177,32 @@ export class InOrganicChemistryComponent implements OnInit {
         this.dataEntry[this.iocs_zincComponentKey] = this.iocs_zinc;
         this.dataEntry[this.iocs_ironComponentKey] = this.iocs_iron;
         this.dataEntry[this.iocs_mercuryComponentKey] = this.iocs_mercury;
-    
+
         this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       }
     } else {
       // this.dataEntry = {};
       this.dataEntry[this.iocw_cadmiumComponentKey] = this.iocw_cadmium;
-        this.dataEntry[this.iocw_chromiumComponentKey] = this.iocw_chromium;
-        this.dataEntry[this.iocw_cobaltComponentKey] = this.iocw_cobalt;
-        this.dataEntry[this.iocw_copperComponentKey] = this.iocw_copper;
-        this.dataEntry[this.iocw_leadComponentKey] = this.iocw_lead;
-        this.dataEntry[this.iocw_manganeseComponentKey] = this.iocw_manganese;
-        this.dataEntry[this.iocw_nickelComponentKey] = this.iocw_nickel;
-        this.dataEntry[this.iocw_zincComponentKey] = this.iocw_zinc;
-        this.dataEntry[this.iocw_ironComponentKey] = this.iocw_iron;
-        this.dataEntry[this.iocw_mercuryComponentKey] = this.iocw_mercury;
-    
-        this.dataEntry[this.iocs_cadmiumComponentKey] = this.iocs_cadmium;
-        this.dataEntry[this.iocs_chromiumComponentKey] = this.iocs_chromium;
-        this.dataEntry[this.iocs_cobaltComponentKey] = this.iocs_cobalt;
-        this.dataEntry[this.iocs_copperComponentKey] = this.iocs_copper;
-        this.dataEntry[this.iocs_leadComponentKey] = this.iocs_lead;
-        this.dataEntry[this.iocs_manganeseComponentKey] = this.iocs_manganese;
-        this.dataEntry[this.iocs_nickelComponentKey] = this.iocs_nickel;
-        this.dataEntry[this.iocs_zincComponentKey] = this.iocs_zinc;
-        this.dataEntry[this.iocs_ironComponentKey] = this.iocs_iron;
-        this.dataEntry[this.iocs_mercuryComponentKey] = this.iocs_mercury;
+      this.dataEntry[this.iocw_chromiumComponentKey] = this.iocw_chromium;
+      this.dataEntry[this.iocw_cobaltComponentKey] = this.iocw_cobalt;
+      this.dataEntry[this.iocw_copperComponentKey] = this.iocw_copper;
+      this.dataEntry[this.iocw_leadComponentKey] = this.iocw_lead;
+      this.dataEntry[this.iocw_manganeseComponentKey] = this.iocw_manganese;
+      this.dataEntry[this.iocw_nickelComponentKey] = this.iocw_nickel;
+      this.dataEntry[this.iocw_zincComponentKey] = this.iocw_zinc;
+      this.dataEntry[this.iocw_ironComponentKey] = this.iocw_iron;
+      this.dataEntry[this.iocw_mercuryComponentKey] = this.iocw_mercury;
+
+      this.dataEntry[this.iocs_cadmiumComponentKey] = this.iocs_cadmium;
+      this.dataEntry[this.iocs_chromiumComponentKey] = this.iocs_chromium;
+      this.dataEntry[this.iocs_cobaltComponentKey] = this.iocs_cobalt;
+      this.dataEntry[this.iocs_copperComponentKey] = this.iocs_copper;
+      this.dataEntry[this.iocs_leadComponentKey] = this.iocs_lead;
+      this.dataEntry[this.iocs_manganeseComponentKey] = this.iocs_manganese;
+      this.dataEntry[this.iocs_nickelComponentKey] = this.iocs_nickel;
+      this.dataEntry[this.iocs_zincComponentKey] = this.iocs_zinc;
+      this.dataEntry[this.iocs_ironComponentKey] = this.iocs_iron;
+      this.dataEntry[this.iocs_mercuryComponentKey] = this.iocs_mercury;
     }
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
@@ -194,7 +217,7 @@ export class InOrganicChemistryComponent implements OnInit {
     this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
       this.mwqResp = resp;
       this.mwqDetails = this.mwqResp.getMQLResult.MQLList;
-      console.log("----mwqDetails----", this.mwqDetails);
+      // console.log("----mwqDetails----", this.mwqDetails);
     });
   }
 
@@ -202,7 +225,7 @@ export class InOrganicChemistryComponent implements OnInit {
     this.mwqDataEntryService.fetchTestMethodData().subscribe((resp) => {
       this.testMethodResp = resp;
       this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
-      console.log("----testMethodDetails----", this.testMethodDetails);
+      // console.log("----testMethodDetails----", this.testMethodDetails);
     });
   }
 

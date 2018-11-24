@@ -20,9 +20,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule, 
     DirectivesModule,
     HttpClientModule,
+   
     RouterModule.forChild(BuoysDashboardRoutes)
   ],
   declarations: [BuoysdashboardComponent]
 })
-export class BuoysdashboardModule { }
+export class BuoysdashboardModule { 
+  BuoysdashboardComponent:any;
+}
 

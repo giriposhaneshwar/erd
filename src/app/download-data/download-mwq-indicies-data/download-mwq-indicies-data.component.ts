@@ -10,7 +10,7 @@ import { DownloadDataService } from '../download-data.service';
   styleUrls: ['./download-mwq-indicies-data.component.scss']
 })
 export class DownloadMwqIndiciesDataComponent implements OnInit {
-
+  mondalOpen:any;
   getRestItemsResponse: any = {
     BuoysList: [],
     Status: null,

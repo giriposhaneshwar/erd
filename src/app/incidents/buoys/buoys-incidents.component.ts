@@ -20,6 +20,8 @@ export class BuoysIncidentsComponent implements OnInit {
   temp = [];
   buoysIncidentDetails = [];
   buoysIncidentResp: any;
+  mondalOpen:any;
+  value:any;
   
   columns: any[] = [
     { prop: 'buoysIncidentId' },
