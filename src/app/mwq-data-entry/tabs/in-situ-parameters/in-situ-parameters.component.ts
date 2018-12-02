@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { Config } from "app/appConfiguration/config";
+import { ToastsManager } from "ng6-toastr";
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: "ms-in-situ-parameters",
@@ -29,14 +31,28 @@ export class InSituParametersComponent implements OnInit {
   dissolvedO: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
   Chlorophyll_a: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
   sechiDisc: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  constructor(public route: Router, public localStore: AppStorageService, public config: Config) { }
+
+  fieldColorValidatior: any;
+  form: FormGroup;
+
+
+  constructor(public route: Router, public localStore: AppStorageService, public config: Config, public toastr: ToastsManager,
+    vcr: ViewContainerRef, private formBuilder: FormBuilder) {
+    this.toastr.setRootViewContainerRef(vcr);
+    /* // Create a new array with a form control for each order
+     const controls = this.orders.map(c => new FormControl(false));
+     controls[0].setValue(true); // Set the first checkbox to true (checked)
+ 
+     this.form = this.formBuilder.group({
+       orders: new FormArray(controls)
+     });*/
+  }
 
   ngOnInit() {
-
     let mod = this.config.getModuleName();
     this.module = mod.module;
     console.log("----module name----" + this.module);
-
+    this.getColorValidator();
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
     let insituParamsgraphData = this.localStore.store.get("graphData");
@@ -88,6 +104,13 @@ export class InSituParametersComponent implements OnInit {
   }
 
   insituDetailsSave(temperature, conductivity, salinity, pH, dissolvedO, Chlorophyll_a, sechiDisc) {
+
+    /*    const selectedOrderIds = this.form.value.orders
+         .map((v, i) => v ? this.orders[i].id : null)
+         .filter(v => v !== null);
+   
+       console.log(selectedOrderIds); */
+
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.dataEntry[this.salinityComponentKey] = salinity;
@@ -97,6 +120,7 @@ export class InSituParametersComponent implements OnInit {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    console.log(this.form.value);
     console.log("At Save Screen");
   }
 
@@ -120,5 +144,31 @@ export class InSituParametersComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "general-chemistry"]);
       console.log("At mwqDataQc - general-chemistry Screen");
     }
+  }
+
+  getColorValidator() {
+    let colorVal = this.localStore.store.get('paramValues');
+    if (colorVal != undefined && colorVal.data !== undefined) {
+      this.fieldColorValidatior = colorVal.data;
+    }
+    console.log("Color Values", colorVal);
+  }
+
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
+    if (value > threshould) {
+      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
+    }
+
+    if (value > standDevition) {
+      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+    }
+
+    if (value > maxValue) {
+      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
+    }
+  }
+
+  checkd5mbotoom(bottom5m) {
+    console.log("--bottom5m----" + bottom5m);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ManageMwqDataService } from '../managemwqdata.service';
 
 @Component({
   selector: 'ms-manage-vendor-details',
@@ -11,58 +12,46 @@ import { map } from 'rxjs/operators';
 export class ManageVendorDetailsComponent implements OnInit {
 
   editing = {};
-  //rows = [];
   mondalOpen:any;
-  getRestItemsResponse: any = {
-    BuoysList: [],
-    Status: null,
-    Message: ""
-  };
+  vendorsListDetails = [];
+  venodrsListResp: any;
 
-  constructor(
-    private pageTitleService: PageTitleService,
-    private http: HttpClient) {
-    this.getRestItems();
-
+  constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
+    private manageMwqDataService: ManageMwqDataService) 
+  {
+     this.loadVendorsList();
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
 
-
-  restItems: any = [];
-  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/manageVendor.json";
-
-  getRestItems(): void {
-    this.restItemsServiceGetRestItems().subscribe(restItems => {
-
-      this.getRestItemsResponse = restItems;
-      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
-        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
-          if (
-            this.getRestItemsResponse.BuoysList != undefined &&
-            this.getRestItemsResponse.BuoysList.length > 0
-          ) {
-            this.restItems = this.getRestItemsResponse.BuoysList;
-          }
-        }
-      }
-      console.log("----restItems----", this.restItems);
+  loadVendorsList() {
+    this.manageMwqDataService.fetchVendorsList().subscribe((resp) => {
+      this.venodrsListResp = resp;
+      this.vendorsListDetails = this.venodrsListResp.GetVendorsListResult.VendorsList;
+      console.log("----vendorsListDetails----", this.vendorsListDetails);
     });
   }
-
-  // Rest Items Service: Read all REST Items
-  restItemsServiceGetRestItems() {
-    return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
-  }
-
+/* 
   updateValue(event, cell, rowIndex) {
     console.log('inline editing rowIndex', rowIndex)
     this.editing[rowIndex + '-' + cell] = false;
-    this.restItems[rowIndex][cell] = event.target.value;
-    this.restItems = [...this.restItems];
-    console.log('UPDATED!', this.restItems[rowIndex][cell]);
+     this.vendorsListDetails[rowIndex][cell] = event.target.value;
+    this.vendorsListDetails = [...this.vendorsListDetails];
+    console.log('UPDATED!', this.vendorsListDetails[rowIndex][cell]);
+  } */
+
+  updateValue(event, cell, rowIndex, row) {
+    console.log('inline editing rowIndex', rowIndex, row.sNo)
+    this.editing[rowIndex + '-' + cell] = false;
+    this.vendorsListDetails[rowIndex][cell] = event.target.value;
+    this.vendorsListDetails = [...this.vendorsListDetails];
+    let updatedStatus = this.vendorsListDetails[rowIndex][cell];
+    let updatedId = row.sNo;
+    this.manageMwqDataService.updatVendorStatus(updatedId, updatedStatus).subscribe((resp) => {
+      console.log("----VendorStatusUpdateResult----", resp);
+    });
+    console.log('UPDATED!', this.vendorsListDetails[rowIndex][cell]);
   }
 }

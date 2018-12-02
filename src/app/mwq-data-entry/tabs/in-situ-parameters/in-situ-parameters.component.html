@@ -21,6 +21,7 @@
             <div class="clearfix tbl tbl-per-10 text-center"><b>Bottom</b></div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
+              <!-- <input type="checkbox" name="bottom5m" [(ngModel)]="bottom5m" (click)="checkd5mbotoom(bottom5m)"> -->
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="10M" />
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="15M" />
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="20M" />
@@ -33,224 +34,305 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Temperature</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Temperature°c</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 'white': temperature.surfaceValue == '','red': temperature.surfaceValue <= 35, 'orange': temperature.surfaceValue <= 50 && temperature.surfaceValue > 35, 'green': temperature.surfaceValue > 50}"
-                name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" required autocomplete="off"/>
+              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
+                          'white': temperature.surfaceValue == '',
+                          'orange': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMean, 
+                          'green': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                    temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMean,
+                          'red': temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMax}"
+                (keyup)="checkValueThreshold(temperature.surfaceValue, fieldColorValidatior.Temparature.prarmaterThreshold,
+                    fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
+                name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" required autocomplete="off" />
               <!--  <span class="pad l-15"><sup>°</sup>C (at Surface) </span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Surface">
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left"><sup>o</sup>C (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureBottomVal.invalid),'white': temperature.bottomValue == '','red': temperature.bottomValue <= 35, 'orange': temperature.bottomValue <= 50 && temperature.bottomValue > 35, 'green': temperature.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureBottomVal.invalid),
+                'white': temperature.bottomValue == '',
+                'orange': temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMean, 
+                'green': temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMax && 
+                          temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMean, 
+                'red': temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMax}"
+                (keyup)="checkValueThreshold(temperature.bottomValue, fieldColorValidatior.Temparature.prarmaterThreshold,
+                fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
                 name="temperatureBottomVal" [(ngModel)]="temperature.bottomValue" #temperatureBottomVal="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
-                name="tempbottom5m" [(ngModel)]="temperature.bottom5m" class="form-control" autocomplete="off"/>
+                name="tempbottom5m" [(ngModel)]="temperature.bottom5m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom10m == '','red': temperature.bottom10m <= 35, 'orange': temperature.bottom10m <= 50 && temperature.bottom10m > 35, 'green': temperature.bottom10m > 50}"
-                name="tempbottom10m" [(ngModel)]="temperature.bottom10m" class="form-control" autocomplete="off"/>
+                name="tempbottom10m" [(ngModel)]="temperature.bottom10m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom15m == '','red': temperature.bottom15m <= 35, 'orange': temperature.bottom15m <= 50 && temperature.bottom15m > 35, 'green': temperature.bottom15m > 50}"
-                name="tempbottom15m" [(ngModel)]="temperature.bottom15m" class="form-control" autocomplete="off"/>
+                name="tempbottom15m" [(ngModel)]="temperature.bottom15m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom20m == '','red': temperature.bottom20m <= 35, 'orange': temperature.bottom20m <= 50 && temperature.bottom20m > 35, 'green': temperature.bottom20m > 50}"
-                name="tempbottom20m" [(ngModel)]="temperature.bottom20m" class="form-control" autocomplete="off"/>
+                name="tempbottom20m" [(ngModel)]="temperature.bottom20m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom25m == '','red': temperature.bottom25m <= 35, 'orange': temperature.bottom25m <= 50 && temperature.bottom25m > 35, 'green': temperature.bottom25m > 50}"
-                name="tempbottom25m" [(ngModel)]="temperature.bottom25m" class="form-control" autocomplete="off"/>
+                name="tempbottom25m" [(ngModel)]="temperature.bottom25m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom30m == '','red': temperature.bottom30m <= 35, 'orange': temperature.bottom30m <= 50 && temperature.bottom30m > 35, 'green': temperature.bottom30m > 50}"
-                name="tempbottom30m" [(ngModel)]="temperature.bottom30m" class="form-control" autocomplete="off"/>
+                name="tempbottom30m" [(ngModel)]="temperature.bottom30m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom35m == '','red': temperature.bottom35m <= 35, 'orange': temperature.bottom35m <= 50 && temperature.bottom35m > 35, 'green': temperature.bottom35m > 50}"
                 name="tempbottom35m" [(ngModel)]="temperature.bottom35m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom40m == '','red': temperature.bottom40m <= 35, 'orange': temperature.bottom40m <= 50 && temperature.bottom40m > 35, 'green': temperature.bottom40m > 50}"
-                name="tempbottom40m" [(ngModel)]="temperature.bottom40m" class="form-control" autocomplete="off"/>
+                name="tempbottom40m" [(ngModel)]="temperature.bottom40m" class="form-control" autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Conductivity</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Conductivity(mS/cm)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivitySurfaceVal.invalid),'white': conductivity.surfaceValue == '','red': conductivity.surfaceValue <= 35, 'orange': conductivity.surfaceValue <= 50 && conductivity.surfaceValue > 35, 'green': conductivity.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivitySurfaceVal.invalid),
+                            'white': conductivity.surfaceValue == '',
+                            'orange': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
+                            'green': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                              conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMean, 
+                            'red': conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMax}"
+                (keyup)="checkValueThreshold(conductivity.surfaceValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" #conductivitySurfaceVal="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
 
               <!-- <span class="pad l-15">mS/gm (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),'white': conductivity.bottomValue == '','red': conductivity.bottomValue <= 35, 'orange': conductivity.bottomValue <= 50 && conductivity.bottomValue > 35, 'green': conductivity.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),
+                'white': conductivity.bottomValue == '',
+                'orange': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
+                'green': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMean, 
+                'red': conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMax}"
+                (keyup)="checkValueThreshold(conductivity.bottomValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" #conductivityBottomVal="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" name="conductivity.bottom5m" [(ngModel)]="conductivity.bottom5m" [ngClass]="{'white': conductivity.bottom5m == '','red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom10m" [(ngModel)]="conductivity.bottom10m" [ngClass]="{'white': conductivity.bottom10m == '','red': conductivity.bottom10m <= 35, 'orange': conductivity.bottom10m <= 50 && conductivity.bottom10m > 35, 'green': conductivity.bottom10m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom15m" [(ngModel)]="conductivity.bottom15m" [ngClass]="{'white': conductivity.bottom15m == '','red': conductivity.bottom15m <= 35, 'orange': conductivity.bottom15m <= 50 && conductivity.bottom15m > 35, 'green': conductivity.bottom15m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom20m" [(ngModel)]="conductivity.bottom20m" [ngClass]="{'white': conductivity.bottom20m == '','red': conductivity.bottom20m <= 35, 'orange': conductivity.bottom20m <= 50 && conductivity.bottom20m > 35, 'green': conductivity.bottom20m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom25m" [(ngModel)]="conductivity.bottom25m" [ngClass]="{'white': conductivity.bottom25m == '','red': conductivity.bottom25m <= 35, 'orange': conductivity.bottom25m <= 50 && conductivity.bottom25m > 35, 'green': conductivity.bottom25m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom30m" [(ngModel)]="conductivity.bottom30m" [ngClass]="{'white': conductivity.bottom30m == '','red': conductivity.bottom30m <= 35, 'orange': conductivity.bottom30m <= 50 && conductivity.bottom30m > 35, 'green': conductivity.bottom30m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom35m" [(ngModel)]="conductivity.bottom35m" [ngClass]="{'white': conductivity.bottom35m == '','red': conductivity.bottom35m <= 35, 'orange': conductivity.bottom35m <= 50 && conductivity.bottom35m > 35, 'green': conductivity.bottom35m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom40m" [(ngModel)]="conductivity.bottom40m" [ngClass]="{'white': conductivity.bottom40m == '','red': conductivity.bottom40m <= 35, 'orange': conductivity.bottom40m <= 50 && conductivity.bottom40m > 35, 'green': conductivity.bottom40m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Salinity</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Salinity(ppt)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),'white': salinity.surfaceValue == '','red': salinity.surfaceValue <= 35, 'orange': salinity.surfaceValue <= 50 && salinity.surfaceValue > 35, 'green': salinity.surfaceValue > 50}"
-              autocomplete="off" name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel" required  />
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),
+                'white': salinity.surfaceValue == '',
+                'orange': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMean, 
+                'green': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMax && 
+                   salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMean, 
+                'red': salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMax}"
+                (keyup)="checkValueThreshold(salinity.surfaceValue, fieldColorValidatior.Salinity.prarmaterThreshold,
+                fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
+                autocomplete="off" name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel"
+                required />
               <!-- <span class="pad l-15">ppt (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),'white': salinity.bottomValue == '','red': salinity.bottomValue <= 35, 'orange': salinity.bottomValue <= 50 && salinity.bottomValue > 35, 'green': salinity.bottomValue > 50}"
-                name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),
+                      'white': salinity.bottomValue == '',
+                      'orange': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMean, 
+                      'green': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMax  && 
+                          salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMean, 
+                      'red': salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMax }"
+                (keyup)="checkValueThreshold(salinity.bottomValue, fieldColorValidatior.Salinity.prarmaterThreshold,
+                  fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
+                name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required
+                autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" name="salinity.bottom5m" [(ngModel)]="salinity.bottom5m" [ngClass]="{'white': salinity.bottom5m == '','red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom10m" [(ngModel)]="salinity.bottom10m" [ngClass]="{'white': salinity.bottom10m == '','red': salinity.bottom10m <= 35, 'orange': salinity.bottom10m <= 50 && salinity.bottom10m > 35, 'green': salinity.bottom10m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom15m" [(ngModel)]="salinity.bottom15m" [ngClass]="{'white': salinity.bottom15m == '','red': salinity.bottom15m <= 35, 'orange': salinity.bottom15m <= 50 && salinity.bottom15m > 35, 'green': salinity.bottom15m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom20m" [(ngModel)]="salinity.bottom20m" [ngClass]="{'white': salinity.bottom20m == '','red': salinity.bottom20m <= 35, 'orange': salinity.bottom20m <= 50 && salinity.bottom20m > 35, 'green': salinity.bottom20m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom25m" [(ngModel)]="salinity.bottom25m" [ngClass]="{'white': salinity.bottom25m == '','red': salinity.bottom25m <= 35, 'orange': salinity.bottom25m <= 50 && salinity.bottom25m > 35, 'green': salinity.bottom25m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom30m" [(ngModel)]="salinity.bottom30m" [ngClass]="{'white': salinity.bottom30m == '','red': salinity.bottom30m <= 35, 'orange': salinity.bottom30m <= 50 && salinity.bottom30m > 35, 'green': salinity.bottom30m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom35m" [(ngModel)]="salinity.bottom35m" [ngClass]="{'white': salinity.bottom35m == '','red': salinity.bottom35m <= 35, 'orange': salinity.bottom35m <= 50 && salinity.bottom35m > 35, 'green': salinity.bottom35m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom40m" [(ngModel)]="salinity.bottom40m" [ngClass]="{'white': salinity.bottom40m == '','red': salinity.bottom40m <= 35, 'orange': salinity.bottom40m <= 50 && salinity.bottom40m > 35, 'green': salinity.bottom40m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">pH*</div>
+            <div class="clearfix tbl tbl-per-10 text-left">pH</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHsurfaceValue.invalid),'white': pH.surfaceValue == '','red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
-                name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required autocomplete="off"/>
+                name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required autocomplete="off" />
               <!-- <span class="pad l-15">mg/L (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Surface"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
-                name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required autocomplete="off"/>
+                name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required autocomplete="off" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" name="pH.bottom5m" [(ngModel)]="pH.bottom5m" [ngClass]="{'white': pH.bottom5m == '','red': pH.bottom5m <= 35, 'orange': pH.bottom5m <= 50 && pH.bottom5m > 35, 'green': pH.bottom5m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom10m" [(ngModel)]="pH.bottom10m" [ngClass]="{'white': pH.bottom10m == '','red': pH.bottom10m <= 35, 'orange': pH.bottom10m <= 50 && pH.bottom10m > 35, 'green': pH.bottom10m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom15m" [(ngModel)]="pH.bottom15m" [ngClass]="{'white': pH.bottom15m == '','red': pH.bottom15m <= 35, 'orange': pH.bottom15m <= 50 && pH.bottom15m > 35, 'green': pH.bottom15m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom20m" [(ngModel)]="pH.bottom20m" [ngClass]="{'white': pH.bottom20m == '','red': pH.bottom20m <= 35, 'orange': pH.bottom20m <= 50 && pH.bottom20m > 35, 'green': pH.bottom20m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom25m" [(ngModel)]="pH.bottom25m" [ngClass]="{'white': pH.bottom25m == '','red': pH.bottom25m <= 35, 'orange': pH.bottom25m <= 50 && pH.bottom25m > 35, 'green': pH.bottom25m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom30m" [(ngModel)]="pH.bottom30m" [ngClass]="{'white': pH.bottom30m == '','red': pH.bottom30m <= 35, 'orange': pH.bottom30m <= 50 && pH.bottom30m > 35, 'green': pH.bottom30m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom35m" [(ngModel)]="pH.bottom35m" [ngClass]="{'white': pH.bottom35m == '','red': pH.bottom35m <= 35, 'orange': pH.bottom35m <= 50 && pH.bottom35m > 35, 'green': pH.bottom35m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom40m" [(ngModel)]="pH.bottom40m" [ngClass]="{'white': pH.bottom40m == '','red': pH.bottom40m <= 35, 'orange': pH.bottom40m <= 50 && pH.bottom40m > 35, 'green': pH.bottom40m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
 
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Dissolved_O_</div>
+            <div class="clearfix tbl tbl-per-10 text-left">DissolveOxygen (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),'white': dissolvedO.surfaceValue == '','red': dissolvedO.surfaceValue <= 35, 'orange': dissolvedO.surfaceValue <= 50 && dissolvedO.surfaceValue > 35, 'green': dissolvedO.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),
+                          'white': dissolvedO.surfaceValue == '',
+                          'orange': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                          'green': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                              dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                          'red': dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax}"
+                (keyup)="checkValueThreshold(dissolvedO.surfaceValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
+                  fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
                 name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
               <!-- <span class="pad l-15">mg/L (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),'white': dissolvedO.bottomValue == '','red': dissolvedO.bottomValue <= 35, 'orange': dissolvedO.bottomValue <= 50 && dissolvedO.bottomValue > 35, 'green': dissolvedO.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),
+                'white': dissolvedO.bottomValue == '',
+                'orange': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                'green': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax  && 
+                        dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                'red': dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax }"
+                (keyup)="checkValueThreshold(dissolvedO.bottomValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
+                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="dissolvedObottomValue" [(ngModel)]="dissolvedO.bottomValue" #dissolvedObottomValue="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" name="dissolvedO.bottom5m" [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'white': dissolvedO.bottom5m == '','red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom10m" [(ngModel)]="dissolvedO.bottom10m" [ngClass]="{'white': dissolvedO.bottom10m == '','red': dissolvedO.bottom10m <= 35, 'orange': dissolvedO.bottom10m <= 50 && dissolvedO.bottom10m > 35, 'green': dissolvedO.bottom10m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom15m" [(ngModel)]="dissolvedO.bottom15m" [ngClass]="{'white': dissolvedO.bottom15m == '','red': dissolvedO.bottom15m <= 35, 'orange': dissolvedO.bottom15m <= 50 && dissolvedO.bottom15m > 35, 'green': dissolvedO.bottom15m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom20m" [(ngModel)]="dissolvedO.bottom20m" [ngClass]="{'white': dissolvedO.bottom20m == '','red': dissolvedO.bottom20m <= 35, 'orange': dissolvedO.bottom20m <= 50 && dissolvedO.bottom20m > 35, 'green': dissolvedO.bottom20m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom25m" [(ngModel)]="dissolvedO.bottom25m" [ngClass]="{'white': dissolvedO.bottom25m == '','red': dissolvedO.bottom25m <= 35, 'orange': dissolvedO.bottom25m <= 50 && dissolvedO.bottom25m > 35, 'green': dissolvedO.bottom25m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom30m" [(ngModel)]="dissolvedO.bottom30m" [ngClass]="{'white': dissolvedO.bottom30m == '','red': dissolvedO.bottom30m <= 35, 'orange': dissolvedO.bottom30m <= 50 && dissolvedO.bottom30m > 35, 'green': dissolvedO.bottom30m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom35m" [(ngModel)]="dissolvedO.bottom35m" [ngClass]="{'white': dissolvedO.bottom35m == '','red': dissolvedO.bottom35m <= 35, 'orange': dissolvedO.bottom35m <= 50 && dissolvedO.bottom35m > 35, 'green': dissolvedO.bottom35m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom40m" [(ngModel)]="dissolvedO.bottom40m" [ngClass]="{'white': dissolvedO.bottom40m == '','red': dissolvedO.bottom40m <= 35, 'orange': dissolvedO.bottom40m <= 50 && dissolvedO.bottom40m > 35, 'green': dissolvedO.bottom40m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll_a*</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll(μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aSurfaceValue.invalid),'white': Chlorophyll_a.surfaceValue == '','red': Chlorophyll_a.surfaceValue <= 35, 'orange': Chlorophyll_a.surfaceValue <= 50 && Chlorophyll_a.surfaceValue > 35, 'green': Chlorophyll_a.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aSurfaceValue.invalid),
+                  'white': Chlorophyll_a.surfaceValue == '',
+                  'orange': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                  'green': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax  &&
+                     Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                  'red': Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax }"
+                (keyup)="checkValueThreshold(Chlorophyll_a.surfaceValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
+                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aSurfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" #Chlorophyll_aSurfaceValue="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
               <!-- <span class="pad l-15">ug/L (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Surface"></div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),'white': Chlorophyll_a.bottomValue == '','red': Chlorophyll_a.bottomValue <= 35, 'orange': Chlorophyll_a.bottomValue <= 50 && Chlorophyll_a.bottomValue > 35, 'green': Chlorophyll_a.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),
+                'white': Chlorophyll_a.bottomValue == '',
+                'orange': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                'green': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                  Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                'red': Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax}"
+                (keyup)="checkValueThreshold(Chlorophyll_a.bottomValue , fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
+                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aBottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" #Chlorophyll_aBottomValue="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input type="text" name="Chlorophyll_a.bottom5m" [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'white': Chlorophyll_a.bottom5m == '','red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom10m" [(ngModel)]="Chlorophyll_a.bottom10m" [ngClass]="{'white': Chlorophyll_a.bottom10m == '','red': Chlorophyll_a.bottom10m <= 35, 'orange': Chlorophyll_a.bottom10m <= 50 && Chlorophyll_a.bottom10m > 35, 'green': Chlorophyll_a.bottom10m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom15m" [(ngModel)]="Chlorophyll_a.bottom15m" [ngClass]="{'white': Chlorophyll_a.bottom15m == '','red': Chlorophyll_a.bottom15m <= 35, 'orange': Chlorophyll_a.bottom15m <= 50 && Chlorophyll_a.bottom15m > 35, 'green': Chlorophyll_a.bottom15m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom20m" [(ngModel)]="Chlorophyll_a.bottom20m" [ngClass]="{'white': Chlorophyll_a.bottom20m == '','red': Chlorophyll_a.bottom20m <= 35, 'orange': Chlorophyll_a.bottom20m <= 50 && Chlorophyll_a.bottom20m > 35, 'green': Chlorophyll_a.bottom20m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom25m" [(ngModel)]="Chlorophyll_a.bottom25m" [ngClass]="{'white': Chlorophyll_a.bottom25m == '','red': Chlorophyll_a.bottom25m <= 35, 'orange': Chlorophyll_a.bottom25m <= 50 && Chlorophyll_a.bottom25m > 35, 'green': Chlorophyll_a.bottom25m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom30m" [(ngModel)]="Chlorophyll_a.bottom30m" [ngClass]="{'white': Chlorophyll_a.bottom30m == '','red': Chlorophyll_a.bottom30m <= 35, 'orange': Chlorophyll_a.bottom30m <= 50 && Chlorophyll_a.bottom30m > 35, 'green': Chlorophyll_a.bottom30m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom35m" [(ngModel)]="Chlorophyll_a.bottom35m" [ngClass]="{'white': Chlorophyll_a.bottom35m == '','red': Chlorophyll_a.bottom35m <= 35, 'orange': Chlorophyll_a.bottom35m <= 50 && Chlorophyll_a.bottom35m > 35, 'green': Chlorophyll_a.bottom35m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom40m" [(ngModel)]="Chlorophyll_a.bottom40m" [ngClass]="{'white': Chlorophyll_a.bottom40m == '','red': Chlorophyll_a.bottom40m <= 35, 'orange': Chlorophyll_a.bottom40m <= 50 && Chlorophyll_a.bottom40m > 35, 'green': Chlorophyll_a.bottom40m > 50}"
-                class="form-control" autocomplete="off"/>
+                class="form-control" autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Bottom"></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc Reading(Feet)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && sechiDiscSurfaceValue.invalid),'white': sechiDisc.surfaceValue == '','red': sechiDisc.surfaceValue <= 35, 'orange': sechiDisc.surfaceValue <= 50 && sechiDisc.surfaceValue > 35, 'green': sechiDisc.surfaceValue > 50}"
-                name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel" autocomplete="off"
-                required/>
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && sechiDiscSurfaceValue.invalid),
+                    'white': sechiDisc.surfaceValue == '',
+                    'orange': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
+                    'green': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMax && 
+                        sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
+                    'red': sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMax}"
+                (keyup)="checkValueThreshold(sechiDisc.surfaceValue, fieldColorValidatior.Sechi_Disc.prarmaterThreshold,
+                    fieldColorValidatior.Sechi_Disc.prarmaterStandDevition,fieldColorValidatior.Sechi_Disc.prarmaterMax)"
+                name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel"
+                autocomplete="off" required />
               <!-- <span class="pad l-15">Feet (at Surface)</span> -->
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Sechi_Disc_Surface"></div>
             <div class="clearfix tbl tbl-per-10 text-left"></div>
-            <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid"></div>
+            <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
+              
+            </div>
             <div class="clearfix tbl tbl-per-15 text-center"></div>
           </div>
         </div>

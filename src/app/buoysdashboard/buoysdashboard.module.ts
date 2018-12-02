@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from '../core/widgster/directives.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule, 
     DirectivesModule,
     HttpClientModule,
-   
+    LoadingBarHttpClientModule,
     RouterModule.forChild(BuoysDashboardRoutes)
   ],
   declarations: [BuoysdashboardComponent]

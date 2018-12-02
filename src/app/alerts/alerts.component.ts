@@ -3,6 +3,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { fadeInAnimation } from '../core/route-animation/route.animation';
 import { AlertService } from './alerts.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ms-alerts',
@@ -18,6 +19,7 @@ export class AlertsComponent implements OnInit {
   selected = [];
   alertsDetails = [];
   alertsResp: any;
+  
   temp = [];
   mondalOpen : any;
   columns: any[] = [
@@ -25,25 +27,39 @@ export class AlertsComponent implements OnInit {
     { name: 'Description' },
     { name: 'Reported DateTime' },
     { name: 'Severity' }
-
   ];
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(private pageTitleService: PageTitleService, private alertService: AlertService) {
-    this.loadAlertsData();
+    var fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+    let toDate   = moment().format("YYYY-MM-DD") ;
+   
+    console.log(" Current Day ", "----"+ toDate);
+    console.log(" Last  Three Months " + fromDate );
+    this.loadAlertsData(fromDate,toDate);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
 
-  loadAlertsData(): void {
-    this.alertService.getAlertsData().subscribe((resp) => {
+  loadAlertsData(fromDate,toDate): void {
+    this.alertService.getAlertsData(fromDate,toDate).subscribe((resp) => {
       this.alertsResp = resp;
       this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
       this.selected = [this.alertsDetails[0]];
       this.temp = [...this.alertsDetails];
 
       console.log("----alertsDetails----", this.alertsDetails);
+    });
+  }
+
+  createIncident(selected){
+    let selectedAlertId = selected[0].alertid;
+    let createdBy ="Admin";
+    console.log("selected AlertId---"+selectedAlertId+"CreatedBy----"+createdBy);
+
+    this.alertService.createIncidentForAlertsData(selectedAlertId,createdBy).subscribe((resp) => {
+      console.log("----Created Incident----", resp);
     });
   }
 

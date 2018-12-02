@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { AppStorageService } from 'app/appConfiguration/app-config.service';
 import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 import { Config } from 'app/appConfiguration/config';
+import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 
 @Component({
   selector: 'ms-general-chemistry',
@@ -24,6 +25,7 @@ export class GeneralChemistryComponent implements OnInit {
   tssComponentKey: string = "TSS";
   graphData: any;
   graphDataKey: string = "generalChemistry";
+  fieldColorValidatior: any;
 
   
   totalPhosp: any = { surfaceValue: "", mql: "", testMethod: "" };
@@ -38,7 +40,14 @@ export class GeneralChemistryComponent implements OnInit {
 
   module: String;
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService, public config: Config) {
+  constructor(
+    public route: Router, 
+    public toastr: ToastsManager, 
+    public localStore: AppStorageService, 
+    private mwqDataEntryService: MwqDataEntryService, 
+    vcr: ViewContainerRef,
+    public config: Config) {
+      this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
   }
@@ -87,6 +96,15 @@ export class GeneralChemistryComponent implements OnInit {
     // this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
     // console.log("At Next Screen");
   }
+  
+  getColorValidator() {
+    let colorVal = this.localStore.store.get('paramValues');
+    if(colorVal != undefined && colorVal.data !== undefined){
+      this.fieldColorValidatior = colorVal.data;
+    }
+    console.log("Color Values", colorVal);
+  }
+
 
   ngOnInit() {
     let mod = this.config.getModuleName();
@@ -142,6 +160,8 @@ export class GeneralChemistryComponent implements OnInit {
       this.dataEntry[this.bodComponentKey] = this.bod;
       this.dataEntry[this.tssComponentKey] = this.tss;
     }
+
+    this.getColorValidator();
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
 
@@ -168,6 +188,19 @@ export class GeneralChemistryComponent implements OnInit {
       this.testMethodDetails = this.testMethodResp.getTestMethodResult.TestList;
       //console.log("----testMethodDetails----", this.testMethodDetails);
     });
+  }
+  checkValueThreshold(value, threshould,standDevition,maxValue) {
+    if(value > threshould){
+      this.toastr.error("Input Value "+ value + " Morethan Threshould " + threshould +" Value ");
+    }
+    
+    if(value > standDevition){
+      this.toastr.error("Input Value "+ value + " Morethan Prarmater StandDevition " + standDevition +" Value ");
+    }
+
+    if(value > maxValue){
+      this.toastr.error("Input Value "+ value + " Morethan Pararmater Max " + maxValue +" Value ");
+    }
   }
 
   /*loaadExtractionMethodData() {

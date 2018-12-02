@@ -22,14 +22,12 @@ export class MwqDataEntryService {
     return this.http.post<any[]>(this.apiUrl + "/GetCategory", bodyParams, { headers: headers_value })
   }
   postFileUpload(data): Observable<any[]> {
-    let bodyParams = JSON.stringify(data);
+    let bodyParams = {data};
     let headers_value = new HttpHeaders();
-    //headers_value = headers_value.set("Content-Type", "application/json");
-    headers_value = headers_value.set("enctype", "multipart/form-data");
-    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
-    return this.http.post<any[]>("http://localhost:8080/uploadFile", data, {
-      headers: headers_value
-    });
+    headers_value = headers_value.set("Content-Type", "application/json");
+    //headers_value = headers_value.set("enctype", "multipart/form-data");
+   // headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
+    return this.http.post<any[]>(this.apiUrl +"/UploadData", bodyParams, { headers: headers_value })
   }
 
   fetchHistoricalGraph(): Observable<any[]> {

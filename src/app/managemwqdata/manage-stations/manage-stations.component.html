@@ -15,6 +15,8 @@
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
         <!-- <h4>Manage Stations</h4> -->
+        <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
+          Add</a>
       </div>
       <div class="widget-body">
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'standard'"
@@ -24,7 +26,7 @@
               {{value}}
             </ng-template>
           </ngx-datatable-column>
-          
+
           <ngx-datatable-column name="Station Id" [width]="200">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
               {{value}}
@@ -46,20 +48,86 @@
               {{value}}
             </ng-template>
           </ngx-datatable-column>
-         
+
           <ngx-datatable-column name="Status">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
                 {{value}}
               </span>
-              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
+              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
                 <option value="Active">Active</option>
-                <option value="In Active">In Active</option>
+                <option value="InActive">InActive</option>
               </select>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+  <div class="shadowSection" (click)="closeModal()"></div>
+  <div class="modalSection">
+    <div class="modalHeader">
+      <div class="title"> </div>
+      <div class="closeBtn">
+        <a href="javascript:void(0)" (click)="closeModal()">
+          <i class="glyphicon glyphicon-remove"></i>
+        </a>
+      </div>
+    </div>
+    <!-- <form class="form" name="form" (ngSubmit)="f.form.valid && addConfigureParam(configureParam)" #f="ngForm" novalidate> -->
+    <div class="modalBody">
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Station ID</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Station ID" [(ngModel)]="stationInfo.stationId" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Station Name</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Station Name" [(ngModel)]="stationInfo.name" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Latitude</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="X" [(ngModel)]="stationInfo.x" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Y" [(ngModel)]="stationInfo.y" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Status</label>
+        <div class="col-8">
+          <select class="form-control" [(ngModel)]="stationInfo.status">
+            <option value="" disabled selected hidden>Select Status</option>
+            <option value="Active">Active</option>
+            <option value="InActive">InActive</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- </form> -->
+    <div class="modalFooter">
+      <div class="form-group mar t-20 col-xs-12 col-sm-12">
+        <div class="row text-right">
+          <div class="col-xs-12 col-sm-12">
+            <button class="btn btn-primary gap gap-5 gap-lr" (click)="createStation(stationInfo)">Add</button>
+            <!-- <button class="btn btn-primary gap gap-5 gap-lr">Add</button> -->
+            <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

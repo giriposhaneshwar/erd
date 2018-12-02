@@ -18,7 +18,7 @@
       </div>
       <div class="widget-body">
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
+          [footerHeight]="50" [rowHeight]="'auto'" [rows]="vendorsListDetails">
           <ngx-datatable-column name="S No"></ngx-datatable-column>
           <ngx-datatable-column name="Name"></ngx-datatable-column>
           <ngx-datatable-column name="Email Id"></ngx-datatable-column>
@@ -29,10 +29,11 @@
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
                 {{value}}
               </span>
-              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
+              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" 
+                (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
                 <option value="Active">Active</option>
-                <option value="In Active">In Active</option>
+                <option value="InActive">InActive</option>
               </select>
             </ng-template>
           </ngx-datatable-column>

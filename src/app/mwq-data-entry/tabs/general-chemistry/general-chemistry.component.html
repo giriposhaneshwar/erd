@@ -23,14 +23,25 @@
             <div class="clearfix tbl tbl-per-25 text-center"><b>Test Method</b></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Total Phosp..
+              <!-- {{totalPhosp.surfaceValue  | json}} - {{fieldColorValidatior.TotalPhosp.prarmaterMax |json}} -->
+            </div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" autocomplete="off" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),'white': totalPhosp.surfaceValue == '','red': totalPhosp.surfaceValue <= 35, 'orange': totalPhosp.surfaceValue <= 50 && totalPhosp.surfaceValue > 35, 'green': totalPhosp.surfaceValue > 50}"
-              name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" #totalPhospSurfaceValue="ngModel"
-                required />
+              <input type="text" autocomplete="off" class="form-control tbl tbl-per-30" [ngClass]="{
+                      'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),
+                      'white': totalPhosp.surfaceValue == '',
+                      'orange': totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMean, 
+                      'green': totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMax 
+                             && totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMean, 
+                      'red': totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMax}"
+                name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" 
+                (keyup)="checkValueThreshold(totalPhosp.surfaceValue, fieldColorValidatior.TotalPhosp.prarmaterThreshold, 
+                                            fieldColorValidatior.TotalPhosp.prarmaterStandDevition, fieldColorValidatior.TotalPhosp.prarmaterMax)"
+              
+                #totalPhospSurfaceValue="ngModel" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TotalPhosp"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -53,12 +64,22 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Nitrogen.</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),'white': totalNitrogen.surfaceValue == '','red': totalNitrogen.surfaceValue <= 35, 'orange': totalNitrogen.surfaceValue <= 50 && totalNitrogen.surfaceValue > 35, 'green': totalNitrogen.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
+                       'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),
+                       'white': totalNitrogen.surfaceValue == '',
+                       'orange': totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMean, 
+                       'green': totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMax 
+                                && totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMean, 
+                       'red': totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMax}"
                 name="totalNitrogenSurfaceValue" [(ngModel)]="totalNitrogen.surfaceValue" #totalNitrogenSurfaceValue="ngModel"
-                required autocomplete="off"/>
+                (keyup)="checkValueThreshold(totalNitrogen.surfaceValue, 
+                          fieldColorValidatior.Total_Nitrogen.prarmaterThreshold,
+                          fieldColorValidatior.Total_Nitrogen.prarmaterStandDevition,
+                          fieldColorValidatior.Total_Nitrogen.prarmaterMax)"
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Nitrogen"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -80,14 +101,24 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),'white': nitriteN.surfaceValue == '','red': nitriteN.surfaceValue <= 35, 'orange': nitriteN.surfaceValue <= 50 && nitriteN.surfaceValue > 35, 'green': nitriteN.surfaceValue > 50}"
-                name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel"
-                required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
+                  'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),
+                  'white': nitriteN.surfaceValue == '',
+                  'orange': nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMean, 
+                  'green': nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMax 
+                        && nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMean, 
+                  'red': nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMax}"
+                name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel" 
+                (keyup)="checkValueThreshold(nitriteN.surfaceValue, 
+                          fieldColorValidatior.Nitrite_N.prarmaterThreshold,
+                          fieldColorValidatior.Nitrite_N.prarmaterStandDevition,
+                          fieldColorValidatior.Nitrite_N.prarmaterMax)"
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrite_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -108,14 +139,24 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),'white': nitrateN.surfaceValue == '','red': nitrateN.surfaceValue <= 35, 'orange': nitrateN.surfaceValue <= 50 && nitrateN.surfaceValue > 35, 'green': nitrateN.surfaceValue > 50}"
-                name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel"
-                required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
+                    'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),
+                    'white': nitrateN.surfaceValue == '',
+                    'orange': nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMean, 
+                    'green': nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMax 
+                        && nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMean, 
+                    'red': nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMax}"
+                name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel" 
+                (keyup)="checkValueThreshold(nitrateN.surfaceValue, 
+                  fieldColorValidatior.Nitrate_N.prarmaterThreshold,
+                  fieldColorValidatior.Nitrate_N.prarmaterStandDevition,
+                  fieldColorValidatior.Nitrate_N.prarmaterMax)"
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrate_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -137,14 +178,23 @@
 
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Silicate-Sl</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Silicate-Si (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),'white': silicateSl.surfaceValue == '','red': silicateSl.surfaceValue <= 35, 'orange': silicateSl.surfaceValue <= 50 && silicateSl.surfaceValue > 35, 'green': silicateSl.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),
+                'white': silicateSl.surfaceValue == '',
+                'orange': silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMean, 
+                'green': silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMax  
+                    && silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMean, 
+                'red': silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMax }"
                 name="silicateSlsurfaceValue" [(ngModel)]="silicateSl.surfaceValue" #silicateSlsurfaceValue="ngModel"
-                required autocomplete="off"/>
+                (keyup)="checkValueThreshold(silicateSl.surfaceValue, 
+                        fieldColorValidatior.silicateSl.prarmaterThreshold,
+                        fieldColorValidatior.silicateSl.prarmaterStandDevition,
+                        fieldColorValidatior.silicateSl.prarmaterMax)"
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Silicate_Sl"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -166,14 +216,23 @@
 
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),'white': ammoniaN.surfaceValue == '','red': ammoniaN.surfaceValue <= 35, 'orange': ammoniaN.surfaceValue <= 50 && ammoniaN.surfaceValue > 35, 'green': ammoniaN.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),
+              'white': ammoniaN.surfaceValue == '',
+              'orange': ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMean, 
+              'green': ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMax 
+                  && ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMean, 
+              'red': ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMax }"
+                (keyup)="checkValueThreshold(ammoniaN.surfaceValue, 
+                  fieldColorValidatior.Ammonia_N.prarmaterThreshold,
+                  fieldColorValidatior.Ammonia_N.prarmaterStandDevition,
+                  fieldColorValidatior.Ammonia_N.prarmaterMax)"
                 name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel"
-                required autocomplete="off"/>
+                required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Ammonia_N"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -194,14 +253,23 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P</div>
+            <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && phosphatePsurfaceValue.invalid),'white': phosphateP.surfaceValue == '','red': phosphateP.surfaceValue <= 35, 'orange': phosphateP.surfaceValue <= 50 && phosphateP.surfaceValue > 35, 'green': phosphateP.surfaceValue > 50}"
-                name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue" #phosphatePsurfaceValue="ngModel"
-                required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue"
+                [ngClass]="{'is-invalid': (f.submitted && phosphatePsurfaceValue.invalid),
+              'white': phosphateP.surfaceValue == '',
+              'orange': phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMean, 
+              'green': phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMax 
+                  && phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMean, 
+              'red': phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMax }"
+                (keyup)="checkValueThreshold(phosphateP.surfaceValue, 
+                fieldColorValidatior.Phosphate_P.prarmaterThreshold,
+                fieldColorValidatior.Phosphate_P.prarmaterStandDevition,
+                fieldColorValidatior.Phosphate_P.prarmaterMax)"
+                #phosphatePsurfaceValue="ngModel" required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              μg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Phosphate_P"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -222,13 +290,23 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">BOD</div>
+            <div class="clearfix tbl tbl-per-15 text-left">BOD (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),'white': bod.surfaceValue == '','red': bod.surfaceValue <= 35, 'orange': bod.surfaceValue <= 50 && bod.surfaceValue > 35, 'green': bod.surfaceValue > 50}"
-                name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue" #bodSurfaceValue="ngModel" required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue"
+                [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),
+                            'white': bod.surfaceValue == '',
+                            'orange': bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMean, 
+                            'green': bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMax  
+                                && bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMean, 
+                            'red': bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMax }"
+                (keyup)="checkValueThreshold(bod.surfaceValue, 
+                                            fieldColorValidatior.BOD.prarmaterThreshold,
+                                            fieldColorValidatior.BOD.prarmaterStandDevition,
+                                            fieldColorValidatior.BOD.prarmaterMax)"
+                #bodSurfaceValue="ngModel" required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              mg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.BOD"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
@@ -248,13 +326,22 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-15 text-left">TSS</div>
+            <div class="clearfix tbl tbl-per-15 text-left">TSS (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && tssSurfaceValue.invalid),'white': tss.surfaceValue == '','red': tss.surfaceValue <= 35, 'orange': tss.surfaceValue <= 50 && tss.surfaceValue > 35, 'green': tss.surfaceValue > 50}"
-                name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue" #tssSurfaceValue="ngModel" required autocomplete="off"/>
+              <input type="text" class="form-control tbl tbl-per-30" name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue"
+                [ngClass]="{'is-invalid': (f.submitted && tssSurfaceValue.invalid),
+                            'white': tss.surfaceValue == '',
+                            'orange': tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMean, 
+                            'green': tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMax 
+                                && tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMean, 
+                            'red': tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMax}"
+                (keyup)="checkValueThreshold(tss.surfaceValue, fieldColorValidatior.TSS.prarmaterThreshold,
+                  fieldColorValidatior.TSS.prarmaterStandDevition, 
+                  fieldColorValidatior.TSS.prarmaterMa)"
+                #tssSurfaceValue="ngModel" required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
-              ug/L
+              mg/L
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS"></div>
             <div class="clearfix tbl tbl-per-25 text-center">

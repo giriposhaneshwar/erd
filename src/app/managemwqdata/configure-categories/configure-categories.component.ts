@@ -15,11 +15,13 @@ export class ConfigureCategoriesComponent implements OnInit {
   mondalOpen: any;
   categoryListDetails = [];
   categoryListResp: any;
-
-  constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
-    private manageMwqDataService: ManageMwqDataService) 
-  {
-     this.loadCategoryList();
+  categoryInfo: any = {
+    categoryName: "", createdBy: "AdminUser", status: ""
+  };
+  modalShowWindow: Boolean = false;
+  constructor(private pageTitleService: PageTitleService, private http: HttpClient,
+    private manageMwqDataService: ManageMwqDataService) {
+    this.loadCategoryList();
   }
 
   ngOnInit() {
@@ -34,12 +36,37 @@ export class ConfigureCategoriesComponent implements OnInit {
     });
   }
 
-  updateValue(event, cell, rowIndex) {
-    console.log('inline editing rowIndex', rowIndex)
+  updateValue(event, cell, rowIndex, row) {
+    console.log('inline editing rowIndex', rowIndex, row.categoryId)
     this.editing[rowIndex + '-' + cell] = false;
-     this.categoryListDetails[rowIndex][cell] = event.target.value;
+    this.categoryListDetails[rowIndex][cell] = event.target.value;
     this.categoryListDetails = [...this.categoryListDetails];
+    let updatedStatus = this.categoryListDetails[rowIndex][cell];
+    let updatedCategoryId = row.categoryId;
+    let updatedBy = "Admin";
+    this.manageMwqDataService.updateCategoryStatus(updatedCategoryId, updatedBy, updatedStatus).subscribe((resp) => {
+      console.log("----CategoryStatusUpdateResult----", resp);
+    });
     console.log('UPDATED!', this.categoryListDetails[rowIndex][cell]);
+  }
+
+  addTableRow() {
+    this.openModal();
+  }
+  siteDatePrev() { }
+  openModal() {
+    this.modalShowWindow = true;
+  }
+  closeModal() {
+    this.modalShowWindow = false;
+  }
+
+  createCategory(categoryInfo) {
+    console.log(JSON.stringify(categoryInfo));
+   this.manageMwqDataService.addCategoryInfo(categoryInfo).subscribe((resp) => {
+      let categoryInfoResp = resp;
+      console.log("----categoryInfoResp----", categoryInfoResp);
+    }); 
   }
 
 }

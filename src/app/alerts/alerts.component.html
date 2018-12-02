@@ -24,13 +24,15 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+              <input class="form-control" type="date" value="2018-10-11" id="example-fromDate-input" name="fromDate"
+                [(ngModel)]="fromDateFilter">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+              <input class="form-control" type="date" value="2018-10-11" id="example-toDate-input" name="toDate"
+                [(ngModel)]="toDateFilter">
             </div>
-            <button type="submit" class="send-btn btn btn-primary">Send</button>
+            <button type="submit" class="send-btn btn btn-primary" (click)="loadAlertsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
         </div>
       </div>
@@ -43,12 +45,11 @@
       <div class="widget-body">
         <mat-card style="padding: 0;">
           <!--<ngx-datatable class="material sorting customTable" [rows]="alertRows" [headerHeight]="50">-->
-          <ngx-datatable  #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'force'" [columns]="columns"
-            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="15" [selected]="selected"
+          <ngx-datatable #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'force'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="15" [selected]="selected"
             [selectionType]="'single'" (activate)="onActivate($event)" (select)='onSelect($event)'>
             <ngx-datatable-column name="Severity">
               <ng-template let-value="value" ngx-datatable-cell-template>
-
                 <!--<i class="fa fa-arrow-up ">{{value}}</i>-->
                 <i class="fa fa-arrow-up text-align: center;" [ngClass]="{'text-success mr-2': value=== 'Low',
                                    'text-warning mr-2' : value=== 'Medium',
@@ -57,10 +58,8 @@
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Description"></ngx-datatable-column>
-
             <!--<small class="text-muted"><i class="fa fa-clock-o"></i></small>-->
             <ngx-datatable-column name="Createddate"></ngx-datatable-column>
-
           </ngx-datatable>
         </mat-card>
       </div>
@@ -103,16 +102,11 @@
               <td class="ng-tns-c6-0">Created By</td>
               <td class="ng-tns-c6-0">{{sel.createdby}}</td>
             </tr>
-            <tr class="ng-tns-c6-0">
-              <td class="ng-tns-c6-0" colspan="2">
-                <button type="button" class="btn btn-primary waves-effect waves-light text-uppercase">
-                  Create Incident
-                </button>
-              </td>
-            </tr>
           </tbody>
         </table>
-
+        <div class="text-center" style="margin-bottom: 1em;">
+          <button class="btn btn-primary" (click)="createIncident(selected)"> Create Incident</button>
+        </div>
       </div>
     </div>
   </div>

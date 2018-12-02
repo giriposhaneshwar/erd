@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { ManageMwqDataService } from '../managemwqdata.service';
 
 @Component({
   selector: 'ms-configure-parameters',
@@ -11,59 +12,67 @@ import { map } from 'rxjs/operators';
 export class ConfigureParametersComponent implements OnInit {
 
   editing = {};
-  //rows = [];
-  mondalOpen:any;
-  getRestItemsResponse: any = {
-    BuoysList: [],
-    Status: null,
-    Message: ""
+  mondalOpen: any;
+  parametersListDetails = [];
+  parametersListResp: any;
+  modalShowWindow: Boolean = false;
+
+  configureParam: any = {
+    parameterId: "", parameterName: "", units: "", groupId: "",
+    minValue: "", maxValue: "", thresholdValue: "", meanValue: "",
+    stdDevValue: "", createdBy: "AdminUser", status: ""
   };
 
-  constructor(
-    private pageTitleService: PageTitleService,
-    private http: HttpClient) {
-    this.getRestItems();
-
+  constructor(private pageTitleService: PageTitleService, private http: HttpClient,
+    private manageMwqDataService: ManageMwqDataService) {
+    this.loadParametersList();
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
 
-
-  restItems: any = [];
-  //restItemsUrl = 'http://10.56.84.178/mwqwebservice/MWQSitesRestServices.svc/CalculateOEE/20181009/20181009';
-  restItemsUrl = "assets/data/configureParameters.json";
-
-  getRestItems(): void {
-    this.restItemsServiceGetRestItems().subscribe(restItems => {
-
-      this.getRestItemsResponse = restItems;
-      if (this.getRestItemsResponse != undefined && this.getRestItemsResponse.hasOwnProperty("Status")) {
-        if (this.getRestItemsResponse.Status === "Success" && this.getRestItemsResponse.hasOwnProperty("BuoysList")) {
-          if (
-            this.getRestItemsResponse.BuoysList != undefined &&
-            this.getRestItemsResponse.BuoysList.length > 0
-          ) {
-            this.restItems = this.getRestItemsResponse.BuoysList;
-          }
-        }
-      }
-      console.log("----restItems----", this.restItems);
+  loadParametersList() {
+    this.manageMwqDataService.fetchParametersList().subscribe((resp) => {
+      this.parametersListResp = resp;
+      this.parametersListDetails = this.parametersListResp.GetParametersListResult.ParamatersList;
+      console.log("----parametersListDetails----", this.parametersListDetails);
     });
   }
 
-  // Rest Items Service: Read all REST Items
-  restItemsServiceGetRestItems() {
-    return this.http.get<any[]>(this.restItemsUrl).pipe(map(data => data));
+  updateValue(event, cell, rowIndex, row) {
+    console.log('inline editing rowIndex', rowIndex, row.paramId);
+    this.editing[rowIndex + '-' + cell] = false;
+    this.parametersListDetails[rowIndex][cell] = event.target.value;
+    let updatedStatus = this.parametersListDetails[rowIndex][cell];
+    let updatedParamId = row.paramId;
+    let updatedBy = "Admin";
+    this.parametersListDetails = [...this.parametersListDetails];
+
+    this.manageMwqDataService.updateParameterStatus(updatedStatus, updatedParamId, updatedBy).subscribe((resp) => {
+      console.log("----ParameterStatusUpdateResult----", resp);
+    });
+    console.log('UPDATED!', updatedStatus, updatedParamId, updatedBy);
   }
 
-  updateValue(event, cell, rowIndex) {
-    console.log('inline editing rowIndex', rowIndex)
-    this.editing[rowIndex + '-' + cell] = false;
-    this.restItems[rowIndex][cell] = event.target.value;
-    this.restItems = [...this.restItems];
-    console.log('UPDATED!', this.restItems[rowIndex][cell]);
+  addTableRow() {
+    this.openModal();
+  }
+  siteDatePrev() { }
+  openModal() {
+    this.modalShowWindow = true;
+  }
+  closeModal() {
+    this.modalShowWindow = false;
+  }
+
+  addConfigureParam(configureParam) {
+    console.log(JSON.stringify(configureParam));
+    this.manageMwqDataService.addParameterInfo(configureParam).subscribe((resp) => {
+      let addParameterInfo = resp;
+      console.log("----addParameterInfo----", addParameterInfo);
+      //alert("---"+resp)
+    });
   }
 
 }

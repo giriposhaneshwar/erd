@@ -72,7 +72,7 @@ const HORIZONTALMENUITEMS = [
     type: 'sub',
     icon: 'bug_report',
     children: [
-      /*{state: 'managemwqdata/configure-buoys', name: 'CONFIGURE_BUOYS'},*/
+     /*  {state: 'managemwqdata/configure-buoys', name: 'CONFIGURE_BUOYS'}, */
       {state: 'managemwqdata/configure-parameters', name: 'CONFIGURE_PARAMETERS'},
       {state: 'managemwqdata/configure-categories', name: 'CONFIGURE_CATEGORIES'},
       {state: 'managemwqdata/manage-stations', name: 'MANAGE_STATIONS'},

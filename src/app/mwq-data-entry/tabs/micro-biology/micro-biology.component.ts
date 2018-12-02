@@ -35,7 +35,7 @@ export class MicroBiologyComponent implements OnInit {
   extractionMethodDetails = [];
   extractionMethodResp: any;
   saveMwqDataEntryResp: any;
-
+  fieldColorValidatior: any;
   module: String;
 
   constructor(public route: Router,
@@ -50,6 +50,27 @@ export class MicroBiologyComponent implements OnInit {
     this.loaadExtractionMethodData();
   }
 
+  getColorValidator() {
+    let colorVal = this.localStore.store.get('paramValues');
+    if(colorVal != undefined && colorVal.data !== undefined){
+      this.fieldColorValidatior = colorVal.data;
+    }
+    console.log("Color Values", colorVal);
+  }
+
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
+    if (value > threshould) {
+      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
+    }
+
+    if (value > standDevition) {
+      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+    }
+
+    if (value > maxValue) {
+      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
+    }
+  }
 
   inputOrderClass(data, key) {
     console.log("INput Data", data, key);
@@ -96,6 +117,7 @@ export class MicroBiologyComponent implements OnInit {
     let mod = this.config.getModuleName();
     this.module = mod.module;
     console.log("----module name----" + this.module);
+    this.getColorValidator();
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
     let microBiologyGraphData = this.localStore.store.get("graphData");

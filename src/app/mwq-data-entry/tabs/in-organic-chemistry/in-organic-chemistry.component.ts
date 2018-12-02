@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 import { Config } from "app/appConfiguration/config";
+import { ToastsManager } from "ng6-toastr";
 
 @Component({
   selector: "ms-in-organic-chemistry",
@@ -35,9 +36,6 @@ export class InOrganicChemistryComponent implements OnInit {
   iocs_ironComponentKey: string = "Iron_Sediment";
   iocs_mercuryComponentKey: string = "Mercury_Sediment";
 
-  graphData: any;
-  graphDataKey: string = "inOrganicChemistry";
-
   iocw_cadmium: any = { surfaceValue: "", mql: "", testMethod: "" };
   iocw_chromium: any = { surfaceValue: "", mql: "", testMethod: "" };
   iocw_cobalt: any = { surfaceValue: "", mql: "", testMethod: "" };
@@ -61,11 +59,32 @@ export class InOrganicChemistryComponent implements OnInit {
   iocs_mercury: any = { surfaceValue: "", mql: "", testMethod: "" };
 
   module: String;
+  graphData: any;
+  graphDataKey: string = "inOrganicChemistry";
+  fieldColorValidatior: any;
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService, public config: Config) {
+  constructor(public route: Router, public localStore: AppStorageService,
+    private mwqDataEntryService: MwqDataEntryService, public config: Config, public toastr: ToastsManager,vcr: ViewContainerRef ) {
+      this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
+    
   }
+
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
+    if (value > threshould) {
+      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
+    }
+
+    if (value > standDevition) {
+      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+    }
+
+    if (value > maxValue) {
+      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
+    }
+  }
+
 
   inOrgChemTabNavPrev(module) {
     if (module === "mwqDataEntry") {
@@ -118,7 +137,16 @@ export class InOrganicChemistryComponent implements OnInit {
     }
     //this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
   }
+  getColorValidator() {
+    let colorVal = this.localStore.store.get('paramValues');
+    if (colorVal != undefined && colorVal.data !== undefined) {
+      this.fieldColorValidatior = colorVal.data;
+    }
+    console.log("Color Values", colorVal);
+  }
+
   ngOnInit() {
+    this.getColorValidator();
     let mod = this.config.getModuleName();
     this.module = mod.module;
     console.log("----module name----" + this.module);

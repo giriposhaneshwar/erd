@@ -15,29 +15,141 @@
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
         <!-- <h4>Configure Parameters</h4> -->
+        <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
+          Add</a>
       </div>
       <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-          [footerHeight]="50" [rowHeight]="'auto'" [rows]="restItems">
-          <ngx-datatable-column name="S No"></ngx-datatable-column>
-          <ngx-datatable-column name="Param Id"></ngx-datatable-column>
-          <ngx-datatable-column name="Name"></ngx-datatable-column>
-          <ngx-datatable-column name="Min"></ngx-datatable-column>
-          <ngx-datatable-column name="Max"></ngx-datatable-column>
-          <ngx-datatable-column name="Threshold"></ngx-datatable-column>
-          <ngx-datatable-column name="Status">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
+          [footerHeight]="50" [rowHeight]="30" [rows]="parametersListDetails">
+          <ngx-datatable-column name="Param Id" [width]="110"></ngx-datatable-column>
+          <!--  <ngx-datatable-column name="Group Id"></ngx-datatable-column> -->
+          <ngx-datatable-column name="Param Name" [width]="145"></ngx-datatable-column>
+          <ngx-datatable-column name="Min Value" [width]="120"></ngx-datatable-column>
+          <ngx-datatable-column name="Mean Value" [width]="130"></ngx-datatable-column>
+          <ngx-datatable-column name="Max Value" [width]="120"></ngx-datatable-column>
+          <ngx-datatable-column name="Std Dev Value" [width]="145"></ngx-datatable-column>
+          <ngx-datatable-column name="Threshold Value" [width]="165"></ngx-datatable-column>
+          <ngx-datatable-column name="Status" [width]="110">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                {{value}}
+                {{value}} {{paramId}}
               </span>
-              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex)"
+              <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
                 <option value="Active">Active</option>
-                <option value="In Active">In Active</option>
+                <option value="In Active">InActive</option>
               </select>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+  <div class="shadowSection" (click)="closeModal()"></div>
+  <div class="modalSection">
+    <div class="modalHeader">
+      <div class="title"> </div>
+      <div class="closeBtn">
+        <a href="javascript:void(0)" (click)="closeModal()">
+          <i class="glyphicon glyphicon-remove"></i>
+        </a>
+      </div>
+    </div>
+    <form class="form" name="form" (ngSubmit)="f.form.valid && addConfigureParam(configureParam)" #f="ngForm" novalidate>
+    <div class="modalBody">
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Param Id</label>
+        <div class="col-8">
+          <input class="form-control" name="parameterId" type="text" placeholder="Param Id" [(ngModel)]="configureParam.parameterId" 
+          id="example-text-input" #parameterId="ngModel" [ngClass]="{'is-invalid': (f.submitted && parameterId.invalid)}" required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Param Name</label>
+        <div class="col-8">
+          <input class="form-control" name="parameterName" type="text" placeholder="Param Name" [(ngModel)]="configureParam.parameterName"
+            id="example-text-input" #paramName="ngModel" [ngClass]="{'is-invalid': (f.submitted && paramName.invalid)}" required >
+          <!-- name="paramName" #paramName="ngModel" [ngClass]="{'is-invalid': (f.submitted && paramName.invalid)}" required -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Units</label>
+        <div class="col-8">
+          <input class="form-control" name="units" type="text" placeholder="Units" [(ngModel)]="configureParam.units" id="example-text-input">
+          <!-- name="paramName" #paramName="ngModel" [ngClass]="{'is-invalid': (f.submitted && paramName.invalid)}" required -->
+        </div> 
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Group Id</label>
+        <div class="col-8">
+          <input class="form-control" name="groupId" type="text" placeholder="Group Id" [(ngModel)]="configureParam.groupId" id="example-text-input">
+          <!-- name="paramName" #paramName="ngModel" [ngClass]="{'is-invalid': (f.submitted && paramName.invalid)}" required -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Min Value</label>
+        <div class="col-8">
+          <input class="form-control" name="minValue" type="text" placeholder="Min Value" [(ngModel)]="configureParam.minValue" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Max Value</label>
+        <div class="col-8">
+          <input class="form-control" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Threshold Value</label>
+        <div class="col-8">
+          <input class="form-control" name="thresholdValue"  type="text" placeholder="Threshold Value" [(ngModel)]="configureParam.thresholdValue"
+            id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Mean Value</label>
+        <div class="col-8">
+          <input class="form-control" name="meanValue" type="text" placeholder="Mean Value" [(ngModel)]="configureParam.meanValue" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Std Dev Value</label>
+        <div class="col-8">
+          <input class="form-control" name="stdDevValue" type="text" placeholder="Std Dev Value" [(ngModel)]="configureParam.stdDevValue"
+            id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input"  class="col-3 col-form-label">Status</label>
+        <div class="col-8">
+          <select class="form-control" name="Status" [(ngModel)]="configureParam.Status">
+            <option value="" disabled selected hidden>Select Status</option>
+            <option value="Active">Active</option>
+            <option value="InActive">InActive</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    </form>
+    <div class="modalFooter">
+      <div class="form-group mar t-20 col-xs-12 col-sm-12">
+        <div class="row text-right">
+          <div class="col-xs-12 col-sm-12">
+            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="addConfigureParam(configureParam)">Add</button> -->
+            <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
+            <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

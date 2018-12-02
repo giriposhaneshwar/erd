@@ -3,6 +3,7 @@ import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { fadeInAnimation } from '../../core/route-animation/route.animation';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { IncidentsService } from '../incidents.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ms-buoys-incidents',
@@ -23,6 +24,7 @@ export class BuoysIncidentsComponent implements OnInit {
   mondalOpen:any;
   value:any;
   
+
   columns: any[] = [
     { prop: 'buoysIncidentId' },
     { name: 'Incident Description' },
@@ -34,29 +36,30 @@ export class BuoysIncidentsComponent implements OnInit {
 
   
   constructor(private pageTitleService: PageTitleService, private incidentsService:IncidentsService) {
-   this.loadBuoysIncidentsData();
+    var fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+    let toDate   = moment().format("YYYY-MM-DD") ;
+   
+    console.log(" Current Day ", "----"+ toDate);
+    console.log(" Last  Three Months " + fromDate );
+
+    this.loadBuoysIncidentsData(fromDate,toDate);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
-/* 
-  fetch(cb) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/buoys_incidents.json`);
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-    req.send();
-  } */
 
-  loadBuoysIncidentsData(): void {
-    this.incidentsService.getBuoysIncidentData().subscribe((resp) => {
+
+  loadBuoysIncidentsData(fromDate,toDate): void {
+    this.incidentsService.getBuoysIncidentData(fromDate,toDate).subscribe((resp) => {
       this.buoysIncidentResp = resp;
       this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
-      this.selectedValue = [this.buoysIncidentDetails[1]];
+      for (let i = 0; i < this.buoysIncidentDetails.length; i++) {
+        let item = this.buoysIncidentDetails[i];
+        item.createdDate = moment( item.createdDate, "MM/DD/YYYY h:mm:ss a").fromNow();
+      }
+      this.selectedValue = [this.buoysIncidentDetails[0]];
       this.temp = [...this.buoysIncidentDetails];
-
       console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
     });
   }
@@ -73,7 +76,7 @@ export class BuoysIncidentsComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     // filter our data
       const temp = this.temp.filter(function(d) {
-      return d.incidentname.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.incidentName.toLowerCase().indexOf(val) !== -1 || !val;
     });
     // update the rows
     this.buoysIncidentDetails = temp;

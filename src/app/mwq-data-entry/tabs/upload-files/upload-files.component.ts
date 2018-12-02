@@ -64,10 +64,21 @@ export class UploadFilesComponent implements OnInit {
   fileChanged(e) {
     this.file = e.target.files[0];
     console.log("File Changed --", this.file.name, this.file.size);
-    this.uploadDocument()
+
+    let fileReader = new FileReader();
+    let output: any;
+    // fileReader.readAsBinaryString(this.file);
+    fileReader.readAsArrayBuffer(this.file);
+    fileReader.onload = (e) => {
+      output = fileReader.result;
+      console.log("---" + output);
+    } 
+    this.api.postFileUpload(output).subscribe((resp) => {
+      console.log("----resp----", resp);
+    });
   }
 
-  uploadDocument() {
+  uploadDocument(file1) {
     // files is a FileList object (similar to NodeList)
     // object for allowed media types
     var accept = {
@@ -75,12 +86,15 @@ export class UploadFilesComponent implements OnInit {
       text: ["text/plain", "text/css", "application/xml", "text/html"]
     };
 
-    for (var i = 0; i < this.file.length; i++) {
-      let uploadedFileData = this.file[i];
+    for (var i = 0; i < file1.length; i++) {
+      let uploadedFileData = file1[i];
       // if file type could be detected
       if (uploadedFileData !== null) {
         let data = uploadedFileData.getAsBinary();
         console.log("---------", data, "---------", this.file);
+        this.api.postFileUpload(data).subscribe((resp) => {
+          console.log("----resp----", resp);
+        });
         /* if (accept.binary.indexOf(file.type) > -1) {
           // file is a binary, which we accept
          
@@ -91,20 +105,20 @@ export class UploadFilesComponent implements OnInit {
         } */
       }
     }
-    /*let fileReader = new FileReader();
-    let output: any;
-    // fileReader.readAsBinaryString(this.file);
-    fileReader.readAsArrayBuffer(this.file);
-    fileReader.onload = (e) => {
-      output = fileReader.result;
-      console.log("---" + fileReader.result);
-    }
-      var binary = atob(this.file.split(',')[1]);
-     var array = [];
-     for (var i = 0; i < binary.length; i++) {
-       array.push(binary.charCodeAt(i));
-     }
-     console.log("--------"+array); */
+    /*     let fileReader = new FileReader();
+        let output: any;
+        // fileReader.readAsBinaryString(this.file);
+        fileReader.readAsArrayBuffer(this.file);
+        fileReader.onload = (e) => {
+          output = fileReader.result;
+          console.log("---" + fileReader.result);
+        }
+        var binary = atob(this.file.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+          array.push(binary.charCodeAt(i));
+        }
+        console.log("--------" + array); */
   }
 
   uploadFileMethod(evt, data) {
@@ -122,7 +136,6 @@ export class UploadFilesComponent implements OnInit {
     }
     // const dummy = {test: "testing", id: 1, name: "test name"};
     fd.append("dataEntry", JSON.stringify(formData));
-
     console.log("Uploaded file", evt, data, fd);
     this.api.postFileUpload(fd).subscribe(resp => {
       console.log("----postFileUpload----", resp);
@@ -155,7 +168,7 @@ export class UploadFilesComponent implements OnInit {
     this.saveMwqData(this.js);
   }
 
-  
+
   uploadBtnTabNavPrev(module) {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "microbiology"]);

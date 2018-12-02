@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 import { Config } from "app/appConfiguration/config";
+import { ToastsManager } from "ng6-toastr";
 
 @Component({
   selector: "ms-organic-chemistry",
@@ -32,8 +33,13 @@ export class OrganicChemistryComponent implements OnInit {
   extractionMethodResp: any;
 
   module: String;
+  fieldColorValidatior: any;
 
-  constructor(public route: Router, public localStore: AppStorageService, private mwqDataEntryService: MwqDataEntryService, public config: Config) {
+  constructor(public route: Router, public localStore: AppStorageService, 
+    private mwqDataEntryService: MwqDataEntryService, vcr: ViewContainerRef,
+    public toastr: ToastsManager, 
+    public config: Config) {
+      this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
     this.loaadExtractionMethodData();
@@ -68,11 +74,20 @@ export class OrganicChemistryComponent implements OnInit {
     }
     //this.route.navigate(["mwqDataEntry", "microbiology"]);
   }
+  getColorValidator() {
+    let colorVal = this.localStore.store.get('paramValues');
+    if(colorVal != undefined && colorVal.data !== undefined){
+      this.fieldColorValidatior = colorVal.data;
+    }
+    console.log("Color Values", colorVal);
+  }
+  
   ngOnInit() {
     let mod = this.config.getModuleName();
     this.module = mod.module;
     console.log("----module name----" + this.module);
     // get DAta
+    this.getColorValidator();
     let localData = this.localStore.store.get(this.dataEntryKey);
     let organicChemistryGraphData = this.localStore.store.get("graphData");
     this.graphData = organicChemistryGraphData.data.organicChemistry;
@@ -120,6 +135,20 @@ export class OrganicChemistryComponent implements OnInit {
       this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
       //console.log("----extractionMethodDetails----", this.extractionMethodDetails);
     });
+  }
+
+  checkValueThreshold(value, threshould,standDevition,maxValue) {
+    if(value > threshould){
+      this.toastr.error("Input Value "+ value + " Morethan Threshould " + threshould +" Value ");
+    }
+    
+    if(value > standDevition){
+      this.toastr.error("Input Value "+ value + " Morethan Prarmater StandDevition " + standDevition +" Value ");
+    }
+
+    if(value > maxValue){
+      this.toastr.error("Input Value "+ value + " Morethan Pararmater Max " + maxValue +" Value ");
+    }
   }
 
 }

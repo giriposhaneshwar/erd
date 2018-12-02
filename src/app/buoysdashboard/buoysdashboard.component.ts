@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { BuoysDashboardService } from './buoysdashboard.service';
 import * as moment from 'moment';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: "ms-buoysdashboard",
@@ -24,16 +25,18 @@ export class BuoysdashboardComponent implements OnInit {
   res: any;
   restItems: any = [];
   getTestMethodResult = {};
-  radioGroup : any=null;
-  fromDateFilter : any;
-  toDateFilter : any;
-  
+  radioGroup: any = null;
+  fromDateFilter: any;
+  toDateFilter: any;
+  resultStatus: any;
+
+  height = 2;
+  color = "#4092F1";
+  runInterval = 300;
+
   handleFormChange(data) {
-
     if (data == "lastModified") {
-
       console.log(" Last Modified ", moment().startOf('hour').fromNow());
-
     }
     else if (data == "currentDay") {
       console.log(" Current Day ", moment().format('L'));
@@ -67,11 +70,17 @@ export class BuoysdashboardComponent implements OnInit {
 
   chooseDatesPeriod(fromDateFilter, toDateFilter) {
     console.log("Selected From Date", fromDateFilter, "Selected To Date", toDateFilter);
+    this.showBuoysDashboardData(fromDateFilter, toDateFilter);
   }
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
-    private buoysDashboardService: BuoysDashboardService) {
-    this.showBuoysDashboardData();
+    private buoysDashboardService: BuoysDashboardService, private loadingBar: LoadingBarService) {
+    var fromDate = moment().subtract(695, "days").format("YYYY-MM-DD");
+    let toDate = moment().subtract(690, "days").format("YYYY-MM-DD");
+
+    console.log(" Current Day " + toDate);
+    console.log(" Last 700 Days " + fromDate);
+    this.showBuoysDashboardData(fromDate, toDate);
   }
 
   ngOnInit() {
@@ -87,11 +96,13 @@ export class BuoysdashboardComponent implements OnInit {
     this.mondalOpen = false;
   }
 
-  showBuoysDashboardData(): void {
-    this.buoysDashboardService.buoysDashboardData().subscribe((resp) => {
+  showBuoysDashboardData(fromDate, toDate): void {
+    this.emitStart();
+    this.buoysDashboardService.buoysDashboardData(fromDate, toDate).subscribe((resp) => {
       //this.restItems = resp;
       this.res = resp;
-      console.log(this.res.getAveragevalueResult.AvgList);
+      this.resultStatus = this.res.getAveragevalueResult.status;
+      console.log(this.resultStatus);
       this.restItems = this.res.getAveragevalueResult.AvgList;
       let obj = [];
       for (let item in this.restItems) {
@@ -107,5 +118,19 @@ export class BuoysdashboardComponent implements OnInit {
       }
       this.restItems = obj;
     });
+    this.emitStop();
+  }
+
+  emitStart() {
+    console.log("-emitStart----");
+    this.loadingBar.start();
+  }
+
+  emitStop() {
+    this.loadingBar.stop();
+  }
+
+  emitComplete() {
+    this.loadingBar.complete();
   }
 }
