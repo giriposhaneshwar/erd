@@ -21,13 +21,15 @@ export class MwqDataEntryService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetCategory", bodyParams, { headers: headers_value })
   }
-  postFileUpload(data): Observable<any[]> {
-    let bodyParams = {data};
+  postFileUpload(file): Observable<any[]> {
+    let bodyParams = {file};
     let headers_value = new HttpHeaders();
-    headers_value = headers_value.set("Content-Type", "application/json");
-    //headers_value = headers_value.set("enctype", "multipart/form-data");
-   // headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
-    return this.http.post<any[]>(this.apiUrl +"/UploadData", bodyParams, { headers: headers_value })
+    headers_value = headers_value.set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    headers_value = headers_value.set("Content-Type", "multipart/form-data");
+  //  headers_value = headers_value.set("Content-Disposition", "form-data");
+   // headers_value = headers_value.set("Content-Type", "text/plain ");
+//    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
+    return this.http.post<any[]>(this.apiUrl +"/SaveFile", bodyParams, { headers: headers_value })
   }
 
   fetchHistoricalGraph(): Observable<any[]> {

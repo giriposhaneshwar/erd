@@ -64,18 +64,14 @@ export class UploadFilesComponent implements OnInit {
   fileChanged(e) {
     this.file = e.target.files[0];
     console.log("File Changed --", this.file.name, this.file.size);
-
-    let fileReader = new FileReader();
-    let output: any;
-    // fileReader.readAsBinaryString(this.file);
-    fileReader.readAsArrayBuffer(this.file);
-    fileReader.onload = (e) => {
-      output = fileReader.result;
-      console.log("---" + output);
-    } 
-    this.api.postFileUpload(output).subscribe((resp) => {
+    //var r = new FileReader();
+    // r.onload = function () { alert(r.result); };
+    //r.readAsBinaryString(this.file);
+    console.log("---------", this.file);
+    this.api.postFileUpload(this.file).subscribe((resp) => {
       console.log("----resp----", resp);
     });
+    //this.uploadDocument(this.file)
   }
 
   uploadDocument(file1) {
@@ -95,30 +91,8 @@ export class UploadFilesComponent implements OnInit {
         this.api.postFileUpload(data).subscribe((resp) => {
           console.log("----resp----", resp);
         });
-        /* if (accept.binary.indexOf(file.type) > -1) {
-          // file is a binary, which we accept
-         
-        } else if (accept.text.indexOf(file.type) > -1) {
-          // file is of type text, which we accept
-          let data = file.getAsText();
-          // modify data with string methods
-        } */
       }
     }
-    /*     let fileReader = new FileReader();
-        let output: any;
-        // fileReader.readAsBinaryString(this.file);
-        fileReader.readAsArrayBuffer(this.file);
-        fileReader.onload = (e) => {
-          output = fileReader.result;
-          console.log("---" + fileReader.result);
-        }
-        var binary = atob(this.file.split(',')[1]);
-        var array = [];
-        for (var i = 0; i < binary.length; i++) {
-          array.push(binary.charCodeAt(i));
-        }
-        console.log("--------" + array); */
   }
 
   uploadFileMethod(evt, data) {
@@ -137,7 +111,7 @@ export class UploadFilesComponent implements OnInit {
     // const dummy = {test: "testing", id: 1, name: "test name"};
     fd.append("dataEntry", JSON.stringify(formData));
     console.log("Uploaded file", evt, data, fd);
-    this.api.postFileUpload(fd).subscribe(resp => {
+    this.api.postFileUpload(data).subscribe(resp => {
       console.log("----postFileUpload----", resp);
     });
   }

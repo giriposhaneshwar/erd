@@ -59,20 +59,20 @@
         </a>
       </div>
     </div>
-    <!-- <form class="form" name="form" (ngSubmit)="f.form.valid && addConfigureParam(configureParam)" #f="ngForm" novalidate> -->
+    <form class="form" name="form" (ngSubmit)="f.form.valid && createCategory(categoryInfo)" #f="ngForm" novalidate>
     <div class="modalBody">
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Category Name" [(ngModel)]="categoryInfo.categoryName"
-            id="example-text-input">
+          <input class="form-control is-invalid" type="text" placeholder="Category Name" [(ngModel)]="categoryInfo.categoryName"
+            id="example-text-input" name="categoryName"  #categoryName="ngModel" [ngClass]="{'is-invalid': (f.submitted && categoryName.invalid)}" required>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Status</label>
         <div class="col-8">
-          <select class="form-control" [(ngModel)]="categoryInfo.status">
+          <select class="form-control is-invalid" [(ngModel)]="categoryInfo.status" name="status"  #status="ngModel" [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
             <option value="" disabled selected hidden>Select Status</option>
             <option value="Active">Active</option>
             <option value="InActive">InActive</option>
@@ -80,12 +80,12 @@
         </div>
       </div>
     </div>
-    <!-- </form> -->
+    </form>
     <div class="modalFooter">
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="createCategory(categoryInfo)">Add</button>
+            <button class="btn btn-primary gap gap-5 gap-lr" >Add</button>
             <!-- <button class="btn btn-primary gap gap-5 gap-lr">Add</button> -->
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
           </div>

@@ -65,16 +65,34 @@
       </div>
 
       <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Site Code</label>
+        <label for="example-text-input" class="col-3 col-form-label">Site Info</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Site Name" [(ngModel)]="siteInfo.siteCode" id="example-text-input">
+          <input class="form-control" type="text" placeholder="Site Code" [(ngModel)]="siteInfo.siteCode" id="example-text-input">
+
+          <!--  <select class="form-control" id="sd-text-siteName" [(ngModel)]="siteInfo.siteCode" name="siteCode" #siteName="ngModel" 
+          [ngClass]="{ 'is-invalid': f.submitted && siteName.invalid }" required> >
+            <option value="" disabled selected hidden>Select Site Name</option>
+            <option *ngFor="let siteDet of siteDetails" value="{{siteDet.Site_Id}}">{{siteDet.siteName}}</option>
+          </select> -->
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Site Name</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Site Name" [(ngModel)]="siteInfo.siteName" id="example-text-input">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Category Name" [(ngModel)]="siteInfo.categoryName" id="example-text-input">
+          <!--  <input class="form-control" type="text" placeholder="Category Name" [(ngModel)]="siteInfo.categoryName" 
+            id="example-text-input" #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required>> -->
+          <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteInfo.categoryName" name="category">
+            <option value="" disabled selected hidden>Select Site Category</option>
+            <option *ngFor="let siteCat of siteCategory" value="{{siteCat.CategoryID}}">{{siteCat.CategoryName}}</option>
+          </select>
         </div>
       </div>
 
@@ -82,6 +100,47 @@
         <label for="example-text-input" class="col-3 col-form-label">Description</label>
         <div class="col-8">
           <input class="form-control" type="text" placeholder="Description" [(ngModel)]="siteInfo.description" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Lattitude" [(ngModel)]="siteInfo.x" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Longitude" [(ngModel)]="siteInfo.y" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Water Quality </label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Water Quality Region Id" [(ngModel)]="siteInfo.waterqualityRegionId"
+            id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Comment</label>
+        <div class="col-8">
+          <input class="form-control" type="textarea" placeholder="Comment" [(ngModel)]="siteInfo.comment" id="example-text-input">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="example-text-input" class="col-3 col-form-label">Project Id</label>
+        <div class="col-8">
+          <input class="form-control" type="text" placeholder="Project Id" [(ngModel)]="siteInfo.projectid" id="example-text-input">  
+              <!-- #projectName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }" required -->
+     <!--      <select class="form-control" [(ngModel)]="siteInfo.projectid" name="projectName"></select>
+          <option value="" disabled selected hidden>Select Project Name</option>
+          <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.projectID}}">{{prjNames.projectName}}</option>
+          </select> -->
         </div>
       </div>
 

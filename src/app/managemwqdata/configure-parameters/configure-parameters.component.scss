@@ -25,7 +25,6 @@
     }
 }
 
-input.ng-invalid.ng-touched,
-select.ng-invalid.ng-touched {
-  border-color: #C00000;
-}
+input.ng-invalid.ng-touched,select.ng-invalid.ng-touched  {
+    border: 1px solid red;
+ }

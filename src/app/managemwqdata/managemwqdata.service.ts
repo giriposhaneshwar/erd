@@ -37,12 +37,7 @@ export class ManageMwqDataService {
   }
   /* CONFIGURE PARAMETERS END */
 
-  fetchVendorsList(): Observable<any[]> {
-    let bodyParams = {};
-    let headers_value = new HttpHeaders();
-    headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl + "/GetVendorsList", bodyParams, { headers: headers_value })
-  }
+
 
 
   /* CONFIGURE PARAMETERS START */
@@ -60,7 +55,7 @@ export class ManageMwqDataService {
   }
   addCategoryInfo(categoryInfo): Observable<any[]> {
     let bodyParams = JSON.stringify(categoryInfo);
-   // console.log("---addCategoryInfo-addCategoryInfo-----" + bodyParams);
+    // console.log("---addCategoryInfo-addCategoryInfo-----" + bodyParams);
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/CategoryInsert", bodyParams, { headers: headers_value })
@@ -111,9 +106,22 @@ export class ManageMwqDataService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/SitesCreate", bodyParams, { headers: headers_value })
   }
- /* MANAGE SITES END */
+  /* MANAGE SITES END */
 
- 
+  /* MANAGE VENDORS START */
+  addVendorInfo(vendorInfo): Observable<any[]> {
+    let bodyParams = JSON.stringify(vendorInfo);
+    console.log("---addvendorInfo----" + bodyParams);
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/VendorCreate", bodyParams, { headers: headers_value })
+  }
+  fetchVendorsList(): Observable<any[]> {
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetVendorsList", bodyParams, { headers: headers_value })
+  }
   updatVendorStatus(vendorId, status): Observable<any[]> {
     let bodyParams = { "vendorId": vendorId, "status": status };
     console.log(bodyParams);
@@ -121,5 +129,5 @@ export class ManageMwqDataService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/VendorStatusUpdate", bodyParams, { headers: headers_value })
   }
-
+  /* MANAGE VENDORS END */
 }

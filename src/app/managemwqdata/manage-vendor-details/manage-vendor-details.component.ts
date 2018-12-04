@@ -12,14 +12,17 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 export class ManageVendorDetailsComponent implements OnInit {
 
   editing = {};
-  mondalOpen:any;
+  mondalOpen: any;
   vendorsListDetails = [];
   venodrsListResp: any;
+  modalShowWindow: Boolean = false;
+  vendorInfo: any = {
+    vendorName: "", emailId: "", phNum: "", adress: "", status: ""
+  };
 
-  constructor(private pageTitleService: PageTitleService,private http: HttpClient, 
-    private manageMwqDataService: ManageMwqDataService) 
-  {
-     this.loadVendorsList();
+  constructor(private pageTitleService: PageTitleService, private http: HttpClient,
+    private manageMwqDataService: ManageMwqDataService) {
+    this.loadVendorsList();
   }
 
   ngOnInit() {
@@ -33,14 +36,14 @@ export class ManageVendorDetailsComponent implements OnInit {
       console.log("----vendorsListDetails----", this.vendorsListDetails);
     });
   }
-/* 
-  updateValue(event, cell, rowIndex) {
-    console.log('inline editing rowIndex', rowIndex)
-    this.editing[rowIndex + '-' + cell] = false;
-     this.vendorsListDetails[rowIndex][cell] = event.target.value;
-    this.vendorsListDetails = [...this.vendorsListDetails];
-    console.log('UPDATED!', this.vendorsListDetails[rowIndex][cell]);
-  } */
+
+  createVendor(vendorInfo) {
+    console.log(JSON.stringify(vendorInfo));
+    this.manageMwqDataService.addVendorInfo(vendorInfo).subscribe((resp) => {
+      let vendorInfoResp = resp;
+      console.log("----vendorInfoResp----", vendorInfoResp);
+    });
+  }
 
   updateValue(event, cell, rowIndex, row) {
     console.log('inline editing rowIndex', rowIndex, row.sNo)
@@ -53,5 +56,16 @@ export class ManageVendorDetailsComponent implements OnInit {
       console.log("----VendorStatusUpdateResult----", resp);
     });
     console.log('UPDATED!', this.vendorsListDetails[rowIndex][cell]);
+  }
+
+  addTableRow() {
+    this.openModal();
+  }
+  siteDatePrev() { }
+  openModal() {
+    this.modalShowWindow = true;
+  }
+  closeModal() {
+    this.modalShowWindow = false;
   }
 }
