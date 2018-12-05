@@ -23,21 +23,115 @@ export class InSituParametersComponent implements OnInit {
   graphData: any;
   graphDataKey: any = "insituParams";
   module: String;
+  optionsModalShowWindow: boolean = false;
+  optionValue: any = {
+    "option5m": false, 
+    "option10m": true, 
+    "option15m": false, 
+    "option20m": false, 
+    "option25m": false, 
+    "option30m": false, 
+    "option35m": false, 
+    "option40m": false
+  };
+  optionsFormData: any;
 
-  temperature: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  conductivity: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  salinity: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  pH: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  dissolvedO: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  Chlorophyll_a: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
-  sechiDisc: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  temperature: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  conductivity: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  salinity: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  pH: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  dissolvedO: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  Chlorophyll_a: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
+  sechiDisc: any = {
+    surfaceValue: "",
+    bottomValue: "",
+    bottom5m: "",
+    bottom10m: "",
+    bottom15m: "",
+    bottom20m: "",
+    bottom25m: "",
+    bottom30m: "",
+    bottom35m: "",
+    bottom40m: ""
+  };
 
   fieldColorValidatior: any;
   form: FormGroup;
 
-
-  constructor(public route: Router, public localStore: AppStorageService, public config: Config, public toastr: ToastsManager,
-    vcr: ViewContainerRef, private formBuilder: FormBuilder) {
+  constructor(
+    public route: Router,
+    public localStore: AppStorageService,
+    public config: Config,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef,
+    private formBuilder: FormBuilder
+  ) {
     this.toastr.setRootViewContainerRef(vcr);
     /* // Create a new array with a form control for each order
      const controls = this.orders.map(c => new FormControl(false));
@@ -103,8 +197,15 @@ export class InSituParametersComponent implements OnInit {
     console.log("Input Data", data, key);
   }
 
-  insituDetailsSave(temperature, conductivity, salinity, pH, dissolvedO, Chlorophyll_a, sechiDisc) {
-
+  insituDetailsSave(
+    temperature,
+    conductivity,
+    salinity,
+    pH,
+    dissolvedO,
+    Chlorophyll_a,
+    sechiDisc
+  ) {
     /*    const selectedOrderIds = this.form.value.orders
          .map((v, i) => v ? this.orders[i].id : null)
          .filter(v => v !== null);
@@ -128,8 +229,7 @@ export class InSituParametersComponent implements OnInit {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "site-details"]);
       console.log("At mwqDataEntry - site-details Screen");
-    }
-    else {
+    } else {
       this.route.navigate(["mwqDataQc", "site-details"]);
       console.log("At mwqDataQc - site-details Screen");
     }
@@ -139,15 +239,14 @@ export class InSituParametersComponent implements OnInit {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "general-chemistry"]);
       console.log("At mwqDataEntry - general-chemistry Screen");
-    }
-    else {
+    } else {
       this.route.navigate(["mwqDataQc", "general-chemistry"]);
       console.log("At mwqDataQc - general-chemistry Screen");
     }
   }
 
   getColorValidator() {
-    let colorVal = this.localStore.store.get('paramValues');
+    let colorVal = this.localStore.store.get("paramValues");
     if (colorVal != undefined && colorVal.data !== undefined) {
       this.fieldColorValidatior = colorVal.data;
     }
@@ -156,19 +255,46 @@ export class InSituParametersComponent implements OnInit {
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {
     if (value > threshould) {
-      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
+      this.toastr.error(
+        "Input Value " +
+          value +
+          " Morethan Threshould " +
+          threshould +
+          " Value "
+      );
     }
 
     if (value > standDevition) {
-      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+      this.toastr.error(
+        "Input Value " +
+          value +
+          " Morethan Prarmater StandDevition " +
+          standDevition +
+          " Value "
+      );
     }
 
     if (value > maxValue) {
-      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
+      this.toastr.error(
+        "Input Value " +
+          value +
+          " Morethan Pararmater Max " +
+          maxValue +
+          " Value "
+      );
     }
   }
 
   checkd5mbotoom(bottom5m) {
     console.log("--bottom5m----" + bottom5m);
+  }
+  openOptionModal() {
+    this.optionsModalShowWindow = true;
+  }
+  optionsModalClose() {
+    this.optionsModalShowWindow = false;
+  }
+  optionValueChange(form){
+    console.log("Changed", form.value);
   }
 }

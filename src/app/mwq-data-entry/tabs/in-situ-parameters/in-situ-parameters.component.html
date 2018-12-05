@@ -4,8 +4,11 @@
       <div class="silk-card-title">
         <div class="headerSection">
           <div class="row">
-            <div class="headerTitle col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="headerTitle col-xs-12 col-sm-8 col-md-8 col-lg-8">
               <b>IN-SITU WATER QUALITY PARAMETERS</b>
+            </div>
+            <div class="headerTitle col-xs-12 col-sm-4 col-md-4 col-lg-4 text-right">
+              <a href="javascript:void(0)" class="btn btn-link" (click)="openOptionModal()">Options</a>
             </div>
           </div>
         </div>
@@ -20,7 +23,7 @@
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
             <div class="clearfix tbl tbl-per-10 text-center"><b>Bottom</b></div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" class="form-control inputOutline" readonly disabled="disabled" value="5M" />
               <!-- <input type="checkbox" name="bottom5m" [(ngModel)]="bottom5m" (click)="checkd5mbotoom(bottom5m)"> -->
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="10M" />
               <input type="text" class="form-control inputOutline" readonly disabled="disabled" value="15M" />
@@ -63,7 +66,7 @@
                 required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
                 name="tempbottom5m" [(ngModel)]="temperature.bottom5m" class="form-control" autocomplete="off" />
               <input type="text" [ngClass]="{'white': temperature.bottom10m == '','red': temperature.bottom10m <= 35, 'orange': temperature.bottom10m <= 50 && temperature.bottom10m > 35, 'green': temperature.bottom10m > 50}"
                 name="tempbottom10m" [(ngModel)]="temperature.bottom10m" class="form-control" autocomplete="off" />
@@ -113,7 +116,7 @@
                 required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" name="conductivity.bottom5m" [(ngModel)]="conductivity.bottom5m" [ngClass]="{'white': conductivity.bottom5m == '','red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom5m" [(ngModel)]="conductivity.bottom5m" [ngClass]="{'white': conductivity.bottom5m == '','red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
                 class="form-control" autocomplete="off" />
               <input type="text" name="conductivity.bottom10m" [(ngModel)]="conductivity.bottom10m" [ngClass]="{'white': conductivity.bottom10m == '','red': conductivity.bottom10m <= 35, 'orange': conductivity.bottom10m <= 50 && conductivity.bottom10m > 35, 'green': conductivity.bottom10m > 50}"
                 class="form-control" autocomplete="off" />
@@ -162,7 +165,7 @@
                 autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" name="salinity.bottom5m" [(ngModel)]="salinity.bottom5m" [ngClass]="{'white': salinity.bottom5m == '','red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="salinity.bottom5m" [(ngModel)]="salinity.bottom5m" [ngClass]="{'white': salinity.bottom5m == '','red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
                 class="form-control" autocomplete="off" />
               <input type="text" name="salinity.bottom10m" [(ngModel)]="salinity.bottom10m" [ngClass]="{'white': salinity.bottom10m == '','red': salinity.bottom10m <= 35, 'orange': salinity.bottom10m <= 50 && salinity.bottom10m > 35, 'green': salinity.bottom10m > 50}"
                 class="form-control" autocomplete="off" />
@@ -195,7 +198,7 @@
             </div>
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" name="pH.bottom5m" [(ngModel)]="pH.bottom5m" [ngClass]="{'white': pH.bottom5m == '','red': pH.bottom5m <= 35, 'orange': pH.bottom5m <= 50 && pH.bottom5m > 35, 'green': pH.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="pH.bottom5m" [(ngModel)]="pH.bottom5m" [ngClass]="{'white': pH.bottom5m == '','red': pH.bottom5m <= 35, 'orange': pH.bottom5m <= 50 && pH.bottom5m > 35, 'green': pH.bottom5m > 50}"
                 class="form-control" autocomplete="off" />
               <input type="text" name="pH.bottom10m" [(ngModel)]="pH.bottom10m" [ngClass]="{'white': pH.bottom10m == '','red': pH.bottom10m <= 35, 'orange': pH.bottom10m <= 50 && pH.bottom10m > 35, 'green': pH.bottom10m > 50}"
                 class="form-control" autocomplete="off" />
@@ -245,7 +248,7 @@
                 required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" name="dissolvedO.bottom5m" [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'white': dissolvedO.bottom5m == '','red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom5m" [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'white': dissolvedO.bottom5m == '','red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
                 class="form-control" autocomplete="off" />
               <input type="text" name="dissolvedO.bottom10m" [(ngModel)]="dissolvedO.bottom10m" [ngClass]="{'white': dissolvedO.bottom10m == '','red': dissolvedO.bottom10m <= 35, 'orange': dissolvedO.bottom10m <= 50 && dissolvedO.bottom10m > 35, 'green': dissolvedO.bottom10m > 50}"
                 class="form-control" autocomplete="off" />
@@ -294,7 +297,7 @@
                 required autocomplete="off" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input type="text" name="Chlorophyll_a.bottom5m" [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'white': Chlorophyll_a.bottom5m == '','red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom5m" [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'white': Chlorophyll_a.bottom5m == '','red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
                 class="form-control" autocomplete="off" />
               <input type="text" name="Chlorophyll_a.bottom10m" [(ngModel)]="Chlorophyll_a.bottom10m" [ngClass]="{'white': Chlorophyll_a.bottom10m == '','red': Chlorophyll_a.bottom10m <= 35, 'orange': Chlorophyll_a.bottom10m <= 50 && Chlorophyll_a.bottom10m > 35, 'green': Chlorophyll_a.bottom10m > 50}"
                 class="form-control" autocomplete="off" />
@@ -331,7 +334,7 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Sechi_Disc_Surface"></div>
             <div class="clearfix tbl tbl-per-10 text-left"></div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              
+
             </div>
             <div class="clearfix tbl tbl-per-15 text-center"></div>
           </div>
@@ -348,5 +351,57 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+
+
+  <div class="modalContainer" [ngClass]="optionsModalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+    <div class="shadowSection" (click)="optionsModalClose()"></div>
+    <div class="modalSection">
+      <div class="modalHeader">
+        <div class="title"> </div>
+        <div class="closeBtn">
+          <a href="javascript:void(0)" (click)="optionsModalClose()">
+            <i class="glyphicon glyphicon-remove"></i>
+          </a>
+        </div>
+      </div>
+      <div class="modalBody">
+        <form #f="ngForm" class="form" (change)="optionValueChange(f)">
+          <div class="form-group">
+            <div>
+              <label><input type="checkbox" class="form-control" name="option5m" [(ngModel)]="optionValue.option5m"  value="5m" />5m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" name="option10m" [(ngModel)]="optionValue.option10m"   value="10m" />10m</label>
+            </div>
+            {{optionValue | json}}
+            <!-- <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.15m" (change)="optionValueChange(optionValue)"  value="15m" />15m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.20m" (change)="optionValueChange(optionValue)"  value="20m" />20m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.25m" (change)="optionValueChange(optionValue)"  value="25m" />25m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.30m" (change)="optionValueChange(optionValue)"  value="30m" />30m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.35m" (change)="optionValueChange(optionValue)"  value="35m" />35m</label>
+            </div>
+            <div>
+              <label><input type="checkbox" class="form-control" [(ngModel)]="optionValue.40m" (change)="optionValueChange(optionValue)"  value="40m" />40m</label>
+            </div> -->
+          </div>
+        </form>
+      </div>
+      <div class="modalFooter">
+        <!-- <div class="row text-right">
+          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Add</button>
+          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button>
+      </div> -->
+      </div>
     </div>
   </div>
