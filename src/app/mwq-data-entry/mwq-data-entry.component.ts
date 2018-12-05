@@ -165,7 +165,7 @@ export class MwqDataEntryComponent implements OnInit {
         item.prarmaterStandDevition = parseFloat(item.prarmaterStandDevition);
         item.prarmaterThreshold = parseFloat(item.prarmaterThreshold);
       }
-      console.log("----paramValidationDetails----", this.paramValidationDetails);
+     // console.log("----paramValidationDetails----", this.paramValidationDetails);
       //this.localStore.store.set(this.paramValuesKey, this.paramValidationDetails);
       for (var i = 0; i < this.paramValidationDetails.length; i++) {
         if (this.paramValidationDetails[i].paramID === 1) {

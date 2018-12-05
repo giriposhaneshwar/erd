@@ -17,11 +17,11 @@
         <!-- <h4>Manage LIMS Services</h4> -->
       </div>
       <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'force'" [footerHeight]="50"
-          [rowHeight]="'auto'" [rows]="restItems" [scrollbarH]="true">
-          <ngx-datatable-column name="S No"></ngx-datatable-column>
-          <ngx-datatable-column name="Name"></ngx-datatable-column>
-          <ngx-datatable-column name="Web Service Url">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'" [footerHeight]="50"
+          [rowHeight]="'30'" [rows]="restItems" [scrollbarH]="true">
+          <ngx-datatable-column name="S No" [width]="80"></ngx-datatable-column>
+          <ngx-datatable-column name="Name" [width]="250"></ngx-datatable-column>
+          <ngx-datatable-column name="Web Service Url" [width]="700">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-webServiceUrl'] = true" *ngIf="!editing[rowIndex + '-webServiceUrl']">
                 {{value}}

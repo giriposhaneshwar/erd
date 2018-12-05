@@ -89,9 +89,9 @@ export class ManageSitesComponent implements OnInit {
   }
   createSite(siteInfo) {
     console.log(JSON.stringify(siteInfo));
-   /*  this.manageMwqDataService.addSiteInfo(siteInfo).subscribe((resp) => {
+    this.manageMwqDataService.addSiteInfo(siteInfo).subscribe((resp) => {
       let siteInfoResp = resp;
       console.log("----siteInfoResp----", siteInfoResp);
-    }); */
+    });
   }
 }

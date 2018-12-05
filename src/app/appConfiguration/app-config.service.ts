@@ -11,7 +11,7 @@ export class AppStorageService {
     setKey: (key, data) => {
       this.lc = window.localStorage;
       //  alert("Storing Key ::: " + key + " -> " + JSON.stringify(data));
-      console.log("At Set Key", key, data);
+      //console.log("At Set Key", key, data);
       if (key) {
         this.lc.setItem(key, this.obj.encode(JSON.stringify(data)));
       }

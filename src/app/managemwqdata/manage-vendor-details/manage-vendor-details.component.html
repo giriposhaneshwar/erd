@@ -19,14 +19,14 @@
           Add</a>
       </div>
       <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'force'"
-          [footerHeight]="50" [rowHeight]="'auto'" [rows]="vendorsListDetails">
-          <ngx-datatable-column name="S No"></ngx-datatable-column>
-          <ngx-datatable-column name="Name"></ngx-datatable-column>
-          <ngx-datatable-column name="Email Id"></ngx-datatable-column>
-          <ngx-datatable-column name="Ph No"></ngx-datatable-column>
-          <ngx-datatable-column name="Address"></ngx-datatable-column>
-          <ngx-datatable-column name="Status">
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'standard'"
+          [footerHeight]="50" [rowHeight]="30" [rows]="vendorsListDetails">
+          <ngx-datatable-column name="S No" [width]="90"></ngx-datatable-column>
+          <ngx-datatable-column name="Name" [width]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="Email Id" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Ph No" [width]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Address" [width]="350"></ngx-datatable-column>
+          <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
                 {{value}}

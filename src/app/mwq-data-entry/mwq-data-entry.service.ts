@@ -8,7 +8,7 @@ import { Config } from 'app/appConfiguration/config';
 export class MwqDataEntryService {
 
   //apiUrl = 'http://10.56.84.178/MWQWebservice/MWQSitesRestServices.svc';
-  jsonapiUrl = "assets/data/projectNames.json";
+  jsonapiUrl = "assets/data/";
 
   apiUrl: any;
   constructor(private http: HttpClient, private config: Config) {
@@ -33,17 +33,21 @@ export class MwqDataEntryService {
   }
 
   fetchHistoricalGraph(): Observable<any[]> {
-    let bodyParams = {};
+   /*  let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set("Content-Type", "application/json");
-    return this.http.post<any[]>(this.apiUrl + "/GetParmsHistrocalData", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetParmsHistrocalData", bodyParams, { headers: headers_value }) */
+
+    return this.http.get<any[]>(this.jsonapiUrl+"graph.json").pipe(map(data => data));
   }
 
   fetchParametersValdationValues(): Observable<any[]> {
-    let bodyParams = {};
+    /*let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set("Content-Type", "application/json");
     return this.http.post<any[]>(this.apiUrl + "/GetparamatersValdationValues", bodyParams, { headers: headers_value })
+    */
+   return this.http.get<any[]>(this.jsonapiUrl+"GetparamatersValdationValues.json").pipe(map(data => data));
   }
 
   fetchSiteNameData(): Observable<any[]> {
