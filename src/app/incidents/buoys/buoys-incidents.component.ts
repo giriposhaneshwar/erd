@@ -24,6 +24,9 @@ export class BuoysIncidentsComponent implements OnInit {
   mondalOpen:any;
   value:any;
   
+  buoysIncidentHistoryDetails = [];
+  buoysIncidentHistoryResp: any;
+
 
   columns: any[] = [
     { prop: 'buoysIncidentId' },
@@ -38,10 +41,8 @@ export class BuoysIncidentsComponent implements OnInit {
   constructor(private pageTitleService: PageTitleService, private incidentsService:IncidentsService) {
     var fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
     let toDate   = moment().format("YYYY-MM-DD") ;
-   
     console.log(" Current Day ", "----"+ toDate);
     console.log(" Last  Three Months " + fromDate );
-
     this.loadBuoysIncidentsData(fromDate,toDate);
   }
 
@@ -65,7 +66,14 @@ export class BuoysIncidentsComponent implements OnInit {
   }
 
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selectedValue);
+    let selectedIncidentId = selected[0].incidentId;
+    console.log('Select Event', selectedIncidentId);
+   
+    this.incidentsService.getBuoysIncidentHistoryInfo(selectedIncidentId).subscribe((resp) => {
+      this.buoysIncidentHistoryResp = resp;
+      this.buoysIncidentHistoryDetails = this.buoysIncidentHistoryResp.GetIncidentHistoryResult.incidentHistory;
+      console.log("----buoysIncidentHistoryDetails----", this.buoysIncidentHistoryDetails);
+    });
   }
 
   onActivate(event) {

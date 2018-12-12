@@ -37,12 +37,12 @@
                   fieldColorValidatior.Cadmium_Water.prarmaterStandDevition,
                   fieldColorValidatior.Cadmium_Water.prarmaterMax)"
                 name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue" #iocw_cadmiumSurfaceValue="ngModel"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
            <!--  <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Water" [threshold]="fieldColorValidatior.Cadmium_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select class="form-control" [(ngModel)]="iocw_cadmium.mql" name="iocw_cadmiumMql" #iocw_cadmiumMql="ngModel"
                 [ngClass]="{ 'is-invalid': (f.submitted && iocw_cadmiumMql.invalid)}" required>
@@ -73,12 +73,12 @@
                 fieldColorValidatior.Chromium_Water.prarmaterStandDevition,fieldColorValidatior.Chromium_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_chromiumSurfaceValue" [(ngModel)]="iocw_chromium.surfaceValue"
                 #iocw_chromiumSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumSurfaceValue.invalid }"
-                required />
+                required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Water" [threshold]="fieldColorValidatior.Chromium_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_chromium.mql" name="iocw_chromiumMql"
                 #iocw_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumMql.invalid }"
@@ -110,12 +110,12 @@
                 fieldColorValidatior.Cobalt_Water.prarmaterStandDevition,fieldColorValidatior.Cobalt_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_cobaltSurfaceValue" [(ngModel)]="iocw_cobalt.surfaceValue"
                 #iocw_cobaltSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltSurfaceValue.invalid }"
-                required />
+                required OnlyNumber="true" />
             </div>
            <!--  <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Water" [threshold]="fieldColorValidatior.Cobalt_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cobalt.mql" name="iocw_cobaltMql"
                 #iocw_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltMql.invalid }" required>
@@ -145,12 +145,12 @@
                 (keyup)="checkValueThreshold(iocw_copper.surfaceValue, fieldColorValidatior.Copper_Water.prarmaterThreshold,
                 fieldColorValidatior.Copper_Water.prarmaterStandDevition,fieldColorValidatior.Copper_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_copperSurfaceValue" [(ngModel)]="iocw_copper.surfaceValue"
-                #iocw_copperSurfaceValue="ngModel" required />
+                #iocw_copperSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Water" [threshold]="fieldColorValidatior.Copper_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_copper.mql" name="iocw_copperMql"
                 #iocw_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_copperMql.invalid }" required>
@@ -181,12 +181,12 @@
                 (keyup)="checkValueThreshold(iocw_lead.surfaceValue, fieldColorValidatior.Lead_Water.prarmaterThreshold,
                 fieldColorValidatior.Lead_Water.prarmaterStandDevition,fieldColorValidatior.Lead_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue"
-                #iocw_leadSurfaceValue="ngModel" required />
+                #iocw_leadSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Water" [threshold]="fieldColorValidatior.Lead_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_lead.mql" name="iocw_leadMql"
                 #iocw_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_leadMql.invalid }" required>
@@ -217,12 +217,12 @@
                 (keyup)="checkValueThreshold(iocw_manganese.surfaceValue, fieldColorValidatior.Manganese_Water.prarmaterThreshold,
                 fieldColorValidatior.Manganese_Water.prarmaterStandDevition,fieldColorValidatior.Manganese_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_manganeseSurfaceValue" [(ngModel)]="iocw_manganese.surfaceValue"
-                #iocw_manganeseSurfaceValue="ngModel" required />
+                #iocw_manganeseSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
            <!--  <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Water" [threshold]="fieldColorValidatior.Manganese_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_manganese.mql" name="iocw_manganeseMql"
                 #iocw_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_manganeseMql.invalid }"
@@ -253,12 +253,12 @@
                 (keyup)="checkValueThreshold(iocw_nickel.surfaceValue, fieldColorValidatior.Nickel_Water.prarmaterThreshold,
                 fieldColorValidatior.Nickel_Water.prarmaterStandDevition,fieldColorValidatior.Nickel_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_nickelSurfaceValue" [(ngModel)]="iocw_nickel.surfaceValue"
-                #iocw_nickelSurfaceValue="ngModel" required />
+                #iocw_nickelSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Water" [threshold]="fieldColorValidatior.Nickel_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_nickel.mql" name="iocw_nickelMql"
                 #iocw_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelMql.invalid }" required>
@@ -289,12 +289,12 @@
                 fieldColorValidatior.Zinc_Water.prarmaterStandDevition,fieldColorValidatior.Zinc_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue"
                 #iocw_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincSurfaceValue.invalid }"
-                required />
+                required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Water" [threshold]="fieldColorValidatior.Zinc_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_zinc.mql" name="iocw_zincMql"
                 #iocw_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincMql.invalid }" required>
@@ -325,12 +325,12 @@
                 fieldColorValidatior.Iron_Water.prarmaterStandDevition,fieldColorValidatior.Iron_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue"
                 #iocw_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironSurfaceValue.invalid }"
-                required />
+                required OnlyNumber="true" />
             </div>
            <!--  <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Water" [threshold]="fieldColorValidatior.Iron_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_iron.mql" name="iocw_ironMql"
                 #iocw_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironMql.invalid }" required>
@@ -361,12 +361,12 @@
                 fieldColorValidatior.Mercury_Water.prarmaterStandDevition,fieldColorValidatior.Mercury_Water.prarmaterMax)"
                 autocomplete="off" name="iocw_mercurySurfaceValue" [(ngModel)]="iocw_mercury.surfaceValue"
                 #iocw_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }"
-                required />
+                required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div> -->
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Water"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Water" [threshold]="fieldColorValidatior.Mercury_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_mercury.mql" name="iocw_mercuryMql"
                 #iocw_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercuryMql.invalid }"
@@ -418,12 +418,12 @@
                       (keyup)="checkValueThreshold(iocs_cadmium.surfaceValue, fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Cadmium_Sediment.prarmaterStandDevition,fieldColorValidatior.Cadmium_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_cadmiumSurfaceValue" [(ngModel)]="iocs_cadmium.surfaceValue"
-                      #iocs_cadmiumSurfaceValue="ngModel" required />
+                      #iocs_cadmiumSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Sediment" [threshold]="fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cadmium.mql" name="iocs_cadmiumMql"
                       #iocs_cadmiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cadmiumMql.invalid }"
@@ -454,12 +454,12 @@
                       (keyup)="checkValueThreshold(iocs_chromium.surfaceValue, fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Cadmium_Sediment.prarmaterStandDevition,fieldColorValidatior.Cadmium_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_chromiumSurfaceValue" [(ngModel)]="iocs_chromium.surfaceValue"
-                      #iocs_chromiumSurfaceValue="ngModel" required />
+                      #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Sediment" [threshold]="fieldColorValidatior.Chromium_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_chromium.mql" name="iocs_chromiumMql"
                       #iocs_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_chromiumMql.invalid }"
@@ -490,12 +490,12 @@
                       (keyup)="checkValueThreshold(iocs_cobalt.surfaceValue, fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Cobalt_Sediment.prarmaterStandDevition,fieldColorValidatior.Cobalt_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_cobaltSurfaceValue" [(ngModel)]="iocs_cobalt.surfaceValue"
-                      #iocs_cobaltSurfaceValue="ngModel" required />
+                      #iocs_cobaltSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                 <!--   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Sediment" [threshold]="fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cobalt.mql" name="iocs_cobaltMql"
                       #iocs_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cobaltMql.invalid }"
@@ -526,12 +526,12 @@
                       (keyup)="checkValueThreshold(iocs_copper.surfaceValue, fieldColorValidatior.Copper_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Copper_Sediment.prarmaterStandDevition,fieldColorValidatior.Copper_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_copperSurfaceValue" [(ngModel)]="iocs_copper.surfaceValue"
-                      #iocs_copperSurfaceValue="ngModel" required />
+                      #iocs_copperSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Sediment" [threshold]="fieldColorValidatior.Copper_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_copper.mql" name="iocs_copperMql"
                       #iocs_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_copperMql.invalid }"
@@ -563,12 +563,12 @@
                       (keyup)="checkValueThreshold(iocs_lead.surfaceValue, fieldColorValidatior.Lead_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Lead_Sediment.prarmaterStandDevition,fieldColorValidatior.Lead_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_leadSurfaceValue" [(ngModel)]="iocs_lead.surfaceValue"
-                      #iocs_leadSurfaceValue="ngModel" required />
+                      #iocs_leadSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Sediment" [threshold]="fieldColorValidatior.Lead_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_lead.mql" name="iocs_leadMql"
                       #iocs_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_leadMql.invalid }"
@@ -600,12 +600,12 @@
                       (keyup)="checkValueThreshold(iocs_manganese.surfaceValue, fieldColorValidatior.Manganese_Sediment.prarmaterThreshold,
                       fieldColorValidatior.Manganese_Sediment.prarmaterStandDevition,fieldColorValidatior.Manganese_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_manganeseSurfaceValue" [(ngModel)]="iocs_manganese.surfaceValue"
-                      #iocs_manganeseSurfaceValue="ngModel" required />
+                      #iocs_manganeseSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Sediment" [threshold]="fieldColorValidatior.Manganese_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_manganese.mql" name="iocs_manganeseMql"
                       #iocs_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_manganeseMql.invalid }"
@@ -637,12 +637,12 @@
                       fieldColorValidatior.Nickel_Sediment.prarmaterStandDevition,fieldColorValidatior.Nickel_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_nickelSurfaceValue" [(ngModel)]="iocs_nickel.surfaceValue"
                       #iocs_nickelSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelSurfaceValue.invalid }"
-                      required />
+                      required OnlyNumber="true" />
                   </div>
                 <!--   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Sediment" [threshold]="fieldColorValidatior.Nickel_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_nickel.mql" name="iocs_nickelMql"
                       #iocs_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelMql.invalid }"
@@ -674,12 +674,12 @@
                       fieldColorValidatior.Zinc_Sediment.prarmaterStandDevition,fieldColorValidatior.Zinc_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_zincSurfaceValue" [(ngModel)]="iocs_zinc.surfaceValue"
                       #iocs_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincSurfaceValue.invalid }"
-                      required />
+                      required OnlyNumber="true" />
                   </div>
                 <!--   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Sediment" [threshold]="fieldColorValidatior.Zinc_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_zinc.mql" name="iocs_zincMql"
                       #iocs_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincMql.invalid }"
@@ -711,12 +711,12 @@
                       fieldColorValidatior.Iron_Sediment.prarmaterStandDevition,fieldColorValidatior.Iron_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_ironSurfaceValue" [(ngModel)]="iocs_iron.surfaceValue"
                       #iocs_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironSurfaceValue.invalid }"
-                      required />
+                      required OnlyNumber="true" />
                   </div>
                 <!--   <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Sediment" [threshold]="fieldColorValidatior.Iron_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_iron.mql" name="iocs_ironMql"
                       #iocs_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironMql.invalid }"
@@ -748,12 +748,12 @@
                       fieldColorValidatior.Mercury_Sediment.prarmaterStandDevition,fieldColorValidatior.Mercury_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_mercurySurfaceValue" [(ngModel)]="iocs_mercury.surfaceValue"
                       #iocs_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercurySurfaceValue.invalid }"
-                      required />
+                      required OnlyNumber="true" />
                   </div>
                  <!--  <div class="clearfix tbl tbl-per-10 text-center">
                     mg/Kg
                   </div> -->
-                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Sediment"></div>
+                  <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Sediment" [threshold]="fieldColorValidatior.Mercury_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_mercury.mql" name="iocs_mercuryMql"
                       #iocs_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercuryMql.invalid }"

@@ -25,13 +25,14 @@ export class SiteDataComponent implements OnInit {
   };
   sampleInformation: any = {
     sampleRefNum: "",
-    sampleSource: "",
+    sampleSource: "20",
     samplePreservation: "",
     sampleDescription: "",
     sampleDate: "",
     sampleTime: "",
     sampleBy: "",
     sampleEventType: "",
+    sampleSiteDefaultValue: "",
     createdBy: "DeptUser"
   };
 
@@ -56,6 +57,12 @@ export class SiteDataComponent implements OnInit {
   projectNamesDetails = [];
   projectNamesResp: any;
 
+  sourceDepthDetails = [];
+  sourceDepthResp: any;
+
+  siteDefaultValueDetails = [];
+  siteDefaultValueResp: any;
+
   module: String;
 
   constructor(
@@ -71,6 +78,7 @@ export class SiteDataComponent implements OnInit {
     this.loadSampleByData();
     this.loadEventTypeData();
     this.loadProjectNames();
+    this.loadSourceDepth();
   }
 
   ngOnInit() {
@@ -166,8 +174,24 @@ export class SiteDataComponent implements OnInit {
     });
   }
 
-  siteDateEdit() {
-    console.log("At Edit Screen");
+  loadSourceDepth(): void {
+    this.mwqDataEntryService.fetchSourceDepthData().subscribe((restItems) => {
+      this.sourceDepthResp = restItems;
+      this.sourceDepthDetails = this.sourceDepthResp.GetSourceDepthResult.getSourceDepthList[0].depthvalue;
+      this.sampleInformation.sampleSource = this.sourceDepthDetails;
+      //console.log("----sourceDepthDetails----", this.sourceDepthDetails + "--------" + this.sampleInformation.sampleSource);
+    });
+  }
+
+
+  onchangeSiteName(selectedSiteId) {
+    console.log("Selected Site Name-----"+selectedSiteId);
+    this.mwqDataEntryService.fetchSelectedSiteDefaultValue(selectedSiteId).subscribe((restItems) => {
+      this.siteDefaultValueResp = restItems;
+      this.siteDefaultValueDetails = this.siteDefaultValueResp.GetSiteDefaultValueResult.siteDefaultValueList[0].defaultsitevalue;
+      this.sampleInformation.sampleSiteDefaultValue = this.siteDefaultValueDetails;
+      //console.log("----siteDefaultValueDetails----", this.siteDefaultValueDetails + "--------" + this.sampleInformation.sampleSiteDefaultValue);
+    });
   }
 
   siteDetailsSave(siteDetailsdata, sampleInfoData) {

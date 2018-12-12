@@ -45,10 +45,10 @@
       <div class="widget-body">
         <mat-card style="padding: 0;">
           <!--<ngx-datatable class="material sorting customTable" [rows]="alertRows" [headerHeight]="50">-->
-          <ngx-datatable #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'force'"
-            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="15" [selected]="selected"
+          <ngx-datatable #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'standard'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="10" [selected]="selected"
             [selectionType]="'single'" (activate)="onActivate($event)" (select)='onSelect($event)'>
-            <ngx-datatable-column name="Severity">
+            <ngx-datatable-column name="Severity"  [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <!--<i class="fa fa-arrow-up ">{{value}}</i>-->
                 <i class="fa fa-arrow-up text-align: center;" [ngClass]="{'text-success mr-2': value=== 'Low',
@@ -57,9 +57,9 @@
                   }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Description"></ngx-datatable-column>
+            <ngx-datatable-column name="Description" [width]="200"></ngx-datatable-column>
             <!--<small class="text-muted"><i class="fa fa-clock-o"></i></small>-->
-            <ngx-datatable-column name="Createddate"></ngx-datatable-column>
+            <ngx-datatable-column name="Createddate" [width]="150"></ngx-datatable-column>
           </ngx-datatable>
         </mat-card>
       </div>

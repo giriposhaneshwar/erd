@@ -107,14 +107,27 @@ export class MwqDataEntryService {
   }
 
   fetchProjectNamesData(): Observable<any[]> {
-
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetProjects ", bodyParams, { headers: headers_value })
-
     // return this.http.get<any[]>(this.jsonapiUrl).pipe(map(data => data));
   }
+
+  fetchSourceDepthData(): Observable<any[]> {
+    let bodyParams = {};
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetSourceDepth ", bodyParams, { headers: headers_value })
+  }
+
+  fetchSelectedSiteDefaultValue(selectedSiteId): Observable<any[]> {
+    let bodyParams = {"siteid":selectedSiteId };
+    let headers_value = new HttpHeaders();
+    headers_value = headers_value.set('Content-Type', 'application/json');
+    return this.http.post<any[]>(this.apiUrl + "/GetSiteDefaultValue ", bodyParams, { headers: headers_value })
+  }
+
 
   saveMWQDataEntryInfo(jsonMwqDataEntryInfo): Observable<any[]> {
     /*     console.log(" ---------------- " + JSON.stringify(jsonMwqDataEntryInfo));

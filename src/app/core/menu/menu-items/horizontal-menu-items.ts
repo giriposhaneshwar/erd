@@ -51,7 +51,7 @@ const HORIZONTALMENUITEMS = [
     children: [
       {state: 'incidents/buoys-incidents', name: 'BUOYS_INCIDENT'},
       {state: 'incidents/blooms-incidents', name: 'BLOOMS_INCIDENT'},
-      /*{state: 'incidents/vendor-incidents', name: 'VENDOR_INCIDENT'},*/
+      /* {state: 'incidents/algol-bloom', name: 'ALGOL_BLOOM_INCIDENT'}, */
     ]
   },
   /*{

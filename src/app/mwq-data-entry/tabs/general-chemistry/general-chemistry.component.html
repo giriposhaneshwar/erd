@@ -36,14 +36,14 @@
                       'red': totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMax}"
                 name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" 
                 (keyup)="checkValueThreshold(totalPhosp.surfaceValue, fieldColorValidatior.TotalPhosp.prarmaterThreshold, 
-                                            fieldColorValidatior.TotalPhosp.prarmaterStandDevition, fieldColorValidatior.TotalPhosp.prarmaterMax)"
-              
-                #totalPhospSurfaceValue="ngModel" required />
+                                            fieldColorValidatior.TotalPhosp.prarmaterStandDevition, 
+                                            fieldColorValidatior.TotalPhosp.prarmaterMax)"
+                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TotalPhosp"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TotalPhosp" [threshold]="fieldColorValidatior.TotalPhosp.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql"
                 #totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospMql.invalid)}" required>
@@ -76,12 +76,12 @@
                           fieldColorValidatior.Total_Nitrogen.prarmaterThreshold,
                           fieldColorValidatior.Total_Nitrogen.prarmaterStandDevition,
                           fieldColorValidatior.Total_Nitrogen.prarmaterMax)"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Nitrogen"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Nitrogen" [threshold]="fieldColorValidatior.Total_Nitrogen.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql"
                 #totalNitrogenMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenMql.invalid)}"
@@ -115,12 +115,12 @@
                           fieldColorValidatior.Nitrite_N.prarmaterThreshold,
                           fieldColorValidatior.Nitrite_N.prarmaterStandDevition,
                           fieldColorValidatior.Nitrite_N.prarmaterMax)"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrite_N"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrite_N" [threshold]="fieldColorValidatior.Nitrite_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql" #nitriteNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required>
@@ -153,12 +153,12 @@
                   fieldColorValidatior.Nitrate_N.prarmaterThreshold,
                   fieldColorValidatior.Nitrate_N.prarmaterStandDevition,
                   fieldColorValidatior.Nitrate_N.prarmaterMax)"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrate_N"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrate_N" [threshold]="fieldColorValidatior.Nitrate_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql" #nitrateNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" required>
@@ -191,12 +191,12 @@
                         fieldColorValidatior.silicateSl.prarmaterThreshold,
                         fieldColorValidatior.silicateSl.prarmaterStandDevition,
                         fieldColorValidatior.silicateSl.prarmaterMax)"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Silicate_Sl"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Silicate_Sl" [threshold]="fieldColorValidatior.Silicate_Sl.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql"
                 #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" required>
@@ -229,12 +229,12 @@
                   fieldColorValidatior.Ammonia_N.prarmaterStandDevition,
                   fieldColorValidatior.Ammonia_N.prarmaterMax)"
                 name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel"
-                required autocomplete="off" />
+                required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Ammonia_N"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Ammonia_N" [threshold]="fieldColorValidatior.Ammonia_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql" #ammoniaNMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" required>
@@ -266,12 +266,12 @@
                 fieldColorValidatior.Phosphate_P.prarmaterThreshold,
                 fieldColorValidatior.Phosphate_P.prarmaterStandDevition,
                 fieldColorValidatior.Phosphate_P.prarmaterMax)"
-                #phosphatePsurfaceValue="ngModel" required autocomplete="off" />
+                #phosphatePsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Phosphate_P"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Phosphate_P" [threshold]="fieldColorValidatior.Phosphate_P.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql"
                 #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" required>
@@ -292,7 +292,7 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">BOD (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue"
+              <input type="text" pattern="^[0-9]{1,5}$" class="form-control tbl tbl-per-30" name="bodSurfaceValue" [(ngModel)]="bod.surfaceValue"
                 [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),
                             'white': bod.surfaceValue == '',
                             'orange': bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMean, 
@@ -303,12 +303,12 @@
                                             fieldColorValidatior.BOD.prarmaterThreshold,
                                             fieldColorValidatior.BOD.prarmaterStandDevition,
                                             fieldColorValidatior.BOD.prarmaterMax)"
-                #bodSurfaceValue="ngModel" required autocomplete="off" />
+                #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.BOD"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.BOD" [threshold]="fieldColorValidatior.BOD.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql" #bodMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && bodMql.invalid)}" required>
@@ -338,12 +338,12 @@
                 (keyup)="checkValueThreshold(tss.surfaceValue, fieldColorValidatior.TSS.prarmaterThreshold,
                   fieldColorValidatior.TSS.prarmaterStandDevition, 
                   fieldColorValidatior.TSS.prarmaterMa)"
-                #tssSurfaceValue="ngModel" required autocomplete="off" />
+                #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS"></div>
+            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS" [threshold]="fieldColorValidatior.TSS.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql" #tssMql="ngModel"
                 [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" required>

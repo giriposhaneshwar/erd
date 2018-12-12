@@ -38,7 +38,8 @@
               <div class="clearfix tbl tbl-per-10 text-left">Site Name</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <select class="form-control" id="sd-text-siteName" [(ngModel)]="siteData.siteName" name="siteName"
-                  #siteName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && siteName.invalid }" required>
+                  (change)="onchangeSiteName(siteData.siteName)" #siteName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && siteName.invalid }"
+                  required>
                   <option value="" disabled selected hidden>Select Site Name</option>
                   <option *ngFor="let siteDet of siteDetails" value="{{siteDet.Site_Id}}">{{siteDet.siteName}}</option>
                 </select>
@@ -67,13 +68,8 @@
 
               <div class="clearfix tbl tbl-per-15 text-left">Depth</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSource" #source="ngModel"
-                  [ngClass]="{ 'is-invalid': f.submitted && source.invalid }" required autocomplete="off" />
-                <!--  <select class="form-control" id="sd-text-source" [(ngModel)]="sampleInformation.sampleSource" name="source"
-                  #source="ngModel" [ngClass]="{ 'is-invalid': f.submitted && source.invalid }" required>
-                  <option value="" disabled selected hidden>Select Source Name</option>
-                  <option *ngFor="let sourceDet of sourceDetails" value="{{sourceDet.SourceId}}">{{sourceDet.SourceName}}</option>
-                </select> -->
+                <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSource" name="source"
+                  #source="ngModel" [ngClass]="{ 'is-invalid': f.submitted && source.invalid }" required autocomplete="off" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Preservation</div>
               <div class="clearfix tbl tbl-per-20 text-left">
@@ -98,9 +94,6 @@
                   <option *ngFor="let sampleBy of sampleByDetails" value="{{sampleBy.SampleBy_Id}}">{{sampleBy.samplByName}}</option>
                 </select>
               </div>
-
-
-
               <div class="clearfix tbl tbl-per-15 text-left">Date</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="date" value="11-23-2018" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate"
@@ -113,7 +106,6 @@
                   #sampleTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleTime.invalid }" required />
               </div>
             </div>
-
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Event Type</div>
               <div class="clearfix tbl tbl-per-20 text-left">
@@ -125,23 +117,32 @@
                   <option *ngFor="let eventType of eventTypeDetails" value="{{eventType.EventType_Id}}">{{eventType.eventTypeName}}</option>
                 </select>
               </div>
-
-              <div class="clearfix tbl tbl-per-15 text-left">Description</div>
-              <div class="clearfix tbl tbl-per-50 text-left">
-                <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
-                  name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
+              <div class="clearfix tbl tbl-per-15 text-left">Site Default Value</div>
+              <div class="clearfix tbl tbl-per-20 text-left">
+                <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSiteDefaultValue"
+                  name="siteDefValue" #siteDefValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
                   required autocomplete="off" />
-                <!-- <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
-                  <div *ngIf="description.errors.required">Description is required</div>
-                </div> -->
               </div>
             </div>
+
+            <div class="row">
+                <div class="clearfix tbl tbl-per-15 text-left">Description</div>
+                <div class="clearfix tbl tbl-per-85 text-left">
+                  <!-- <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
+                      name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
+                      required autocomplete="off" /> -->
+                  <textarea rows="5" cols="50" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
+                    name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
+                    required autocomplete="off"></textarea>
+                </div>
+              </div>
+
           </div>
         </div>
       </div>
     </div>
 
-    <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 4em;">
+    <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 1em;">
       <div class="row text-right">
         <div class="col-xs-12 col-sm-12">
           <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button>

@@ -5,6 +5,7 @@ import { Config } from "app/appConfiguration/config";
 import { ToastsManager } from "ng6-toastr";
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
+
 @Component({
   selector: "ms-in-situ-parameters",
   templateUrl: "./in-situ-parameters.component.html",
@@ -25,101 +26,24 @@ export class InSituParametersComponent implements OnInit {
   module: String;
   optionsModalShowWindow: boolean = false;
   optionValue: any = {
-    "option5m": false, 
-    "option10m": true, 
-    "option15m": false, 
-    "option20m": false, 
-    "option25m": false, 
-    "option30m": false, 
-    "option35m": false, 
+    "option5m": true,
+    "option10m": false,
+    "option15m": false,
+    "option20m": false,
+    "option25m": false,
+    "option30m": false,
+    "option35m": false,
     "option40m": false
   };
   optionsFormData: any;
 
-  temperature: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  conductivity: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  salinity: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  pH: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  dissolvedO: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  Chlorophyll_a: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
-  sechiDisc: any = {
-    surfaceValue: "",
-    bottomValue: "",
-    bottom5m: "",
-    bottom10m: "",
-    bottom15m: "",
-    bottom20m: "",
-    bottom25m: "",
-    bottom30m: "",
-    bottom35m: "",
-    bottom40m: ""
-  };
+  temperature: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  conductivity: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  salinity: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  pH: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  dissolvedO: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  Chlorophyll_a: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
+  sechiDisc: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
 
   fieldColorValidatior: any;
   form: FormGroup;
@@ -257,30 +181,30 @@ export class InSituParametersComponent implements OnInit {
     if (value > threshould) {
       this.toastr.error(
         "Input Value " +
-          value +
-          " Morethan Threshould " +
-          threshould +
-          " Value "
+        value +
+        " Morethan Threshould " +
+        threshould +
+        " Value "
       );
     }
 
     if (value > standDevition) {
       this.toastr.error(
         "Input Value " +
-          value +
-          " Morethan Prarmater StandDevition " +
-          standDevition +
-          " Value "
+        value +
+        " Morethan Prarmater StandDevition " +
+        standDevition +
+        " Value "
       );
     }
 
     if (value > maxValue) {
       this.toastr.error(
         "Input Value " +
-          value +
-          " Morethan Pararmater Max " +
-          maxValue +
-          " Value "
+        value +
+        " Morethan Pararmater Max " +
+        maxValue +
+        " Value "
       );
     }
   }
@@ -294,7 +218,7 @@ export class InSituParametersComponent implements OnInit {
   optionsModalClose() {
     this.optionsModalShowWindow = false;
   }
-  optionValueChange(form){
+  optionValueChange(form) {
     console.log("Changed", form.value);
   }
 }

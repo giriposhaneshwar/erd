@@ -21,6 +21,9 @@ import { DataEntryComponent } from "./tabs/data-entry/data-entry.component";
 import { HistoricalGraphDirective } from '../partials/historical-graph.directive';
 import { QcInfoComponent } from './tabs/qc-info/qc-info.component';
 import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
+import { GraphComponent } from '../partials/graph/graph.component';
+import { OnlyNumber } from "./onlynumber.directive";
+
 @NgModule({
   imports: [
     CommonModule,
@@ -46,7 +49,9 @@ import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
     DataEntryComponent,
     QcInfoComponent,
     QcRemarksComponent,
-    HistoricalGraphDirective
+    HistoricalGraphDirective,
+    GraphComponent,
+    OnlyNumber
   ],
   exports: [MwqDataEntryComponent, HistoricalGraphDirective]
 })

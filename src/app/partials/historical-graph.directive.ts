@@ -1,7 +1,5 @@
 import { Directive, ElementRef, OnInit, Input, OnChanges } from "@angular/core";
 import * as d3 from "d3";
-import * as scale from "d3-scale";
-
 import * as $ from "jquery/dist/jquery.min.js";
 declare var $: any;
 
@@ -11,43 +9,92 @@ declare var $: any;
 export class HistoricalGraphDirective implements OnInit {
   element: HTMLInputElement;
   @Input('graphData') graphData: any;
+  @Input('threshold') threshold: any;
+  margin: any = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  };
+  width: any = "148";
+  height: any = "31";
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
     /* console.log("this.element", this.element); */
   }
+
+  ngOnInit() {
+    this.draw();
+    //console.log("ele", this.element);
+  }
+  generateMetaData(data) {
+    // data = JSON.parse(data);
+    // debugger;
+    let xDiff = Math.round(d3.max(data) / data.length);
+    let metaDataInner = [];
+    let start = { x: 0, y: 0 };
+    let end = { x: (data.length - 1) * xDiff, y: 0 };
+    metaDataInner.push(start);
+    for (let i = 0; i < data.length; i++) {
+      let item = data[i];
+      if(item === "" || item === null){
+        item = 0;
+      }
+      metaDataInner.push({ x: i * xDiff, y: parseFloat(item) });
+    }
+    metaDataInner.push(end);
+    //console.log(metaDataInner);
+    return metaDataInner;
+  }
+
+  getMeanLine(mdata, point){
+    point = parseInt(point);
+    return [
+      {x: 0, y: point},
+      {x: mdata[mdata.length - 1].x, y: point},
+    ];
+  }
+  getBaseLine(mdata){
+    return [
+      {x: 0, y: 0},
+      {x: mdata[mdata.length - 1].x, y: 0},
+    ];
+  }
+
   draw() {
+    // debugger;
     let ele = $(this.element);
     let graphHolder = d3
       .select(this.element)
       .append("div")
-      .attr("class", "graphHolder");
+      .attr("class", "graphContainer");
     //console.log("Width ", this.graphData);
-    let canvas = graphHolder.append("svg");
-    let graphData = this.graphData;
-    let metaData = this.generateMetaData(graphData);
-    //console.log("Graph Data", graphData, metaData);
-    /* Generating Graph */
-    var w = 150,
-      h = 30,
-      margin = { top: 1, bottom: 0, left: -1, right: -1 };
-    canvas
-      .attr("width", w + (margin.left + margin.right))
-      .attr("height", h + (margin.top + margin.bottom))
-      .attr("class", "graphSection");
-    canvas.selectAll("g").remove();
-    let g = canvas
+    let svg = graphHolder
+                  .append("svg")
+                  .attr('width', this.width)
+                  .attr('height', this.height)
+                  .attr('class', 'svgContainer');
+    const metaData = this.generateMetaData(this.graphData);
+    const meanLine = this.getMeanLine(metaData, this.threshold);
+    const baseLine = this.getBaseLine(metaData);
+    console.log("Meta Data", metaData, meanLine);
+
+    let x = d3.scaleLinear().range([0, this.width]);
+    let y = d3.scaleLinear().range([this.height, 0]);
+
+    let g = svg
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    let x = scale.scaleLinear().rangeRound([0, w]);
-    let y = scale.scaleLinear().rangeRound([h, 0]);
+      .attr(
+        "transform",
+        "translate(" + this.margin.left + ", " + this.margin.top + ")"
+      );
+
     let line = d3
       .line()
       .x(function(d) {
-       // console.log("Line X Axis", d);
         return x(d.x);
       })
       .y(function(d) {
-       // console.log("Line Y Axis", d);
         return y(d.y);
       });
     x.domain(
@@ -60,50 +107,77 @@ export class HistoricalGraphDirective implements OnInit {
         return d.y;
       })
     );
-    /*g.append("g")
-         .attr("transform", "translate(0," + h + ")")
-         .call(d3.axisBottom(x))
-         .select(".domain")
-         .remove();
-    g.append("g")
-         .call(d3.axisLeft(y))
-         .append("text")
-         .attr("fill", "#000")
-         .attr("transform", "rotate(-90)")
-         .attr("y", 6)
-         .attr("dy", "0.71em")
-         .attr("text-anchor", "end");*/
+      // Filling Area with color
     g.append("path")
       .datum(metaData)
       .attr("fill", "#4682b422")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke", "none")
+      .attr("stroke-width", 0)
+      .attr("d", line);
+
+
+      // Drawing thick line above ARea
+      let newLineData = metaData;
+      newLineData.shift();
+      newLineData.pop();
+      console.log("New Line", newLineData);
+
+    g.append("path")
+      .datum(newLineData)
+      .attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-linejoin", "round")
       .attr("stroke-linecap", "round")
-      .attr("stroke-width", 2)
+      .attr("stroke-width", 1)
       .attr("d", line);
-  }
-  generateMetaData(data) {
-    var xDiff = Math.round(d3.max(data) / data.length);
-    var metaDataInner = [];
-    var start = { x: 0, y: 0 };
-    var end = { x: (data.length - 1) * xDiff, y: 0 };
-    metaDataInner.push(start);
-    data.map(function(n, i) {
-      metaDataInner.push({
-        x: i * xDiff,
-        y: n
-      });
-    });
-    metaDataInner.push(end);
-    //console.log(metaDataInner);
-    return metaDataInner;
-  }
 
-  ngOnInit() {
-    this.draw();
-    //console.log("ele", this.element);
-  }
-  ngOnChange() {
-    this.draw();
+    // Drwaing the marker circles
+    g.selectAll("circle")
+      .data(metaData)
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) {
+        return x(d.x);
+      })
+      .attr("cy", function(d) {
+        return y(d.y);
+      })
+      .attr("r", 2)
+      .attr("class", "marker markerCircle")
+      .attr("fill", "steelblue");
+
+      // Creating Label for each point
+    g.selectAll("text")
+      .data(metaData)
+      .enter()
+      .append("text")
+      .attr('class', 'marker markerLabel')
+      .attr('font-size', '10px')
+      .attr("x", function(d) {
+        return x(d.x);
+      })
+      .attr("y", function(d) {
+        return y(d.y) - 2;
+      })
+      .text(function(d) {
+        return d.y;
+      });
+  // Drawign mean line for Treshould
+    g.append("path")
+      .datum(meanLine)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line);
+
+    // Drawign mean line for Treshould
+    g.append("path")
+      .datum(baseLine)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1)
+      .attr("d", line);
   }
 }

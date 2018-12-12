@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { BuoysIncidentsComponent } from './buoys/buoys-incidents.component';
 import { BloomsIncidentComponent } from './blooms/blooms-incidents.component';
-import { VendorIncidentsComponent } from './vendor-incidents/vendor-incidents.component';
+import { AlgolBloomIncidentsComponent } from './algol-bloom/algol-bloom-incidents.component';
 
 export const IncidentsRoutes: Routes = [{
   path: '',
@@ -16,7 +16,7 @@ export const IncidentsRoutes: Routes = [{
     path: 'blooms-incidents',
     component: BloomsIncidentComponent
   }, {
-    path: 'vendor-incidents',
-    component: VendorIncidentsComponent
+    path: 'algol-bloom',
+    component: AlgolBloomIncidentsComponent
   }]
 }];

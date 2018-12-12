@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 
 @Component({
-  selector: 'ms-vendor-incidents',
-  templateUrl: './vendor-incidents.component.html',
-  styleUrls: ['./vendor-incidents.component.scss']
+  selector: 'ms-algol-bloom',
+  templateUrl: './algol-bloom-incidents.component.html',
+  styleUrls: ['./algol-bloom-incidents.component.scss']
 })
-export class VendorIncidentsComponent implements OnInit {
+export class AlgolBloomIncidentsComponent implements OnInit {
 
   buoysIncidentRows = [];
   selectedValue = [];

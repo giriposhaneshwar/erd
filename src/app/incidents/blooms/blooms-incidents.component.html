@@ -2,7 +2,7 @@
   <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="row">
       <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
-          Blooms Incidents Details
+        Blooms Incidents Details
       </div>
       <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
         <a href="javascript:void(0)" (click)="mondalOpen = !mondalOpen"><i class="fa fa-gear"></i></a>
@@ -15,6 +15,8 @@
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
         <!-- <h4>Blooms Incidents Details</h4> -->
+        <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
+          Add</a>
       </div>
       <div class="silk-card">
         <div class="silk-card-content">
@@ -24,11 +26,11 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+              <input class="form-control" type="date" id="example-date-input">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+              <input class="form-control" type="date" id="example-date-input">
             </div>
             <button type="submit" class="send-btn btn btn-primary">Send</button>
           </div>
@@ -36,81 +38,172 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <agm-map [latitude]="lat" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-  </div>
-  <tabset class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <tab heading="Incidents">
-      <ngx-datatable class="material sorting customTable" [rows]="bloomsIncidentDetails" [columnMode]="'force'"
-        [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="15" [selected]="selectedRow"
-        [selectionType]="'single'" (select)='onSelect($event)'>
-        <ngx-datatable-column name="Incident Severity">
-          <ng-template let-value="value" ngx-datatable-cell-template class="text-center">
-            <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
-                               'text-warning mr-2' : value=== 'Avg',
-                               'text-danger mr-2': value=== 'High' 
-              }"></i>
-          </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Incidentid"></ngx-datatable-column>
-        <ngx-datatable-column name="Createddate">
-          <span class="glyphicon glyphicon-time"></span>{{value}}
-        </ngx-datatable-column>
-      </ngx-datatable>
-    </tab>
-    <tab heading="History">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
-        <div class="silk-card border-success pb-0">
-          <div class="silk-card-title d-flex justify-content-between">
-            <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Bloom Details</h4>
-          </div>
 
-          <div class="table-responsive">
-            <table class="table table-middle table-striped" *ngFor='let sel of selectedRow'>
-              <tbody class="ng-tns-c6-0">
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Incident Id</td>
-                  <td class="ng-tns-c6-0">{{sel.incidentid}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Incident Name</td>
-                  <td class="ng-tns-c6-0">{{sel.incidentname}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Location (Lat/Long)</td>
-                  <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Description</td>
-                  <td class="ng-tns-c6-0">{{sel.locationdescription}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
-                  <td class="ng-tns-c6-0">{{sel.areacovered}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Station Id</td>
-                  <td class="ng-tns-c6-0">{{sel.stationid}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Station Name</td>
-                  <td class="ng-tns-c6-0">{{sel.stationname}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Bloom Type</td>
-                  <td class="ng-tns-c6-0">{{sel.bloomtype}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Affected Species</td>
-                  <td class="ng-tns-c6-0">{{sel.affectedspecies}}</td>
-                </tr>
-              </tbody>
-            </table>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+      </div>
+      <div class="silk-card-content widget-body">
+        <div class="table-responsive">
+          <ngx-datatable #table class="material sorting customTable" [rows]="bloomsIncidentDetails" [columnMode]="'standard'"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="10" [selected]="selectedRow"
+            [selectionType]="'single'" (select)='onSelect($event)'>
+            <ngx-datatable-column name="Incident Severity" [width]="170">
+              <ng-template let-value="value" ngx-datatable-cell-template class="text-center">
+                <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
+                                     'text-warning mr-2' : value=== 'Avg',
+                                     'text-danger mr-2': value=== 'High' 
+                    }"></i>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Incidentid" [width]="120"></ngx-datatable-column>
+            <ngx-datatable-column name="Createddate" [width]="200">
+              <span class="glyphicon glyphicon-time"></span>{{value}}
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
+      <div class="silk-card border-success pb-0">
+        <div class="silk-card-title d-flex justify-content-between">
+          <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Bloom Details</h4>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-middle table-striped" *ngFor='let sel of selectedRow'>
+            <tbody class="ng-tns-c6-0">
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Incident Id</td>
+                <td class="ng-tns-c6-0">{{sel.incidentid}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Incident Name</td>
+                <td class="ng-tns-c6-0">{{sel.incidentname}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Location (Lat/Long)</td>
+                <td class="ng-tns-c6-0">{{sel.lattitude}} / {{sel.longitude}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Description</td>
+                <td class="ng-tns-c6-0">{{sel.locationdescription}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
+                <td class="ng-tns-c6-0">{{sel.areacovered}}</td>
+              </tr>
+            <!--   <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Station Id</td>
+                <td class="ng-tns-c6-0">{{sel.stationid}}</td>
+              </tr> 
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Station Name</td>
+                <td class="ng-tns-c6-0">{{sel.stationname}}</td>
+              </tr>-->
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Bloom Type</td>
+                <td class="ng-tns-c6-0">{{sel.bloomtype}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Affected Species</td>
+                <td class="ng-tns-c6-0">{{sel.affectedspecies}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+    <div class="shadowSection" (click)="closeModal()"></div>
+    <div class="modalSection">
+      <div class="modalHeader">
+        <div class="title"> Bloom Incident Details</div>
+        <div class="closeBtn">
+          <a href="javascript:void(0)" (click)="closeModal()">
+            <i class="glyphicon glyphicon-remove"></i>
+          </a>
+        </div>
+      </div>
+      <div class="modalBody">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Name</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Name" [(ngModel)]="blommIncidentInfo.Name" id="example-text-input">
+          </div>
+        </div>
+
+<!--         <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Station Id</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Station Id" [(ngModel)]="blommIncidentInfo.statId" id="example-text-input">
+          </div>
+        </div> -->
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Lattitude" [(ngModel)]="blommIncidentInfo.x" id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Longitude" [(ngModel)]="blommIncidentInfo.y" id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Location</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Location" [(ngModel)]="blommIncidentInfo.location" id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Area Covered</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Area Covered" [(ngModel)]="blommIncidentInfo.areacovered"
+              id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Bloom Type</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Bloom Type" [(ngModel)]="blommIncidentInfo.bloomtype"
+              id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Affected Species</label>
+          <div class="col-8">
+            <input class="form-control" type="text" placeholder="Affected Species" [(ngModel)]="blommIncidentInfo.AffectedSpecies"
+              id="example-text-input">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Remarks</label>
+          <div class="col-8">
+            <!-- <input class="form-control" type="text" placeholder="Remarks" [(ngModel)]="blommIncidentInfo.Remarks" id="example-text-input"> -->
+            <textarea rows="4" cols="50" class="form-control" [(ngModel)]="blommIncidentInfo.Remarks" id="example-text-input"></textarea>
           </div>
         </div>
       </div>
-    </tab>
-  </tabset>
-</div>
+      <div class="modalFooter">
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="createAlgolBloomIncident(blommIncidentInfo)">Add</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

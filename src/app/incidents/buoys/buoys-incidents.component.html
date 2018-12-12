@@ -21,7 +21,7 @@
         <div class="silk-card-content">
           <div class="form-group row">
             <div class="col-3">
-              <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)' >
+              <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)'>
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
@@ -84,7 +84,7 @@
                   <td class="ng-tns-c6-0">Incident Name</td>
                   <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
                 </tr>
-               <!--  <tr class="ng-tns-c6-0">
+                <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Location (Lat/Long)</td>
                   <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
                 </tr> 
@@ -104,7 +104,7 @@
                   <td class="ng-tns-c6-0">Sensor</td>
                   <td class="ng-tns-c6-0">{{sel.sensor}}</td>
                 </tr>
-               <!--  <tr class="ng-tns-c6-0">
+                <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Buoys Id</td>
                   <td class="ng-tns-c6-0">{{sel.buoysId}}</td>
                 </tr> -->
@@ -118,7 +118,7 @@
                 </tr>
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Status</td>
-                 <!--  <td class="ng-tns-c6-0">
+                  <!--  <td class="ng-tns-c6-0">
                     <select id="exampleSelect1" value="{{sel.status}}">
                       <option>Closed</option>
                       <option>Re-Open</option>
@@ -143,12 +143,23 @@
             </table>
           </div>
         </tab>
+
         <tab heading="History">
-          <div class="latest-post pt-4" *ngFor='let sel of selectedValue'>
+          <div class="latest-post pt-4" *ngIf="buoysIncidentHistoryDetails.length===0">
             <div class="media mb-3">
               <div class="media-body">
-                <h5 class="mt-0">{{sel.updatedBy}} {{sel.updatedDateTime}}</h5>
-                <p> {{sel.logMessage}}</p>
+                <b class="ng-tns-c6-0"> No History for this Incident</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="latest-post pt-4" *ngFor='let incHistory of buoysIncidentHistoryDetails'>
+            <div class="media mb-3">
+              <div class="media-body">
+                <b class="ng-tns-c6-0"> Updated By:{{incHistory.updatedBy}} | {{incHistory.updatedDate}} |
+                  Status:{{incHistory.status}} </b>
+                <p> {{incHistory.remarks}}</p>
+                <hr />
               </div>
             </div>
           </div>
