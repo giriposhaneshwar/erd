@@ -492,3 +492,11 @@
         }
     }
 }
+.marker {
+    &.markerCircle, &.markerLabel{
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+}

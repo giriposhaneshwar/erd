@@ -6,26 +6,29 @@ declare var $: any;
 @Directive({
   selector: "[msHistoricalGraph]"
 })
-export class HistoricalGraphDirective implements OnInit {
+export class HistoricalGraphDirective implements OnChanges {
   element: HTMLInputElement;
-  @Input('graphData') graphData: any;
-  @Input('threshold') threshold: any;
+  @Input("graphData") graphData: any;
+  @Input("threshold") threshold: any;
   margin: any = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
+    top: 3,
+    right: 3,
+    bottom: 3,
+    left: 3
   };
-  width: any = "148";
-  height: any = "31";
+  width: any = 148 - (this.margin.left + this.margin.right);
+  height: any = 31 - (this.margin.top + this.margin.bottom);
   constructor(public el: ElementRef) {
     this.element = el.nativeElement;
     /* console.log("this.element", this.element); */
   }
 
   ngOnInit() {
-    this.draw();
+    // this.draw();
     //console.log("ele", this.element);
+  }
+  ngOnChanges() {
+    this.draw();
   }
   generateMetaData(data) {
     // data = JSON.parse(data);
@@ -37,7 +40,7 @@ export class HistoricalGraphDirective implements OnInit {
     metaDataInner.push(start);
     for (let i = 0; i < data.length; i++) {
       let item = data[i];
-      if(item === "" || item === null){
+      if (item === "" || item === null) {
         item = 0;
       }
       metaDataInner.push({ x: i * xDiff, y: parseFloat(item) });
@@ -47,18 +50,12 @@ export class HistoricalGraphDirective implements OnInit {
     return metaDataInner;
   }
 
-  getMeanLine(mdata, point){
+  getMeanLine(mdata, point) {
     point = parseInt(point);
-    return [
-      {x: 0, y: point},
-      {x: mdata[mdata.length - 1].x, y: point},
-    ];
+    return [{ x: 0, y: point }, { x: mdata[mdata.length - 1].x, y: point }];
   }
-  getBaseLine(mdata){
-    return [
-      {x: 0, y: 0},
-      {x: mdata[mdata.length - 1].x, y: 0},
-    ];
+  getBaseLine(mdata) {
+    return [{ x: 0, y: 0 }, { x: mdata[mdata.length - 1].x, y: 0 }];
   }
 
   draw() {
@@ -70,23 +67,40 @@ export class HistoricalGraphDirective implements OnInit {
       .attr("class", "graphContainer");
     //console.log("Width ", this.graphData);
     let svg = graphHolder
-                  .append("svg")
-                  .attr('width', this.width)
-                  .attr('height', this.height)
-                  .attr('class', 'svgContainer');
+      .append("svg")
+      .attr("width", this.width+(this.margin.left + this.margin.right))
+      .attr("height", this.height + (this.margin.top + this.margin.bottom))
+      .attr("class", "svgContainer")
+      // .attr("style", "border: 1px solid #c00")
+      .on("mouseover", e => {
+        console.log("ON Mouse Over", e, $(this.element).find('circle'));
+        let element = $(this.element);
+        element.find("circle").addClass("active");
+        element.find("text").addClass("active");
+      })
+      .on("mouseout", e => {
+        console.log("ON Mouse Out", e, this);
+        let element = $(this.element);
+        if (element.find('circle').hasClass('active')){
+          element.find("circle").removeClass("active");
+        }
+        if (element.find('text').hasClass('active')) {
+          element.find("text").removeClass("active");
+        }
+       });
     const metaData = this.generateMetaData(this.graphData);
     const meanLine = this.getMeanLine(metaData, this.threshold);
     const baseLine = this.getBaseLine(metaData);
     console.log("Meta Data", metaData, meanLine);
 
-    let x = d3.scaleLinear().range([0, this.width]);
-    let y = d3.scaleLinear().range([this.height, 0]);
+    let x = d3.scaleLinear().range([0, this.width-(this.margin.left+this.margin.right)]);
+    let y = d3.scaleLinear().range([this.height-(this.margin.top+this.margin.bottom), 0]);
 
     let g = svg
       .append("g")
       .attr(
         "transform",
-        "translate(" + this.margin.left + ", " + this.margin.top + ")"
+        "translate(5, 10)"
       );
 
     let line = d3
@@ -107,7 +121,7 @@ export class HistoricalGraphDirective implements OnInit {
         return d.y;
       })
     );
-      // Filling Area with color
+    // Filling Area with color
     g.append("path")
       .datum(metaData)
       .attr("fill", "#4682b422")
@@ -117,12 +131,11 @@ export class HistoricalGraphDirective implements OnInit {
       .attr("stroke-width", 0)
       .attr("d", line);
 
-
-      // Drawing thick line above ARea
-      let newLineData = metaData;
-      newLineData.shift();
-      newLineData.pop();
-      console.log("New Line", newLineData);
+    // Drawing thick line above ARea
+    let newLineData = metaData;
+    newLineData.shift();
+    newLineData.pop();
+    console.log("New Line", newLineData);
 
     g.append("path")
       .datum(newLineData)
@@ -148,13 +161,13 @@ export class HistoricalGraphDirective implements OnInit {
       .attr("class", "marker markerCircle")
       .attr("fill", "steelblue");
 
-      // Creating Label for each point
+    // Creating Label for each point
     g.selectAll("text")
       .data(metaData)
       .enter()
       .append("text")
-      .attr('class', 'marker markerLabel')
-      .attr('font-size', '10px')
+      .attr("class", "marker markerLabel")
+      .attr("font-size", "10px")
       .attr("x", function(d) {
         return x(d.x);
       })
@@ -164,7 +177,7 @@ export class HistoricalGraphDirective implements OnInit {
       .text(function(d) {
         return d.y;
       });
-  // Drawign mean line for Treshould
+    // Drawign mean line for Treshould
     g.append("path")
       .datum(meanLine)
       .attr("fill", "none")
