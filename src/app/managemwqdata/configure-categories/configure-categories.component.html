@@ -64,8 +64,9 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
         <div class="col-8">
-          <input class="form-control is-invalid" type="text" placeholder="Category Name" [(ngModel)]="categoryInfo.categoryName"
-            id="example-text-input" name="categoryName"  #categoryName="ngModel" [ngClass]="{'is-invalid': (f.submitted && categoryName.invalid)}" required>
+          <input type="text" placeholder="Category Name" name="categoryName" id="example-text-input"
+                 class="form-control is-invalid" [ngClass]="{'is-invalid': (f.submitted && categoryName.invalid)}" 
+                 [(ngModel)]="categoryInfo.categoryName" #categoryName="ngModel" required>
         </div>
       </div>
 
@@ -80,7 +81,7 @@
         </div>
       </div>
     </div>
-    </form>
+    
     <div class="modalFooter">
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
@@ -92,5 +93,6 @@
         </div>
       </div>
     </div>
+  </form>
   </div>
 </div>

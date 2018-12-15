@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'ms-configure-parameters',
@@ -16,7 +17,8 @@ export class ConfigureParametersComponent implements OnInit {
   parametersListDetails = [];
   parametersListResp: any;
   modalShowWindow: Boolean = false;
-
+  @ViewChild(NgForm) f: NgForm;
+  
   configureParam: any = {
     parameterId: "", parameterName: "", units: "", groupId: "",
     minValue: "", maxValue: "", thresholdValue: "", meanValue: "",
@@ -64,6 +66,7 @@ export class ConfigureParametersComponent implements OnInit {
   }
   closeModal() {
     this.modalShowWindow = false;
+    this.f.resetForm();
   }
 
   addConfigureParam(configureParam) {
@@ -74,5 +77,4 @@ export class ConfigureParametersComponent implements OnInit {
       //alert("---"+resp)
     });
   }
-
 }

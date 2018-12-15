@@ -12,9 +12,9 @@ export class HistoricalGraphDirective implements OnChanges {
   @Input("threshold") threshold: any;
   margin: any = {
     top: 3,
-    right: 3,
+    right: 10,
     bottom: 3,
-    left: 3
+    left: 0
   };
   width: any = 148 - (this.margin.left + this.margin.right);
   height: any = 31 - (this.margin.top + this.margin.bottom);
@@ -73,17 +73,17 @@ export class HistoricalGraphDirective implements OnChanges {
       .attr("class", "svgContainer")
       // .attr("style", "border: 1px solid #c00")
       .on("mouseover", e => {
-        console.log("ON Mouse Over", e, $(this.element).find('circle'));
+        //console.log("ON Mouse Over", e, $(this.element).find('circle'));
         let element = $(this.element);
-        element.find("circle").addClass("active");
+        // element.find("circle").addClass("active");
         element.find("text").addClass("active");
       })
       .on("mouseout", e => {
-        console.log("ON Mouse Out", e, this);
+        //console.log("ON Mouse Out", e, this);
         let element = $(this.element);
-        if (element.find('circle').hasClass('active')){
+        /* if (element.find('circle').hasClass('active')){
           element.find("circle").removeClass("active");
-        }
+        } */
         if (element.find('text').hasClass('active')) {
           element.find("text").removeClass("active");
         }
@@ -91,7 +91,7 @@ export class HistoricalGraphDirective implements OnChanges {
     const metaData = this.generateMetaData(this.graphData);
     const meanLine = this.getMeanLine(metaData, this.threshold);
     const baseLine = this.getBaseLine(metaData);
-    console.log("Meta Data", metaData, meanLine);
+    //console.log("Meta Data", metaData, meanLine);
 
     let x = d3.scaleLinear().range([0, this.width-(this.margin.left+this.margin.right)]);
     let y = d3.scaleLinear().range([this.height-(this.margin.top+this.margin.bottom), 0]);
@@ -135,7 +135,7 @@ export class HistoricalGraphDirective implements OnChanges {
     let newLineData = metaData;
     newLineData.shift();
     newLineData.pop();
-    console.log("New Line", newLineData);
+    //console.log("New Line", newLineData);
 
     g.append("path")
       .datum(newLineData)

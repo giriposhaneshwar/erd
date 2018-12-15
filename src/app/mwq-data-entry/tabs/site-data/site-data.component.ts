@@ -179,13 +179,12 @@ export class SiteDataComponent implements OnInit {
       this.sourceDepthResp = restItems;
       this.sourceDepthDetails = this.sourceDepthResp.GetSourceDepthResult.getSourceDepthList[0].depthvalue;
       this.sampleInformation.sampleSource = this.sourceDepthDetails;
-      //console.log("----sourceDepthDetails----", this.sourceDepthDetails + "--------" + this.sampleInformation.sampleSource);
     });
   }
 
 
   onchangeSiteName(selectedSiteId) {
-    console.log("Selected Site Name-----"+selectedSiteId);
+    console.log("Selected Site Name-----" + selectedSiteId);
     this.mwqDataEntryService.fetchSelectedSiteDefaultValue(selectedSiteId).subscribe((restItems) => {
       this.siteDefaultValueResp = restItems;
       this.siteDefaultValueDetails = this.siteDefaultValueResp.GetSiteDefaultValueResult.siteDefaultValueList[0].defaultsitevalue;

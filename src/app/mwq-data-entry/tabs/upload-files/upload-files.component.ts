@@ -5,6 +5,8 @@ import { Config } from "../../../appConfiguration/config";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
 import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 import { MwqDataEntryService } from './../../mwq-data-entry.service';
+// import { FormData } from 'form-data';
+// import * as fs from 'fs';
 
 @Component({
   selector: "ms-upload-files",
@@ -62,13 +64,23 @@ export class UploadFilesComponent implements OnInit {
   }
 
   fileChanged(e) {
-    this.file = e.target.files[0];
-    console.log("File Changed --", this.file.name, this.file.size);
-    //var r = new FileReader();
-    // r.onload = function () { alert(r.result); };
-    //r.readAsBinaryString(this.file);
-    console.log("---------", this.file);
-    this.api.postFileUpload(this.file).subscribe((resp) => {
+    let uploadedFile = e.target.files;
+    // let formData = this.localStore.store.get("dataEntry");
+    let form = new FormData();
+
+    if (uploadedFile.length > 1) {
+      for (let i = 0; i < uploadedFile.length; i++) {
+        let item = uploadedFile[i];
+        form.append("file" + i, item);
+      }
+    } else {
+      form.append('file', uploadedFile[0]);
+    }
+    // form.append('my_file', fs.createReadStream('/foo/bar.jpg'));
+    // const dummy = {test: "testing", id: 1, name: "test name"};
+    // form.append("dataEntry", JSON.stringify(formData));
+    console.log("---------", this.file, JSON.stringify(form));
+    this.api.postFileUpload(form).subscribe((resp) => {
       console.log("----resp----", resp);
     });
     //this.uploadDocument(this.file)

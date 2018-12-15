@@ -22,23 +22,22 @@ export class MwqDataEntryService {
     return this.http.post<any[]>(this.apiUrl + "/GetCategory", bodyParams, { headers: headers_value })
   }
   postFileUpload(file): Observable<any[]> {
-    let bodyParams = {file};
+    console.log(file)
+    let bodyParams = { file };
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     headers_value = headers_value.set("Content-Type", "multipart/form-data");
-  //  headers_value = headers_value.set("Content-Disposition", "form-data");
-   // headers_value = headers_value.set("Content-Type", "text/plain ");
-//    headers_value = headers_value.set("Access-Control-Allow-Origin", "*");
-    return this.http.post<any[]>(this.apiUrl +"/SaveFile", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/SaveFile", bodyParams, { headers: headers_value })
+    // return this.http.post<any[]>( "http://localhost:63422/MWQSitesRestServices.svc/SaveFile", bodyParams, { headers: headers_value })
   }
 
   fetchHistoricalGraph(): Observable<any[]> {
-   /*  let bodyParams = {};
-    let headers_value = new HttpHeaders();
-    headers_value = headers_value.set("Content-Type", "application/json");
-    return this.http.post<any[]>(this.apiUrl + "/GetParmsHistrocalData", bodyParams, { headers: headers_value }) */
+    /*  let bodyParams = {};
+     let headers_value = new HttpHeaders();
+     headers_value = headers_value.set("Content-Type", "application/json");
+     return this.http.post<any[]>(this.apiUrl + "/GetParmsHistrocalData", bodyParams, { headers: headers_value }) */
 
-    return this.http.get<any[]>(this.jsonapiUrl+"graph.json").pipe(map(data => data));
+    return this.http.get<any[]>(this.jsonapiUrl + "graph.json").pipe(map(data => data));
   }
 
   fetchParametersValdationValues(): Observable<any[]> {
@@ -47,7 +46,7 @@ export class MwqDataEntryService {
     headers_value = headers_value.set("Content-Type", "application/json");
     return this.http.post<any[]>(this.apiUrl + "/GetparamatersValdationValues", bodyParams, { headers: headers_value })
     */
-   return this.http.get<any[]>(this.jsonapiUrl+"GetparamatersValdationValues.json").pipe(map(data => data));
+    return this.http.get<any[]>(this.jsonapiUrl + "GetparamatersValdationValues.json").pipe(map(data => data));
   }
 
   fetchSiteNameData(): Observable<any[]> {
@@ -60,7 +59,7 @@ export class MwqDataEntryService {
   fetchSourceNameData(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
-    headers_value = headers_value.set('Content-Type', 'application/json');
+    headers_value = headers_value.set('Content-Type', undefined);
     return this.http.post<any[]>(this.apiUrl + "/GetSource", bodyParams, { headers: headers_value })
   }
 
@@ -118,14 +117,14 @@ export class MwqDataEntryService {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl + "/GetSourceDepth ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetSourceDepth", bodyParams, { headers: headers_value })
   }
 
   fetchSelectedSiteDefaultValue(selectedSiteId): Observable<any[]> {
-    let bodyParams = {"siteid":selectedSiteId };
+    let bodyParams = { "siteid": selectedSiteId };
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl + "/GetSiteDefaultValue ", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetSiteDefaultValue", bodyParams, { headers: headers_value })
   }
 
 

@@ -60,7 +60,7 @@ export class GraphComponent implements OnInit {
     debugger;
     const metaData = this.generateMetaData(this.gd);
     const meanLine = this.getMeanLine(metaData, this.threshold);
-    console.log("Meta Data", metaData, meanLine);
+    //console.log("Meta Data", metaData, meanLine);
 
     let x = d3.scaleLinear().range([0, this.width]);
     let y = d3.scaleLinear().range([this.height, 0]);
@@ -106,7 +106,7 @@ export class GraphComponent implements OnInit {
       let newLineData = metaData;
       newLineData.shift();
       newLineData.pop();
-      console.log("New Line", newLineData);
+      //console.log("New Line", newLineData);
 
     g.append("path")
       .datum(newLineData)

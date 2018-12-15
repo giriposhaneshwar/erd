@@ -56,8 +56,8 @@
                     }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Incidentid" [width]="120"></ngx-datatable-column>
-            <ngx-datatable-column name="Createddate" [width]="200">
+            <ngx-datatable-column name="Incident Id" [width]="120"></ngx-datatable-column>
+            <ngx-datatable-column name="Created Date" [width]="200">
               <span class="glyphicon glyphicon-time"></span>{{value}}
             </ngx-datatable-column>
           </ngx-datatable>
@@ -76,11 +76,11 @@
             <tbody class="ng-tns-c6-0">
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Incident Id</td>
-                <td class="ng-tns-c6-0">{{sel.incidentid}}</td>
+                <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
               </tr>
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Incident Name</td>
-                <td class="ng-tns-c6-0">{{sel.incidentname}}</td>
+                <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
               </tr>
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Location (Lat/Long)</td>
@@ -88,27 +88,28 @@
               </tr>
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Description</td>
-                <td class="ng-tns-c6-0">{{sel.locationdescription}}</td>
+                <td class="ng-tns-c6-0">{{sel.locationDescription}}</td>
               </tr>
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
-                <td class="ng-tns-c6-0">{{sel.areacovered}}</td>
+                <td class="ng-tns-c6-0">{{sel.areaCovered}}</td>
               </tr>
-            <!--   <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Station Id</td>
-                <td class="ng-tns-c6-0">{{sel.stationid}}</td>
-              </tr> 
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Station Name</td>
-                <td class="ng-tns-c6-0">{{sel.stationname}}</td>
-              </tr>-->
+      
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Bloom Type</td>
-                <td class="ng-tns-c6-0">{{sel.bloomtype}}</td>
+                <td class="ng-tns-c6-0">{{sel.bloomType}}</td>
               </tr>
               <tr class="ng-tns-c6-0">
                 <td class="ng-tns-c6-0">Affected Species</td>
-                <td class="ng-tns-c6-0">{{sel.affectedspecies}}</td>
+                <td class="ng-tns-c6-0">{{sel.affectedSpecies}}</td>
+              </tr>
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Status</td>
+                <td class="ng-tns-c6-0">{{sel.status}}</td>
+              </tr> 
+              <tr class="ng-tns-c6-0">
+                <td class="ng-tns-c6-0">Created Date</td>
+                <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
               </tr>
             </tbody>
           </table>
@@ -116,6 +117,7 @@
       </div>
     </div>
   </div>
+
   <div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
     <div class="shadowSection" (click)="closeModal()"></div>
     <div class="modalSection">
@@ -127,83 +129,116 @@
           </a>
         </div>
       </div>
+      <form name="form" (ngSubmit)="f.form.valid && createBloomIncident(blommIncidentInfo)" #f="ngForm" novalidate>
       <div class="modalBody">
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Name</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Name" [(ngModel)]="blommIncidentInfo.Name" id="example-text-input">
+          
+          
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Name</label>
+            <div class="col-8">
+              <input type="text"  placeholder="Incident Name" name="Name" 
+                     [(ngModel)]="blommIncidentInfo.Name" #incidentName="ngModel" 
+                     class="form-control" [ngClass]="{ 'is-invalid': f.submitted && incidentName.invalid }" 
+                     required autocomplete="off"/>
+            </div>
           </div>
-        </div>
 
-<!--         <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Station Id</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Station Id" [(ngModel)]="blommIncidentInfo.statId" id="example-text-input">
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
+            <div class="col-8">
+              <input type="text" placeholder="Lattitude" name="lattitude" required autocomplete="off"
+                     [(ngModel)]="blommIncidentInfo.x"  #lattitude="ngModel" 
+                     class="form-control" [ngClass]="{'is-invalid': f.submitted && lattitude.invalid }">
+            </div>
           </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+            <div class="col-8">
+              <input type="text" placeholder="Longitude" name="longitude" required autocomplete="off"
+                    [(ngModel)]="blommIncidentInfo.y" #longitude="ngModel"
+                    class="form-control" [ngClass]="{ 'is-invalid': f.submitted && longitude.invalid }">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Location</label>
+            <div class="col-8">
+              <input type="text" placeholder="Location" name="location" required autocomplete="off"
+                     [(ngModel)]="blommIncidentInfo.location"  #location="ngModel"
+                     class="form-control" [ngClass]="{ 'is-invalid': f.submitted && location.invalid }">
+            </div>
+          </div>
+
+         <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Area Covered</label>
+            <div class="col-8">
+              <input type="text" placeholder="Area Covered" name="areaCovered" required autocomplete="off"
+                    [(ngModel)]="blommIncidentInfo.areacovered" #areaCovered="ngModel"
+                    class="form-control" [ngClass]="{ 'is-invalid': f.submitted && areaCovered.invalid }">
+            </div>
+          </div>
+
+           <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Bloom Type</label>
+            <div class="col-8">
+              <input type="text" placeholder="Bloom Type" name="bloomType" required autocomplete="off"
+                     [(ngModel)]="blommIncidentInfo.bloomtype" #bloomType="ngModel"
+                     class="form-control" [ngClass]="{ 'is-invalid': f.submitted && bloomType.invalid }">
+            </div>
+          </div>
+
+         <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Affected Species</label>
+            <div class="col-8">
+              <input  type="text" placeholder="Affected Species" name="affectedSpecies" required autocomplete="off"
+                      [(ngModel)]="blommIncidentInfo.AffectedSpecies" #affectedSpecies="ngModel"
+                      class="form-control" [ngClass]="{ 'is-invalid': f.submitted && affectedSpecies.invalid }">
+            </div>
+          </div>
+
+         <div class="form-group row">
+            <label for="example-text-input" class="col-3 col-form-label">Remarks</label>
+            <div class="col-8">
+             <textarea  type="text" placeholder="Remarks" name="remarks" required autocomplete="off"
+                     [(ngModel)]="blommIncidentInfo.Remarks" #remarks="ngModel"
+                     class="form-control" [ngClass]="{ 'is-invalid': f.submitted && remarks.invalid }"></textarea>
+            </div>
+        </div>
+        <!-- <div class="form-group row">
+              <label for="example-text-input"  class="col-3 col-form-label">Status</label>
+              <div class="col-8">
+                <select class="form-control" name="Status" [(ngModel)]="blommIncidentInfo.Status" #Status="ngModel" 
+                        [ngClass]="{'is-invalid': (f.submitted && Status.invalid)}" required>
+                  <option value="" disabled selected hidden>Select Status</option>
+                  <option value="Active">Active</option>
+                  <option value="InActive">InActive</option>
+                </select>
+              </div>
         </div> -->
+          <!--       <form id='file-catcher'>
+            <input id='file-input' type='file' multiple (change)='fileUpload()'/>
+            <button type='submit' (click)="fileUpload()">
+              Submit
+            </button>
+          </form> -->
+          <!-- <div id='file-list-display'></div> -->
 
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Lattitude" [(ngModel)]="blommIncidentInfo.x" id="example-text-input">
-          </div>
-        </div>
+          <!-- <input type="file" id="file" multiple 
+          (change)="getFileDetails($event)">
 
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Longitude" [(ngModel)]="blommIncidentInfo.y" id="example-text-input">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Location</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Location" [(ngModel)]="blommIncidentInfo.location" id="example-text-input">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Area Covered</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Area Covered" [(ngModel)]="blommIncidentInfo.areacovered"
-              id="example-text-input">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Bloom Type</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Bloom Type" [(ngModel)]="blommIncidentInfo.bloomtype"
-              id="example-text-input">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Affected Species</label>
-          <div class="col-8">
-            <input class="form-control" type="text" placeholder="Affected Species" [(ngModel)]="blommIncidentInfo.AffectedSpecies"
-              id="example-text-input">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="example-text-input" class="col-3 col-form-label">Remarks</label>
-          <div class="col-8">
-            <!-- <input class="form-control" type="text" placeholder="Remarks" [(ngModel)]="blommIncidentInfo.Remarks" id="example-text-input"> -->
-            <textarea rows="4" cols="50" class="form-control" [(ngModel)]="blommIncidentInfo.Remarks" id="example-text-input"></textarea>
-          </div>
-        </div>
+      <button (click)="uploadFiles()">Upload</button> -->
       </div>
       <div class="modalFooter">
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="createAlgolBloomIncident(blommIncidentInfo)">Add</button>
+              <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
             </div>
           </div>
         </div>
       </div>
+    </form>
     </div>
   </div>

@@ -62,15 +62,15 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Param Id</label>
         <div class="col-8">
-          <input class="form-control"  type="text" placeholder="Param Id" [(ngModel)]="configureParam.parameterId" 
+          <input class="form-control is-invalid"  type="text" placeholder="Param Id" [(ngModel)]="configureParam.parameterId" 
           id="example-text-input"  name="parameterId"  #parameterId="ngModel" [ngClass]="{'is-invalid': (f.submitted && parameterId.invalid)}" required>
         </div>
       </div>
 
       <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Param Name</label>
+        <label for="example-text-input " class="col-3 col-form-label">Param Name</label>
         <div class="col-8">
-          <input class="form-control" name="parameterName" type="text" placeholder="Param Name" [(ngModel)]="configureParam.parameterName"
+          <input class="form-control is-invalid" name="parameterName" type="text" placeholder="Param Name" [(ngModel)]="configureParam.parameterName"
             id="example-text-input" #parameterName="ngModel" [ngClass]="{'is-invalid': (f.submitted && parameterName.invalid)}" required >
         </div>
       </div>
@@ -78,7 +78,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Units</label>
         <div class="col-8">
-          <input class="form-control" name="units" type="text" placeholder="Units" [(ngModel)]="configureParam.units" id="example-text-input"
+          <input class="form-control is-invalid" name="units" type="text" placeholder="Units" [(ngModel)]="configureParam.units" id="example-text-input"
           name="units" #units="ngModel" [ngClass]="{'is-invalid': (f.submitted && units.invalid)}" required>
         </div> 
       </div>
@@ -86,7 +86,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Group Id</label>
         <div class="col-8">
-          <input class="form-control" name="groupId" type="text" placeholder="Group Id" [(ngModel)]="configureParam.groupId" id="example-text-input"
+          <input class="form-control is-invalid" name="groupId" type="text" placeholder="Group Id" [(ngModel)]="configureParam.groupId" id="example-text-input"
           name="groupId" #groupId="ngModel" [ngClass]="{'is-invalid': (f.submitted && groupId.invalid)}" required>
         </div>
       </div>
@@ -94,7 +94,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Min Value</label>
         <div class="col-8">
-          <input class="form-control" name="minValue" type="text" placeholder="Min Value" [(ngModel)]="configureParam.minValue" id="example-text-input"
+          <input class="form-control is-invalid" name="minValue" type="text" placeholder="Min Value" [(ngModel)]="configureParam.minValue" id="example-text-input"
           name="minValue" #minValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && minValue.invalid)}" required>
         </div>
       </div>
@@ -102,7 +102,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Max Value</label>
         <div class="col-8">
-          <input class="form-control" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue" id="example-text-input"
+          <input class="form-control is-invalid" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue" id="example-text-input"
           name="maxValue" #maxValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" required>
         </div>
       </div>
@@ -110,7 +110,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Threshold Value</label>
         <div class="col-8">
-          <input class="form-control" name="thresholdValue"  type="text" placeholder="Threshold Value" [(ngModel)]="configureParam.thresholdValue"
+          <input class="form-control is-invalid" name="thresholdValue"  type="text" placeholder="Threshold Value" [(ngModel)]="configureParam.thresholdValue"
             id="example-text-input" name="thresholdValue" #thresholdValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && thresholdValue.invalid)}" required>
         </div>
       </div>
@@ -118,7 +118,7 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Mean Value</label>
         <div class="col-8">
-          <input class="form-control" name="meanValue" type="text" placeholder="Mean Value" [(ngModel)]="configureParam.meanValue" id="example-text-input" 
+          <input class="form-control is-invalid" name="meanValue" type="text" placeholder="Mean Value" [(ngModel)]="configureParam.meanValue" id="example-text-input" 
           name="meanValue" #meanValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && meanValue.invalid)}" required>
         </div>
       </div>
@@ -126,33 +126,34 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Std Dev Value</label>
         <div class="col-8">
-          <input class="form-control" name="stdDevValue" type="text" placeholder="Std Dev Value" [(ngModel)]="configureParam.stdDevValue"
-            id="example-text-input" name="stdDevValue" #stdDevValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && stdDevValue.invalid)}" required>
+          <input class="form-control is-invalid" name="stdDevValue" type="text" placeholder="Standard Deviation Value" [(ngModel)]="configureParam.stdDevValue"
+            id="example-text-input" #stdDevValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && stdDevValue.invalid)}" required>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label for="example-text-input"  class="col-3 col-form-label">Status</label>
-        <div class="col-8">
-          <select class="form-control" name="Status" [(ngModel)]="configureParam.Status" name="Status" #Status="ngModel" [ngClass]="{'is-invalid': (f.submitted && Status.invalid)}" required>
-            <option value="" disabled selected hidden>Select Status</option>
-            <option value="Active">Active</option>
-            <option value="InActive">InActive</option>
-          </select>
-        </div>
+     <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Status</label>
+          <div class="col-8">
+            <select class="form-control is-invalid" [(ngModel)]="configureParam.status" name="status"  
+                    #status="ngModel" [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
+              <option value="" disabled selected hidden>Select Status</option>
+              <option value="Active">Active</option>
+              <option value="InActive">InActive</option>
+            </select>
+          </div>
       </div>
     </div>
-    </form>
+    
     <div class="modalFooter">
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
-            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="addConfigureParam(configureParam)">Add</button> -->
             <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
           </div>
         </div>
       </div>
     </div>
+  </form>
   </div>
 </div>

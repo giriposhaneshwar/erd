@@ -493,7 +493,7 @@
     }
 }
 .marker {
-    &.markerCircle, &.markerLabel{
+    &.markerLabel{
         display: none;
         &.active {
             display: block;

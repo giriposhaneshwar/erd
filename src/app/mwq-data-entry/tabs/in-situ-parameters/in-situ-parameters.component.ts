@@ -145,7 +145,7 @@ export class InSituParametersComponent implements OnInit {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    console.log(this.form.value);
+    //console.log(this.form.value);
     console.log("At Save Screen");
   }
 
