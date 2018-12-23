@@ -7,6 +7,9 @@ import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 import { FormGroup, NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
 import * as moment from 'moment';
+import * as $ from 'jquery';
+import { Config } from 'app/appConfiguration/config';
+declare var $: any;
 
 @Component({
   selector: 'ms-blooms',
@@ -31,11 +34,16 @@ export class BloomsIncidentComponent implements OnInit {
   bloomsIncidentResp: any;
   value: any;
   newBloomIncidentResp: any;
+  apiUrl: String;
+  domain: String;
 
+  bloomUploadFiles: any[] = [];
+  js = {};
   blommIncidentInfo: any = {
-    Name: "", statId: "", x: "", y: "", location: "", areacovered: "", bloomtype: "",
-    AffectedSpecies: "", CreatedBy: "Admin", Status: "Open", Remarks: "",
+    incidentName: "", stationId: "", lattitude: "", longitude: "", incidentLocation: "", areaCovered: "", bloomType: "",
+    affectedSpecies: "", createdBy: "Admin", status: "Open", remarks: "", upload:[]
   };
+  dateval ='';
 
   columns: any[] = [
     { prop: 'bloomIncidentId' },
@@ -51,14 +59,19 @@ export class BloomsIncidentComponent implements OnInit {
   constructor(public api: MwqDataEntryService,
     private pageTitleService: PageTitleService,
     private incidentsService: IncidentsService,
+    public config: Config,
     public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
+    this.domain = this.config.UPLOAD_URL;
+    this.apiUrl = this.config.API_URL;
+
     var fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
     let toDate = moment().format("YYYY-MM-DD");
 
     console.log(" Current Day ", "----" + toDate);
     console.log(" Last  Three Months " + fromDate);
     this.loadBloomIncidentsData(fromDate, toDate);
+    this.dateForamt() ;
   }
 
   createBloomIncident(blommIncidentInfo) {
@@ -76,10 +89,10 @@ export class BloomsIncidentComponent implements OnInit {
     this.incidentsService.getBloomsIncidentData(fromDate, toDate).subscribe((resp) => {
       this.bloomsIncidentResp = resp;
       this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
-      for (let i = 0; i < this.bloomsIncidentDetails.length; i++) {
+    /*   for (let i = 0; i < this.bloomsIncidentDetails.length; i++) {
         let item = this.bloomsIncidentDetails[i];
         item.createdDate = moment(item.createdDate, "MM/DD/YYYY h:mm:ss a").fromNow();
-      }
+      } */
       this.selectedRow = [this.bloomsIncidentDetails[1]];
       this.temp = [...this.bloomsIncidentDetails];
     });
@@ -97,7 +110,7 @@ export class BloomsIncidentComponent implements OnInit {
     const val = event.target.value.toLowerCase();
     // filter our data
     const temp = this.temp.filter(function (d) {
-      return d.incidentid.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.incidentId.toLowerCase().indexOf(val) !== -1 || !val;
     });
     // update the rows
     this.bloomsIncidentDetails = temp;
@@ -105,18 +118,6 @@ export class BloomsIncidentComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  createAlgolBloomIncident(blommIncidentInfo) {
-    console.log("---------" + JSON.stringify(blommIncidentInfo));
-    this.incidentsService.addBloomsIncidentInfo(blommIncidentInfo).subscribe((resp) => {
-      console.log(resp);
-      if (this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult === 'sucess') {
-        this.toastr.success(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created Successfully");
-      }
-      else {
-        this.toastr.error(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created failed");
-      }
-    });
-  }
 
   addTableRow() {
     this.openModal();
@@ -130,89 +131,93 @@ export class BloomsIncidentComponent implements OnInit {
     this.f.resetForm();
   }
 
-  myFiles = [];
-  getFileDetails(e) {
-    //console.log (e.target.files);
-    for (var i = 0; i < e.target.files.length; i++) {
-      this.myFiles.push(e.target.files[i]);
-    }
-  }
-
-  uploadFiles() {
-    const frmData = new FormData();
-    for (var j = 0; j < this.myFiles.length; j++) {
-      frmData.append("file", this.myFiles[j]);
-      frmData.append("name", this.myFiles[j].name);
-    }
-    console.log(frmData)
-    this.api.postFileUpload(frmData).subscribe((resp) => {
-      console.log("----resp----", resp);
-    });
-    // console.log(frmData)
-  }
-  /*
-    selectedFiles: FileList;
-    currentFileUpload: File;
-    selectFile(event) {
-      this.selectedFiles = event.target.files;
-      // console.log(this.selectedFiles)
-    }
   
-    upload() {
-      this.currentFileUpload = this.selectedFiles.item(0);
-      const formdata: FormData = new FormData();
-      formdata.append('file',this.selectedFiles.item(0));
-      console.log(formdata)
-      this.api.postFileUpload(formdata).subscribe((resp) => {
-        console.log("----resp----", resp);
-      });
-      // this.selectedFiles = undefined;
-    }*/
-  //    fileUpload() {
+  fileChanged(e) {
+    let uploadedFile = e.target.files;
+    console.log("Body SElection", $('body'));
+    let that = this;
+    let data = new FormData();
+    $.each($('.uploadFile')[0].files, function (i, file) {
+      // debugger;
+      data.append('file-' + i, file);
+    });
+    // debugger;
+    $.ajax({
+      url: that.config.API_URL + "/SaveFile",
+      data: data,
+      cache: false,
+      contentType: 'multipart/form-data',
+      processData: false,
+      type: 'POST',
+      success: function (data) {
+        console.log("Response Data", data);
+        let files = data.SaveFileResult.clsUploadFilesl;
 
-  //     let fileCatcher = document.getElementById('file-catcher');
-  //     let fileInput = document.getElementById('file-input');
-  //     let fileListDisplay = document.getElementById('file-list-display');
+        // debugger;
+        if (files.length > 0) {
+          for (let i = 0; i < files.length; i++) {
+            let item = files[i];
+            item['downloadLink'] = that.domain;
+            that.bloomUploadFiles.push(item);
+            that.blommIncidentInfo.upload.push(item);
+          }
+          console.log("Uploaded fileds", that.blommIncidentInfo.upload)
+        } else {
+          // if no files in response throw error message
+        }
 
-  // console.log(fileInput)
-  //     let fileList = [];
-  //     let renderFileList, sendFile;
+        // that.uploadFileList.push()
+        // alert(data);
+      }
+    });
+  }
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
+  }
+  createAlgolBloomIncident(blommIncidentInfo) {
+    this.js["clsMWQAlgalbloomIncident"] = blommIncidentInfo;
+    console.log("---------" + JSON.stringify(this.js));
+    this.incidentsService.addBloomsIncidentInfo(this.js).subscribe((resp) => {
+      this.newBloomIncidentResp =resp;
+      
+      if (this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult === 'sucess') {
+        this.newBloomIncidentResp ="Incident Created Successfully"
+        this.toastr.success(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created Successfully");
+      }
+      else {
+        this.newBloomIncidentResp ="Incident Created failed"
+        this.toastr.error(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created failed");
+      }
+    });
+    this.f.resetForm();
+    this.closeModal();
+    var fromDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+    let toDate = moment().format("YYYY-MM-DD");
+    this.loadBloomIncidentsData(fromDate, toDate);
+  }
 
-  //     fileCatcher.addEventListener('submit', function (evnt) {
+  lattitudeKeyPress(event: any) {
+    const pattern = '^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}';
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.match(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
-  //       evnt.preventDefault();
-  //       fileList.forEach(function (file) {
+  longitudeKeyPress(event: any) {
+    const pattern = '^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}';
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.match(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
-  //         sendFile(file);
-  //       });
-  //     });
-
-  //     fileInput.addEventListener('change', function (evnt) {
-  //       alert()
-  //       fileList = [];
-  //       // for (let i = 0; i < fileInput.files.length; i++) {
-  //       //   fileList.push(fileInput.files[i]);
-  //       // }
-  //       renderFileList();
-  //     });
-
-  //     renderFileList = function () {
-
-  //       fileListDisplay.innerHTML = '';
-  //       fileList.forEach(function (file, index) {
-  //         let fileDisplayEl = document.createElement('p');
-  //         fileDisplayEl.innerHTML = (index + 1) + ': ' + file.name;
-  //         fileListDisplay.appendChild(fileDisplayEl);
-  //       });
-  //     };
-
-  sendFile = function (file) {
-    alert()
-    let formData = new FormData();
-    let request = new XMLHttpRequest();
-
-    formData.set('file', file);
-    request.open("POST", 'http://localhost/MWQWebservice/MWQSitesRestServices.svc/SaveFile');
-    request.send(formData);
-  };
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
 } 

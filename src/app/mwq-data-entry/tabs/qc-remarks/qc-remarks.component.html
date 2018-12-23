@@ -12,8 +12,9 @@
     <div style="margin-top:2%">
       Qc Status:
       <select [(ngModel)]="sampleInformation.statusId">
-        <option value="3" selected="selected">Approved</option>
-        <option value="4">Rejected</option>
+          <option value="" disabled selected hidden>Select Status</option>
+          <option value="3">Approved</option>
+          <option value="4">Rejected</option>
       </select>
     </div>
   </div>

@@ -69,9 +69,9 @@ export class ManageMwqDataService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetStationsList", bodyParams, { headers: headers_value })
   }
-  addStationInfo(categoryInfo): Observable<any[]> {
-    let bodyParams = JSON.stringify(categoryInfo);
-    console.log("---addCategoryInfo-addCategoryInfo-----" + bodyParams);
+  addStationInfo(stationInfo): Observable<any[]> {
+    let bodyParams = JSON.stringify(stationInfo);
+    //console.log("---addCategoryInfo-addCategoryInfo-----" + bodyParams);
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/StationsCreate", bodyParams, { headers: headers_value })

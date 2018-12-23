@@ -16,11 +16,12 @@ import { ToastsManager } from 'ng6-toastr';
   animations: [fadeInAnimation]
 })
 export class AlertsComponent implements OnInit {
-
+  dateval ='';
   selected = [];
   alertsDetails = [];
   alertsResp: any;
-
+  fromDateFilter :any;
+  toDateFilter:any;
   newBuoysIncidentDetails = [];
   newBuoysIncidentResp: any;
 
@@ -36,7 +37,7 @@ export class AlertsComponent implements OnInit {
   constructor(private pageTitleService: PageTitleService, 
     private alertService: AlertService,
     public toastr: ToastsManager, vcr: ViewContainerRef) {
-
+      this.dateForamt();
       this.toastr.setRootViewContainerRef(vcr);
       var fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
       let toDate = moment().format("YYYY-MM-DD");
@@ -44,12 +45,16 @@ export class AlertsComponent implements OnInit {
       console.log(" Current Day ", "----" + toDate);
       console.log(" Last  Three Months " + fromDate);
       this.loadAlertsData(fromDate, toDate);
+
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
-
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
+  }
   loadAlertsData(fromDate, toDate): void {
     this.alertService.getAlertsData(fromDate, toDate).subscribe((resp) => {
       this.alertsResp = resp;

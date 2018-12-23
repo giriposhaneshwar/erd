@@ -24,3 +24,7 @@
         font-size: 10px;
     }
 }
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #C00000;
+}

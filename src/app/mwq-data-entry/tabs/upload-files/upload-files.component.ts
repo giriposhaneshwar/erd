@@ -5,8 +5,8 @@ import { Config } from "../../../appConfiguration/config";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
 import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 import { MwqDataEntryService } from './../../mwq-data-entry.service';
-// import { FormData } from 'form-data';
-// import * as fs from 'fs';
+import * as $ from 'jquery';
+declare var $: any;
 
 @Component({
   selector: "ms-upload-files",
@@ -21,6 +21,12 @@ export class UploadFilesComponent implements OnInit {
 
   module: String;
   uploadFile: any;
+  uploadFileList: any[] = [];
+  finalUploads: any[] = [];
+  apiUrl: String;
+  domain: String;
+  addedFilesList: any[] = [];
+  deletedFilesList: any[] = [];
 
   sampleInformation: any = {
     dataEntryComments: ""
@@ -29,6 +35,7 @@ export class UploadFilesComponent implements OnInit {
   file: any;
 
   saveMwqDataEntryResp: any;
+  fielDeleteInfoResp: any;
   constructor(
     public route: Router,
     public config: Config,
@@ -38,6 +45,8 @@ export class UploadFilesComponent implements OnInit {
     public api: MwqDataEntryService,
   ) {
     this.toastr.setRootViewContainerRef(vcr);
+    this.domain = this.config.UPLOAD_URL;
+    this.apiUrl = this.config.API_URL;
   }
 
   ngOnInit() {
@@ -48,16 +57,28 @@ export class UploadFilesComponent implements OnInit {
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
       this.dataEntry = localData.data;
+
+      this.dataEntry['upload'] = (this.dataEntry.hasOwnProperty('upload')) ? this.dataEntry.upload : [];
+      this.dataEntry['AddFiles'] = (this.dataEntry.hasOwnProperty('AddFiles')) ? this.dataEntry.AddFiles : [];
+      this.dataEntry['DeleteFiles'] = (this.dataEntry.hasOwnProperty('DeleteFiles')) ? this.dataEntry.DeleteFiles : [];
+      this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       if (this.dataEntry.hasOwnProperty(this.uploadFilesInfoKey)) {
         this.sampleInformation = this.dataEntry[this.uploadFilesInfoKey];
+        this.uploadFileList = (this.dataEntry["upload"] !== undefined) ? this.dataEntry["upload"] : [];
+
       } else {
         this.dataEntry = {};
         this.dataEntry[this.uploadFilesInfoKey] = this.sampleInformation;
+        this.dataEntry['AddFiles'] = [];
+        this.dataEntry['DeleteFiles'] = [];
         this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       }
+
     } else {
       this.dataEntry = {};
       this.dataEntry[this.uploadFilesInfoKey] = this.sampleInformation;
+      this.dataEntry['AddFiles'] = [];
+      this.dataEntry['DeleteFiles'] = [];
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
@@ -65,66 +86,49 @@ export class UploadFilesComponent implements OnInit {
 
   fileChanged(e) {
     let uploadedFile = e.target.files;
-    // let formData = this.localStore.store.get("dataEntry");
-    let form = new FormData();
+    // console.log("Body SElection", $('body'));
+    let that = this;
+    let data = new FormData();
+    $.each($('.uploadFile')[0].files, function (i, file) {
+      console.log("-------file info-------" + i, file);
+      data.append('file-' + i, file);
 
-    if (uploadedFile.length > 1) {
-      for (let i = 0; i < uploadedFile.length; i++) {
-        let item = uploadedFile[i];
-        form.append("file" + i, item);
-      }
-    } else {
-      form.append('file', uploadedFile[0]);
-    }
-    // form.append('my_file', fs.createReadStream('/foo/bar.jpg'));
-    // const dummy = {test: "testing", id: 1, name: "test name"};
-    // form.append("dataEntry", JSON.stringify(formData));
-    console.log("---------", this.file, JSON.stringify(form));
-    this.api.postFileUpload(form).subscribe((resp) => {
-      console.log("----resp----", resp);
+
     });
-    //this.uploadDocument(this.file)
-  }
+    // debugger;
+    $.ajax({
+      url: that.config.API_URL + "/SaveFile",
+      data: data,
+      cache: false,
+      contentType: 'multipart/form-data',
+      processData: false,
+      type: 'POST',
+      success: function (data) {
+        // debugger;
+        console.log("Response Data", data);
+        let files = data.SaveFileResult.clsUploadFilesl;
+        // debugger;
+        if (files.length > 0) {
+          for (let i = 0; i < files.length; i++) {
+            let item = files[i];
+            that.uploadFileList.push(item);
+            that.addedFilesList.push(item);
+          }
+          let jsonMwqDataEntryInfo = that.localStore.store.get(that.dataEntryKey);
+          that.dataEntry = jsonMwqDataEntryInfo.data;
 
-  uploadDocument(file1) {
-    // files is a FileList object (similar to NodeList)
-    // object for allowed media types
-    var accept = {
-      binary: ["image/png", "image/jpeg"],
-      text: ["text/plain", "text/css", "application/xml", "text/html"]
-    };
+          console.log("Added files ", that.addedFilesList);
+          that.dataEntry['upload'] = that.uploadFileList;
+          that.dataEntry['AddFiles'] = that.addedFilesList;
+          // that.dataEntry["DeleteFiles"] = this.deletedFilesList;
+          that.localStore.store.set(that.dataEntryKey, that.dataEntry);
+        } else {
+          // if no files in response throw error message
+        }
 
-    for (var i = 0; i < file1.length; i++) {
-      let uploadedFileData = file1[i];
-      // if file type could be detected
-      if (uploadedFileData !== null) {
-        let data = uploadedFileData.getAsBinary();
-        console.log("---------", data, "---------", this.file);
-        this.api.postFileUpload(data).subscribe((resp) => {
-          console.log("----resp----", resp);
-        });
+        // that.uploadFileList.push()
+        // alert(data);
       }
-    }
-  }
-
-  uploadFileMethod(evt, data) {
-    let uploadedFile = evt.target.files;
-    let formData = this.localStore.store.get("dataEntry");
-    let fd = new FormData();
-
-    if (uploadedFile.length > 1) {
-      for (let i = 0; i < uploadedFile.length; i++) {
-        let item = uploadedFile[i];
-        fd.append("file" + i, item);
-      }
-    } else {
-      fd.append('file', uploadedFile[0]);
-    }
-    // const dummy = {test: "testing", id: 1, name: "test name"};
-    fd.append("dataEntry", JSON.stringify(formData));
-    console.log("Uploaded file", evt, data, fd);
-    this.api.postFileUpload(data).subscribe(resp => {
-      console.log("----postFileUpload----", resp);
     });
   }
 
@@ -144,13 +148,16 @@ export class UploadFilesComponent implements OnInit {
 
 
   dataEntrySave(sampleInformation) {
-    this.dataEntry[this.uploadFilesInfoKey] = sampleInformation;
-    this.js["jsonInput"] = this.dataEntry;
-    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
-    /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
-    console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
-    console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo)); */
+    let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
+    let dataEntry = jsonMwqDataEntryInfo.data;
+
+    dataEntry[this.uploadFilesInfoKey] = sampleInformation;
+    this.js["jsonInput"] = dataEntry;
+    // this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+
+    //console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
+    console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo));
     this.saveMwqData(this.js);
   }
 
@@ -183,6 +190,36 @@ export class UploadFilesComponent implements OnInit {
       this.saveMwqDataEntryResp = resp;
       console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp);
       this.toastr.success(this.saveMwqDataEntryResp.loadDataResult, "Success");
+    });
+  }
+
+  fileDelete(fileName, indexValue) {
+    console.log("--------" + fileName + " ---------------- " + indexValue);
+    this.api.fileDeleteTemp(fileName).subscribe((resp) => {
+      this.fielDeleteInfoResp = resp;
+      console.log("----fielDeleteInfoResp----", this.fielDeleteInfoResp.FileDeleteResult);
+
+      // let localData = this.localStore.store.get(this.dataEntryKey);
+      if (this.fielDeleteInfoResp.FileDeleteResult === "File deleted Successfully") {
+        this.deletedFilesList.push(this.uploadFileList[indexValue]);
+        this.uploadFileList.splice(indexValue, 1);
+        // debugger;
+        for (let i = 0; i < this.addedFilesList.length; i++) {
+          let file = this.addedFilesList[i];
+          if (file.fileStoreName === fileName) {
+            this.addedFilesList.splice(i, 1);
+            break;
+          }
+        }
+        this.dataEntry["AddFiles"] = this.addedFilesList;
+        this.dataEntry["DeleteFiles"] = this.deletedFilesList;
+        console.log("Deleted Files", this.deletedFilesList);
+        this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+        this.toastr.success(this.fielDeleteInfoResp.FileDeleteResult, "Success");
+      }
+      else {
+        this.toastr.error(this.fielDeleteInfoResp.FileDeleteResult, "Failed");
+      }
     });
   }
 }

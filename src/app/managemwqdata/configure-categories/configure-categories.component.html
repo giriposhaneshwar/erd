@@ -21,20 +21,20 @@
       <div class="widget-body">
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'" [rowHeight]="30"
           [rows]="categoryListDetails">
-          <ngx-datatable-column name="Category Id" [width]="150">
+          <ngx-datatable-column name="Category Id" [width]="300">
             <ng-template let-value="value" ngx-datatable-cell-template>
               {{value}}
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Category Name" [width]="500">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{value}}
+                <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Status" [width]="300">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                {{value}}
+                  <div class="text-center">{{value}}</div>
               </span>
               <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
@@ -73,7 +73,8 @@
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Status</label>
         <div class="col-8">
-          <select class="form-control is-invalid" [(ngModel)]="categoryInfo.status" name="status"  #status="ngModel" [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
+          <select class="form-control is-invalid" [(ngModel)]="categoryInfo.status" 
+                  name="catStatus"  #status="ngModel" [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
             <option value="" disabled selected hidden>Select Status</option>
             <option value="Active">Active</option>
             <option value="InActive">InActive</option>
@@ -87,7 +88,6 @@
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
             <button class="btn btn-primary gap gap-5 gap-lr" >Add</button>
-            <!-- <button class="btn btn-primary gap gap-5 gap-lr">Add</button> -->
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
           </div>
         </div>

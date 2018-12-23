@@ -20,6 +20,12 @@
     color: #000 !important;
 }
 
+.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell{
+    white-space: pre-wrap;
+    font-weight: bold;
+    text-align: center;
+}
+
 .gap {
     &.gap-5 {
         &.gap-lr {
@@ -387,6 +393,8 @@
     .modalBody{
         display: block;
         margin-top: 15px;
+        height: 350px;
+        overflow-y: scroll;
     }
 }
 
@@ -448,8 +456,11 @@
             padding: 8px;
         }
         .modalBody{            
-        min-height: 250px;
-        max-height: 550px;
+            min-height: 250px;
+            max-height: 550px;
+            height: 450px;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
         .modalHeader{
             .title, .closeBtn{

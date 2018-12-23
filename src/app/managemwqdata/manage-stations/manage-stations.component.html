@@ -23,13 +23,13 @@
           [footerHeight]="50" [rowHeight]="30" [rows]="stationsListDetails">
           <ngx-datatable-column name="Id" [width]="100">
             <ng-template let-value="value" ngx-datatable-cell-template>
-              {{value}}
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
 
           <ngx-datatable-column name="Station Id" [width]="200">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{value}}
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Station Name" [width]="300">
@@ -40,19 +40,19 @@
 
           <ngx-datatable-column name="Latitude" [width]="150">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{value}}
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Longitude" [width]="150">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-              {{value}}
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Status">
+          <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                {{value}}
+                <div class="text-center">{{value}}</div>
               </span>
               <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
@@ -77,40 +77,55 @@
         </a>
       </div>
     </div>
-    <!-- <form class="form" name="form" (ngSubmit)="f.form.valid && addConfigureParam(configureParam)" #f="ngForm" novalidate> -->
+    <form class="form" name="form" (ngSubmit)="f.form.valid && createStation(stationInfo)" #f="ngForm" novalidate>
+    <!-- <div class="alert alert-success">
+        <strong>{{ msg }}</strong>
+    </div> -->
     <div class="modalBody">
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Station ID</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Station ID" [(ngModel)]="stationInfo.stationId" id="example-text-input">
+          <input type="text" placeholder="Station ID" name="staionId" id="example-text-input" 
+          [(ngModel)]="stationInfo.stationId"  #stationId="ngModel" required autocomplete="off"
+          class="form-control"  [ngClass]="{'is-invalid': (f.submitted && stationId.invalid)}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Station Name</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Station Name" [(ngModel)]="stationInfo.name" id="example-text-input">
+          <!-- <input class="form-control" type="text" placeholder="Station Name" [(ngModel)]="stationInfo.name" id="example-text-input"> -->
+          <input type="text" placeholder="Station Name" name="staionId" id="example-text-input" autocomplete="off"
+          [(ngModel)]="stationInfo.name"  #name="ngModel" required
+          class="form-control"  [ngClass]="{'is-invalid': (f.submitted && name.invalid)}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Latitude</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="X" [(ngModel)]="stationInfo.x" id="example-text-input">
+          <!-- <input class="form-control" type="text" placeholder="X" [(ngModel)]="stationInfo.x" id="example-text-input"> -->
+          <input type="text" placeholder="Latitude" name="latitude" id="example-text-input" autocomplete="off"
+          [(ngModel)]="stationInfo.x"  #latitude="ngModel" required (keypress)="lattitudeKeyPress($event)"
+          class="form-control"  [ngClass]="{'is-invalid': (f.submitted && latitude.invalid)}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
         <div class="col-8">
-          <input class="form-control" type="text" placeholder="Y" [(ngModel)]="stationInfo.y" id="example-text-input">
+          <!-- <input class="form-control" type="text" placeholder="Y" [(ngModel)]="stationInfo.y" id="example-text-input"> -->
+          <input type="text" placeholder="Longitude" name="longitude" id="example-text-input" autocomplete="off"
+          [(ngModel)]="stationInfo.y"  #longitude="ngModel" required (keypress)="longitudeKeyPress($event)"
+          class="form-control"  [ngClass]="{'is-invalid': (f.submitted && longitude.invalid)}">
         </div>
       </div>
 
       <div class="form-group row">
         <label for="example-text-input" class="col-3 col-form-label">Status</label>
         <div class="col-8">
-          <select class="form-control" [(ngModel)]="stationInfo.status">
+          <select class="form-control" [(ngModel)]="stationInfo.status" name="status" id="example-text-input" 
+                  #stationStatus="ngModel" required [ngClass]="{'is-invalid': (f.submitted && stationStatus.invalid)}">
             <option value="" disabled selected hidden>Select Status</option>
             <option value="Active">Active</option>
             <option value="InActive">InActive</option>
@@ -118,17 +133,18 @@
         </div>
       </div>
     </div>
-    <!-- </form> -->
+ 
     <div class="modalFooter">
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="createStation(stationInfo)">Add</button>
-            <!-- <button class="btn btn-primary gap gap-5 gap-lr">Add</button> -->
+            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="createStation(stationInfo)">Add</button> -->
+            <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
           </div>
         </div>
       </div>
     </div>
+  </form>
   </div>
 </div>

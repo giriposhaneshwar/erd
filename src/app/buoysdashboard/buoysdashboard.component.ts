@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { BuoysDashboardService } from './buoysdashboard.service';
 import * as moment from 'moment';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: "ms-buoysdashboard",
@@ -20,7 +21,7 @@ export class BuoysdashboardComponent implements OnInit {
 
   ngDatarows = [];
   mondalOpen: Boolean = false;
-  todayDate: any;
+  dateval ='';
   date: Date;
   res: any;
   restItems: any = [];
@@ -29,42 +30,42 @@ export class BuoysdashboardComponent implements OnInit {
   fromDateFilter: any;
   toDateFilter: any;
   resultStatus: any;
-
   height = 2;
   color = "#4092F1";
   runInterval = 300;
+  todayDate :any;
 
   handleFormChange(data) {
     if (data == "lastModified") {
       console.log(" Last Modified ", moment().startOf('hour').fromNow());
     }
     else if (data == "currentDay") {
-      console.log(" Current Day ", moment().format('L'));
-      console.log("Data Submit", data);
+      console.log(" Current Day ", );
+     // console.log("Data Submit", data);
     }
     else if (data == "lastoneweek") {
       console.log(" Last 1 Week " + moment().subtract(7, 'days').calendar());
-      console.log("Data Submit", data);
+      //console.log("Data Submit", data);
     }
     else if (data == "lasttwoweeks") {
       console.log(" Last 2 Weeks " + moment().subtract(14, 'days').calendar());
-      console.log("Data Submit", data);
+      //console.log("Data Submit", data);
     }
     else if (data == "lastOneMonth") {
-      console.log(" Last OneMonth " + moment().subtract(30, 'days').calendar());
-      console.log("Data Submit", data);
+      console.log(" Last One Month " + moment().subtract(30, 'days').calendar());
+      //console.log("Data Submit", data);
     }
     else if (data == "lastTwoMonths") {
       console.log(" Last  Two Months " + moment().subtract(60, 'days').calendar());
-      console.log("Data Submit", data);
+     // console.log("Data Submit", data);
     }
     else if (data == "lastThreeMonths") {
-      console.log(" Last  Three Months " + moment().subtract(60, 'days').calendar());
-      console.log("Data Submit", data);
+      console.log(" Last  Three Months " + moment().subtract(90, 'days').calendar());
+      //console.log("Data Submit", data);
     }
     else if (data == "choosePeriod") {
       console.log("Data Submit", data);
-      // this.chooseDatesPeriod(fromDateFilter,toDateFilter);
+      //this.chooseDatesPeriod(fromDateFilter,toDateFilter);
     }
   }
 
@@ -75,6 +76,7 @@ export class BuoysdashboardComponent implements OnInit {
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private buoysDashboardService: BuoysDashboardService, private loadingBar: LoadingBarService) {
+      
     var fromDate = moment().subtract(695, "days").format("YYYY-MM-DD");
     let toDate = moment().subtract(690, "days").format("YYYY-MM-DD");
 
@@ -84,6 +86,7 @@ export class BuoysdashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dateForamt();
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.todayDate = setInterval(() => {
     }, 900000);
@@ -132,5 +135,10 @@ export class BuoysdashboardComponent implements OnInit {
 
   emitComplete() {
     this.loadingBar.complete();
+  }
+
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
   }
 }

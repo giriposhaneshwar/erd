@@ -19,18 +19,46 @@
           Add</a>
       </div>
       <div class="widget-body">
+        <div class="alert alert-success alert-dismissible" *ngIf="msg==='success'">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> Site status updated successfully
+        </div>
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
           [footerHeight]="50" [rowHeight]="30" [rows]="sitesListDetails">
-          <ngx-datatable-column name="Site Id" [width]="90"></ngx-datatable-column>
-          <ngx-datatable-column name="Site Code" [width]="120"></ngx-datatable-column>
-          <ngx-datatable-column name="Site Name" [width]="250"></ngx-datatable-column>
-          <ngx-datatable-column name="Category Name" [width]="170"></ngx-datatable-column>
-          <ngx-datatable-column name="Lattitude" [width]="130"></ngx-datatable-column>
-          <ngx-datatable-column name="Longitude" [width]="130"></ngx-datatable-column>
+          <ngx-datatable-column name="Site Id" [width]="90">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Site Code" [width]="120">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Site Name" [width]="250">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Category Name" [width]="170">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Lattitude" [width]="130">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Longitude" [width]="130">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
           <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                {{value}}
+                  <div class="text-center">{{value}}</div>
               </span>
               <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
@@ -55,117 +83,135 @@
         </a>
       </div>
     </div>
-    <!-- <form class="form" name="form" (ngSubmit)="f.form.valid && addConfigureParam(configureParam)" #f="ngForm" novalidate> -->
-    <div class="modalBody">
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Site ID</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Site ID" [(ngModel)]="siteInfo.siteId" id="example-text-input">
-        </div>
+    <form class="form" name="form" (ngSubmit)="f.form.valid && createSite(siteInfo)" #f="ngForm" novalidate>
+      <div class="alert alert-success alert-dismissible" *ngIf="msg==='sucess'">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Site status updated successfully
       </div>
-
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Site Code</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Site Code" [(ngModel)]="siteInfo.siteCode" id="example-text-input">
-
-          <!--  <select class="form-control" id="sd-text-siteName" [(ngModel)]="siteInfo.siteCode" name="siteCode" #siteName="ngModel" 
-          [ngClass]="{ 'is-invalid': f.submitted && siteName.invalid }" required> >
-            <option value="" disabled selected hidden>Select Site Name</option>
-            <option *ngFor="let siteDet of siteDetails" value="{{siteDet.Site_Id}}">{{siteDet.siteName}}</option>
-          </select> -->
+      <div class="modalBody">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Site ID</label>
+          <div class="col-8">
+            <input type="text" placeholder="Site ID" name="siteId" id="example-text-input" [(ngModel)]="siteInfo.siteId"
+              #siteId="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteId.invalid)}">
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Site Name</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Site Name" [(ngModel)]="siteInfo.siteName" id="example-text-input">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Site Code</label>
+          <div class="col-8">
+            <input type="text" placeholder="Site Code" name="siteCode" id="example-text-input" [(ngModel)]="siteInfo.siteCode"
+              #siteCode="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteCode.invalid)}">
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
-        <div class="col-8">
-          <!--  <input class="form-control" type="text" placeholder="Category Name" [(ngModel)]="siteInfo.categoryName" 
-            id="example-text-input" #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required>> -->
-          <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteInfo.categoryName" name="category">
-            <option value="" disabled selected hidden>Select Site Category</option>
-            <option *ngFor="let siteCat of siteCategory" value="{{siteCat.CategoryID}}">{{siteCat.CategoryName}}</option>
-          </select>
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Site Name</label>
+          <div class="col-8">
+            <input type="text" placeholder="Site Name" name="siteName" id="example-text-input" [(ngModel)]="siteInfo.siteName"
+              #siteName="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteName.invalid)}">
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Description</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Description" [(ngModel)]="siteInfo.description" id="example-text-input">
-        </div>
-      </div>
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Category</label>
+          <div class="col-8">
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Lattitude" [(ngModel)]="siteInfo.x" id="example-text-input">
+            <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteInfo.categoryId" name="category"
+              #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required>
+              <option value="" disabled selected hidden>Select Site Category</option>
+              <option *ngFor="let siteCat of siteCategory" value="{{siteCat.CategoryID}}">{{siteCat.CategoryName}}</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Longitude" [(ngModel)]="siteInfo.y" id="example-text-input">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Description</label>
+          <div class="col-8">
+              <textarea cols="4" rows="3" placeholder="Description" name="siteDescription" id="example-text-input" [(ngModel)]="siteInfo.description"
+              #siteDescription="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteDescription.invalid)}"></textarea>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Water Quality </label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Water Quality Region Id" [(ngModel)]="siteInfo.waterqualityRegionId"
-            id="example-text-input">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
+          <div class="col-8">
+            <input type="text" placeholder="Lattitude" name="lattitude" id="example-text-input" [(ngModel)]="siteInfo.x"
+              #lattitude="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && lattitude.invalid)}">
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Comment</label>
-        <div class="col-8">
-          <input class="form-control" type="textarea" placeholder="Comment" [(ngModel)]="siteInfo.comment" id="example-text-input">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+          <div class="col-8">
+            <input type="text" placeholder="Longitude" name="longitude" id="example-text-input" [(ngModel)]="siteInfo.y"
+              #longitude="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && longitude.invalid)}">
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Project Id</label>
-        <div class="col-8">
-          <input class="form-control" type="text" placeholder="Project Id" [(ngModel)]="siteInfo.projectid" id="example-text-input">  
-              <!-- #projectName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }" required -->
-     <!--      <select class="form-control" [(ngModel)]="siteInfo.projectid" name="projectName"></select>
-          <option value="" disabled selected hidden>Select Project Name</option>
-          <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.projectID}}">{{prjNames.projectName}}</option>
-          </select> -->
-        </div>
-      </div>
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Water Quality </label>
+          <div class="col-8">
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Status</label>
-        <div class="col-8">
-          <select class="form-control" [(ngModel)]="siteInfo.status">
-            <option value="" disabled selected hidden>Select Status</option>
-            <option value="Active">Active</option>
-            <option value="InActive">InActive</option>
-          </select>
+            <input type="text" placeholder="Water Quality Region Id" name="waterQualityId" id="example-text-input"
+              [(ngModel)]="siteInfo.waterqualityRegionId" #waterQualityId="ngModel" required autocomplete="off" class="form-control"
+              [ngClass]="{'is-invalid': (f.submitted && waterQualityId.invalid)}">
+          </div>
         </div>
-      </div>
-    </div>
-    <!-- </form> -->
-    <div class="modalFooter">
-      <div class="form-group mar t-20 col-xs-12 col-sm-12">
-        <div class="row text-right">
-          <div class="col-xs-12 col-sm-12">
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="createSite(siteInfo)">Add</button>
-            <!-- <button class="btn btn-primary gap gap-5 gap-lr">Add</button> -->
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Comment</label>
+          <div class="col-8">
+            <input type="textarea" placeholder="Comment" name="comment" id="example-text-input" [(ngModel)]="siteInfo.comment"
+              #comment="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && comment.invalid)}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Project Id</label>
+          <div class="col-8">
+            <!-- <input type="text" placeholder="Project Id" name="projectid" id="example-text-input" [(ngModel)]="siteInfo.projectid"
+              #projectid="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && projectid.invalid)}"> -->
+
+              <select class="form-control" [(ngModel)]="siteInfo.projectid" name="projectid" #projectid="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && projectid.invalid }" required>
+                  <option value="" disabled selected hidden>Select Project Name</option>
+                  <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.projectID}}">{{prjNames.projectName}}</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Default Value</label>
+          <div class="col-8">
+            <input type="text" placeholder="Default Value" name="siteDefaultValue" id="example-text-input" [(ngModel)]="siteInfo.defaultSiteValue"
+              #siteDefaultValue="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteDefaultValue.invalid)}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Status</label>
+          <div class="col-8">
+            <select class="form-control" [(ngModel)]="siteInfo.status" name="status" #status="ngModel" required
+              [ngClass]="{'is-invalid': (f.submitted && status.invalid)}">
+              <option value="" disabled selected hidden>Select Status</option>
+              <option value="Active">Active</option>
+              <option value="InActive">InActive</option>
+            </select>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="modalFooter">
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

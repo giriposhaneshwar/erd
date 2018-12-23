@@ -24,11 +24,11 @@
                 </div> -->
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-08-19" id="example-date-input">
+              <input class="form-control" type="date" [max]="dateval" id="example-date-input">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-11-08" id="example-date-input">
+              <input class="form-control" type="date" [max]="dateval" id="example-date-input">
             </div>
             <button type="submit" class="send-btn btn btn-primary">Send</button>
           </div>
@@ -39,49 +39,213 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
     <div class="silk-card border-success">
       <div class="widget-body">
-        <ngx-datatable class="material" [rows]="downloadMwqDataDetails" [columnMode]="'force'" [headerHeight]="50"
+        <ngx-datatable class="material" [rows]="downloadMwqDataDetails" [columnMode]="'standard'" [headerHeight]="50"
           [footerHeight]="50" [rowHeight]="25" [limit]="10" [scrollbarH]="true">
-          <ngx-datatable-column name="Site Name"></ngx-datatable-column>
-          <ngx-datatable-column name="Temperature"></ngx-datatable-column>
-          <ngx-datatable-column name="Conductivity"></ngx-datatable-column>
-          <ngx-datatable-column name="Salinity"></ngx-datatable-column>
-          <ngx-datatable-column name="pH"></ngx-datatable-column>
-          <ngx-datatable-column name="DissolveOxygen"></ngx-datatable-column>
-          <ngx-datatable-column name="Chlorophyll"></ngx-datatable-column>
-          <ngx-datatable-column name="Sechi Disc Reading"></ngx-datatable-column>
-          <ngx-datatable-column name="Nitrite-N"></ngx-datatable-column>
-          <ngx-datatable-column name="Nitrate-N"></ngx-datatable-column>
-          <ngx-datatable-column name="Silicate-Si"></ngx-datatable-column>
-          <ngx-datatable-column name="Ammonia-N"></ngx-datatable-column>
-          <ngx-datatable-column name="Phosphate-P"></ngx-datatable-column>
-          <ngx-datatable-column name="BOD"></ngx-datatable-column>
-          <ngx-datatable-column name="TSS"></ngx-datatable-column>
-          <ngx-datatable-column name="Cadmium Water"></ngx-datatable-column>
-          <ngx-datatable-column name="Chromium Water"></ngx-datatable-column>
-          <ngx-datatable-column name="Cobalt Water"></ngx-datatable-column>
-          <ngx-datatable-column name="Copper"></ngx-datatable-column>
-          <ngx-datatable-column name="Lead"></ngx-datatable-column>
-          <ngx-datatable-column name="Manganese"></ngx-datatable-column>
-          <ngx-datatable-column name="Nickel"></ngx-datatable-column>
-          <ngx-datatable-column name="Zinc"></ngx-datatable-column>
-          <ngx-datatable-column name="Iron"></ngx-datatable-column>
-          <ngx-datatable-column name="Mercury"></ngx-datatable-column>
-          <ngx-datatable-column name="Cadmium Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Cobalt Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Chromium Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Lead Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Copper Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Nickel Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Manganese Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Zinc Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Iron Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Mercury Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="PCB Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="TPH Sediment"></ngx-datatable-column>
-          <ngx-datatable-column name="Total Coliform"></ngx-datatable-column>
-          <ngx-datatable-column name="Fecal Coliform"></ngx-datatable-column>
-          <ngx-datatable-column name="Enterococci"></ngx-datatable-column>
-          <ngx-datatable-column name="Created Date"></ngx-datatable-column>
+          <ngx-datatable-column name="Site Name">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Temperature">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Conductivity">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Salinity">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="pH">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Dissolve Oxygen" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Chlorophyll">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Sechi Disc Reading" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nitrite-N">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nitrate-N">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Silicate-Si">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Ammonia-N">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Phosphate-P">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="BOD">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="TSS">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cadmium Water" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Chromium Water" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cobalt Water">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Copper">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Lead">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Manganese">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nickel">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Zinc">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Iron">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Mercury">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cadmium Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cobalt Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Chromium Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Lead Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Copper Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Nickel Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Manganese Sediment" [width]="250">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Zinc Sediment" > 
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Iron Sediment">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Mercury Sediment" [width]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="PCB Sediment">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="TPH Sediment">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Total Coliform">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Fecal Coliform">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Enterococci">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Created Date" [width]="250">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+              </ng-template>
+          </ngx-datatable-column>
         </ngx-datatable>
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">

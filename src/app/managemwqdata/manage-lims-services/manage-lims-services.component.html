@@ -19,12 +19,20 @@
       <div class="widget-body">
         <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'" [footerHeight]="50"
           [rowHeight]="'30'" [rows]="restItems" [scrollbarH]="true">
-          <ngx-datatable-column name="S No" [width]="80"></ngx-datatable-column>
-          <ngx-datatable-column name="Name" [width]="250"></ngx-datatable-column>
+          <ngx-datatable-column name="S No" [width]="80">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Name" [width]="250">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="text-center">{{value}}</div>
+                </ng-template>
+          </ngx-datatable-column>
           <ngx-datatable-column name="Web Service Url" [width]="700">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-webServiceUrl'] = true" *ngIf="!editing[rowIndex + '-webServiceUrl']">
-                {{value}}
+                  <div class="text-center">{{value}}</div>
               </span>
               <input autofocus (blur)="updateValue($event, 'webServiceUrl', rowIndex)" *ngIf="editing[rowIndex+ '-webServiceUrl']"
                 type="text" [value]="value" />

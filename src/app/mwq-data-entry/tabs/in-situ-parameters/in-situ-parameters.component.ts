@@ -57,13 +57,6 @@ export class InSituParametersComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.toastr.setRootViewContainerRef(vcr);
-    /* // Create a new array with a form control for each order
-     const controls = this.orders.map(c => new FormControl(false));
-     controls[0].setValue(true); // Set the first checkbox to true (checked)
- 
-     this.form = this.formBuilder.group({
-       orders: new FormArray(controls)
-     });*/
   }
 
   ngOnInit() {
@@ -76,10 +69,7 @@ export class InSituParametersComponent implements OnInit {
     let insituParamsgraphData = this.localStore.store.get("graphData");
     this.graphData = insituParamsgraphData.data.insituParams;
     console.log("-----insituParams----------" + this.graphData);
-    //  console.log("-----insituParams----------"+ this.graphData )
-    /*  setTimeout(() => {
-       this.graphData.Sechi_Disc_Surface = ["30", "80", "20", "95"];
-     }, 5000); */
+
     if (localData.status == "success") {
       this.dataEntry = localData.data;
       if (this.dataEntry.hasOwnProperty(this.temperatureComponentKey)) {
@@ -117,25 +107,8 @@ export class InSituParametersComponent implements OnInit {
     //this.selectedEventType = [this.eventTypeDetails[0]];
   }
 
-  inputOrderClass(data, key) {
-    console.log("Input Data", data, key);
-  }
-
-  insituDetailsSave(
-    temperature,
-    conductivity,
-    salinity,
-    pH,
-    dissolvedO,
-    Chlorophyll_a,
-    sechiDisc
-  ) {
-    /*    const selectedOrderIds = this.form.value.orders
-         .map((v, i) => v ? this.orders[i].id : null)
-         .filter(v => v !== null);
-   
-       console.log(selectedOrderIds); */
-
+  insituDetailsSave(temperature, conductivity, salinity, pH,dissolvedO, Chlorophyll_a, sechiDisc ) 
+  {
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.dataEntry[this.salinityComponentKey] = salinity;
@@ -145,7 +118,6 @@ export class InSituParametersComponent implements OnInit {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    //console.log(this.form.value);
     console.log("At Save Screen");
   }
 

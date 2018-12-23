@@ -24,12 +24,12 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-10-11" id="example-fromDate-input" name="fromDate"
-                [(ngModel)]="fromDateFilter">
+              <input class="form-control" type="date" id="example-fromDate-input" name="fromDate" [max]="dateval"
+                [(ngModel)]="fromDateFilter" >
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-10-11" id="example-toDate-input" name="toDate"
+              <input class="form-control" type="date" id="example-toDate-input" name="toDate" [max]="dateval"
                 [(ngModel)]="toDateFilter">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadAlertsData(fromDateFilter,toDateFilter)">Send</button>
@@ -44,11 +44,10 @@
     </div>-->
       <div class="widget-body">
         <mat-card style="padding: 0;">
-          <!--<ngx-datatable class="material sorting customTable" [rows]="alertRows" [headerHeight]="50">-->
-          <ngx-datatable #table class="material sorting customTable" [rows]="alertsDetails" [columnMode]="'standard'"
+          <ngx-datatable #table class="material customTable" [rows]="alertsDetails" [columnMode]="'standard'"
             [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="10" [selected]="selected"
             [selectionType]="'single'" (activate)="onActivate($event)" (select)='onSelect($event)'>
-            <ngx-datatable-column name="Severity"  [width]="110">
+            <ngx-datatable-column name="Severity" [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <!--<i class="fa fa-arrow-up ">{{value}}</i>-->
                 <i class="fa fa-arrow-up text-align: center;" [ngClass]="{'text-success mr-2': value=== 'Low',
@@ -102,11 +101,15 @@
               <td class="ng-tns-c6-0">Created By</td>
               <td class="ng-tns-c6-0">{{sel.createdby}}</td>
             </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0" colspan="2">
+                <div class="btnCenter" style="margin-top: 1em; " *ngIf="sel.status ==='Open'">
+                  <button class="btn btn-primary" (click)="createIncident(selected)"> Create Incident</button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
-        <div class="text-center" style="margin-bottom: 1em;">
-          <button class="btn btn-primary" (click)="createIncident(selected)"> Create Incident</button>
-        </div>
       </div>
     </div>
   </div>

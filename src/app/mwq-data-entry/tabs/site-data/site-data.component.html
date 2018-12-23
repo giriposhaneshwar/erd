@@ -96,9 +96,8 @@
               </div>
               <div class="clearfix tbl tbl-per-15 text-left">Date</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <input type="date" value="11-23-2018" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate"
-                  name="sampleDate" #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }"
-                  required />
+                <input type="date" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate" 
+                  #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required  [max]="dateval" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Time</div>
               <div class="clearfix tbl tbl-per-20 text-left">

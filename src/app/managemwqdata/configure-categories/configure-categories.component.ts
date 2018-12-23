@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'ms-configure-categories',
   templateUrl: './configure-categories.component.html',
@@ -18,6 +18,8 @@ export class ConfigureCategoriesComponent implements OnInit {
   categoryInfo: any = {
     categoryName: "", createdBy: "AdminUser", status: ""
   };
+  @ViewChild(NgForm) f: NgForm;
+
   modalShowWindow: Boolean = false;
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private manageMwqDataService: ManageMwqDataService) {
@@ -59,14 +61,23 @@ export class ConfigureCategoriesComponent implements OnInit {
   }
   closeModal() {
     this.modalShowWindow = false;
+    this.f.resetForm();
   }
 
   createCategory(categoryInfo) {
     console.log(JSON.stringify(categoryInfo));
-   this.manageMwqDataService.addCategoryInfo(categoryInfo).subscribe((resp) => {
+    this.manageMwqDataService.addCategoryInfo(categoryInfo).subscribe((resp) => {
       let categoryInfoResp = resp;
       console.log("----categoryInfoResp----", categoryInfoResp);
-    }); 
+    });
+    this.f.resetForm();
   }
 
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
 }

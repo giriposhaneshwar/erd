@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.service';
 import { DownloadDataService } from '../download-data.service';
 @Component({
@@ -16,7 +16,7 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     Status: null,
     Message: ""
   };
-
+  dateval ='';
   downloadMwqIndicesdDetails = [];
   downloadMwqIndicesResp: any;
 
@@ -25,12 +25,16 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     private http: HttpClient,
     private excelService: DownloadMwqIndicesDataService,
     private downloadDataService: DownloadDataService) {
-
+      this.dateForamt();
     this.downloadMwqIndicesData();
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+  }
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
   }
 
 

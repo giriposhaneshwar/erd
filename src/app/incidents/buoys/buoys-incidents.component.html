@@ -25,11 +25,11 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter">
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" [max]="dateval">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter">
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" [max]="dateval">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadBuoysIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
@@ -156,8 +156,9 @@
           <div class="latest-post pt-4" *ngFor='let incHistory of buoysIncidentHistoryDetails'>
             <div class="media mb-3">
               <div class="media-body">
-                <b class="ng-tns-c6-0"> Updated By:{{incHistory.updatedBy}} | {{incHistory.updatedDate}} |
-                  Status:{{incHistory.status}} </b>
+                <b class="ng-tns-c6-0"> Updated By: </b>{{incHistory.updatedBy}}
+                <b class="ng-tns-c6-0"> Status:</b> {{incHistory.status}} <br>
+                <b class="ng-tns-c6-0"> Log Info:</b> {{incHistory.updatedDate}}
                 <p> {{incHistory.remarks}}</p>
                 <hr />
               </div>

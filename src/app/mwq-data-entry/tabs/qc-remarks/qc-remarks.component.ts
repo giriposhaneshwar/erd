@@ -11,49 +11,57 @@ import { ToastsManager } from 'ng6-toastr';
   styleUrls: ['./qc-remarks.component.scss']
 })
 export class QcRemarksComponent implements OnInit {
-  updatedBy='QC Admin';
+  updatedBy = 'QC Admin';
   dataEntry: any;
   dataEntryKey: string = "dataEntry";
   qcCommentsInfoKey: string = "sampleInformation";
   sampleInformation: any = {
     statusId: "",
     qCComments: "",
-    updatedBy:""
+    updatedBy: ""
   };
   module: String;
   js = {};
   updateMwqDataEntryQcResp: any;
- 
+
   constructor(public route: Router,
     public config: Config,
     public localStore: AppStorageService,
     public api: MwqDataEntryService,
     vcr: ViewContainerRef,
-    public toastr: ToastsManager) {   
-      this.toastr.setRootViewContainerRef(vcr);    
-    }
-    
-    ngOnInit() {
-      
-      console.log(this.sampleInformation.updatedBy)
-      // this.sampleInformation.updatedBy='new val';
+    public toastr: ToastsManager) {
+    this.toastr.setRootViewContainerRef(vcr);
+  }
+
+  ngOnInit() {
+
+    console.log(this.sampleInformation.updatedBy)
+    // this.sampleInformation.updatedBy='new val';
     let mod = this.config.getModuleName();
     this.module = mod.module;
     console.log("----module name----" + this.module);
-    
+
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
       this.dataEntry = localData.data;
+      this.dataEntry['upload'] = (this.dataEntry.hasOwnProperty('upload')) ? this.dataEntry.upload : [];
+      this.dataEntry['AddFiles'] = (this.dataEntry.hasOwnProperty('AddFiles')) ? this.dataEntry.AddFiles : [];
+      this.dataEntry['DeleteFiles'] = (this.dataEntry.hasOwnProperty('DeleteFiles')) ? this.dataEntry.DeleteFiles : [];
+      this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       if (this.dataEntry.hasOwnProperty(this.qcCommentsInfoKey)) {
         this.sampleInformation = this.dataEntry[this.qcCommentsInfoKey];
       } else {
         this.dataEntry = {};
         this.dataEntry[this.qcCommentsInfoKey] = this.sampleInformation;
+        this.dataEntry['AddFiles'] = [];
+        this.dataEntry['DeleteFiles'] = [];
         this.localStore.store.set(this.dataEntryKey, this.dataEntry);
       }
     } else {
       this.dataEntry = {};
       this.dataEntry[this.qcCommentsInfoKey] = this.sampleInformation;
+      this.dataEntry['AddFiles'] = [];
+      this.dataEntry['DeleteFiles'] = [];
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
     //console.log("Data Entry", this.dataEntryKey, this.dataEntry);
@@ -61,7 +69,7 @@ export class QcRemarksComponent implements OnInit {
 
 
   qCRemarksBtnTabNavSave(sampleInformation) {
-    this.sampleInformation.updatedBy=this.updatedBy;
+    this.sampleInformation.updatedBy = this.updatedBy;
     this.dataEntry[this.qcCommentsInfoKey] = sampleInformation;
     this.js["jsonInput"] = this.dataEntry;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
@@ -73,13 +81,13 @@ export class QcRemarksComponent implements OnInit {
     this.api.updateMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
       this.updateMwqDataEntryQcResp = resp;
       console.log("----updateMwqDataEntryQcResp----", this.updateMwqDataEntryQcResp);
-      if(this.updateMwqDataEntryQcResp.updateDataResult === "Record updated successfully"){
-        this.toastr.success( this.updateMwqDataEntryQcResp.updateDataResult,"Success",);
+      if (this.updateMwqDataEntryQcResp.updateDataResult === "Record updated successfully") {
+        this.toastr.success(this.updateMwqDataEntryQcResp.updateDataResult, "Success");
         this.route.navigate(["mwqDataQc", "qc-info"]);
       }
-     else{
-      this.toastr.error( this.updateMwqDataEntryQcResp.updateDataResult,"Failed",);
-     }
+      else {
+        this.toastr.error(this.updateMwqDataEntryQcResp.updateDataResult, "Failed");
+      }
     });
   }
 

@@ -399,12 +399,12 @@
               </div>
               <div class="col-sm-12 col-xs-12 formTableSection">
                 <div class="row formHeading">
-                  <div class="clearfix tbl tbl-per-15 text-center"></div>
-                  <div class="clearfix tbl tbl-per-10 text-center"><b>Value</b></div>
-                  <div class="clearfix tbl tbl-per-10 text-center"><b>Unit</b></div>
-                  <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
-                  <div class="clearfix tbl tbl-per-25 text-center"><b>MQL</b></div>
-                  <div class="clearfix tbl tbl-per-25 text-center"><b>Test Method</b></div>
+                    <div class="clearfix tbl tbl-per-20 text-center"></div>
+                    <div class="clearfix tbl tbl-per-10 text-center"><b>Value</b></div>
+                   <!--  <div class="clearfix tbl tbl-per-10 text-center"><b>Unit</b></div> -->
+                    <div class="clearfix tbl tbl-per-15 text-center"><b>Historial Graph</b></div>
+                    <div class="clearfix tbl tbl-per-25 text-center"><b>MQL</b></div>
+                    <div class="clearfix tbl tbl-per-25 text-center"><b>Test Method</b></div>
                 </div>
                 <div class="row formRow">
                   <div class="clearfix tbl tbl-per-20 text-right">Cadmium(mg/kg)</div>
@@ -451,8 +451,8 @@
                                   'green': iocs_chromium.surfaceValue <= fieldColorValidatior.Chromium_Sediment.prarmaterMax  
                                     && iocs_chromium.surfaceValue >= fieldColorValidatior.Chromium_Sediment.prarmaterMean, 
                                   'red': iocs_chromium.surfaceValue >= fieldColorValidatior.Chromium_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_chromium.surfaceValue, fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,
-                      fieldColorValidatior.Cadmium_Sediment.prarmaterStandDevition,fieldColorValidatior.Cadmium_Sediment.prarmaterMax)"
+                      (keyup)="checkValueThreshold(iocs_chromium.surfaceValue, fieldColorValidatior.Chromium_Sediment.prarmaterThreshold,
+                      fieldColorValidatior.Chromium_Sediment.prarmaterStandDevition,fieldColorValidatior.Chromium_Sediment.prarmaterMax)"
                       autocomplete="off" name="iocs_chromiumSurfaceValue" [(ngModel)]="iocs_chromium.surfaceValue"
                       #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>

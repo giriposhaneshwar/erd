@@ -24,10 +24,11 @@ export class BuoysIncidentsComponent implements OnInit {
   buoysIncidentResp: any;
   mondalOpen: any;
   value: any;
-
+  fromDateFilter:any;
+  toDateFilter:any;
   buoysIncidentHistoryDetails = [];
   buoysIncidentHistoryResp: any;
-
+  dateval ='';
   buoysIncidentUpdateDetails = [];
   buoysIncidentUpdateResp: any;
 
@@ -46,6 +47,7 @@ export class BuoysIncidentsComponent implements OnInit {
     private incidentsService: IncidentsService,
     public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
+    this.dateForamt();
     var fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
     let toDate = moment().format("YYYY-MM-DD");
     console.log(" Current Day ", "----" + toDate);
@@ -56,16 +58,19 @@ export class BuoysIncidentsComponent implements OnInit {
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
   }
-
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
+  }
 
   loadBuoysIncidentsData(fromDate, toDate): void {
     this.incidentsService.getBuoysIncidentData(fromDate, toDate).subscribe((resp) => {
       this.buoysIncidentResp = resp;
       this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
-      for (let i = 0; i < this.buoysIncidentDetails.length; i++) {
+    /*   for (let i = 0; i < this.buoysIncidentDetails.length; i++) {
         let item = this.buoysIncidentDetails[i];
         item.createdDate = moment(item.createdDate, "MM/DD/YYYY h:mm:ss a").fromNow();
-      }
+      } */
       this.selectedValue = [this.buoysIncidentDetails[0]];
       this.temp = [...this.buoysIncidentDetails];
       console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);

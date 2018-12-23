@@ -143,7 +143,7 @@ export class MwqDataEntryComponent implements OnInit {
 
     this.api.fetchHistoricalGraph().subscribe((resp) => {
       this.historicalGraphResp = resp;
-      this.historicalGraphDetails = this.historicalGraphResp.GetParmsHistrocalDataResult;
+      this.historicalGraphDetails = this.historicalGraphResp.GetParmsHistoricalDataResult;
       console.log("----historicalGraphDetails----", this.historicalGraphDetails);
       this.localStore.store.set('graphData', this.historicalGraphDetails);
     });

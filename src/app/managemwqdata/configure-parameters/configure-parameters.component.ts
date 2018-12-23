@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
+import { ToastsManager } from 'ng6-toastr';
 
 @Component({
   selector: 'ms-configure-parameters',
@@ -18,16 +19,19 @@ export class ConfigureParametersComponent implements OnInit {
   parametersListResp: any;
   modalShowWindow: Boolean = false;
   @ViewChild(NgForm) f: NgForm;
-  
+  addParameterInfo: any;
+
   configureParam: any = {
     parameterId: "", parameterName: "", units: "", groupId: "",
     minValue: "", maxValue: "", thresholdValue: "", meanValue: "",
-    stdDevValue: "", createdBy: "AdminUser", status: ""
+    stdDevValue: "", createdBy: "AdminUser", Status: ""
   };
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
+    public toastr: ToastsManager, vcr: ViewContainerRef,
     private manageMwqDataService: ManageMwqDataService) {
     this.loadParametersList();
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -72,9 +76,25 @@ export class ConfigureParametersComponent implements OnInit {
   addConfigureParam(configureParam) {
     console.log(JSON.stringify(configureParam));
     this.manageMwqDataService.addParameterInfo(configureParam).subscribe((resp) => {
-      let addParameterInfo = resp;
-      console.log("----addParameterInfo----", addParameterInfo);
-      //alert("---"+resp)
+      this.addParameterInfo = resp;
+      console.log("----addParameterInfo----", this.addParameterInfo);
+      if (this.addParameterInfo.CreateAlgalBloomIncidentsResult === 'sucess') {
+        this.toastr.success(this.addParameterInfo.ParametersCreateResult, "Param Info Created Successfully");
+        this.f.resetForm();
+        this.closeModal();
+        this.loadParametersList();
+      }
+      else {
+        this.toastr.error(this.addParameterInfo.ParametersCreateResult, "Param Info Created failed");
+      }
     });
+  }
+
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
   }
 }

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Config } from 'app/appConfiguration/config';
 
+
+//declare var $: any;
+
 @Injectable({ providedIn: 'root' })
-export class BuoysDashboardService {
+export class BuoysDashboardService  {
 
   res: any;
   restItems: any = [];
@@ -16,8 +18,9 @@ export class BuoysDashboardService {
     Status: null,
     Message: ""
   };
+  todayDate : any;
+  constructor(private http: HttpClient, private config:Config) {}
 
-  constructor(private http: HttpClient, private config:Config) { }
 
   buoysDashboardData(fromDate,toDate): Observable<any[]> {
  let bodyParams = { "fromDate": "2018-09-01", "toDate": "2018-10-31","user":1  };

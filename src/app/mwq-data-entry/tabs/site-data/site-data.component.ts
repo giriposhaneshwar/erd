@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "../../../appConfiguration/app-config.service";
-import * as $ from '../../../../../node_modules/jquery/dist/jquery.min.js';
+import * as moment from 'moment';
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Config } from '../../../appConfiguration/config';
@@ -64,7 +64,7 @@ export class SiteDataComponent implements OnInit {
   siteDefaultValueResp: any;
 
   module: String;
-
+  dateval ='';
   constructor(
     public route: Router,
     public localStore: AppStorageService,
@@ -79,6 +79,7 @@ export class SiteDataComponent implements OnInit {
     this.loadEventTypeData();
     this.loadProjectNames();
     this.loadSourceDepth();
+    this.dateForamt();
   }
 
   ngOnInit() {
@@ -221,4 +222,10 @@ export class SiteDataComponent implements OnInit {
       console.log("At mwqDataQc - data-entry Screen");
     }
   }
+
+  dateForamt() {
+    this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
+    console.log("-------todayDate---------",this.dateval)
+  }
+
 }

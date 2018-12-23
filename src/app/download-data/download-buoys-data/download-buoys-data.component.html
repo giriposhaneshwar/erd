@@ -24,11 +24,11 @@
                         </div> -->
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-08-19" id="example-date-input">
+              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" value="2018-11-08" id="example-date-input">
+              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
             </div>
             <button type="submit" class="send-btn btn btn-primary">Send</button>
           </div>
@@ -41,19 +41,63 @@
       <div class="widget-body">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
           <div class="widget-body">
-            <ngx-datatable class="material" [rows]="restItems" [columnMode]="'force'" [headerHeight]="50"
+            <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'force'" [headerHeight]="50"
               [footerHeight]="50" [rowHeight]="25" [limit]="5" [scrollbarH]="true">
-              <ngx-datatable-column name="Site Name"></ngx-datatable-column>
-              <ngx-datatable-column name="Temperature"></ngx-datatable-column>
-              <ngx-datatable-column name="Blue GreenAlgae"></ngx-datatable-column>
-              <ngx-datatable-column name="Conductivity"></ngx-datatable-column>
-              <ngx-datatable-column name="Battery"></ngx-datatable-column>
-              <ngx-datatable-column name="Cholorophylla"></ngx-datatable-column>
-              <ngx-datatable-column name="Salinity"></ngx-datatable-column>
-              <ngx-datatable-column name="Do Sat"></ngx-datatable-column>
-              <ngx-datatable-column name="Domgl"></ngx-datatable-column>
-              <ngx-datatable-column name="ph"></ngx-datatable-column>
-              <ngx-datatable-column name="Created Date"></ngx-datatable-column>
+              <ngx-datatable-column name="Site Name">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Temparature">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Blue GreenAlgae" [width]="200">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Conductivity">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Battary">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Cholorophyll A" [width]="200">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Salinity">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Dosat">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Doxy">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="ph">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Createddate" [width]="250">
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                      <div class="text-center">{{value}}</div>
+                  </ng-template>
+              </ngx-datatable-column>
             </ngx-datatable>
           </div>
         </div>
