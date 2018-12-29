@@ -1,115 +1,124 @@
 <div class="pageWrapper headerSection">
-  <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <div class="row">
-      <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        Download BUOYS Data
-      </div>
-      <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
-        <a href="javascript:void(0)" (click)="mondalOpen = !mondalOpen"><i class="fa fa-gear"></i></a>
-      </div>
+    <div class="headerSection col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="headerTitle col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                Download BUOYS Data
+            </div>
+            <div class="settings col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                <a href="javascript:void(0)" (click)="mondalOpen = !mondalOpen"><i class="fa fa-gear"></i></a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
-    <div class="silk-card border-success">
-      <div class="silk-card-title d-flex justify-content-between">
-        <!-- <h4>Download BUOYS Data</h4> -->
-      </div>
-      <div class="silk-card">
-        <div class="silk-card-content">
-          <div class="form-group row">
-            <!-- <div class="col-3">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
+        <div class="silk-card border-success">
+            <div class="silk-card-title d-flex justify-content-between">
+                <!-- <h4>Download BUOYS Data</h4> -->
+            </div>
+            <div class="silk-card">
+                <div class="silk-card-content">
+                    <div class="form-group row">
+                        <!-- <div class="col-3">
                           <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)'>
                         </div> -->
-            <label for="example-date-input" class="col-form-label">From Date</label>
-            <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
+                        <label for="example-date-input" class="col-form-label">From Date</label>
+                        <div class="col-3">
+                            <input class="form-control" type="month" id="example-date-input" [max]="dateval"
+                                [(ngModel)]="fromDateFilter">
+                        </div>
+                        <label for="example-date-input" class="col-form-label">To Date</label>
+                        <div class="col-3">
+                            <input class="form-control" type="month" id="example-date-input" [max]="dateval"
+                                [(ngModel)]="toDateFilter">
+                        </div>
+                        <button type="submit" class="send-btn btn btn-primary" (click)="downloadBUOYSDataList(fromDateFilter,toDateFilter)">Send</button>
+                    </div>
+                </div>
             </div>
-            <label for="example-date-input" class="col-form-label">To Date</label>
-            <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
-            </div>
-            <button type="submit" class="send-btn btn btn-primary">Send</button>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-    <div class="silk-card border-success">
-      <div class="widget-body">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
-          <div class="widget-body">
-            <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'force'" [headerHeight]="50"
-              [footerHeight]="50" [rowHeight]="25" [limit]="5" [scrollbarH]="true">
-              <ngx-datatable-column name="Site Name">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Temparature">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Blue GreenAlgae" [width]="200">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Conductivity">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Battary">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Cholorophyll A" [width]="200">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Salinity">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Dosat">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Doxy">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="ph">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Createddate" [width]="250">
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                      <div class="text-center">{{value}}</div>
-                  </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
-          </div>
-        </div>
-        <div class="form-group mar t-20 col-xs-12 col-sm-12">
-          <div class="row text-right">
-            <div class="col-xs-12 col-sm-12">
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="exportAsXLSX()">Export to Excel</button>
-              <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button> -->
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+        <div class="silk-card border-success">
+            <div class="widget-body" *ngIf="downloadBUOYSDataResultStatus === 'Success' && downloadBUOYSDataDetails.length ===0"
+                style="height: 300px;">
+                <p>{{downloadBUOYSDataResultStatusMessage}}</p>
             </div>
-          </div>
+            <div class="widget-body" *ngIf="downloadBUOYSDataResultStatus === 'Failed'" style="height: 300px;">
+                <p>{{downloadBUOYSDataResultStatusMessage}}</p>
+            </div>
+            <div class="widget-body" *ngIf="downloadBUOYSDataDetails.length > 0">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
+                    <div class="widget-body">
+                        <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'force'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="25" [limit]="5" [scrollbarH]="true">
+                            <ngx-datatable-column name="Site Name">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Temparature">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Blue GreenAlgae" [width]="200">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Conductivity">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Battary">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Cholorophyll A" [width]="200">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Salinity">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Dosat">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Doxy">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="ph">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Createddate" [width]="250">
+                                <ng-template let-value="value" ngx-datatable-cell-template>
+                                    <div class="text-center">{{value}}</div>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+                    </div>
+                </div>
+                <div class="form-group mar t-20 col-xs-12 col-sm-12">
+                    <div class="row text-right">
+                        <div class="col-xs-12 col-sm-12">
+                            <button class="btn btn-primary gap gap-5 gap-lr" (click)="exportAsXLSX()">Export to Excel</button>
+                            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

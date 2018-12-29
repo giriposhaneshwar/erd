@@ -11,22 +11,25 @@ export class DownloadDataService {
     this.apiUrl = this.config.API_URL;
   }
 
-  downloadIndicesData(): Observable<any[]> {
-    let bodyParams = {};
+  downloadIndicesData(fromDate,toDate): Observable<any[]> {
+    //let bodyParams = {"fromDate": "2018-09-01" , "toDate": "2018-12-31"};
+    let bodyParams = {"fromDate": fromDate , "toDate": toDate};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
-    return this.http.post<any[]>(this.apiUrl + "/getIndices_data", bodyParams, { headers: headers_value })
+    return this.http.post<any[]>(this.apiUrl + "/GetIndicesBetweenDates", bodyParams, { headers: headers_value })
   }
 
-  downloadMwqData(): Observable<any[]> {
-    let bodyParams = {"fromDate": "2018-09-01", "toDate": "2018-12-31"};
+  downloadMwqData(fromDate,toDate): Observable<any[]> {
+    //let bodyParams = {"fromDate": "2018-09-01", "toDate": "2018-12-31"};
+    let bodyParams = {"fromDate": fromDate, "toDate": toDate};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetMWQDownloadData", bodyParams, { headers: headers_value })
   }
 
-  downloadBuoysData(): Observable<any[]> {
-    let bodyParams = {"fromDate": "2018-09" , "toDate": "2018-10"};
+  downloadBuoysData(fromDate,toDate): Observable<any[]> {
+    //let bodyParams = {"fromDate": "2018-09" , "toDate": "2018-10"};
+    let bodyParams = {"fromDate": fromDate , "toDate": toDate};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/GetBuoysdata", bodyParams, { headers: headers_value })

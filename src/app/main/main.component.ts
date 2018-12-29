@@ -201,6 +201,7 @@ export class MainComponent implements OnInit, OnDestroy {
       name: "SILK MENU",
       type: "sub",
       icon: "trending_flat",
+      subLink: '',
       children: [
         { state: "blank", name: "SUB MENU1" },
         { state: "blank", name: "SUB MENU2" }

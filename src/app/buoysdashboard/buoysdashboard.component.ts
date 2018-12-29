@@ -7,6 +7,7 @@ import { BuoysDashboardService } from './buoysdashboard.service';
 import * as moment from 'moment';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import * as $ from 'jquery';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: "ms-buoysdashboard",
@@ -21,7 +22,7 @@ export class BuoysdashboardComponent implements OnInit {
 
   ngDatarows = [];
   mondalOpen: Boolean = false;
-  dateval ='';
+  dateval = '';
   date: Date;
   res: any;
   restItems: any = [];
@@ -30,66 +31,101 @@ export class BuoysdashboardComponent implements OnInit {
   fromDateFilter: any;
   toDateFilter: any;
   resultStatus: any;
+  resultStatusMessage: any;
   height = 2;
   color = "#4092F1";
   runInterval = 300;
-  todayDate :any;
+  todayDate: any;
+  fromDate: any;
+  toDate: any;
 
   handleFormChange(data) {
     if (data == "lastModified") {
+      this.spinner.show();
       console.log(" Last Modified ", moment().startOf('hour').fromNow());
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
     }
     else if (data == "currentDay") {
-      console.log(" Current Day ", );
-     // console.log("Data Submit", data);
+      this.spinner.show();
+      this.fromDate = moment().format('YYYY-MM-DD');
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Current Day " + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
     }
     else if (data == "lastoneweek") {
-      console.log(" Last 1 Week " + moment().subtract(7, 'days').calendar());
+      this.spinner.show();
+      this.fromDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Last 1 Week" + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
       //console.log("Data Submit", data);
     }
     else if (data == "lasttwoweeks") {
-      console.log(" Last 2 Weeks " + moment().subtract(14, 'days').calendar());
+      this.spinner.show();
+      this.fromDate = moment().subtract(14, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Last 2 Week" + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
       //console.log("Data Submit", data);
     }
     else if (data == "lastOneMonth") {
-      console.log(" Last One Month " + moment().subtract(30, 'days').calendar());
+      this.spinner.show();
+      this.fromDate = moment().subtract(30, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Last 30 Days" + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
       //console.log("Data Submit", data);
     }
     else if (data == "lastTwoMonths") {
-      console.log(" Last  Two Months " + moment().subtract(60, 'days').calendar());
-     // console.log("Data Submit", data);
+      this.spinner.show();
+      this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Last 60 Days" + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
+      // console.log("Data Submit", data);
     }
     else if (data == "lastThreeMonths") {
-      console.log(" Last  Three Months " + moment().subtract(90, 'days').calendar());
+      this.spinner.show();
+      this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format('YYYY-MM-DD');
+      console.log(" Last 90 Days" + this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
       //console.log("Data Submit", data);
     }
     else if (data == "choosePeriod") {
+      
       console.log("Data Submit", data);
-      //this.chooseDatesPeriod(fromDateFilter,toDateFilter);
+      console.log(" Last selected Dates" + this.fromDate, this.toDate);
+      this.chooseDatesPeriod(this.fromDate, this.toDate);
     }
   }
 
   chooseDatesPeriod(fromDateFilter, toDateFilter) {
     console.log("Selected From Date", fromDateFilter, "Selected To Date", toDateFilter);
+    this.spinner.show();
     this.showBuoysDashboardData(fromDateFilter, toDateFilter);
   }
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
-    private buoysDashboardService: BuoysDashboardService, private loadingBar: LoadingBarService) {
-      
-    var fromDate = moment().subtract(695, "days").format("YYYY-MM-DD");
-    let toDate = moment().subtract(690, "days").format("YYYY-MM-DD");
-
-    console.log(" Current Day " + toDate);
-    console.log(" Last 700 Days " + fromDate);
-    this.showBuoysDashboardData(fromDate, toDate);
+    private buoysDashboardService: BuoysDashboardService, private loadingBar: LoadingBarService,
+    private spinner: NgxSpinnerService) {
+    this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+    this.toDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+    this.showBuoysDashboardData(this.fromDate, this.toDate);
   }
 
   ngOnInit() {
     this.dateForamt();
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.todayDate = setInterval(() => {
+      
     }, 900000);
+    this.spinner.show();
+    /** spinner ends after 5 seconds */
+
+    /*    setTimeout(() => {
+         this.spinner.hide();
+       }, 5000); */
   }
 
   mondalWindowOpen(selector: String) {
@@ -100,45 +136,43 @@ export class BuoysdashboardComponent implements OnInit {
   }
 
   showBuoysDashboardData(fromDate, toDate): void {
-    this.emitStart();
     this.buoysDashboardService.buoysDashboardData(fromDate, toDate).subscribe((resp) => {
-      //this.restItems = resp;
       this.res = resp;
       this.resultStatus = this.res.getAveragevalueResult.status;
-      console.log(this.resultStatus);
-      this.restItems = this.res.getAveragevalueResult.AvgList;
-      let obj = [];
-      for (let item in this.restItems) {
-        let nItem = {};
-        for (let key in this.restItems[item]) {
-          let rowItem = this.restItems[item][key];
-          if (rowItem == "" || rowItem == null) {
-            rowItem = "-";
+      console.log(this.resultStatus, this.res.getAveragevalueResult.AvgList.length);
+      if (this.resultStatus === 'Success') {
+        this.restItems = this.res.getAveragevalueResult.AvgList;
+        this.resultStatusMessage = this.res.getAveragevalueResult.message;
+        if (this.restItems.length > 0) {
+          let obj = [];
+          for (let item in this.restItems) {
+            let nItem = {};
+            for (let key in this.restItems[item]) {
+              let rowItem = this.restItems[item][key];
+              if (rowItem == "" || rowItem == null) {
+                rowItem = "-";
+              }
+              nItem[key] = rowItem;
+            }
+            obj.push(nItem);
           }
-          nItem[key] = rowItem;
+          this.restItems = obj;
+          this.spinner.hide();
+        } else {
+          this.restItems = [];
+          this.spinner.hide();
         }
-        obj.push(nItem);
       }
-      this.restItems = obj;
+      else if (this.resultStatus === 'Failed') {
+        console.log("Error occured");
+        this.resultStatusMessage = this.res.getAveragevalueResult.message;
+        this.spinner.hide();
+      }
     });
-    this.emitStop();
-  }
-
-  emitStart() {
-    console.log("-emitStart----");
-    this.loadingBar.start();
-  }
-
-  emitStop() {
-    this.loadingBar.stop();
-  }
-
-  emitComplete() {
-    this.loadingBar.complete();
   }
 
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------",this.dateval)
+    console.log("-------todayDate---------", this.dateval)
   }
 }

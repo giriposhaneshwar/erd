@@ -10,7 +10,6 @@
     </div>
   </div>
 </div>
-
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
     <div class="silk-card border-success">
@@ -37,15 +36,19 @@
       </div>
     </div>
   </div>
-
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
     <div class="silk-card border-success pb-0">
-      <div class="silk-card-title d-flex justify-content-between">
+      <div class="widget-body" *ngIf="buoysIncidentResultStatus === 'Success' && buoysIncidentDetails.length ===0"
+        style="height: 200px;">
+        <p>{{buoysIncidentResultStatusMessage}}</p>
       </div>
-      <div class="silk-card-content widget-body">
+      <div class="widget-body" *ngIf="buoysIncidentResultStatus === 'Failed'" style="height: 200px;">
+        <p>{{buoysIncidentResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="buoysIncidentDetails.length > 0">
         <div class="table-responsive">
           <ngx-datatable #table class="material sorting customTable" [rows]="buoysIncidentDetails" [columnMode]="'standard'"
-            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="15" [selected]="selectedValue"
+            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="5" [selected]="selectedValue"
             [selectionType]="'single'" (select)='onSelect($event)'>
             <ngx-datatable-column name="Severity" [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>
@@ -55,11 +58,15 @@
                     }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Incident Name" [width]="150"></ngx-datatable-column>
-            <ngx-datatable-column name="Created Date" [width]="140">
+            <ngx-datatable-column name="Incident Name" [width]="500"></ngx-datatable-column>
+            <ngx-datatable-column name="Created Date" [width]="200">
               <small class="text-muted"><i class="fa fa-clock-o">{{value}}</i></small>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Status"></ngx-datatable-column>
+            <ngx-datatable-column name="Status" [width]="200">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="text-center">{{value}}</div>
+              </ng-template>
+            </ngx-datatable-column>
           </ngx-datatable>
         </div>
       </div>
@@ -71,20 +78,18 @@
       <div class="silk-card-title d-flex justify-content-between">
         <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Buoys Details</h4>
       </div>
-      <tabset>
-        <tab heading="Details">
-          <div class="table-responsive">
-            <table class="table table-middle table-striped">
-              <tbody class="ng-tns-c6-0" *ngFor='let sel of selectedValue' >
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Incident Id</td>
-                  <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Incident Name</td>
-                  <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
-                </tr>
-                <!--  <tr class="ng-tns-c6-0">
+      <div class="table-responsive" *ngIf="buoysIncidentDetails.length > 0">
+        <table class="table table-middle table-striped">
+          <tbody class="ng-tns-c6-0" *ngFor='let sel of selectedValue'>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Id</td>
+              <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Name</td>
+              <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+            </tr>
+            <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Location (Lat/Long)</td>
                   <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
                 </tr> 
@@ -92,80 +97,89 @@
                   <td class="ng-tns-c6-0">Description</td>
                   <td class="ng-tns-c6-0">{{sel.description}}</td>
                 </tr>-->
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Site ID</td>
-                  <td class="ng-tns-c6-0">{{sel.stationId}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Alert ID</td>
-                  <td class="ng-tns-c6-0">{{sel.alertId}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Sensor</td>
-                  <td class="ng-tns-c6-0">{{sel.sensor}}</td>
-                </tr>
-                <!--  <tr class="ng-tns-c6-0">
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Site ID</td>
+              <td class="ng-tns-c6-0">{{sel.stationId}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Alert ID</td>
+              <td class="ng-tns-c6-0">{{sel.alertId}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Sensor</td>
+              <td class="ng-tns-c6-0">{{sel.sensor}}</td>
+            </tr>
+            <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Buoys Id</td>
                   <td class="ng-tns-c6-0">{{sel.buoysId}}</td>
                 </tr> -->
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Created By</td>
-                  <td class="ng-tns-c6-0">{{sel.createdBy}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Created Date</td>
-                  <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Status</td>
-                  <td class="ng-tns-c6-0">
-                    <select class="form-control" [(ngModel)]="sel.status">
-                      <option value="" disabled selected hidden>Select Status</option>
-                      <option value="Open">Open</option>
-                      <option value="In Progress">In Progress</option>
-                      <option value="Fixed">Fixed</option>
-                      <option value="Re-Open">Re-Open</option>
-                      <option value="Closed">Closed</option>
-                    </select>
-                  </td>
-                  <!-- <td class="ng-tns-c6-0">{{sel.status}}</td> -->
-                </tr>
-                <tr class="ng-tns-c6-0">
-                  <td class="ng-tns-c6-0">Remarks</td>
-                  <td class="ng-tns-c6-0">
-                    <textarea class="form-control" id="exampleTextarea" rows="3" [(ngModel)]="sel.remarks"></textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-center" style="margin-bottom: 2em;">
-            <button class="btn btn-primary" (click)="updateIncident(selectedValue)">Update Incident</button>
-          </div>
-        </tab>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Created By</td>
+              <td class="ng-tns-c6-0">{{sel.createdBy}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Created Date</td>
+              <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Status</td>
+              <td class="ng-tns-c6-0" *ngIf="sel.status !='Closed'">
+                <select class="form-control" [(ngModel)]="sel.status">
+                  <option value="" disabled selected hidden>Select Status</option>
+                  <option value="Open">Open</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Fixed">Fixed</option>
+                  <option value="Re-Open">Re-Open</option>
+                  <option value="Closed">Closed</option>
+                </select>
+              </td>
+              <!-- <td class="ng-tns-c6-0">{{sel.status}}</td> -->
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Remarks</td>
+              <td class="ng-tns-c6-0">
+                <textarea class="form-control" id="exampleTextarea" rows="3" [(ngModel)]="sel.remarks"></textarea>
+              </td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0" colspan="2">
+                <div class="text-center" style="margin-bottom: 2em;" *ngIf="sel.status !='Closed'">
+                  <button class="btn btn-primary" (click)="updateIncident(selectedValue)">Update Incident</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-        <tab heading="History">
-          <div class="latest-post pt-4" *ngIf="buoysIncidentHistoryDetails.length===0">
-            <div class="media mb-3">
-              <div class="media-body">
-                <b class="ng-tns-c6-0"> No History for this Incident</b>
-              </div>
-            </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Incident History Details</h4>
+      </div>
+      <div  *ngIf="buoysIncidentDetails.length > 0">
+      <div class="latest-post pt-4" *ngIf="buoysIncidentHistoryDetails.length===0">
+        <div class="media mb-3">
+          <div class="media-body">
+            <b class="ng-tns-c6-0"> No History for this Incident</b>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="latest-post pt-4" *ngFor='let incHistory of buoysIncidentHistoryDetails'>
-            <div class="media mb-3">
-              <div class="media-body">
-                <b class="ng-tns-c6-0"> Updated By: </b>{{incHistory.updatedBy}}
-                <b class="ng-tns-c6-0"> Status:</b> {{incHistory.status}} <br>
-                <b class="ng-tns-c6-0"> Log Info:</b> {{incHistory.updatedDate}}
-                <p> {{incHistory.remarks}}</p>
-                <hr />
-              </div>
-            </div>
+      <div class="latest-post pt-4" *ngFor='let incHistory of buoysIncidentHistoryDetails'>
+        <div class="media mb-3">
+          <div class="media-body">
+            <b class="ng-tns-c6-0"> Updated By: </b>{{incHistory.updatedBy}}
+            <b class="ng-tns-c6-0"> Status:</b> {{incHistory.status}} <br>
+            <b class="ng-tns-c6-0"> Log Info:</b> {{incHistory.updatedDate}}
+            <p> {{incHistory.remarks}}</p>
+            <hr />
           </div>
-        </tab>
-      </tabset>
+        </div>
+      </div>
     </div>
   </div>
 </div>

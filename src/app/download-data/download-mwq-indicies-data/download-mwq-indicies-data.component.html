@@ -14,7 +14,6 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-2" widget>
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
-        <!-- <h4>Download MWQ Indices Data</h4> -->
       </div>
       <div class="silk-card">
         <div class="silk-card-content">
@@ -24,13 +23,13 @@
                     </div> -->
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" [max]="dateval" id="example-date-input">
+              <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="fromDateFilter">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" [max]="dateval" id="example-date-input">
+              <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="toDateFilter">
             </div>
-            <button type="submit" class="send-btn btn btn-primary">Send</button>
+            <button type="submit" class="send-btn btn btn-primary" (click)="downloadMwqIndicesData(fromDateFilter,toDateFilter)">Send</button>
           </div>
         </div>
       </div>
@@ -38,33 +37,40 @@
   </div>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
     <div class="silk-card border-success">
-      <div class="widget-body">
-        <ngx-datatable class="material" [rows]="downloadMwqIndicesdDetails" [columnMode]="'standard'" [headerHeight]="50"
-          [footerHeight]="50" [rowHeight]="25" [limit]="10">
+      <div class="widget-body" *ngIf="downloadMwqIndicesResultStatus === 'Success' && downloadMwqIndicesDetails.length ===0"
+        style="height: 300px;">
+        <p>{{downloadMwqIndicesResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="downloadMwqIndicesResultStatus === 'Failed'" style="height: 300px;">
+        <p>{{downloadMwqIndicesResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body"  *ngIf="downloadMwqIndicesDetails.length > 0">
+        <ngx-datatable class="material" [rows]="downloadMwqIndicesDetails" [scrollbarH]="true" [columnMode]="'standard'"
+          [headerHeight]="50" [footerHeight]="50" [rowHeight]="25" [limit]="10">
           <ngx-datatable-column name="Siteid" [width]="200">
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="text-center">{{value}}</div>
-                </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
+            </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Microbial Index" [width]="200" >
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="text-center">{{value}}</div>
-                </ng-template>
+          <ngx-datatable-column name="Microbial Index" [width]="200">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
+            </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Eutrophication Index" [width]="200">
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="text-center">{{value}}</div>
-                </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
+            </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Sediment Index" [width]="200">
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="text-center">{{value}}</div>
-                </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
+            </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Month" [width]="200">
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                  <div class="text-center">{{value}}</div>
-                </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
+            </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
 

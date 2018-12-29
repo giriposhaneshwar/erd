@@ -4,49 +4,77 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.service';
 import { DownloadDataService } from '../download-data.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'ms-download-mwq-indicies-data',
   templateUrl: './download-mwq-indicies-data.component.html',
   styleUrls: ['./download-mwq-indicies-data.component.scss']
 })
 export class DownloadMwqIndiciesDataComponent implements OnInit {
-  mondalOpen:any;
-  getRestItemsResponse: any = {
-    BuoysList: [],
-    Status: null,
-    Message: ""
-  };
-  dateval ='';
-  downloadMwqIndicesdDetails = [];
+  mondalOpen: any;
+  dateval = '';
+  downloadMwqIndicesDetails = [];
   downloadMwqIndicesResp: any;
-
-
+  downloadMwqIndicesResultStatus: any;
+  downloadMwqIndicesResultStatusMessage: any;
+  fromDate: any;
+  toDate: any;
+  fromDateFilter:any;
+  toDateFilter:any;
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
     private excelService: DownloadMwqIndicesDataService,
-    private downloadDataService: DownloadDataService) {
-      this.dateForamt();
-    this.downloadMwqIndicesData();
+    private downloadDataService: DownloadDataService,
+    private spinner: NgxSpinnerService) {
+    this.dateForamt();
+    this.fromDate = moment().subtract(120, "days").format("YYYY-MM-DD");
+    this.toDate = moment().format("YYYY-MM-DD");
+    console.log(this.fromDate, this.toDate);
+    this.downloadMwqIndicesData(this.fromDate, this.toDate);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------",this.dateval)
+    console.log("-------todayDate---------", this.dateval)
   }
 
 
-  downloadMwqIndicesData() {
-    this.downloadDataService.downloadIndicesData().subscribe((resp) => {
+  downloadMwqIndicesData(fromDateFilter, toDateFilter) {
+    console.log(fromDateFilter, toDateFilter);
+    this.spinner.show();
+    this.downloadDataService.downloadIndicesData(fromDateFilter, toDateFilter).subscribe((resp) => {
       this.downloadMwqIndicesResp = resp;
-      this.downloadMwqIndicesdDetails = this.downloadMwqIndicesResp.getIndices_dataResult.IndicesDataList;
-      console.log("----mwqDetaidownloadMwqIndicesdDetailsls----", this.downloadMwqIndicesResp.getIndices_dataResult.Message);
+      this.downloadMwqIndicesDetails = this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.IndicesbetdatesList;
+      this.downloadMwqIndicesResultStatus = this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.Status;
+      this.downloadMwqIndicesResultStatusMessage = this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.Message
+
+      console.log(this.downloadMwqIndicesResultStatus,
+        this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.IndicesbetdatesList.length,
+        this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.Message);
+
+      if (this.downloadMwqIndicesResultStatus === 'Success') {
+        this.downloadMwqIndicesResultStatusMessage = "The given dates " + fromDateFilter + " to " + toDateFilter + " MWQ Indices Data not available";
+        if (this.downloadMwqIndicesDetails.length > 0) {
+          this.downloadMwqIndicesDetails = this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.IndicesbetdatesList;
+          this.spinner.hide();
+        } else {
+          this.downloadMwqIndicesDetails = [];
+          this.spinner.hide();
+        }
+      }
+      else if (this.downloadMwqIndicesResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.downloadMwqIndicesResultStatusMessage = this.downloadMwqIndicesResp.getIndicesBetweenDatesResult.Message;
+        this.spinner.hide();
+      }
     });
   }
 
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.downloadMwqIndicesdDetails, 'MWQ_Indices_Data');
+    this.excelService.exportAsExcelFile(this.downloadMwqIndicesDetails, 'MWQ_Indices_Data');
   }
 }

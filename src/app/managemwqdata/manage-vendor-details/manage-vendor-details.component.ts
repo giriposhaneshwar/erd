@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-manage-vendor-details',
@@ -17,6 +18,8 @@ export class ManageVendorDetailsComponent implements OnInit {
   mondalOpen: any;
   vendorsListDetails = [];
   venodrsListResp: any;
+  vendorsListResultStatus:any;
+  vendorsListResultStatusMessage:any;
   modalShowWindow: Boolean = false;
   vendorInfo: any = {
     vendorName: "", emailId: "", phNum: "", adress: "", status: ""
@@ -25,7 +28,7 @@ export class ManageVendorDetailsComponent implements OnInit {
   @ViewChild(NgForm) f: NgForm;
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
-    public toastr: ToastsManager, vcr: ViewContainerRef,
+    public toastr: ToastsManager, vcr: ViewContainerRef,private spinner: NgxSpinnerService,
     private manageMwqDataService: ManageMwqDataService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.loadVendorsList();
@@ -33,13 +36,34 @@ export class ManageVendorDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
 
   loadVendorsList() {
     this.manageMwqDataService.fetchVendorsList().subscribe((resp) => {
       this.venodrsListResp = resp;
       this.vendorsListDetails = this.venodrsListResp.GetVendorsListResult.VendorsList;
+      this.vendorsListResultStatus = this.venodrsListResp.GetVendorsListResult.Status;
+
       console.log("----vendorsListDetails----", this.vendorsListDetails);
+      console.log(this.vendorsListResultStatus, this.venodrsListResp.GetVendorsListResult.VendorsList.length,
+        this.venodrsListResp.GetVendorsListResult.Message);
+      if (this.vendorsListResultStatus === 'Success') {
+        if (this.vendorsListDetails.length > 0) {
+          this.vendorsListDetails = this.venodrsListResp.GetVendorsListResult.VendorsList;
+          this.spinner.hide();
+        } else {
+          this.vendorsListDetails = [];
+          this.vendorsListResultStatusMessage = "Vendor information not available";
+          this.spinner.hide();
+        }
+      }
+      else if (this.vendorsListResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.vendorsListResultStatusMessage = this.venodrsListResp.GetVendorsListResult.Message;
+        this.spinner.hide();
+      }
+
     });
   }
 
@@ -50,14 +74,14 @@ export class ManageVendorDetailsComponent implements OnInit {
       console.log("----vendorInfoResp----", this.vendorInfoResp);
       if (this.vendorInfoResp.VendorCreateResult === 'sucess') {
         //this.newBloomIncidentResp ="Incident Created Successfully"
-        this.toastr.success(this.vendorInfoResp.VendorCreateResult, "Vendor Created Successfully");
+        this.toastr.success("Vendor Inoformation Created Successfully");
         this.f.resetForm();
         this.closeModal();
         this.loadVendorsList();
       }
       else {
         // this.newBloomIncidentResp ="Incident Created failed"
-        this.toastr.error(this.vendorInfoResp.VendorCreateResult, "Vendor Created failed");
+        this.toastr.error(this.vendorInfoResp.VendorCreateResult, "Vendor Information Cration Failed");
       }
     });
   }
@@ -71,8 +95,16 @@ export class ManageVendorDetailsComponent implements OnInit {
     let updatedId = row.sNo;
     this.manageMwqDataService.updatVendorStatus(updatedId, updatedStatus).subscribe((resp) => {
       console.log("----VendorStatusUpdateResult----", resp);
+      this.venodrsListResp = resp;
+       if (this.venodrsListResp.VendorStatusUpdateResult === 'success') {
+        console.log('UPDATED!', updatedId, updatedStatus, this.venodrsListResp.VendorStatusUpdateResult,this.vendorsListDetails[rowIndex][cell]);
+        this.toastr.success("Vendor Information Updated Successfully");
+      }
+      else {
+        this.toastr.error(this.venodrsListResp.VendorStatusUpdateResult, "Vendor Information Updation Failed");
+        console.log('UPDATE Failed!', updatedId, updatedStatus, this.venodrsListResp.VendorStatusUpdateResult);
+      } 
     });
-    console.log('UPDATED!', this.vendorsListDetails[rowIndex][cell]);
   }
 
   addTableRow() {

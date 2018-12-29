@@ -9,6 +9,7 @@ import { ToastsManager } from 'ng6-toastr';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 import { Config } from 'app/appConfiguration/config';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 @Component({
@@ -32,26 +33,29 @@ export class BloomsIncidentComponent implements OnInit {
   temp = [];
   bloomsIncidentDetails = [];
   bloomsIncidentResp: any;
+  bloomsIncidentResultStatus: any;
+  bloomsIncidentResultStatusMessage: any;
   value: any;
   newBloomIncidentResp: any;
   apiUrl: String;
   domain: String;
-
+  fromDate: any;
+  toDate: any;
   bloomUploadFiles: any[] = [];
   js = {};
   blommIncidentInfo: any = {
     incidentName: "", stationId: "", lattitude: "", longitude: "", incidentLocation: "", areaCovered: "", bloomType: "",
-    affectedSpecies: "", createdBy: "Admin", status: "Open", remarks: "", upload:[]
+    affectedSpecies: "", createdBy: "Admin", status: "Open", remarks: "", upload: []
   };
-  dateval ='';
-
+  dateval = '';
+  fromDateFilter: any;
+  toDateFilter: any;
   columns: any[] = [
     { prop: 'bloomIncidentId' },
     { name: 'Incident Description' },
     { name: 'Incident Reported DateTime' },
     { name: 'Incident Severity' }
   ];
-
 
   @ViewChild(NgForm) f: NgForm;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -60,18 +64,19 @@ export class BloomsIncidentComponent implements OnInit {
     private pageTitleService: PageTitleService,
     private incidentsService: IncidentsService,
     public config: Config,
-    public toastr: ToastsManager, vcr: ViewContainerRef) {
+    public toastr: ToastsManager, vcr: ViewContainerRef,
+    private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.domain = this.config.UPLOAD_URL;
     this.apiUrl = this.config.API_URL;
 
-    var fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
-    let toDate = moment().format("YYYY-MM-DD");
+    this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+    this.toDate = moment().format("YYYY-MM-DD");
 
-    console.log(" Current Day ", "----" + toDate);
-    console.log(" Last  Three Months " + fromDate);
-    this.loadBloomIncidentsData(fromDate, toDate);
-    this.dateForamt() ;
+
+    console.log(" Last  Three Months " + this.fromDate + " Current Day ", this.toDate);
+    this.loadBloomIncidentsData(this.fromDate, this.toDate);
+    this.dateForamt();
   }
 
   createBloomIncident(blommIncidentInfo) {
@@ -81,20 +86,39 @@ export class BloomsIncidentComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
 
   /* get f() { return this.blomIncidentForm.controls; } */
 
   loadBloomIncidentsData(fromDate, toDate): void {
+    console.log(fromDate, toDate);
     this.incidentsService.getBloomsIncidentData(fromDate, toDate).subscribe((resp) => {
       this.bloomsIncidentResp = resp;
       this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
-    /*   for (let i = 0; i < this.bloomsIncidentDetails.length; i++) {
-        let item = this.bloomsIncidentDetails[i];
-        item.createdDate = moment(item.createdDate, "MM/DD/YYYY h:mm:ss a").fromNow();
-      } */
-      this.selectedRow = [this.bloomsIncidentDetails[1]];
-      this.temp = [...this.bloomsIncidentDetails];
+      this.bloomsIncidentResultStatus = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Status;
+      console.log(this.bloomsIncidentResultStatus, this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList.length,
+        this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Message);
+
+      if (this.bloomsIncidentResultStatus === 'Success') {
+        if (this.bloomsIncidentDetails.length > 0) {
+          this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
+          this.selectedRow = [this.bloomsIncidentDetails[0]];
+          this.temp = [...this.bloomsIncidentDetails];
+          console.log("----bloomsIncidentDetails----", this.bloomsIncidentDetails);
+          this.spinner.hide();
+        } else {
+          this.bloomsIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " Incidents information not available";
+          this.bloomsIncidentDetails = [];
+          this.spinner.hide();
+        }
+      }
+      else if (this.bloomsIncidentResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.bloomsIncidentResultStatusMessage = this.bloomsIncidentResp.getAlertResult.Message;
+        this.spinner.hide();
+      }
+      this.spinner.hide();
     });
   }
 
@@ -131,7 +155,7 @@ export class BloomsIncidentComponent implements OnInit {
     this.f.resetForm();
   }
 
-  
+
   fileChanged(e) {
     let uploadedFile = e.target.files;
     console.log("Body SElection", $('body'));
@@ -173,20 +197,20 @@ export class BloomsIncidentComponent implements OnInit {
   }
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------",this.dateval)
+    console.log("-------todayDate---------", this.dateval)
   }
   createAlgolBloomIncident(blommIncidentInfo) {
     this.js["clsMWQAlgalbloomIncident"] = blommIncidentInfo;
     console.log("---------" + JSON.stringify(this.js));
     this.incidentsService.addBloomsIncidentInfo(this.js).subscribe((resp) => {
-      this.newBloomIncidentResp =resp;
-      
+      this.newBloomIncidentResp = resp;
+
       if (this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult === 'sucess') {
-        this.newBloomIncidentResp ="Incident Created Successfully"
+        this.newBloomIncidentResp = "Incident Created Successfully"
         this.toastr.success(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created Successfully");
       }
       else {
-        this.newBloomIncidentResp ="Incident Created failed"
+        this.newBloomIncidentResp = "Incident Created failed"
         this.toastr.error(this.newBloomIncidentResp.CreateAlgalBloomIncidentsResult, "Incident Created failed");
       }
     });
@@ -198,7 +222,7 @@ export class BloomsIncidentComponent implements OnInit {
   }
 
   lattitudeKeyPress(event: any) {
-    const pattern = '^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}';
+    const pattern = '/^[0-9]+([,.][0-9]+)?$/g';
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.match(inputChar)) {
       event.preventDefault();
@@ -206,7 +230,7 @@ export class BloomsIncidentComponent implements OnInit {
   }
 
   longitudeKeyPress(event: any) {
-    const pattern = '^-?([1-8]?[1-9]|[1-9]0)\.{1}\d{1,6}';
+    const pattern = '/^[0-9]+([,.][0-9]+)?$/g';
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.match(inputChar)) {
       event.preventDefault();
@@ -220,4 +244,16 @@ export class BloomsIncidentComponent implements OnInit {
     }
     return true;
   }
+
+  isNumberKey(evt) {
+    //debugger;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46 && evt.srcElement.value.split('.').length > 1) {
+      return false;
+    }
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
+
 } 

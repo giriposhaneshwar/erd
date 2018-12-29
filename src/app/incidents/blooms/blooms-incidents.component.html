@@ -24,30 +24,39 @@
             <div class="col-3">
               <input class="form-control" type="text" placeholder="Search" (keyup)='updateFilter($event)'>
             </div>
-            <label for="example-date-input" class="col-form-label">From Date</label>
+            <label for="example-date-input" class="col-form-label" >From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
+              <input class="form-control" type="date" id="example-date-input" [max]="dateval" [(ngModel)]="fromDateFilter" >
             </div>
-            <label for="example-date-input" class="col-form-label">To Date</label>
+            <label for="example-date-input" class="col-form-label" >To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [max]="dateval">
+              <input class="form-control" type="date" id="example-date-input" [max]="dateval" [(ngModel)]="toDateFilter" >
             </div>
-            <button type="submit" class="send-btn btn btn-primary">Send</button>
+            <button type="submit" class="send-btn btn btn-primary" (click)="loadBloomIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
         </div>
       </div>
+     
     </div>
   </div>
-
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
+</div>
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mb-2" widget>
     <div class="silk-card border-success pb-0">
       <div class="silk-card-title d-flex justify-content-between">
       </div>
-      <div class="silk-card-content widget-body">
+      <div class="widget-body" *ngIf="bloomsIncidentResultStatus === 'Success' && bloomsIncidentDetails.length ===0"
+      style="height: 200px;">
+      <p>{{bloomsIncidentResultStatusMessage}}</p>
+    </div>
+    <div class="widget-body" *ngIf="bloomsIncidentResultStatus === 'Failed'" style="height: 200px;">
+      <p>{{bloomsIncidentResultStatusMessage}}</p>
+    </div>
+      <div class="silk-card-content widget-body" *ngIf="bloomsIncidentDetails.length > 0">
         <div class="table-responsive">
-          <ngx-datatable #table class="material sorting customTable" [rows]="bloomsIncidentDetails" [columnMode]="'standard'"
-            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="10" [selected]="selectedRow"
-            [selectionType]="'single'" (select)='onSelect($event)'>
+          <ngx-datatable #table class="material sorting customTable" style="height: 450px;" [rows]="bloomsIncidentDetails"
+            [columnMode]="'standard'" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35"
+            [scrollbarV]="true" [limit]="10" [selected]="selectedRow" [selectionType]="'single'" (select)='onSelect($event)'>
             <ngx-datatable-column name="Incident Severity" [width]="170">
               <ng-template let-value="value" ngx-datatable-cell-template class="text-center">
                 <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
@@ -61,7 +70,18 @@
                 <div class="text-center">{{value}}</div>
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="Incident Name" [width]="400">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="text-left">{{value}}</div>
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Created Date" [width]="200">
+              <span class="glyphicon glyphicon-time"></span>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="text-left">{{value}}</div>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Status" [width]="150">
               <span class="glyphicon glyphicon-time"></span>
               <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                 <div class="text-center">{{value}}</div>
@@ -72,186 +92,180 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-12 col-full" widget>
-      <div class="silk-card border-success pb-0">
-        <div class="silk-card-title d-flex justify-content-between">
-          <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Bloom Details</h4>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-middle table-striped" *ngFor='let sel of selectedRow'>
-            <tbody class="ng-tns-c6-0">
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Incident Id</td>
-                <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
-              </tr>
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Incident Name</td>
-                <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
-              </tr>
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Location (Lat/Long)</td>
-                <td class="ng-tns-c6-0">{{sel.lattitude}} / {{sel.longitude}}</td>
-              </tr>
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Description</td>
-                <td class="ng-tns-c6-0">{{sel.locationDescription}}</td>
-              </tr>
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
-                <td class="ng-tns-c6-0">{{sel.areaCovered}}</td>
-              </tr>
+  <!--</div>
+ <div class="row"> -->
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mb-2" widget>
+    <div class="silk-card border-success pb-0">
+      <div class="silk-card-title d-flex justify-content-between">
+        <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Bloom Details</h4>
+      </div>
+      <div class="table-responsive" *ngIf="bloomsIncidentDetails.length > 0">
+        <table class="table table-middle table-striped" *ngFor='let sel of selectedRow'>
+          <tbody class="ng-tns-c6-0">
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Id</td>
+              <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Incident Name</td>
+              <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Location (Lat/Long)</td>
+              <td class="ng-tns-c6-0">{{sel.lattitude}} / {{sel.longitude}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Description</td>
+              <td class="ng-tns-c6-0">{{sel.locationDescription}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Area Covered(Sq/M)</td>
+              <td class="ng-tns-c6-0">{{sel.areaCovered}}</td>
+            </tr>
 
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Bloom Type</td>
-                <td class="ng-tns-c6-0">{{sel.bloomType}}</td>
-              </tr>
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Affected Species</td>
-                <td class="ng-tns-c6-0">{{sel.affectedSpecies}}</td>
-              </tr>
-              <!-- <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Status</td>
-                <td class="ng-tns-c6-0">{{sel.status}}</td>
-              </tr>  -->
-              <tr class="ng-tns-c6-0">
-                <td class="ng-tns-c6-0">Created Date</td>
-                <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
-              </tr>
-              <tr *ngFor="let file of sel.upload">
-                  <td class="ng-tns-c6-0" colspan="2"><a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}" target="_blank"><i
-                    class="glyphicon glyphicon-download-alt"></i></a>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Bloom Type</td>
+              <td class="ng-tns-c6-0">{{sel.bloomType}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Affected Species</td>
+              <td class="ng-tns-c6-0">{{sel.affectedSpecies}}</td>
+            </tr>
+            <tr class="ng-tns-c6-0">
+              <td class="ng-tns-c6-0">Created Date</td>
+              <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
+            </tr>
+            <tr *ngFor="let file of sel.upload">
+              <!-- <td class="ng-tns-c6-0" colspan="2"><a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}"
+                  target="_blank"><i class="glyphicon glyphicon-download-alt"></i></a>
                 <span>{{file.fileName}}</span>
-              </td>
-              </tr>
-              <!-- <div class="filesListHolder">
-                  <ul>
-                    <li *ngFor="let file of sel.upload">
-                      <a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}" target="_blank"><i
-                          class="glyphicon glyphicon-download-alt"></i></a>
-                      <span>{{file.fileName}}</span>
-                    </li>
-                  </ul>
-              </div> -->
-            </tbody>
-          </table>
-        </div>
+              </td> -->
+              <td class="ng-tns-c6-0" colspan="2"><a class="btn btn-primary" href="{{domain+ file.fileUrl}}"
+                target="_blank"><i class="glyphicon glyphicon-download-alt"></i></a>
+              <span>{{file.fileName}}</span>
+            </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
-    <div class="shadowSection" (click)="closeModal()"></div>
-    <div class="modalSection">
-      <div class="modalHeader">
-        <div class="title"> Bloom Incident Details</div>
-        <div class="closeBtn">
-          <a href="javascript:void(0)" (click)="closeModal()">
-            <i class="glyphicon glyphicon-remove"></i>
-          </a>
+<div class="modalContainer" [ngClass]="modalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+  <div class="shadowSection" (click)="closeModal()"></div>
+  <div class="modalSection">
+    <div class="modalHeader">
+      <div class="title"> Bloom Incident Details</div>
+      <div class="closeBtn">
+        <a href="javascript:void(0)" (click)="closeModal()">
+          <i class="glyphicon glyphicon-remove"></i>
+        </a>
+      </div>
+    </div>
+    <form name="form" (ngSubmit)="f.form.valid && createBloomIncident(blommIncidentInfo)" #f="ngForm" novalidate>
+      <div class="modalBody">
+
+        <!-- <div class="alert alert-success" role="alert" *ngIf="newBloomIncidentResp"> Incident Created Successfully</div> -->
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Name</label>
+          <div class="col-8">
+            <input type="text" placeholder="Incident Name" name="incidentName" [(ngModel)]="blommIncidentInfo.incidentName"
+              #incidentName="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && incidentName.invalid }"
+              required autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
+          <div class="col-8">
+            <input type="text" placeholder="Lattitude" name="lattitude" required autocomplete="off" [(ngModel)]="blommIncidentInfo.lattitude"
+              #lattitude="ngModel" (keypress)="isNumberKey($event)" maxlength="8" class="form-control" [ngClass]="{'is-invalid': f.submitted && lattitude.invalid }"
+              max="10">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
+          <div class="col-8">
+            <input type="text" placeholder="Longitude" name="longitude" required autocomplete="off" [(ngModel)]="blommIncidentInfo.longitude"
+              #longitude="ngModel" (keypress)="isNumberKey($event)"  maxlength="8" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && longitude.invalid }"
+              max="10">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Location</label>
+          <div class="col-8">
+            <input type="text" placeholder="Location" name="incidentLocation" required autocomplete="off" [(ngModel)]="blommIncidentInfo.incidentLocation"
+              #incidentLocation="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && incidentLocation.invalid }" >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Area Covered</label>
+          <div class="col-8">
+            <input type="text" placeholder="Area Covered" name="areaCovered" required maxlength="8"
+              autocomplete="off" [(ngModel)]="blommIncidentInfo.areaCovered" #areaCovered="ngModel" class="form-control"
+              [ngClass]="{ 'is-invalid': f.submitted && areaCovered.invalid }" OnlyNumber="true" (keypress)="isNumberKey($event)">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Bloom Type</label>
+          <div class="col-8">
+            <input type="text" placeholder="Bloom Type" name="bloomType" required autocomplete="off" [(ngModel)]="blommIncidentInfo.bloomType"
+              #bloomType="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && bloomType.invalid }">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Affected Species</label>
+          <div class="col-8">
+            <input type="text" placeholder="Affected Species" name="affectedSpecies" required autocomplete="off"
+              [(ngModel)]="blommIncidentInfo.affectedSpecies" #affectedSpecies="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && affectedSpecies.invalid }">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Remarks</label>
+          <div class="col-8">
+            <textarea type="text" placeholder="Remarks" name="remarks" required autocomplete="off" [(ngModel)]="blommIncidentInfo.remarks"
+              #remarks="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && remarks.invalid }"></textarea>
+          </div>
+        </div>
+
+        <form class="form-inline" method="post" encrypt="multipart/form-data" style="margin-top:2%;margin-bottom:2%">
+          <div class="form-group">
+            <input type='file' class="uploadFile" (change)="fileChanged($event)">
+          </div>
+          <div style="width:3%"></div>
+          <div style="width:3%"></div>
+          <div class="form-group custom-file-upload">
+            <button class="btn btn-primary gap gap-5 gap-lr">Upload</button>
+          </div>
+        </form>
+        <div class="filesListHolder">
+          <ul>
+            <li *ngFor="let file of blommIncidentInfo.upload">
+              <a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}" target="_blank"><i
+                  class="glyphicon glyphicon-download-alt"></i></a>
+              <span>{{file.fileName}}</span>
+            </li>
+          </ul>
         </div>
       </div>
-      <form name="form" (ngSubmit)="f.form.valid && createBloomIncident(blommIncidentInfo)" #f="ngForm" novalidate>
-        <div class="modalBody">
-     
-          <!-- <div class="alert alert-success" role="alert" *ngIf="newBloomIncidentResp"> Incident Created Successfully</div> -->
-          
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Name</label>
-            <div class="col-8">
-              <input type="text" placeholder="Incident Name" name="incidentName" [(ngModel)]="blommIncidentInfo.incidentName"
-                #incidentName="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && incidentName.invalid }"
-                required autocomplete="off" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
-            <div class="col-8">
-              <input type="text" placeholder="Lattitude" name="lattitude" required autocomplete="off" [(ngModel)]="blommIncidentInfo.lattitude"
-                #lattitude="ngModel" (keypress)="lattitudeKeyPress($event)" class="form-control" [ngClass]="{'is-invalid': f.submitted && lattitude.invalid }" max="10">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
-            <div class="col-8">
-              <input type="text" placeholder="Longitude" name="longitude" required autocomplete="off" [(ngModel)]="blommIncidentInfo.longitude"
-                #longitude="ngModel" (keypress)="longitudeKeyPress($event)" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && longitude.invalid }" max="10">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Location</label>
-            <div class="col-8">
-              <input type="text" placeholder="Location" name="incidentLocation" required autocomplete="off" [(ngModel)]="blommIncidentInfo.incidentLocation"
-                #incidentLocation="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && incidentLocation.invalid }">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Area Covered</label>
-            <div class="col-8">
-              <input type="text" placeholder="Area Covered" (keypress)="numberOnly($event)" name="areaCovered" required autocomplete="off" [(ngModel)]="blommIncidentInfo.areaCovered"
-                #areaCovered="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && areaCovered.invalid }" OnlyNumber="true">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Bloom Type</label>
-            <div class="col-8">
-              <input type="text" placeholder="Bloom Type" name="bloomType" required autocomplete="off" [(ngModel)]="blommIncidentInfo.bloomType"
-                #bloomType="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && bloomType.invalid }">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Affected Species</label>
-            <div class="col-8">
-              <input type="text" placeholder="Affected Species" name="affectedSpecies" required autocomplete="off"
-                [(ngModel)]="blommIncidentInfo.affectedSpecies" #affectedSpecies="ngModel" class="form-control"
-                [ngClass]="{ 'is-invalid': f.submitted && affectedSpecies.invalid }">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="example-text-input" class="col-3 col-form-label">Remarks</label>
-            <div class="col-8">
-              <textarea type="text" placeholder="Remarks" name="remarks" required autocomplete="off" [(ngModel)]="blommIncidentInfo.remarks"
-                #remarks="ngModel" class="form-control" [ngClass]="{ 'is-invalid': f.submitted && remarks.invalid }"></textarea>
-            </div>
-          </div>
-
-          <form class="form-inline" method="post" encrypt="multipart/form-data" style="margin-top:2%;margin-bottom:2%">
-            <div class="form-group">
-              <input type='file' class="uploadFile" (change)="fileChanged($event)">
-            </div>
-            <div style="width:3%"></div>
-            <div style="width:3%"></div>
-            <div class="form-group custom-file-upload">
-              <button class="btn btn-primary gap gap-5 gap-lr">Upload</button>
-            </div>
-          </form>
-          <div class="filesListHolder">
-            <ul>
-              <li *ngFor="let file of blommIncidentInfo.upload">
-                <a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}" target="_blank"><i
-                    class="glyphicon glyphicon-download-alt"></i></a>
-                <span>{{file.fileName}}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="modalFooter">
-          <div class="form-group mar t-20 col-xs-12 col-sm-12">
-            <div class="row text-right">
-              <div class="col-xs-12 col-sm-12">
-                <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
-                <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
-              </div>
+      <div class="modalFooter">
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+</div>

@@ -5,6 +5,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { IncidentsService } from '../incidents.service';
 import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-buoys-incidents',
@@ -24,15 +25,17 @@ export class BuoysIncidentsComponent implements OnInit {
   buoysIncidentResp: any;
   mondalOpen: any;
   value: any;
-  fromDateFilter:any;
-  toDateFilter:any;
+  fromDateFilter: any;
+  toDateFilter: any;
   buoysIncidentHistoryDetails = [];
   buoysIncidentHistoryResp: any;
-  dateval ='';
+  dateval = '';
   buoysIncidentUpdateDetails = [];
   buoysIncidentUpdateResp: any;
-
-
+  fromDate :any;
+  toDate :any;
+  buoysIncidentResultStatus: any;
+  buoysIncidentResultStatusMessage: any;
   columns: any[] = [
     { prop: 'buoysIncidentId' },
     { name: 'Incident Description' },
@@ -45,49 +48,72 @@ export class BuoysIncidentsComponent implements OnInit {
 
   constructor(private pageTitleService: PageTitleService,
     private incidentsService: IncidentsService,
-    public toastr: ToastsManager, vcr: ViewContainerRef) {
+    public toastr: ToastsManager, vcr: ViewContainerRef,
+    private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.dateForamt();
-    var fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
-    let toDate = moment().format("YYYY-MM-DD");
-    console.log(" Current Day ", "----" + toDate);
-    console.log(" Last  Three Months " + fromDate);
-    this.loadBuoysIncidentsData(fromDate, toDate);
+    this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+    this.toDate = moment().format("YYYY-MM-DD");
+    console.log(" Last  Three Months " + this.fromDate+" Current Day ", "----" + this.toDate);
+    this.loadBuoysIncidentsData(this.fromDate, this.toDate);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------",this.dateval)
+    console.log("-------todayDate---------", this.dateval)
   }
 
   loadBuoysIncidentsData(fromDate, toDate): void {
+    console.log(fromDate,toDate);
     this.incidentsService.getBuoysIncidentData(fromDate, toDate).subscribe((resp) => {
       this.buoysIncidentResp = resp;
       this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
-    /*   for (let i = 0; i < this.buoysIncidentDetails.length; i++) {
-        let item = this.buoysIncidentDetails[i];
-        item.createdDate = moment(item.createdDate, "MM/DD/YYYY h:mm:ss a").fromNow();
-      } */
-      this.selectedValue = [this.buoysIncidentDetails[0]];
-      this.temp = [...this.buoysIncidentDetails];
-      console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
+      this.buoysIncidentResultStatus = this.buoysIncidentResp.getIncidentsResult.Status;
+      console.log(this.buoysIncidentResultStatus,
+        this.buoysIncidentResp.getIncidentsResult.IncidentsList.length,
+        this.buoysIncidentResp.getIncidentsResult.Message);
+
+      if (this.buoysIncidentResultStatus === 'Success') {
+        if (this.buoysIncidentDetails.length > 0) {
+          this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
+          this.selectedValue = [this.buoysIncidentDetails[0]];
+          this.temp = [...this.buoysIncidentDetails];
+          console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
+          this.spinner.hide();
+        } else {
+          this.buoysIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " Incidents information not available";
+          this.buoysIncidentDetails = [];
+          this.spinner.hide();
+        }
+      }
+      else if (this.buoysIncidentResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.buoysIncidentResultStatusMessage = this.buoysIncidentResp.getAlertResult.Message;
+        this.spinner.hide();
+      }
+      /* this.selectedValue = [this.buoysIncidentDetails[0]];
+      this.temp = [...this.buoysIncidentDetails]; */
+      this.spinner.hide();
     });
   }
 
   onSelect({ selected }) {
     let selectedIncidentId = selected[0].incidentId;
     console.log('Select Event', selectedIncidentId);
+    this.fetchIncidentHistoryDetails(selectedIncidentId);
+  }
 
+  fetchIncidentHistoryDetails(selectedIncidentId) {
     this.incidentsService.getBuoysIncidentHistoryInfo(selectedIncidentId).subscribe((resp) => {
       this.buoysIncidentHistoryResp = resp;
       this.buoysIncidentHistoryDetails = this.buoysIncidentHistoryResp.GetIncidentHistoryResult.incidentHistory;
       console.log("----buoysIncidentHistoryDetails----", this.buoysIncidentHistoryDetails);
     });
   }
-
   onActivate(event) {
     // console.log('Activate Event', event);
   }
@@ -117,6 +143,7 @@ export class BuoysIncidentsComponent implements OnInit {
       this.buoysIncidentUpdateDetails = this.buoysIncidentUpdateResp.IncidentStatusUpdateResult;
       console.log("----buoysIncidentUpdateDetails----", this.buoysIncidentUpdateDetails);
       this.toastr.success(this.buoysIncidentUpdateResp.IncidentStatusUpdateResult, "Record Updated Successfully");
+      this.fetchIncidentHistoryDetails(selectedIncidentId);
     });
   }
 }

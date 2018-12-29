@@ -18,23 +18,31 @@
         <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
           Add</a>
       </div>
-      <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'" [rowHeight]="30"
-          [rows]="categoryListDetails">
-          <ngx-datatable-column name="Category Id" [width]="300">
+      <div class="widget-body" *ngIf="categoryListResultStatus === 'Success' && categoryListDetails.length ===0" style="height: 300px;">
+        <p>{{categoryListResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="categoryListResultStatus === 'Failed'" style="height: 300px;">
+        <p>{{categoryListResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="categoryListDetails.length > 0">
+        <!-- <ngx-datatable #mydatatable class="material" [scrollbarV]="true" [scrollbarH]="true" style="height: 500px;" [limit]="10" 
+          [headerHeight]="50" [columnMode]="'standard'" [rowHeight]="30" [rows]="categoryListDetails"> -->
+          <ngx-datatable #mydatatable class="material" [scrollbarH]="true"  [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
+          [footerHeight]="50" [rowHeight]="30" [rows]="categoryListDetails">
+          <ngx-datatable-column name="Category Id" [width]="250">
             <ng-template let-value="value" ngx-datatable-cell-template>
               {{value}}
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Category Name" [width]="500">
+          <ngx-datatable-column name="Category Name" [width]="600">
             <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <div class="text-center">{{value}}</div>
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Status" [width]="300">
+          <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                  <div class="text-center">{{value}}</div>
+                <div class="text-center">{{value}}</div>
               </span>
               <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
@@ -60,39 +68,39 @@
       </div>
     </div>
     <form class="form" name="form" (ngSubmit)="f.form.valid && createCategory(categoryInfo)" #f="ngForm" novalidate>
-    <div class="modalBody">
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
-        <div class="col-8">
-          <input type="text" placeholder="Category Name" name="categoryName" id="example-text-input"
-                 class="form-control is-invalid" [ngClass]="{'is-invalid': (f.submitted && categoryName.invalid)}" 
-                 [(ngModel)]="categoryInfo.categoryName" #categoryName="ngModel" required>
+      <div class="modalBody">
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Category Name</label>
+          <div class="col-8">
+            <input type="text" placeholder="Category Name" name="categoryName" id="example-text-input" class="form-control is-invalid"
+              [ngClass]="{'is-invalid': (f.submitted && categoryName.invalid)}" [(ngModel)]="categoryInfo.categoryName"
+              #categoryName="ngModel" required>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label for="example-text-input" class="col-3 col-form-label">Status</label>
-        <div class="col-8">
-          <select class="form-control is-invalid" [(ngModel)]="categoryInfo.status" 
-                  name="catStatus"  #status="ngModel" [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
-            <option value="" disabled selected hidden>Select Status</option>
-            <option value="Active">Active</option>
-            <option value="InActive">InActive</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    
-    <div class="modalFooter">
-      <div class="form-group mar t-20 col-xs-12 col-sm-12">
-        <div class="row text-right">
-          <div class="col-xs-12 col-sm-12">
-            <button class="btn btn-primary gap gap-5 gap-lr" >Add</button>
-            <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+        <div class="form-group row">
+          <label for="example-text-input" class="col-3 col-form-label">Status</label>
+          <div class="col-8">
+            <select class="form-control is-invalid" [(ngModel)]="categoryInfo.status" name="catStatus" #status="ngModel"
+              [ngClass]="{'is-invalid': (f.submitted && status.invalid)}" required>
+              <option value="" disabled selected hidden>Select Status</option>
+              <option value="Active">Active</option>
+              <option value="InActive">InActive</option>
+            </select>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+
+      <div class="modalFooter">
+        <div class="form-group mar t-20 col-xs-12 col-sm-12">
+          <div class="row text-right">
+            <div class="col-xs-12 col-sm-12">
+              <button class="btn btn-primary gap gap-5 gap-lr">Add</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" (click)="closeModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

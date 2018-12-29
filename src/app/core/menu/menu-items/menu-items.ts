@@ -11,6 +11,7 @@ export interface Menu {
   name: string;
   type: string;
   icon: string;
+  subLink: string;
   children?: ChildrenItems[];
 }
 
@@ -19,31 +20,36 @@ const MENUITEMS: Menu[] = [
     state: 'buoysdashboard',
     name: 'BUOYS',
     type: 'link',
-    icon: 'dashboard'
+    icon: 'dashboard',
+    subLink: ''
   },
   {
     state: 'mwqDataEntry',
     name: 'MWQDATAENTRY',
     type: 'link',
-    icon: 'perm_data_setting'
+    icon: 'perm_data_setting',
+    subLink: 'data-entry'
   },
   {
     state: 'mwqDataQc',
     name: 'MWQDATAQC',
     type: 'link',
-    icon: 'high_quality'
+    icon: 'high_quality',
+    subLink: 'qc-info'
   },
   {
     state: 'alerts',
     name: 'ALERT',
     type: 'link',
-    icon: 'battery_alert'
+    icon: 'battery_alert',
+    subLink: ''
   },
   {
     state: 'incidents',
     name: 'INCIDENTS',
     type: 'sub',
     icon: 'bug_report',
+    subLink: '',
     children: [
       {state: 'buoys-incidents', name: 'BUOYS_INCIDENT'},
       {state: 'blooms-incidents', name: 'BLOOMS_INCIDENT'},
@@ -55,6 +61,7 @@ const MENUITEMS: Menu[] = [
     name: 'REPORTS',
     type: 'sub',
     icon: 'report',
+    subLink: '',
     children: [
       {state: 'analytics', name: 'ANALYTICS'},
       {state: 'compare-params', name: 'COMPARE_PARAMS'},
@@ -66,6 +73,7 @@ const MENUITEMS: Menu[] = [
     name: 'DOWNLOADDATA',
     type: 'sub',
     icon: 'cloud_download',
+    subLink: '',
     children: [
       {state: 'download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
       {state: 'download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
@@ -77,6 +85,7 @@ const MENUITEMS: Menu[] = [
     name: 'MANAGEMWQDATA',
     type: 'sub',
     icon: 'data_usage',
+    subLink: '',
     children: [
    /*   {state: 'configure-buoys', name: 'CONFIGURE_BUOYS'}, */
       {state: 'configure-parameters', name: 'CONFIGURE_PARAMETERS'},

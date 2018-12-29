@@ -18,6 +18,7 @@ export interface Menu {
   name: string;
   type: string;
   icon: string;
+  subLink: string;
   children?: ChildrenItems[];
 }
 
@@ -27,7 +28,8 @@ const HORIZONTALMENUITEMS = [
     state: 'dashboard',
     name: 'HOME',
     type: 'link',
-    icon: 'home'
+    icon: 'home',
+    subLink: ''
   },
 
   /** Newly Added */
@@ -35,19 +37,22 @@ const HORIZONTALMENUITEMS = [
     state: 'buoysdashboard',
     name: 'BUOYS',
     type: 'link',
-    icon: 'dashboard'
+    icon: 'dashboard',
+    subLink: ''
   },
   {
     state: 'alerts',
     name: 'ALERT',
     type: 'link',
-    icon: 'battery_alert'
+    icon: 'battery_alert',
+    subLink: ''
   },
   {
     state: 'incidents',
     name: 'INCIDENTS',
     type: 'sub',
     icon: 'bug_report',
+    subLink: '',
     children: [
       {state: 'incidents/buoys-incidents', name: 'BUOYS_INCIDENT'},
       {state: 'incidents/blooms-incidents', name: 'BLOOMS_INCIDENT'},
@@ -71,6 +76,7 @@ const HORIZONTALMENUITEMS = [
     name: 'MANAGEMWQDATA',
     type: 'sub',
     icon: 'bug_report',
+    subLink: '',
     children: [
      /*  {state: 'managemwqdata/configure-buoys', name: 'CONFIGURE_BUOYS'}, */
       {state: 'managemwqdata/configure-parameters', name: 'CONFIGURE_PARAMETERS'},
@@ -92,6 +98,7 @@ const HORIZONTALMENUITEMS = [
     name: 'DOWNLOADDATA',
     type: 'sub',
     icon: 'cloud_download',
+    subLink: '',
     children: [
       {state: 'download-data/download-mwq-data', name: 'DOWNLOAD_MWQ_DATA'},
       {state: 'download-data/download-buoys-data', name: 'DOWNLOAD_BUOYS_DATA'},
@@ -103,6 +110,7 @@ const HORIZONTALMENUITEMS = [
     name: 'REPORTS',
     type: 'link',
     icon: 'report',
+    subLink: '',
     children: [
       {state: 'reports/analytics', name: 'ANALYTICS'},
       {state: 'reports/compare-params', name: 'COMPARE_PARAMS'},
@@ -113,19 +121,22 @@ const HORIZONTALMENUITEMS = [
     state: 'mwqDataEntry',
     name: 'MWQDATAENTRY',
     type: 'link',
-    icon: 'perm_data_setting'
+    icon: 'perm_data_setting',
+    subLink: "data-entry"
   },
   {
     state: 'mwqDataQc',
     name: 'MWQDATAQC',
     type: 'link',
-    icon: 'high_quality'
+    icon: 'high_quality',
+    subLink: 'qc-info'
   },
   {
     state: 'analytics',
     name: 'ANALYTICS',
     type: 'link',
-    icon: 'import_export'
+    icon: 'import_export',
+    subLink: ''
   },
   /** Newly End */
   

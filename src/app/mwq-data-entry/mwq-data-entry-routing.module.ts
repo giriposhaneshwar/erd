@@ -13,6 +13,8 @@ import { UploadFilesComponent } from './tabs/upload-files/upload-files.component
 import { QcInfoComponent } from './tabs/qc-info/qc-info.component';
 import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
 
+console.log("Location", window.location.href);
+
 export const MwqDataEntryRoutes: Routes = [{
   path: '',
   children: [{

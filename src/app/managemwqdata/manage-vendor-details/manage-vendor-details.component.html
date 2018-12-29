@@ -18,9 +18,16 @@
         <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
           Add</a>
       </div>
-      <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'standard'"
+      <div class="widget-body" *ngIf="vendorsListResultStatus === 'Success' && vendorsListDetails.length ===0" style="height: 300px;">
+          <p>{{vendorsListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="vendorsListResultStatus === 'Failed'" style="height: 300px;">
+          <p>{{vendorsListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="vendorsListDetails.length > 0">
+        <ngx-datatable #mydatatable class="material" [scrollbarH]="true" [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
           [footerHeight]="50" [rowHeight]="30" [rows]="vendorsListDetails">
+
           <ngx-datatable-column name="S No" [width]="90">
               <ng-template let-value="value" ngx-datatable-cell-template>
                   <div class="text-center">{{value}}</div>
@@ -46,7 +53,7 @@
                   <div class="text-center">{{value}}</div>
                 </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Status" [width]="150">
+          <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
               <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
                   <div class="text-center">{{value}}</div>
@@ -89,7 +96,7 @@
           <label for="example-text-input" class="col-3 col-form-label">Email Id</label>
           <div class="col-8">
             <input type="text" placeholder="Email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-              id="example-text-input" name="email" ngModel #emailref="ngModel" [(ngModel)]="vendorInfo.emailId"
+              id="example-text-input" name="email" ngModel #emailref="ngModel" [(ngModel)]="vendorInfo.emailId" autocomplete="off"
               [ngClass]="{'is-invalid': (f.submitted && emailref.invalid)}" required>
             <div *ngIf="emailref.errors &&(emailref.touched || emailref.dirty)" class="aler alert-danger">
               <div [hidden]="!emailref.errors?.pattern">

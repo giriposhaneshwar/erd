@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastsManager } from 'ng6-toastr';
 @Component({
   selector: 'ms-configure-categories',
   templateUrl: './configure-categories.component.html',
@@ -15,26 +17,52 @@ export class ConfigureCategoriesComponent implements OnInit {
   mondalOpen: any;
   categoryListDetails = [];
   categoryListResp: any;
+  categoryListResultStatus: any;
+  categoryListResultStatusMessage: any;
+  categoryUpadateResultStatus: any;
+  categoryCreateResultStatus: any;
   categoryInfo: any = {
     categoryName: "", createdBy: "AdminUser", status: ""
   };
   @ViewChild(NgForm) f: NgForm;
 
   modalShowWindow: Boolean = false;
-  constructor(private pageTitleService: PageTitleService, private http: HttpClient,
+  constructor(private pageTitleService: PageTitleService,
+    private http: HttpClient, private spinner: NgxSpinnerService,
+    public toastr: ToastsManager, vcr: ViewContainerRef,
     private manageMwqDataService: ManageMwqDataService) {
     this.loadCategoryList();
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
 
   loadCategoryList() {
     this.manageMwqDataService.fetchCategoryList().subscribe((resp) => {
       this.categoryListResp = resp;
       this.categoryListDetails = this.categoryListResp.GetCategoryListResult.CategoryLists;
-      console.log("----categoryListDetails----", this.categoryListDetails);
+      this.categoryListResultStatus = this.categoryListResp.GetCategoryListResult.Status
+      console.log(this.categoryListResultStatus, this.categoryListResp.GetCategoryListResult.CategoryLists.length,
+        this.categoryListResp.GetCategoryListResult.Message);
+
+      if (this.categoryListResultStatus === 'Success') {
+        this.categoryListResultStatusMessage = "Category information not available";
+        if (this.categoryListDetails.length > 0) {
+          this.categoryListDetails = this.categoryListResp.GetCategoryListResult.CategoryLists;
+          this.spinner.hide();
+        } else {
+          this.categoryListDetails = [];
+          this.spinner.hide();
+        }
+      }
+      else if (this.categoryListResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.categoryListResultStatusMessage = this.categoryListResp.GetCategoryListResult.Message;
+        this.spinner.hide();
+      }
     });
   }
 
@@ -48,6 +76,15 @@ export class ConfigureCategoriesComponent implements OnInit {
     let updatedBy = "Admin";
     this.manageMwqDataService.updateCategoryStatus(updatedCategoryId, updatedBy, updatedStatus).subscribe((resp) => {
       console.log("----CategoryStatusUpdateResult----", resp);
+      this.categoryUpadateResultStatus = resp;
+      if (this.categoryUpadateResultStatus.CategoryStatusUpdateResult === 'success') {
+        console.log('UPDATED!', updatedStatus, updatedCategoryId, updatedBy, this.categoryUpadateResultStatus.CategoryStatusUpdateResult);
+        this.toastr.success("Category Information Updated Successfully")
+      }
+      else {
+        this.toastr.error(this.categoryUpadateResultStatus.CategoryStatusUpdateResult, "Category Information Updation Failed");
+        console.log('UPDATE Failed!', updatedStatus, updatedCategoryId, updatedBy, this.categoryUpadateResultStatus.CategoryStatusUpdateResult);
+      }
     });
     console.log('UPDATED!', this.categoryListDetails[rowIndex][cell]);
   }
@@ -67,10 +104,19 @@ export class ConfigureCategoriesComponent implements OnInit {
   createCategory(categoryInfo) {
     console.log(JSON.stringify(categoryInfo));
     this.manageMwqDataService.addCategoryInfo(categoryInfo).subscribe((resp) => {
-      let categoryInfoResp = resp;
-      console.log("----categoryInfoResp----", categoryInfoResp);
+      this.categoryCreateResultStatus = resp;
+      console.log("----categoryCreateResultStatus----", this.categoryCreateResultStatus);
+      if (this.categoryCreateResultStatus.CategoryInsertResult === 'sucess') {
+        this.toastr.success("Category Information Created Successfully");
+        this.f.resetForm();
+        this.closeModal();
+        this.loadCategoryList();
+      }
+      else {
+        this.toastr.error(this.categoryCreateResultStatus.CategoryInsertResult, "Category Information Updation Failed");
+      }
     });
-    this.f.resetForm();
+
   }
 
   numberOnly(event): boolean {

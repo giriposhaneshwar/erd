@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-manage-stations',
@@ -20,25 +21,48 @@ export class ManageStationsComponent implements OnInit {
   modalShowWindow: Boolean = false;
   msg: any = "";
   stationInfoResp: any;
+  stationsListResultStatus: any;
+  stationsListResultStatusMessage: any;
   stationInfo: any = {
     stationId: "", x: "", y: "", name: "", createdBy: "Admin", status: ""
   };
-  
+
   @ViewChild(NgForm) f: NgForm;
 
-  constructor(private pageTitleService: PageTitleService, private http: HttpClient,
-    private manageMwqDataService: ManageMwqDataService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+  constructor(private pageTitleService: PageTitleService,
+    private http: HttpClient, private spinner: NgxSpinnerService,
+    private manageMwqDataService: ManageMwqDataService,
+    public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
     this.loaStationsList();
   }
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
   loaStationsList() {
     this.manageMwqDataService.fetchStationsList().subscribe((resp) => {
       this.stationsListResp = resp;
       this.stationsListDetails = this.stationsListResp.GetStationsListResult.StationLists;
-      console.log("----stationsListDetails----", this.stationsListDetails);
+      this.stationsListResultStatus = this.stationsListResp.GetStationsListResult.Status;
+      // console.log("----stationsListDetails----", this.stationsListDetails);
+      console.log(this.stationsListResultStatus, this.stationsListResp.GetStationsListResult.StationLists.length,
+        this.stationsListResp.GetStationsListResult.Message);
+      if (this.stationsListResultStatus === 'Success') {
+        if (this.stationsListDetails.length > 0) {
+          this.stationsListDetails = this.stationsListResp.GetStationsListResult.StationLists;
+          this.spinner.hide();
+        } else {
+          this.stationsListDetails = [];
+          this.stationsListResultStatusMessage = "Station information not available";
+          this.spinner.hide();
+        }
+      }
+      else if (this.stationsListResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.stationsListResultStatusMessage = this.stationsListResp.GetStationsListResult.Message;
+        this.spinner.hide();
+      }
     });
   }
   updateValue(event, cell, rowIndex, row) {
@@ -50,10 +74,20 @@ export class ManageStationsComponent implements OnInit {
     let updatedStationId = row.stationId;
     let updatedBy = "Admin";
     this.manageMwqDataService.updateStationStatus(updatedStationId, updatedBy, updatedStatus).subscribe((resp) => {
-      console.log("----CategoryStatusUpdateResult----", resp);
+      this.stationsListResp = resp;
+      console.log("----CategoryStatusUpdateResult----", this.stationsListResp);
+      if (this.stationsListResp.StationsStatusUpdateResult === 'success') {
+        console.log('UPDATED!', updatedStationId, updatedBy, updatedStatus, updatedStationId+" - "+this.stationsListResp.StationsStatusUpdateResult);
+        this.toastr.success("Station Id " +updatedStationId+" - "+"Information Updated Successfully");
+      }
+      else {
+        this.toastr.error(this.stationsListResp.StationsStatusUpdateResult, updatedStationId+" - "+"Station Information Updation Failed");
+        console.log('UPDATE Failed!', updatedStationId, updatedBy, updatedStatus, this.stationsListResp.StationsStatusUpdateResult);
+      }
     });
     console.log('UPDATED!', this.stationsListDetails[rowIndex][cell]);
   }
+
   addTableRow() {
     this.openModal();
   }
@@ -70,7 +104,7 @@ export class ManageStationsComponent implements OnInit {
   createStation(stationInfo) {
     console.log(JSON.stringify(stationInfo));
     this.manageMwqDataService.addStationInfo(stationInfo).subscribe((resp) => {
-       this.stationInfoResp = resp;
+      this.stationInfoResp = resp;
       console.log("----stationInfoResp----", this.stationInfoResp);
       if (this.stationInfoResp.StationsCreateResult === 'sucess') {
         this.toastr.success("Station Created Successfully");
@@ -98,6 +132,17 @@ export class ManageStationsComponent implements OnInit {
     if (event.keyCode != 8 && !pattern.match(inputChar)) {
       event.preventDefault();
     }
+  }
+
+  numberOnly(evt) {
+    //debugger;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46 && evt.srcElement.value.split('.').length > 1) {
+      return false;
+    }
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
   }
 
 }

@@ -17,7 +17,7 @@
         <!-- <h4>Manage LIMS Services</h4> -->
       </div>
       <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [columnMode]="'standard'" [footerHeight]="50"
+        <ngx-datatable #mydatatable class="material" [scrollbarH]="true"  [headerHeight]="50" [columnMode]="'standard'" [footerHeight]="50"
           [rowHeight]="'30'" [rows]="restItems" [scrollbarH]="true">
           <ngx-datatable-column name="S No" [width]="80">
               <ng-template let-value="value" ngx-datatable-cell-template>

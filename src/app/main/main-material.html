@@ -31,9 +31,13 @@
          <div class="sidenav-scrollbar-container">
                <mat-nav-list menuToggleDirective class="navigation">
                   <mat-list-item menuToggleLink *ngFor="let menuitem of menuItems.getAll()">
-                     <a menuToggle class="silk-relative" mat-ripple [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
+                     <a menuToggle class="silk-relative" mat-ripple [routerLink]="['/', menuitem.state, menuitem.subLink]" *ngIf="menuitem.type === 'link' && menuitem.subLink !== ''">
                      <mat-icon>{{ menuitem.icon }}</mat-icon>
                      <span>{{ menuitem.name | translate }}</span>
+                     </a>
+                     <a menuToggle class="silk-relative" mat-ripple [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link' && menuitem.subLink === ''">
+                        <mat-icon>{{ menuitem.icon }}</mat-icon>
+                        <span>{{ menuitem.name | translate }}</span>
                      </a>
                      <a menuToggle class="silk-relative" mat-ripple href="javascript:;" *ngIf="menuitem.type === 'sub'">
                         <mat-icon>{{ menuitem.icon }}</mat-icon>
@@ -270,9 +274,9 @@
             <nav>
                <ul class="main-h-list">
                   <li *ngFor="let menuitem of horizontalMenuItems.getAll()">
-                     <a [routerLink]="['/'+menuitem.state]" *ngIf="menuitem.type === 'link'">
+                     <a [routerLink]="['/'+menuitem.state+'/'+menuitem.subLink]" *ngIf="menuitem.type === 'link'">
                         <mat-icon>{{ menuitem.icon }}</mat-icon>
-                        <span>{{ menuitem.name | translate }}</span>
+                        <span>{{ menuitem.name | translate }} 123</span>
                      </a>
                      <a [routerLink]="['/'+menuitem.state]" *ngIf="menuitem.type === 'sub'">
                         <mat-icon>{{ menuitem.icon }}</mat-icon>

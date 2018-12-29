@@ -1,8 +1,9 @@
 export class Config {
 DOMAIN = (window.location.origin === 'http://localhost:4200') ? "http://localhost":window.location.origin;
+//DOMAIN = (window.location.origin === 'http://10.10.1.90:9933') ? "http://10.10.1.90:9933":window.location.origin;
 DIRECTORY =  "/MWQWebservice";
 APPLICATION =  "/MWQSitesRestServices.svc";
-UPLOAD_DIR = '/upload';
+UPLOAD_DIR = '/upload/';
 
 API_URL = this.DOMAIN + this.DIRECTORY + this.APPLICATION ;
 UPLOAD_URL = this.DOMAIN + this.DIRECTORY + this.UPLOAD_DIR;
@@ -30,7 +31,7 @@ UPLOAD_URL = this.DOMAIN + this.DIRECTORY + this.UPLOAD_DIR;
     else if (window.location.origin === 'http://10.56.65.11') {
       return { module: url[2], tab: url[3] };
     }
-    else if (window.location.origin === 'http://10.10.1.90') {
+    else if (window.location.origin === 'http://10.10.1.90:9933') {
       return { module: url[2], tab: url[3] };
     }
   }

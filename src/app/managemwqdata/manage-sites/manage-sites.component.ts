@@ -5,6 +5,7 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-manage-sites',
@@ -27,7 +28,8 @@ export class ManageSitesComponent implements OnInit {
 
   siteCategory = [];
   siteCategoryResp: any;
-
+  sitesListResultStatus: any;
+  sitesListResultStatusMessage: any;
   projectNamesDetails = [];
   projectNamesResp: any;
   msg: any;
@@ -35,8 +37,11 @@ export class ManageSitesComponent implements OnInit {
   siteInfoUpdateResp: any;
   @ViewChild(NgForm) f: NgForm;
 
-  constructor(private pageTitleService: PageTitleService, private http: HttpClient, public toastr: ToastsManager, vcr: ViewContainerRef,
-    private manageMwqDataService: ManageMwqDataService, private mwqDataEntryService: MwqDataEntryService) {
+  constructor(private pageTitleService: PageTitleService,
+    private http: HttpClient, private spinner: NgxSpinnerService,
+    public toastr: ToastsManager, vcr: ViewContainerRef,
+    private manageMwqDataService: ManageMwqDataService,
+    private mwqDataEntryService: MwqDataEntryService) {
     this.loadSitesList();
     this.toastr.setRootViewContainerRef(vcr);
     this.loadSiteCategoryData();
@@ -44,18 +49,30 @@ export class ManageSitesComponent implements OnInit {
   }
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Mana,gement System");
+    this.spinner.show();
   }
 
   loadSitesList() {
     this.manageMwqDataService.fetchSitesList().subscribe((resp) => {
       this.sitesListResp = resp;
-      //console.log("----this.sitesListResp.GetSitesListResult.Status----", this.sitesListResp.GetSitesListResult.Status);
-      if (this.sitesListResp.GetSitesListResult.Status != 'Failed') {
-        this.sitesListDetails = this.sitesListResp.GetSitesListResult.SiteLists;
-        console.log("----sitesListDetails----", this.sitesListDetails);
+      this.sitesListResultStatus = this.sitesListResp.GetSitesListResult.Status;
+      this.sitesListDetails = this.sitesListResp.GetSitesListResult.SiteLists;
+      console.log(this.sitesListResultStatus, this.sitesListResp.GetSitesListResult.SiteLists.length,
+        this.sitesListResp.GetSitesListResult.Message);
+      if (this.sitesListResultStatus === 'Success') {
+        if (this.sitesListDetails.length > 0) {
+          this.sitesListDetails = this.sitesListResp.GetSitesListResult.SiteLists;
+          this.spinner.hide();
+        } else {
+          this.sitesListDetails = [];
+          this.sitesListResultStatusMessage = "Site information not available";
+          this.spinner.hide();
+        }
       }
-      else {
-        this.msg = this.sitesListResp.GetSitesListResult.Message;
+      else if (this.sitesListResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.sitesListResultStatusMessage = this.sitesListResp.GetsitesListResult.Message;
+        this.spinner.hide();
       }
     });
   }
@@ -70,10 +87,14 @@ export class ManageSitesComponent implements OnInit {
     let updatedBy = "Admin";
     this.manageMwqDataService.updateSitesStatus(updatedSiteId, updatedBy, updatedStatus).subscribe((resp) => {
       this.siteInfoUpdateResp = resp;
-      console.log("----siteInfoUpdateResp----", this.siteInfoUpdateResp.SitesStatusUpdateResult);
+      console.log("----siteInfoUpdateResp----", this.siteInfoUpdateResp);
       if (this.siteInfoUpdateResp.SitesStatusUpdateResult === 'success') {
-        this.msg = this.siteInfoUpdateResp.SitesStatusUpdateResult;
-        this.loadSitesList();
+        console.log('UPDATED!', updatedSiteId, updatedBy, updatedStatus, this.siteInfoUpdateResp.SitesStatusUpdateResult);
+        this.toastr.success("Site Information Updated Successfully");
+      }
+      else {
+        this.toastr.error(this.siteInfoUpdateResp.SitesStatusUpdateResult, "Site Information Updation Failed");
+        console.log('UPDATE Failed!', updatedSiteId, updatedBy, updatedStatus, this.siteInfoUpdateResp.SitesStatusUpdateResult);
       }
     });
     console.log('UPDATED!', this.sitesListDetails[rowIndex][cell]);
@@ -123,7 +144,17 @@ export class ManageSitesComponent implements OnInit {
         // this.newBloomIncidentResp ="Incident Created failed"
         this.toastr.error(this.siteInfoResp.SitesCreateResult, "Site Created failed");
       }
-         
     });
+  }
+
+  numberOnly(evt) {
+    //debugger;
+    let charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46 && evt.srcElement.value.split('.').length > 1) {
+      return false;
+    }
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
   }
 }

@@ -18,8 +18,14 @@
         <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
           Add</a>
       </div>
-      <div class="widget-body">
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="15" [columnMode]="'standard'"
+      <div class="widget-body" *ngIf="stationsListResultStatus === 'Success' && stationsListDetails.length ===0" style="height: 300px;">
+          <p>{{stationsListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="stationsListResultStatus === 'Failed'" style="height: 300px;">
+          <p>{{stationsListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="stationsListDetails.length > 0">
+        <ngx-datatable #mydatatable class="material" [scrollbarH]="true"  [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
           [footerHeight]="50" [rowHeight]="30" [rows]="stationsListDetails">
           <ngx-datatable-column name="Id" [width]="100">
             <ng-template let-value="value" ngx-datatable-cell-template>
@@ -106,7 +112,7 @@
         <div class="col-8">
           <!-- <input class="form-control" type="text" placeholder="X" [(ngModel)]="stationInfo.x" id="example-text-input"> -->
           <input type="text" placeholder="Latitude" name="latitude" id="example-text-input" autocomplete="off"
-          [(ngModel)]="stationInfo.x"  #latitude="ngModel" required (keypress)="lattitudeKeyPress($event)"
+          [(ngModel)]="stationInfo.x"  #latitude="ngModel" required (keypress)="numberOnly($event)"
           class="form-control"  [ngClass]="{'is-invalid': (f.submitted && latitude.invalid)}">
         </div>
       </div>
@@ -116,7 +122,7 @@
         <div class="col-8">
           <!-- <input class="form-control" type="text" placeholder="Y" [(ngModel)]="stationInfo.y" id="example-text-input"> -->
           <input type="text" placeholder="Longitude" name="longitude" id="example-text-input" autocomplete="off"
-          [(ngModel)]="stationInfo.y"  #longitude="ngModel" required (keypress)="longitudeKeyPress($event)"
+          [(ngModel)]="stationInfo.y"  #longitude="ngModel" required (keypress)="numberOnly($event)"
           class="form-control"  [ngClass]="{'is-invalid': (f.submitted && longitude.invalid)}">
         </div>
       </div>

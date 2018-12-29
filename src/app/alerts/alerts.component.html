@@ -25,7 +25,7 @@
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
               <input class="form-control" type="date" id="example-fromDate-input" name="fromDate" [max]="dateval"
-                [(ngModel)]="fromDateFilter" >
+                [(ngModel)]="fromDateFilter">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
@@ -38,15 +38,24 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
     <div class="silk-card border-success pb-0">
       <!--<div class="silk-card-title d-flex justify-content-between">
     </div>-->
-      <div class="widget-body">
+      <div class="widget-body" *ngIf="alertResultStatus === 'Success' && alertsDetails.length ===0" style="height: 300px;">
+        <p>{{alertResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="alertResultStatus === 'Failed'" style="height: 300px;">
+        <p>{{alertResultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="alertsDetails.length > 0">
         <mat-card style="padding: 0;">
-          <ngx-datatable #table class="material customTable" [rows]="alertsDetails" [columnMode]="'standard'"
-            [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'35'" [limit]="10" [selected]="selected"
-            [selectionType]="'single'" (activate)="onActivate($event)" (select)='onSelect($event)'>
+          <ngx-datatable class="material sorting customTable" style="height: 400px;" [rows]="alertsDetails"
+            [columnMode]="'standard'" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35"
+            [limit]="10" [selected]="selected" [selectionType]="'single'" (activate)="onActivate($event)" [scrollbarV]="true"
+            (select)='onSelect($event)'>
             <ngx-datatable-column name="Severity" [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <!--<i class="fa fa-arrow-up ">{{value}}</i>-->
@@ -56,12 +65,14 @@
                   }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Description" [width]="200"></ngx-datatable-column>
+            <ngx-datatable-column name="Description" [width]="500"></ngx-datatable-column>
             <!--<small class="text-muted"><i class="fa fa-clock-o"></i></small>-->
             <ngx-datatable-column name="Createddate" [width]="170"></ngx-datatable-column>
+            <ngx-datatable-column name="Status" [width]="100"></ngx-datatable-column>
           </ngx-datatable>
         </mat-card>
       </div>
+
     </div>
   </div>
 
@@ -70,8 +81,10 @@
       <div class="silk-card-title d-flex justify-content-between">
         <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Alert Details</h4>
       </div>
-      <div class="silk-card-content widget-body">
+
+      <div class="silk-card-content widget-body" *ngIf="alertsDetails.length > 0">
         <table class="table table-middle table-striped">
+
           <tbody class="ng-tns-c6-0" *ngFor='let sel of selected'>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Alert Id</td>

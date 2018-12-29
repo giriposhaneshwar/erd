@@ -29,18 +29,19 @@ export class ManageMwqDataService {
     return this.http.post<any[]>(this.apiUrl + "/ParameterStatusUpdate", bodyParams, { headers: headers_value })
   }
   addParameterInfo(paramInfo): Observable<any[]> {
-    let bodyParams = { paramInfo };
-    //console.log(bodyParams);
+    let bodyParams =  paramInfo ;
+    console.log(bodyParams);
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/ParametersCreate", bodyParams, { headers: headers_value })
+  // return this.http.post<any[]>("http://localhost:63422/MWQSitesRestServices.svc/ParametersCreate", bodyParams, { headers: headers_value })
   }
   /* CONFIGURE PARAMETERS END */
 
 
 
 
-  /* CONFIGURE PARAMETERS START */
+  /* CONFIGURE CATEGORY START */
   fetchCategoryList(): Observable<any[]> {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
@@ -60,7 +61,7 @@ export class ManageMwqDataService {
     headers_value = headers_value.set('Content-Type', 'application/json');
     return this.http.post<any[]>(this.apiUrl + "/CategoryInsert", bodyParams, { headers: headers_value })
   }
-  /* CONFIGURE PARAMETERS END */
+  /* CONFIGURE CATEGORY END */
 
   /* MANAGE STATION StART */
   fetchStationsList(): Observable<any[]> {

@@ -18,12 +18,19 @@
         <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>
           Add</a>
       </div>
-      <div class="widget-body">
-        <div class="alert alert-success alert-dismissible" *ngIf="msg==='success'">
+      <div class="widget-body" *ngIf="sitesListResultStatus === 'Success' && sitesListDetails.length ===0" style="height: 300px;">
+          <p>{{sitesListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="sitesListResultStatus === 'Failed'" style="height: 300px;">
+          <p>{{sitesListResultStatusMessage}}</p>
+        </div>
+        <div class="widget-body" *ngIf="sitesListDetails.length > 0">
+
+      <!--   <div class="alert alert-success alert-dismissible" *ngIf="msg==='success'">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Success!</strong> Site status updated successfully
-        </div>
-        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
+        </div> -->
+        <ngx-datatable #mydatatable class="material" [scrollbarH]="true"  [headerHeight]="50" [limit]="10" [columnMode]="'standard'"
           [footerHeight]="50" [rowHeight]="30" [rows]="sitesListDetails">
           <ngx-datatable-column name="Site Id" [width]="90">
               <ng-template let-value="value" ngx-datatable-cell-template>
@@ -92,7 +99,7 @@
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Site ID</label>
           <div class="col-8">
-            <input type="text" placeholder="Site ID" name="siteId" id="example-text-input" [(ngModel)]="siteInfo.siteId"
+            <input type="text" placeholder="Site ID" name="siteId" id="example-text-input" [(ngModel)]="siteInfo.siteId" (keypress)="numberOnly($event)"
               #siteId="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteId.invalid)}">
           </div>
         </div>
@@ -136,7 +143,7 @@
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Lattitude</label>
           <div class="col-8">
-            <input type="text" placeholder="Lattitude" name="lattitude" id="example-text-input" [(ngModel)]="siteInfo.x"
+            <input type="text" placeholder="Lattitude" name="lattitude" id="example-text-input" [(ngModel)]="siteInfo.x" (keypress)="numberOnly($event)"
               #lattitude="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && lattitude.invalid)}">
           </div>
         </div>
@@ -144,7 +151,7 @@
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Longitude</label>
           <div class="col-8">
-            <input type="text" placeholder="Longitude" name="longitude" id="example-text-input" [(ngModel)]="siteInfo.y"
+            <input type="text" placeholder="Longitude" name="longitude" id="example-text-input" [(ngModel)]="siteInfo.y" (keypress)="numberOnly($event)"
               #longitude="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && longitude.invalid)}">
           </div>
         </div>
@@ -153,7 +160,7 @@
           <label for="example-text-input" class="col-3 col-form-label">Water Quality </label>
           <div class="col-8">
 
-            <input type="text" placeholder="Water Quality Region Id" name="waterQualityId" id="example-text-input"
+            <input type="text" placeholder="Water Quality Region Id" name="waterQualityId" id="example-text-input" (keypress)="numberOnly($event)"
               [(ngModel)]="siteInfo.waterqualityRegionId" #waterQualityId="ngModel" required autocomplete="off" class="form-control"
               [ngClass]="{'is-invalid': (f.submitted && waterQualityId.invalid)}">
           </div>
@@ -184,7 +191,7 @@
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Default Value</label>
           <div class="col-8">
-            <input type="text" placeholder="Default Value" name="siteDefaultValue" id="example-text-input" [(ngModel)]="siteInfo.defaultSiteValue"
+            <input type="text" placeholder="Default Value" name="siteDefaultValue" id="example-text-input" [(ngModel)]="siteInfo.defaultSiteValue" (keypress)="numberOnly($event)"
               #siteDefaultValue="ngModel" required autocomplete="off" class="form-control" [ngClass]="{'is-invalid': (f.submitted && siteDefaultValue.invalid)}">
           </div>
         </div>

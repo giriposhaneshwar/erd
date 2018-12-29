@@ -5,6 +5,7 @@ import { AlertService } from './alerts.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-alerts',
@@ -16,15 +17,16 @@ import { ToastsManager } from 'ng6-toastr';
   animations: [fadeInAnimation]
 })
 export class AlertsComponent implements OnInit {
-  dateval ='';
+  dateval = '';
   selected = [];
   alertsDetails = [];
   alertsResp: any;
-  fromDateFilter :any;
-  toDateFilter:any;
+  fromDateFilter: any;
+  toDateFilter: any;
   newBuoysIncidentDetails = [];
   newBuoysIncidentResp: any;
-
+  fromDate: any;
+  toDate: any;
   temp = [];
   mondalOpen: any;
   columns: any[] = [
@@ -33,37 +35,60 @@ export class AlertsComponent implements OnInit {
     { name: 'Reported DateTime' },
     { name: 'Severity' }
   ];
+  alertResultStatus: any;
+  alertResultStatusMessage: any;
+
   @ViewChild(DatatableComponent) table: DatatableComponent;
-  constructor(private pageTitleService: PageTitleService, 
+  constructor(private pageTitleService: PageTitleService,
     private alertService: AlertService,
-    public toastr: ToastsManager, vcr: ViewContainerRef) {
-      this.dateForamt();
-      this.toastr.setRootViewContainerRef(vcr);
-      var fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
-      let toDate = moment().format("YYYY-MM-DD");
+    public toastr: ToastsManager, vcr: ViewContainerRef, private spinner: NgxSpinnerService) {
+    this.dateForamt();
+    this.toastr.setRootViewContainerRef(vcr);
 
-      console.log(" Current Day ", "----" + toDate);
-      console.log(" Last  Three Months " + fromDate);
-      this.loadAlertsData(fromDate, toDate);
-
+    this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+    this.toDate = moment().format("YYYY-MM-DD");
+    /* console.log(" Current Day ", "----" + this.toDate);
+    console.log(" Last  Three Months " + this.fromDate); */
+    this.loadAlertsData(this.fromDate, this.toDate);
   }
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
+    this.spinner.show();
   }
+
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------",this.dateval)
+    console.log("-------todayDate---------", this.dateval)
   }
+
   loadAlertsData(fromDate, toDate): void {
+    console.log("----loadAlertsData----", fromDate + "------" + toDate);
     this.alertService.getAlertsData(fromDate, toDate).subscribe((resp) => {
       this.alertsResp = resp;
       this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
-      this.selected = [this.alertsDetails[0]];
-      this.temp = [...this.alertsDetails];
-
-      console.log("----alertsDetails----", this.alertsDetails);
+      this.alertResultStatus = this.alertsResp.getAlertResult.Status;
+      console.log("----alertsDetails----", this.alertsDetails.length);
+      if (this.alertResultStatus === 'Success') {
+        console.log(this.alertResultStatus, this.alertsResp.getAlertResult.AlertList.length, this.alertsResp.getAlertResult.Message);
+        this.alertResultStatusMessage = "The given dates "+fromDate + " to " + toDate +" alerts information not available";
+        if (this.alertsDetails.length > 0) {
+          this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
+          this.selected = [this.alertsDetails[0]];
+          this.temp = [...this.alertsDetails];
+          this.spinner.hide();
+        } else {
+          this.alertsDetails = [];
+          this.spinner.hide();
+        }
+      }
+      else if (this.alertResultStatus === 'Failed') {
+        console.log("Error occured");
+        this.alertResultStatusMessage = this.alertsResp.getAlertResult.Message;
+        this.spinner.hide();
+      }
     });
+   
   }
 
   createIncident(selected) {
@@ -74,10 +99,11 @@ export class AlertsComponent implements OnInit {
       this.newBuoysIncidentResp = resp;
       console.log("----Created Incident----", resp);
       //this.newBuoysIncidentDetails = this.newBuoysIncidentResp.IncidentCreateResult;
-      if(this.newBuoysIncidentResp.IncidentCreateResult === 'sucess'){
+      if (this.newBuoysIncidentResp.IncidentCreateResult === 'sucess') {
         this.toastr.success(this.newBuoysIncidentResp.IncidentCreateResult, "Incident Created Successfully");
+        this.loadAlertsData(this.fromDate, this.toDate);
       }
-      else{
+      else {
         this.toastr.error(this.newBuoysIncidentResp.IncidentCreateResult, "Incident Created failed");
       }
     });
@@ -93,12 +119,10 @@ export class AlertsComponent implements OnInit {
 
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-
     // filter our data
     const temp = this.temp.filter(function (d) {
       return d.description.toLowerCase().indexOf(val) !== -1 || !val;
     });
-
     // update the rows
     //this.buoysIncidentRows = temp;
     this.alertsDetails = temp;

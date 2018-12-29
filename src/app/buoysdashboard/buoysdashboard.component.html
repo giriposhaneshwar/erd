@@ -15,11 +15,14 @@
     <div class="silk-card border-success">
       <div class="silk-card-title d-flex justify-content-between">
         <h4>BUOYS Information</h4>
-        <ngx-loading-bar></ngx-loading-bar>
       </div>
-      <!-- {{ngDatarows | json}}
-      {{ date | date }}-->
-      <div class="widget-body">
+      <div class="widget-body" *ngIf="resultStatus === 'Success' && restItems.length ===0" style="height: 400px;">
+        <p>{{resultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="resultStatus === 'Failed'" style="height: 400px;">
+        <p>{{resultStatusMessage}}</p>
+      </div>
+      <div class="widget-body" *ngIf="restItems.length > 0">
         <mat-card style="padding: 0;">
           <ngx-datatable class="material sorting customTable" [rows]="restItems" [sortType]="'multi'" [columnMode]="'standard'"
             [headerHeight]="50" [footerHeight]="30" [rowHeight]="30" [scrollbarV]="true">
@@ -135,7 +138,6 @@
         <span>Last 2 months</span>
       </label>
     </div>
-
     <div>
       <label for="lastThreeMonths">
         <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="lastThreeMonths" name="buoysDashboard"
@@ -158,8 +160,7 @@
       <label>
         <span>To</span>
         <input type="date" [(ngModel)]="toDateFilter" name="toDate" id="toDate" placeholder="To Date" [max]="dateval" />
-
-      </label>
+     </label>
     </div>
     <div class="text-center">
       <button class="btn btn-primary" (click)="chooseDatesPeriod(fromDateFilter,toDateFilter)">Apply</button>

@@ -29,6 +29,8 @@ import { PageTitleService } from "./core/page-title/page-title.service";
 import { Config } from "./appConfiguration/config";
 import { HistoricalGraphDirective } from "./partials/historical-graph.directive";
 import { ToastModule } from 'ng6-toastr/ng2-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -55,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuToggleModule,
     HttpModule,
     HttpClientModule,
-    
+    NgxSpinnerModule,
     // TourNgBootstrapModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
