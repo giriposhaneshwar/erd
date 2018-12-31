@@ -38,6 +38,10 @@ export class BuoysdashboardComponent implements OnInit {
   todayDate: any;
   fromDate: any;
   toDate: any;
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
 
   handleFormChange(data) {
     if (data == "lastModified") {
@@ -93,7 +97,7 @@ export class BuoysdashboardComponent implements OnInit {
       //console.log("Data Submit", data);
     }
     else if (data == "choosePeriod") {
-      
+
       console.log("Data Submit", data);
       console.log(" Last selected Dates" + this.fromDate, this.toDate);
       this.chooseDatesPeriod(this.fromDate, this.toDate);
@@ -118,7 +122,7 @@ export class BuoysdashboardComponent implements OnInit {
     this.dateForamt();
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.todayDate = setInterval(() => {
-      
+
     }, 900000);
     this.spinner.show();
     /** spinner ends after 5 seconds */
@@ -174,5 +178,24 @@ export class BuoysdashboardComponent implements OnInit {
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
+  }
+
+  dateRangeValidate(dt, field) {
+   // console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
   }
 }

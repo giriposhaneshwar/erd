@@ -24,6 +24,10 @@ export class DownloadMwqDataComponent implements OnInit {
   toDate: any;
   fromDateFilter:any;
   toDateFilter:any;
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
   
   constructor(
     private pageTitleService: PageTitleService,
@@ -77,5 +81,22 @@ export class DownloadMwqDataComponent implements OnInit {
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
+  }
+
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
   }
 }

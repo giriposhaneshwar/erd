@@ -155,16 +155,19 @@
     <div class="datefilter">
       <label>
         <span>From</span>
-        <input type="date" [(ngModel)]="fromDateFilter" name="fromDate" id="fromDate" placeholder="From Date" [max]="dateval" />
+        <!-- <input type="date" [(ngModel)]="fromDateFilter" name="fromDate" id="fromDate" placeholder="From Date" [max]="dateval" /> -->
+        <input type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
+          [min]="startMinDate" [max]="startMaxDate">
       </label>
       <label>
         <span>To</span>
-        <input type="date" [(ngModel)]="toDateFilter" name="toDate" id="toDate" placeholder="To Date" [max]="dateval" />
-     </label>
+        <!-- <input type="date" [(ngModel)]="toDateFilter" name="toDate" id="toDate" placeholder="To Date" [max]="dateval" /> -->
+        <input type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
+          [min]="endMinDate" [max]="endMaxDate">
+      </label>
     </div>
     <div class="text-center">
       <button class="btn btn-primary" (click)="chooseDatesPeriod(fromDateFilter,toDateFilter)">Apply</button>
     </div>
-
   </div>
 </div>

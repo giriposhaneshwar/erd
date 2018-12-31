@@ -6,6 +6,7 @@ import { IncidentsService } from '../incidents.service';
 import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'ms-buoys-incidents',
@@ -19,7 +20,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class BuoysIncidentsComponent implements OnInit {
 
   //buoysIncidentRows = [];
-  selectedValue = [];
+  selectedValue: any;
+  selectedValueForm: any;
+  buyosStatus: String;
+  buyosSelectedId: Number;
   temp = [];
   buoysIncidentDetails = [];
   buoysIncidentResp: any;
@@ -32,8 +36,8 @@ export class BuoysIncidentsComponent implements OnInit {
   dateval = '';
   buoysIncidentUpdateDetails = [];
   buoysIncidentUpdateResp: any;
-  fromDate :any;
-  toDate :any;
+  fromDate: any;
+  toDate: any;
   buoysIncidentResultStatus: any;
   buoysIncidentResultStatusMessage: any;
   columns: any[] = [
@@ -42,6 +46,10 @@ export class BuoysIncidentsComponent implements OnInit {
     { name: 'Incident Reported DateTime' },
     { name: 'Incident Severity' }
   ];
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -52,23 +60,50 @@ export class BuoysIncidentsComponent implements OnInit {
     private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.dateForamt();
-    this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
-    this.toDate = moment().format("YYYY-MM-DD");
-    console.log(" Last  Three Months " + this.fromDate+" Current Day ", "----" + this.toDate);
-    this.loadBuoysIncidentsData(this.fromDate, this.toDate);
   }
 
   ngOnInit() {
+    this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+    this.toDate = moment().format("YYYY-MM-DD");
+    console.log(" Last  Three Months " + this.fromDate + " Current Day ", "----" + this.toDate);
+
+    this.loadBuoysIncidentsData(this.fromDate, this.toDate);
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.spinner.show();
+    this.dateRangeValidate(undefined, undefined);
+  }
+  incidentListSizeReset() {
+    // debugger;
+    let form = $('.buoysIncidentForm');
+    if (form.length > 0) {
+      return form.height() + 20;
+    } else {
+      return 20;
+    }
   }
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
   }
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
+  }
 
   loadBuoysIncidentsData(fromDate, toDate): void {
-    console.log(fromDate,toDate);
+    console.log(fromDate, toDate);
     this.incidentsService.getBuoysIncidentData(fromDate, toDate).subscribe((resp) => {
       this.buoysIncidentResp = resp;
       this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
@@ -79,13 +114,34 @@ export class BuoysIncidentsComponent implements OnInit {
 
       if (this.buoysIncidentResultStatus === 'Success') {
         if (this.buoysIncidentDetails.length > 0) {
+          // debugger;
           this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
-          this.selectedValue = [this.buoysIncidentDetails[0]];
+          if (this.buyosSelectedId !== undefined) {
+            for (let i = 0; i < this.buoysIncidentDetails.length; i++) {
+              let item = this.buoysIncidentDetails[i];
+              if (item.incidentId === this.buyosSelectedId) {
+                let formValue = [this.buoysIncidentDetails[i]];
+                this.selectedValue = formValue;
+                this.selectedValueForm = formValue[0];
+                this.buyosStatus = formValue[0].status;
+                this.buyosSelectedId = formValue[0].incidentId;
+                this.fetchIncidentHistoryDetails(this.buyosSelectedId);
+                break;
+              }
+            }
+          } else {
+            let formValue = [this.buoysIncidentDetails[0]]
+            this.selectedValue = formValue;
+            this.selectedValueForm = formValue[0];
+            this.buyosStatus = formValue[0].status;
+            this.buyosSelectedId = formValue[0].incidentId;
+            this.fetchIncidentHistoryDetails(this.buyosSelectedId);
+          }
           this.temp = [...this.buoysIncidentDetails];
-          console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
+          //console.log("----buoysIncidentDetails----", this.buoysIncidentDetails);
           this.spinner.hide();
         } else {
-          this.buoysIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " Incidents information not available";
+          this.buoysIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " BUOYS Incidents information not available";
           this.buoysIncidentDetails = [];
           this.spinner.hide();
         }
@@ -102,7 +158,10 @@ export class BuoysIncidentsComponent implements OnInit {
   }
 
   onSelect({ selected }) {
+    // debugger;
     let selectedIncidentId = selected[0].incidentId;
+    this.buyosStatus = selected[0].status;
+    this.buyosSelectedId = selectedIncidentId;
     console.log('Select Event', selectedIncidentId);
     this.fetchIncidentHistoryDetails(selectedIncidentId);
   }
@@ -131,19 +190,34 @@ export class BuoysIncidentsComponent implements OnInit {
   }
 
   updateIncident(selIncident) {
-    console.log(JSON.stringify(selIncident));
-    let selectedIncidentId = selIncident[0].incidentId;
+    console.log("--updateIncident--" + (JSON.stringify(selIncident)));
+    let selectedIncidentId = selIncident.incidentId;
     let incUpdatedBy = "Admin";
-    let incStatus = selIncident[0].status;
-    let incComments = selIncident[0].remarks;
+    let incStatus = selIncident.status;
+    let incComments = selIncident.remarks;
+    //debugger;
+    this.buyosStatus = selIncident.status;
+    this.buyosSelectedId = selIncident.incidentId;
 
     console.log(selectedIncidentId, incUpdatedBy, incStatus, incComments);
     this.incidentsService.updateBuoysIncidentInfo(selectedIncidentId, incUpdatedBy, incStatus, incComments).subscribe((resp) => {
+      // this.buyosSelectedId = resp.IncidentStatusUpdateResult.;
+      this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format("YYYY-MM-DD");
+      console.log(" Last  Three Months " + this.fromDate + " Current Day ", "----" + this.toDate);
+
+      this.loadBuoysIncidentsData(this.fromDate, this.toDate);
+
       this.buoysIncidentUpdateResp = resp;
       this.buoysIncidentUpdateDetails = this.buoysIncidentUpdateResp.IncidentStatusUpdateResult;
       console.log("----buoysIncidentUpdateDetails----", this.buoysIncidentUpdateDetails);
+
       this.toastr.success(this.buoysIncidentUpdateResp.IncidentStatusUpdateResult, "Record Updated Successfully");
-      this.fetchIncidentHistoryDetails(selectedIncidentId);
+
+      /*  this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+       this.toDate = moment().format("YYYY-MM-DD");
+       console.log(" Last  Three Months " + this.fromDate+" Current Day ", "----" + this.toDate);
+       this.loadBuoysIncidentsData(this.fromDate, this.toDate); */
     });
   }
 }

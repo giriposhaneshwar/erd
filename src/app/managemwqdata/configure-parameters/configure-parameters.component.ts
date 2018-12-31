@@ -43,7 +43,6 @@ export class ConfigureParametersComponent implements OnInit {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.spinner.show();
   }
-
   loadParametersList() {
     this.manageMwqDataService.fetchParametersList().subscribe((resp) => {
       this.parametersListResp = resp;

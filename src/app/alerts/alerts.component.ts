@@ -37,6 +37,10 @@ export class AlertsComponent implements OnInit {
   ];
   alertResultStatus: any;
   alertResultStatusMessage: any;
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
 
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(private pageTitleService: PageTitleService,
@@ -61,6 +65,24 @@ export class AlertsComponent implements OnInit {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
   }
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
+  }
 
   loadAlertsData(fromDate, toDate): void {
     console.log("----loadAlertsData----", fromDate + "------" + toDate);
@@ -71,7 +93,7 @@ export class AlertsComponent implements OnInit {
       console.log("----alertsDetails----", this.alertsDetails.length);
       if (this.alertResultStatus === 'Success') {
         console.log(this.alertResultStatus, this.alertsResp.getAlertResult.AlertList.length, this.alertsResp.getAlertResult.Message);
-        this.alertResultStatusMessage = "The given dates "+fromDate + " to " + toDate +" alerts information not available";
+        this.alertResultStatusMessage = "The given dates " + fromDate + " to " + toDate + " alerts information not available";
         if (this.alertsDetails.length > 0) {
           this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
           this.selected = [this.alertsDetails[0]];
@@ -88,7 +110,7 @@ export class AlertsComponent implements OnInit {
         this.spinner.hide();
       }
     });
-   
+
   }
 
   createIncident(selected) {

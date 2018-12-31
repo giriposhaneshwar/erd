@@ -17,8 +17,7 @@ UPLOAD_URL = this.DOMAIN + this.DIRECTORY + this.UPLOAD_DIR;
   getModuleName = () => {
     let wd = window.location.pathname;
     let url = wd.split('/');
-    console.log("Window location", wd, url);
-
+    console.log("Window location", wd, url); 
     if (window.location.origin === 'http://localhost:4200') {
       return { module: url[1], tab: url[2] };
     }
@@ -31,9 +30,9 @@ UPLOAD_URL = this.DOMAIN + this.DIRECTORY + this.UPLOAD_DIR;
     else if (window.location.origin === 'http://10.56.65.11') {
       return { module: url[2], tab: url[3] };
     }
-    else if (window.location.origin === 'http://10.10.1.90:9933') {
+   /*  else  if (window.location.origin === 'http://10.10.1.90:9933') {
       return { module: url[2], tab: url[3] };
-    }
+    } */
   }
 }
 export class REST_API {

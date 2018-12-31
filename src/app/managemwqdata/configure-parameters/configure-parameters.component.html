@@ -17,7 +17,8 @@
         <!-- <h4>Configure Parameters</h4> -->
         <a href="javascript:void(0)" class="addRecordBtn" (click)="addTableRow()"><i class="glyphicon glyphicon-plus"></i>Add</a>
       </div>
-      <div class="widget-body" *ngIf="parametersListResultStatus === 'Success' && parametersListDetails.length ===0" style="height: 300px;">
+      <div class="widget-body" *ngIf="parametersListResultStatus === 'Success' && parametersListDetails.length ===0"
+        style="height: 300px;">
         <p>{{parametersListResultStatusMessage}}</p>
       </div>
       <div class="widget-body" *ngIf="parametersListResultStatus === 'Failed'" style="height: 300px;">
@@ -34,6 +35,11 @@
           <ngx-datatable-column name="Param Name" [width]="145">
             <ng-template let-value="value" ngx-datatable-cell-template>
               {{value}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Group Id" [width]="145">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <div class="text-center">{{value}}</div>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Min Value" [width]="120">
@@ -63,9 +69,10 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Status" [width]="100">
             <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <div class="text-center"> <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true" *ngIf="!editing[rowIndex + '-status']">
-                {{value}} {{paramId}}
-              </span></div>
+              <div class="text-center"> <span title="Double click to edit" (dblclick)="editing[rowIndex + '-status'] = true"
+                  *ngIf="!editing[rowIndex + '-status']">
+                  {{value}} {{paramId}}
+                </span></div>
               <select *ngIf="editing[rowIndex + '-status']" (blur)="editing[rowIndex + '-status'] = false" (change)="updateValue($event, 'status', rowIndex, row)"
                 [value]="value">
                 <option value="Active">Active</option>
@@ -96,25 +103,25 @@
           <label for="example-text-input" class="col-3 col-form-label">Param Id</label>
           <div class="col-8">
             <input class="form-control is-invalid" type="text" placeholder="Param Id" [(ngModel)]="configureParam.parameterId"
-              id="example-text-input" name="parameterId" (keypress)="numberOnly($event)" #parameterId="ngModel" autocomplete="off"
-              [ngClass]="{'is-invalid': (f.submitted && parameterId.invalid)}" required>
+              id="example-text-input" name="parameterId" (keypress)="numberOnly($event)" #parameterId="ngModel"
+              autocomplete="off" [ngClass]="{'is-invalid': (f.submitted && parameterId.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input " class="col-3 col-form-label">Param Name</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="parameterName" type="text" placeholder="Param Name" autocomplete="off"
-              [(ngModel)]="configureParam.parameterName" id="example-text-input" #parameterName="ngModel" [ngClass]="{'is-invalid': (f.submitted && parameterName.invalid)}"
-              required>
+            <input class="form-control is-invalid" name="parameterName" type="text" placeholder="Param Name"
+              autocomplete="off" [(ngModel)]="configureParam.parameterName" id="example-text-input" #parameterName="ngModel"
+              [ngClass]="{'is-invalid': (f.submitted && parameterName.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Units</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="units" type="text" placeholder="units" [(ngModel)]="configureParam.units" autocomplete="off"
-              id="example-text-input" name="units" #units="ngModel" [ngClass]="{'is-invalid': (f.submitted && units.invalid)}"
+            <input class="form-control is-invalid" name="units" type="text" placeholder="units" [(ngModel)]="configureParam.units"
+              autocomplete="off" id="example-text-input" name="units" #units="ngModel" [ngClass]="{'is-invalid': (f.submitted && units.invalid)}"
               required>
           </div>
         </div>
@@ -122,54 +129,55 @@
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Group Id</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="groupId" type="text" placeholder="Group Id" [(ngModel)]="configureParam.groupId" autocomplete="off"
-              id="example-text-input" name="groupId" #groupId="ngModel" (keypress)="numberOnly($event)" [ngClass]="{'is-invalid': (f.submitted && groupId.invalid)}"
-              required>
+            <input class="form-control is-invalid" name="groupId" type="text" placeholder="Group Id" [(ngModel)]="configureParam.groupId"
+              autocomplete="off" id="example-text-input" name="groupId" #groupId="ngModel" (keypress)="numberOnly($event)"
+              [ngClass]="{'is-invalid': (f.submitted && groupId.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Min Value</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="minValue" type="text" placeholder="Min Value" [(ngModel)]="configureParam.minValue" autocomplete="off"
-              id="example-text-input" name="minValue" #minValue="ngModel" (keypress)="numberOnly($event)" [ngClass]="{'is-invalid': (f.submitted && minValue.invalid)}"
-              required>
+            <input class="form-control is-invalid" name="minValue" type="text" placeholder="Min Value" [(ngModel)]="configureParam.minValue"
+              autocomplete="off" id="example-text-input" name="minValue" #minValue="ngModel" (keypress)="numberOnly($event)"
+              [ngClass]="{'is-invalid': (f.submitted && minValue.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Max Value</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue" autocomplete="off"
-              id="example-text-input" name="maxValue" #maxValue="ngModel" (keypress)="numberOnly($event)" [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}"
-              required>
+            <input class="form-control is-invalid" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue"
+              autocomplete="off" id="example-text-input" name="maxValue" #maxValue="ngModel" (keypress)="numberOnly($event)"
+              [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Threshold Value</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="thresholdValue" type="text" placeholder="Threshold Value" autocomplete="off"
-              [(ngModel)]="configureParam.thresholdValue" id="example-text-input" name="thresholdValue" (keypress)="numberOnly($event)"
-              #thresholdValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && thresholdValue.invalid)}" required>
+            <input class="form-control is-invalid" name="thresholdValue" type="text" placeholder="Threshold Value"
+              autocomplete="off" [(ngModel)]="configureParam.thresholdValue" id="example-text-input" name="thresholdValue"
+              (keypress)="numberOnly($event)" #thresholdValue="ngModel" [ngClass]="{'is-invalid': (f.submitted && thresholdValue.invalid)}"
+              required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Mean Value</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="meanValue" type="text" placeholder="Mean Value" [(ngModel)]="configureParam.meanValue" autocomplete="off"
-              id="example-text-input" name="meanValue" #meanValue="ngModel" (keypress)="numberOnly($event)" [ngClass]="{'is-invalid': (f.submitted && meanValue.invalid)}"
-              required>
+            <input class="form-control is-invalid" name="meanValue" type="text" placeholder="Mean Value" [(ngModel)]="configureParam.meanValue"
+              autocomplete="off" id="example-text-input" name="meanValue" #meanValue="ngModel" (keypress)="numberOnly($event)"
+              [ngClass]="{'is-invalid': (f.submitted && meanValue.invalid)}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="example-text-input" class="col-3 col-form-label">Std Dev Value</label>
           <div class="col-8">
-            <input class="form-control is-invalid" name="stdDevValue" type="text" placeholder="Standard Deviation Value" autocomplete="off"
-              [(ngModel)]="configureParam.stdDevValue" id="example-text-input" #stdDevValue="ngModel" (keypress)="numberOnly($event)"
-              [ngClass]="{'is-invalid': (f.submitted && stdDevValue.invalid)}" required>
+            <input class="form-control is-invalid" name="stdDevValue" type="text" placeholder="Standard Deviation Value"
+              autocomplete="off" [(ngModel)]="configureParam.stdDevValue" id="example-text-input" #stdDevValue="ngModel"
+              (keypress)="numberOnly($event)" [ngClass]="{'is-invalid': (f.submitted && stdDevValue.invalid)}" required>
           </div>
         </div>
 

@@ -118,6 +118,7 @@ export class InSituParametersComponent implements OnInit {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    //this.inSituTabNext(this.module);
     console.log("At Save Screen");
   }
 

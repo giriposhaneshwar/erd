@@ -97,6 +97,8 @@ export class SiteDataComponent implements OnInit {
       if (this.dataEntry.hasOwnProperty(this.dataComponentKey)) {
         this.siteData = this.dataEntry[this.dataComponentKey];
         this.sampleInformation = this.dataEntry[this.sampleInformationKey];
+        this.sampleInformation['sampleDate'] = moment(this.sampleInformation['sampleDate']).format('YYYY-MM-DD');
+        console.log("Moment date Format \n", moment().format(), "\n", new Date())
       } else {
         this.dataEntry = {};
         this.dataEntry[this.dataComponentKey] = this.siteData;
@@ -109,14 +111,7 @@ export class SiteDataComponent implements OnInit {
       this.dataEntry[this.sampleInformationKey] = this.sampleInformation;
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
-
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
-    //this.selectedEventType = [this.eventTypeDetails[0]];
-
-    // this.siteDataform = this.fb.group({
-    //   //projectName: new FormControl({ value: '' }, Validators.compose([Validators.required])),
-    //   projectName: ['', Validators.required]
-    // });
   }
 
   loadEventTypeData() {
@@ -198,6 +193,7 @@ export class SiteDataComponent implements OnInit {
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+   // this.siteDataTabNext(this.module);
     // console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }
 

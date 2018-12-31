@@ -90,7 +90,7 @@ export class ManageSitesComponent implements OnInit {
       console.log("----siteInfoUpdateResp----", this.siteInfoUpdateResp);
       if (this.siteInfoUpdateResp.SitesStatusUpdateResult === 'success') {
         console.log('UPDATED!', updatedSiteId, updatedBy, updatedStatus, this.siteInfoUpdateResp.SitesStatusUpdateResult);
-        this.toastr.success("Site Information Updated Successfully");
+        this.toastr.success("Site Id "+updatedSiteId+"-"+"Site Information Updated Successfully");
       }
       else {
         this.toastr.error(this.siteInfoUpdateResp.SitesStatusUpdateResult, "Site Information Updation Failed");

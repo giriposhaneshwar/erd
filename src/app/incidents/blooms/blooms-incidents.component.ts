@@ -56,6 +56,10 @@ export class BloomsIncidentComponent implements OnInit {
     { name: 'Incident Reported DateTime' },
     { name: 'Incident Severity' }
   ];
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
 
   @ViewChild(NgForm) f: NgForm;
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -72,7 +76,6 @@ export class BloomsIncidentComponent implements OnInit {
 
     this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
     this.toDate = moment().format("YYYY-MM-DD");
-
 
     console.log(" Last  Three Months " + this.fromDate + " Current Day ", this.toDate);
     this.loadBloomIncidentsData(this.fromDate, this.toDate);
@@ -199,6 +202,23 @@ export class BloomsIncidentComponent implements OnInit {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
   }
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
+  }
+  
   createAlgolBloomIncident(blommIncidentInfo) {
     this.js["clsMWQAlgalbloomIncident"] = blommIncidentInfo;
     console.log("---------" + JSON.stringify(this.js));
@@ -255,5 +275,4 @@ export class BloomsIncidentComponent implements OnInit {
       return false;
     return true;
   }
-
 } 

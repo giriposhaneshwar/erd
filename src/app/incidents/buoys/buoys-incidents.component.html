@@ -24,11 +24,13 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" [max]="dateval">
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
+                [min]="startMinDate" [max]="startMaxDate">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" [max]="dateval">
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
+                [min]="endMinDate" [max]="endMaxDate">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadBuoysIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
@@ -73,58 +75,58 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
-    <div class="silk-card border-success pb-0">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full buoysIncident" widget *ngIf="buoysIncidentDetails.length > 0">
+    <div class="silk-card border-success pb-0 buoysIncidentForm">
       <div class="silk-card-title d-flex justify-content-between">
         <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Buoys Details</h4>
       </div>
-      <div class="table-responsive" *ngIf="buoysIncidentDetails.length > 0">
+      <div class="table-responsive">
         <table class="table table-middle table-striped">
-          <tbody class="ng-tns-c6-0" *ngFor='let sel of selectedValue'>
+          <tbody class="ng-tns-c6-0">
             <tr class="ng-tns-c6-0">
-              <td class="ng-tns-c6-0">Incident Id</td>
-              <td class="ng-tns-c6-0">{{sel.incidentId}}</td>
+              <td class="ng-tns-c6-0" style="width: 30%;">Incident Id</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].incidentId}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Incident Name</td>
-              <td class="ng-tns-c6-0">{{sel.incidentName}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].incidentName}}</td>
             </tr>
             <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Location (Lat/Long)</td>
-                  <td class="ng-tns-c6-0">{{sel.locationLatLong}}</td>
+                  <td class="ng-tns-c6-0">{{selectedValue.locationLatLong}}</td>
                 </tr> 
                 <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Description</td>
-                  <td class="ng-tns-c6-0">{{sel.description}}</td>
+                  <td class="ng-tns-c6-0">{{selectedValue.description}}</td>
                 </tr>-->
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Site ID</td>
-              <td class="ng-tns-c6-0">{{sel.stationId}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].stationId}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Alert ID</td>
-              <td class="ng-tns-c6-0">{{sel.alertId}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].alertId}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Sensor</td>
-              <td class="ng-tns-c6-0">{{sel.sensor}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].sensor}}</td>
             </tr>
             <!--  <tr class="ng-tns-c6-0">
                   <td class="ng-tns-c6-0">Buoys Id</td>
-                  <td class="ng-tns-c6-0">{{sel.buoysId}}</td>
+                  <td class="ng-tns-c6-0">{{selectedValue.buoysId}}</td>
                 </tr> -->
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Created By</td>
-              <td class="ng-tns-c6-0">{{sel.createdBy}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].createdBy}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Created Date</td>
-              <td class="ng-tns-c6-0">{{sel.createdDate}}</td>
+              <td class="ng-tns-c6-0">{{selectedValue[0].createdDate}}</td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Status</td>
-              <td class="ng-tns-c6-0" *ngIf="sel.status !='Closed'">
-                <select class="form-control" [(ngModel)]="sel.status">
+              <td class="ng-tns-c6-0">
+                <select class="form-control" [disabled]="buyosStatus === 'Closed'" [(ngModel)]="selectedValue[0].status">
                   <option value="" disabled selected hidden>Select Status</option>
                   <option value="Open">Open</option>
                   <option value="In Progress">In Progress</option>
@@ -133,18 +135,20 @@
                   <option value="Closed">Closed</option>
                 </select>
               </td>
-              <!-- <td class="ng-tns-c6-0">{{sel.status}}</td> -->
+              <!-- <td class="ng-tns-c6-0">{{selectedValue.status}}</td> -->
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Remarks</td>
               <td class="ng-tns-c6-0">
-                <textarea class="form-control" id="exampleTextarea" rows="3" [(ngModel)]="sel.remarks"></textarea>
+                <textarea class="form-control" [disabled]="buyosStatus === 'Closed'" id="exampleTextarea" rows="3"
+                  [(ngModel)]="selectedValue[0].remarks"></textarea>
               </td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0" colspan="2">
-                <div class="text-center" style="margin-bottom: 2em;" *ngIf="sel.status !='Closed'">
-                  <button class="btn btn-primary" (click)="updateIncident(selectedValue)">Update Incident</button>
+                <div class="text-center" style="margin-bottom: 2em;">
+                  <button class="btn btn-primary" (click)="updateIncident(selectedValue[0])" [disabled]="buyosStatus ==='Closed'">Update
+                    Incident</button>
                 </div>
               </td>
             </tr>
@@ -154,29 +158,28 @@
     </div>
   </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full" widget>
-    <div class="silk-card border-success pb-0">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full buoysIncident" widget *ngIf="buoysIncidentDetails.length > 0">
+    <div class="silk-card border-success pb-0 buoysIncidentList" [ngStyle]="{height: incidentListSizeReset()+'px'}">
       <div class="silk-card-title d-flex justify-content-between">
         <h4><i class="fa fa-comments-o fa-lg mx-1"></i>Incident History Details</h4>
       </div>
-      <div  *ngIf="buoysIncidentDetails.length > 0">
-      <div class="latest-post pt-4" *ngIf="buoysIncidentHistoryDetails.length===0">
+      <div class="latest-post pt-4" *ngIf="buoysIncidentHistoryDetails.length === 0">
         <div class="media mb-3">
           <div class="media-body">
             <b class="ng-tns-c6-0"> No History for this Incident</b>
           </div>
         </div>
       </div>
-    </div>
-
-      <div class="latest-post pt-4" *ngFor='let incHistory of buoysIncidentHistoryDetails'>
-        <div class="media mb-3">
-          <div class="media-body">
-            <b class="ng-tns-c6-0"> Updated By: </b>{{incHistory.updatedBy}}
-            <b class="ng-tns-c6-0"> Status:</b> {{incHistory.status}} <br>
-            <b class="ng-tns-c6-0"> Log Info:</b> {{incHistory.updatedDate}}
-            <p> {{incHistory.remarks}}</p>
-            <hr />
+      <div class="incidentHistory" *ngIf="buoysIncidentHistoryDetails.length > 0">
+        <div class="latest-post pt-4 " *ngFor='let incHistory of buoysIncidentHistoryDetails'>
+          <div class="media mb-3">
+            <div class="media-body">
+              <b class="ng-tns-c6-0"> Updated By: </b>{{incHistory.updatedBy}}
+              <b class="ng-tns-c6-0"> Status:</b> {{incHistory.status}} <br>
+              <b class="ng-tns-c6-0"> Log Info:</b> {{incHistory.updatedDate}}
+              <p> {{incHistory.remarks}}</p>
+              <hr />
+            </div>
           </div>
         </div>
       </div>

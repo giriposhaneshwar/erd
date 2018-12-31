@@ -24,11 +24,15 @@
                 </div> -->
                         <label for="example-date-input" class="col-form-label">From Date</label>
                         <div class="col-3">
-                            <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="fromDateFilter">
+                            <!-- <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="fromDateFilter"> -->
+                            <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter"
+                                (change)="dateRangeValidate(fromDateFilter, 'start')" [min]="startMinDate" [max]="startMaxDate">
                         </div>
                         <label for="example-date-input" class="col-form-label">To Date</label>
                         <div class="col-3">
-                            <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="toDateFilter">
+                            <!-- <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="toDateFilter"> -->
+                            <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter"
+                                (change)="dateRangeValidate(toDateFilter, 'end')" [min]="endMinDate" [max]="endMaxDate">
                         </div>
                         <button type="submit" class="send-btn btn btn-primary" (click)="downloadMwqData(fromDateFilter,toDateFilter)">Send</button>
                     </div>
@@ -38,7 +42,8 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
         <div class="silk-card border-success">
-            <div class="widget-body" *ngIf="downloadMwqDataResultStatus === 'Success' && downloadMwqDataDetails.length ===0" style="height: 300px;">
+            <div class="widget-body" *ngIf="downloadMwqDataResultStatus === 'Success' && downloadMwqDataDetails.length ===0"
+                style="height: 300px;">
                 <p>{{downloadMwqDataResultStatusMessage}}</p>
             </div>
             <div class="widget-body" *ngIf="downloadMwqDataResultStatus === 'Failed'" style="height: 300px;">

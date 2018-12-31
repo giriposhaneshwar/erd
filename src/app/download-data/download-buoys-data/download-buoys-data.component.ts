@@ -23,7 +23,11 @@ export class DownloadBuoysDataComponent implements OnInit {
   toDate: any;
   fromDateFilter:any;
   toDateFilter:any;
-  
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
+
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private excelService: DownloadBuoysDataService,
     private downloadDataService: DownloadDataService,
@@ -43,6 +47,23 @@ export class DownloadBuoysDataComponent implements OnInit {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
   }
 
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
+  }
+
   downloadBUOYSDataList(fromDateFilter, toDateFilter): void {
     console.log("-----fromDateFilter, toDateFilter----"+fromDateFilter, toDateFilter);
     this.downloadDataService.downloadBuoysData(fromDateFilter, toDateFilter).subscribe((resp) => {
@@ -52,7 +73,7 @@ export class DownloadBuoysDataComponent implements OnInit {
       console.log(this.downloadBUOYSDataResultStatus,
         this.downloadBUOYSDataResp.getBuoysdataResult.BuoysList.length,
         this.downloadBUOYSDataResp.getBuoysdataResult.Message);
-        this.spinner.show();
+        this.spinner.hide();
       if (this.downloadBUOYSDataResultStatus === 'Success') {
         this.downloadBUOYSDataResultStatusMessage = "The given dates " + fromDateFilter + " to " + toDateFilter + " BUOYS Data not available";
         if (this.downloadBUOYSDataDetails.length > 0) {

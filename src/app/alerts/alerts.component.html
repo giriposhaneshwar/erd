@@ -24,13 +24,17 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-fromDate-input" name="fromDate" [max]="dateval"
-                [(ngModel)]="fromDateFilter">
+              <!-- <input class="form-control" type="date" id="example-fromDate-input" name="fromDate" [max]="dateval"
+                [(ngModel)]="fromDateFilter"> -->
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
+                [min]="startMinDate" [max]="startMaxDate">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <input class="form-control" type="date" id="example-toDate-input" name="toDate" [max]="dateval"
-                [(ngModel)]="toDateFilter">
+              <!-- <input class="form-control" type="date" id="example-toDate-input" name="toDate" [max]="dateval"
+                [(ngModel)]="toDateFilter"> -->
+              <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
+                [min]="endMinDate" [max]="endMaxDate">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadAlertsData(fromDateFilter,toDateFilter)">Send</button>
           </div>

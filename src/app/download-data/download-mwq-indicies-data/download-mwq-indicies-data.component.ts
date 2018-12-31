@@ -21,6 +21,12 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
   toDate: any;
   fromDateFilter:any;
   toDateFilter:any;
+  
+  startMinDate: any;
+  startMaxDate: any;
+  endMinDate: any;
+  endMaxDate: any;
+
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
     private excelService: DownloadMwqIndicesDataService,
@@ -41,7 +47,22 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
     console.log("-------todayDate---------", this.dateval)
   }
-
+  dateRangeValidate(dt, field) {
+    console.log("Getting Min Dat", field, dt);
+    let stDate = this.fromDateFilter;
+    let edDate = this.toDateFilter;
+    if (stDate !== undefined) {
+      this.endMinDate = stDate;
+      this.startMaxDate = this.dateval;
+    } else {
+      this.startMaxDate = this.dateval;
+    }
+    if (edDate !== undefined) {
+      this.startMaxDate = edDate;
+    } else {
+      this.endMaxDate = this.dateval;
+    }
+  }
 
   downloadMwqIndicesData(fromDateFilter, toDateFilter) {
     console.log(fromDateFilter, toDateFilter);

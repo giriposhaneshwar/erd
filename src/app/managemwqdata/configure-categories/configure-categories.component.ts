@@ -79,7 +79,7 @@ export class ConfigureCategoriesComponent implements OnInit {
       this.categoryUpadateResultStatus = resp;
       if (this.categoryUpadateResultStatus.CategoryStatusUpdateResult === 'success') {
         console.log('UPDATED!', updatedStatus, updatedCategoryId, updatedBy, this.categoryUpadateResultStatus.CategoryStatusUpdateResult);
-        this.toastr.success("Category Information Updated Successfully")
+        this.toastr.success("Category Id "+updatedCategoryId+"-"+"Category Information Updated Successfully")
       }
       else {
         this.toastr.error(this.categoryUpadateResultStatus.CategoryStatusUpdateResult, "Category Information Updation Failed");
