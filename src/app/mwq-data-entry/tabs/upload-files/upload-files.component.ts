@@ -154,11 +154,17 @@ export class UploadFilesComponent implements OnInit {
 
     dataEntry[this.uploadFilesInfoKey] = sampleInformation;
     this.js["jsonInput"] = dataEntry;
+
+    let isValid = this.doValidate(dataEntry);
+
     // this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
     //console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
-    console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo));
-    this.saveMwqData(this.js);
+    //console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo));
+    if (isValid) {
+      this.saveMwqData(this.js);
+    }
+    // console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(this.js));
   }
 
 
@@ -185,11 +191,17 @@ export class UploadFilesComponent implements OnInit {
     }
     this.route.navigate(["mwqDataQc", "qc-remarks"]);
   }
+
   saveMwqData(jsonMwqDataEntryInfo) {
     this.api.saveMWQDataEntryInfo(jsonMwqDataEntryInfo).subscribe((resp) => {
       this.saveMwqDataEntryResp = resp;
-      console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp);
-      this.toastr.success(this.saveMwqDataEntryResp.loadDataResult, "Success");
+      console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp, this.saveMwqDataEntryResp.loadDataResult.Status);
+      if (this.saveMwqDataEntryResp.loadDataResult.Status === "Success") {
+        this.toastr.success(this.saveMwqDataEntryResp.loadDataResult.Message, "Success");
+      }
+      else {
+        this.toastr.error(this.saveMwqDataEntryResp.loadDataResult.Message);
+      }
     });
   }
 
@@ -221,5 +233,58 @@ export class UploadFilesComponent implements OnInit {
         this.toastr.error(this.fielDeleteInfoResp.FileDeleteResult, "Failed");
       }
     });
+  }
+
+  doValidate(obj) {
+    let isRequired = [];
+    let popMessage = [];
+    let requiredObj = {};
+    for (let item in obj) {
+      let row = obj[item];
+      requiredObj[item] = [];
+      if (typeof row === "object") {
+        for (let subItem in row) {
+          let subRow = row[subItem];
+         // if (item !== 'upload' || item != 'AddFiles' || item != 'DeleteFiles') {
+          if (item !== 'upload') {
+            if (subRow === "") {
+              isRequired.push(subItem);
+              popMessage.push(subItem + " is required from " + item);
+              requiredObj[item].push(subItem);
+            }
+          }
+          // console.log("\n\n");
+          // // http://voidcanvas.com/make-console-log-output-colorful-and-stylish-in-browser-node/
+          // console.log("%c" + item, "color: #c00; font-weight: bold; text-transform: uppercase;");
+          // console.log(subItem, subRow);
+        }
+        // console.log("\n\nAt Row", typeof row, item, row);
+      }
+      // console.log("Showing list of item", item);
+    }
+    // console.log("Manditory fields", requiredObj);
+    if(isRequired.length > 0){
+      let message = "";
+      message += "<div class='popMessage'>"
+      for(let row in requiredObj){
+        let item = requiredObj[row];
+        if(item.length > 0){
+          message += "<b>"+row+"</b> : <span style='color: #bbb'>"+ item.join(', ')+"</span><br>"
+        }
+      }
+      message += '</div>';
+      /* this.toastr.info('<input type="checkbox" checked> Success!', 'With HTML', {
+        allowHtml: true
+      }); */
+      this.toastr.error(
+        message,
+        "Faied to submit! Please fill the required fields",
+        { toastLife: 30000, allowHtml: true, }
+      );
+    }
+    if (isRequired.length === 0) {
+      return true
+    }
+    return false;
   }
 }

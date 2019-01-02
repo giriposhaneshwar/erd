@@ -117,7 +117,7 @@
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="orgChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="organicChemistrySiteDetailsSave(oc_totalPhosp,oc_tph)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="orgChemTabNavNext(module)">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="orgChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

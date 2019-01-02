@@ -22,7 +22,7 @@ export class OrganicChemistryComponent implements OnInit {
 
   oc_totalPhosp: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
   oc_tph: any = { surfaceValue: "", mql: "", extractionMethod: "", testMethod: "" };
-  
+
   mwqDetails = [];
   mwqResp: any;
 
@@ -35,16 +35,16 @@ export class OrganicChemistryComponent implements OnInit {
   module: String;
   fieldColorValidatior: any;
 
-  constructor(public route: Router, public localStore: AppStorageService, 
+  constructor(public route: Router, public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService, vcr: ViewContainerRef,
-    public toastr: ToastsManager, 
+    public toastr: ToastsManager,
     public config: Config) {
-      this.toastr.setRootViewContainerRef(vcr);
+    this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
     this.loaadExtractionMethodData();
   }
-  
+
   orgChemTabNavPrev(module) {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
@@ -76,12 +76,12 @@ export class OrganicChemistryComponent implements OnInit {
   }
   getColorValidator() {
     let colorVal = this.localStore.store.get('paramValues');
-    if(colorVal != undefined && colorVal.data !== undefined){
+    if (colorVal != undefined && colorVal.data !== undefined) {
       this.fieldColorValidatior = colorVal.data;
     }
     console.log("Color Values", colorVal);
   }
-  
+
   ngOnInit() {
     let mod = this.config.getModuleName();
     this.module = mod.module;
@@ -137,17 +137,17 @@ export class OrganicChemistryComponent implements OnInit {
     });
   }
 
-  checkValueThreshold(value, threshould,standDevition,maxValue) {
-    if(value > threshould){
-      this.toastr.error("Input Value "+ value + " Morethan Threshould " + threshould +" Value ");
-    }
-    
-    if(value > standDevition){
-      this.toastr.error("Input Value "+ value + " Morethan Prarmater StandDevition " + standDevition +" Value ");
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
+    if (value > threshould) {
+      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
     }
 
-    if(value > maxValue){
-      this.toastr.error("Input Value "+ value + " Morethan Pararmater Max " + maxValue +" Value ");
+    if (value > standDevition) {
+      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+    }
+
+    if (value > maxValue) {
+      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
     }
   }
 

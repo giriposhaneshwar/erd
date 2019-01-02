@@ -52,7 +52,7 @@ export class MicroBiologyComponent implements OnInit {
 
   getColorValidator() {
     let colorVal = this.localStore.store.get('paramValues');
-    if(colorVal != undefined && colorVal.data !== undefined){
+    if (colorVal != undefined && colorVal.data !== undefined) {
       this.fieldColorValidatior = colorVal.data;
     }
     console.log("Color Values", colorVal);

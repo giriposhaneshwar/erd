@@ -14,8 +14,8 @@
         </div>
       </div>
       <!--<mat-divider></mat-divider>-->
-      <form class="form" name="form" (ngSubmit)="f.form.valid && insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)"
-        #f="ngForm" novalidate>
+      <form  #f="ngForm" name="form" class="form" (ngSubmit)="f.form.valid && insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)"
+        novalidate>
         <div class="col-sm-12 section col-xs-12 formTableSection">
           <div class="row formHeading">
             <div class="clearfix tbl tbl-per-10 text-left"></div>
@@ -44,9 +44,13 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Temperature°c</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Temperature°c {{f.submitted | json}}</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
+              <input 
+                      type="text" 
+                      [(ngModel)]="temperature.surfaceValue" 
+                      class="form-control tbl tbl-per-30" 
+                      [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
                           'white': temperature.surfaceValue == '',
                           'orange': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMean, 
                           'green': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMax && 
@@ -419,8 +423,8 @@
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)">Save</button> -->
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabNext(module)">Next</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabPrev(module)">Previous</button>
-              <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabNext(module)">Next</button>
+              <input type="submit" class="btn btn-primary gap gap-5 gap-lr" value="Save" />
+              <button  class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="inSituTabNext(module)">Next</button>
             </div>
           </div>
         </div>
@@ -492,3 +496,4 @@
       </div>
     </div>
   </div>
+</div>

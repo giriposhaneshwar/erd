@@ -3,8 +3,6 @@ import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { Config } from "app/appConfiguration/config";
 import { ToastsManager } from "ng6-toastr";
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-
 
 @Component({
   selector: "ms-in-situ-parameters",
@@ -46,15 +44,14 @@ export class InSituParametersComponent implements OnInit {
   sechiDisc: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
 
   fieldColorValidatior: any;
-  form: FormGroup;
+
 
   constructor(
     public route: Router,
     public localStore: AppStorageService,
     public config: Config,
     public toastr: ToastsManager,
-    vcr: ViewContainerRef,
-    private formBuilder: FormBuilder
+    vcr: ViewContainerRef
   ) {
     this.toastr.setRootViewContainerRef(vcr);
   }
@@ -107,8 +104,7 @@ export class InSituParametersComponent implements OnInit {
     //this.selectedEventType = [this.eventTypeDetails[0]];
   }
 
-  insituDetailsSave(temperature, conductivity, salinity, pH,dissolvedO, Chlorophyll_a, sechiDisc ) 
-  {
+  insituDetailsSave(temperature, conductivity, salinity, pH, dissolvedO, Chlorophyll_a, sechiDisc) {
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.dataEntry[this.salinityComponentKey] = salinity;

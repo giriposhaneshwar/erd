@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { AppStorageService } from 'app/appConfiguration/app-config.service';
 import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 import { Config } from 'app/appConfiguration/config';
-import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
+import { ToastsManager } from "ng6-toastr/ng2-toastr";
 
 @Component({
   selector: 'ms-general-chemistry',
@@ -27,7 +27,6 @@ export class GeneralChemistryComponent implements OnInit {
   graphDataKey: string = "generalChemistry";
   fieldColorValidatior: any;
 
-  
   totalPhosp: any = { surfaceValue: "", mql: "", testMethod: "" };
   totalNitrogen: any = { surfaceValue: "", mql: "", testMethod: "" };
   nitriteN: any = { surfaceValue: "", mql: "", testMethod: "" };
@@ -40,14 +39,21 @@ export class GeneralChemistryComponent implements OnInit {
 
   module: String;
 
+  mwqDetails = [];
+  mwqResp: any;
+  testMethodDetails = [];
+  testMethodResp: any;
+  extractionMethodDetails = [];
+  extractionMethodResp: any;
+
   constructor(
-    public route: Router, 
-    public toastr: ToastsManager, 
-    public localStore: AppStorageService, 
-    private mwqDataEntryService: MwqDataEntryService, 
+    public route: Router,
+    public toastr: ToastsManager,
+    public localStore: AppStorageService,
+    private mwqDataEntryService: MwqDataEntryService,
     vcr: ViewContainerRef,
     public config: Config) {
-      this.toastr.setRootViewContainerRef(vcr);
+    this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
   }
@@ -96,10 +102,10 @@ export class GeneralChemistryComponent implements OnInit {
     // this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
     // console.log("At Next Screen");
   }
-  
+
   getColorValidator() {
     let colorVal = this.localStore.store.get('paramValues');
-    if(colorVal != undefined && colorVal.data !== undefined){
+    if (colorVal != undefined && colorVal.data !== undefined) {
       this.fieldColorValidatior = colorVal.data;
     }
     console.log("Color Values", colorVal);
@@ -115,7 +121,7 @@ export class GeneralChemistryComponent implements OnInit {
     let localData = this.localStore.store.get(this.dataEntryKey);
     let generalChemistrygraphData = this.localStore.store.get("graphData");
     this.graphData = generalChemistrygraphData.data.generalChemistry;
-   
+
     /* setTimeout(() => {
       this.graphData.Sechi_Disc_Surface = ["30", "80", "20", "95"];
     }, 5000);
@@ -165,15 +171,6 @@ export class GeneralChemistryComponent implements OnInit {
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
 
-  mwqDetails = [];
-  mwqResp: any;
-
-  testMethodDetails = [];
-  testMethodResp: any;
-
-  extractionMethodDetails = [];
-  extractionMethodResp: any;
-
   loadMQLData() {
     this.mwqDataEntryService.fetchMQLData().subscribe((resp) => {
       this.mwqResp = resp;
@@ -189,17 +186,17 @@ export class GeneralChemistryComponent implements OnInit {
       //console.log("----testMethodDetails----", this.testMethodDetails);
     });
   }
-  checkValueThreshold(value, threshould,standDevition,maxValue) {
-    if(value > threshould){
-      this.toastr.error("Input Value "+ value + " Morethan Threshould " + threshould +" Value ");
-    }
-    
-    if(value > standDevition){
-      this.toastr.error("Input Value "+ value + " Morethan Prarmater StandDevition " + standDevition +" Value ");
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
+    if (value > threshould) {
+      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
     }
 
-    if(value > maxValue){
-      this.toastr.error("Input Value "+ value + " Morethan Pararmater Max " + maxValue +" Value ");
+    if (value > standDevition) {
+      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+    }
+
+    if (value > maxValue) {
+      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
     }
   }
 

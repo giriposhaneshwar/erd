@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ToastModule } from 'ng6-toastr/ng2-toastr';
+import { ToastModule, ToastOptions } from 'ng6-toastr/ng2-toastr';
 
 import { MwqDataEntryRoutes } from "./mwq-data-entry-routing.module";
 import { MwqDataEntryComponent } from "./mwq-data-entry.component";
@@ -23,6 +23,13 @@ import { QcInfoComponent } from './tabs/qc-info/qc-info.component';
 import { QcRemarksComponent } from './tabs/qc-remarks/qc-remarks.component';
 import { GraphComponent } from '../partials/graph/graph.component';
 import { OnlyNumber } from "./onlynumber.directive";
+
+export class CustomOption extends ToastOptions {
+  animate = 'flyRight'; // you can override any options available
+  newestOnTop = false;
+  showCloseButton = true;
+  enableHTML = true;
+}
 
 @NgModule({
   imports: [
@@ -52,6 +59,9 @@ import { OnlyNumber } from "./onlynumber.directive";
     HistoricalGraphDirective,
     GraphComponent,
     OnlyNumber
+  ],
+  providers: [ 
+    {provide: ToastOptions, useClass: CustomOption},
   ],
   exports: [MwqDataEntryComponent, HistoricalGraphDirective]
 })

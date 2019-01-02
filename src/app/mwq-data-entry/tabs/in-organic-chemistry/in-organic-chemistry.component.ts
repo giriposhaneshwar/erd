@@ -64,11 +64,11 @@ export class InOrganicChemistryComponent implements OnInit {
   fieldColorValidatior: any;
 
   constructor(public route: Router, public localStore: AppStorageService,
-    private mwqDataEntryService: MwqDataEntryService, public config: Config, public toastr: ToastsManager,vcr: ViewContainerRef ) {
-      this.toastr.setRootViewContainerRef(vcr);
+    private mwqDataEntryService: MwqDataEntryService, public config: Config, public toastr: ToastsManager, vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
     this.loadMQLData();
     this.loadTestMethodData();
-    
+
   }
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {

@@ -119,7 +119,7 @@
               <div class="clearfix tbl tbl-per-15 text-left">Site Default Value</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSiteDefaultValue"
-                  name="siteDefValue" #siteDefValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
+                  name="siteDefValue" #siteDefValue="ngModel" OnlyNumber="true"  [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
                   required autocomplete="off" />
               </div>
             </div>
@@ -144,10 +144,11 @@
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 1em;">
       <div class="row text-right">
         <div class="col-xs-12 col-sm-12">
-          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button>
+          <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button> -->
           <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Save</button>
-          <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDetailsSave(siteData,sampleInformation)">Save</button> -->
-          <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabNext(module)">Next</button>
+          <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="siteDataTabNext(module)">Next</button>
+          <!-- <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Next</button> -->
+          <!-- <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabNext(module)">Next</button> -->
         </div>
       </div>
     </div>
