@@ -26,13 +26,13 @@
                         <div class="col-3">
                             <!-- <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="fromDateFilter"> -->
                             <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter"
-                                (change)="dateRangeValidate(fromDateFilter, 'start')" [min]="startMinDate" [max]="startMaxDate">
+                                (change)="dateRangeValidate(fromDateFilter, 'start')" [min]="startMinDate" [max]="startMaxDate" onkeydown="return false">
                         </div>
                         <label for="example-date-input" class="col-form-label">To Date</label>
                         <div class="col-3">
                             <!-- <input class="form-control" type="date" [max]="dateval" id="example-date-input" [(ngModel)]="toDateFilter"> -->
                             <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter"
-                                (change)="dateRangeValidate(toDateFilter, 'end')" [min]="endMinDate" [max]="endMaxDate">
+                                (change)="dateRangeValidate(toDateFilter, 'end')" [min]="endMinDate" [max]="endMaxDate" onkeydown="return false">
                         </div>
                         <button type="submit" class="send-btn btn btn-primary" (click)="downloadMwqData(fromDateFilter,toDateFilter)">Send</button>
                     </div>

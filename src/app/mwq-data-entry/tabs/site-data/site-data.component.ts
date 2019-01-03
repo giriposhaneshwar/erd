@@ -147,6 +147,7 @@ export class SiteDataComponent implements OnInit {
 
   module: String;
   dateval = '';
+  
   constructor(
     public route: Router,
     public localStore: AppStorageService,

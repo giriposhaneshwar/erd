@@ -24,12 +24,10 @@ UPLOAD_URL = this.DOMAIN + this.DIRECTORY + this.UPLOAD_DIR;
     else if (window.location.origin === 'http://localhost') {
       return { module: url[2], tab: url[3] };
     }
-    else if (window.location.origin === 'http://10.56.84.173') {
+    else if (window.location.origin === 'http://10.56.187.146') {
       return { module: url[2], tab: url[3] };
     }
-    else if (window.location.origin === 'http://10.56.65.11') {
-      return { module: url[2], tab: url[3] };
-    }
+    
    /*  else  if (window.location.origin === 'http://10.10.1.90:9933') {
       return { module: url[2], tab: url[3] };
     } */

@@ -28,6 +28,7 @@ export class DownloadBuoysDataComponent implements OnInit {
   endMinDate: any;
   endMaxDate: any;
 
+  
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private excelService: DownloadBuoysDataService,
     private downloadDataService: DownloadDataService,
