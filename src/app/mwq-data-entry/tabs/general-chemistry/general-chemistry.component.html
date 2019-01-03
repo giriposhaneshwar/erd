@@ -366,7 +366,7 @@
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="genChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="generalChemistryDetailsSave(totalPhosp,totalNitrogen,nitriteN,nitrateN,silicateSl,ammoniaN,phosphateP,bod,tss)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="genChemTabNavNext(module)">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="genChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

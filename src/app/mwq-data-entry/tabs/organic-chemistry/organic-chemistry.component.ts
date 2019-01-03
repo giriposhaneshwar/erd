@@ -34,7 +34,8 @@ export class OrganicChemistryComponent implements OnInit {
 
   module: String;
   fieldColorValidatior: any;
-
+  isDisabled: boolean = true;
+  
   constructor(public route: Router, public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService, vcr: ViewContainerRef,
     public toastr: ToastsManager,
@@ -61,6 +62,7 @@ export class OrganicChemistryComponent implements OnInit {
     this.dataEntry[this.oc_tphComponentKey] = oc_tph;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    this.isDisabled = false;
     console.log("At organicChemistrySiteDetails Screen");
   }
   orgChemTabNavNext(module) {

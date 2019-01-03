@@ -96,8 +96,9 @@
               </div>
               <div class="clearfix tbl tbl-per-15 text-left">Date</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <input type="date" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate" 
-                  #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required  [max]="dateval" onkeydown="return false" />
+                <input type="date" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate"
+                  #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required [max]="dateval"
+                  onkeydown="return false" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Time</div>
               <div class="clearfix tbl tbl-per-20 text-left">
@@ -119,22 +120,22 @@
               <div class="clearfix tbl tbl-per-15 text-left">Site Default Value</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSiteDefaultValue"
-                  name="siteDefValue" #siteDefValue="ngModel" OnlyNumber="true"  [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
+                  name="siteDefValue" #siteDefValue="ngModel" OnlyNumber="true" [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
                   required autocomplete="off" />
               </div>
             </div>
 
             <div class="row">
-                <div class="clearfix tbl tbl-per-15 text-left">Description</div>
-                <div class="clearfix tbl tbl-per-85 text-left">
-                  <!-- <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
+              <div class="clearfix tbl tbl-per-15 text-left">Description</div>
+              <div class="clearfix tbl tbl-per-85 text-left">
+                <!-- <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
                       name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
                       required autocomplete="off" /> -->
-                  <textarea rows="5" cols="50" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
-                    name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
-                    required autocomplete="off"></textarea>
-                </div>
+                <textarea rows="5" cols="50" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
+                  name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
+                  required autocomplete="off"></textarea>
               </div>
+            </div>
 
           </div>
         </div>
@@ -145,9 +146,7 @@
         <div class="col-xs-12 col-sm-12">
           <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button> -->
           <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Save</button>
-          <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="siteDataTabNext(module)">Next</button>
-          <!-- <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Next</button> -->
-          <!-- <button type="button" class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabNext(module)">Next</button> -->
+          <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="siteDataTabNext(module)">Next</button>
         </div>
       </div>
     </div>

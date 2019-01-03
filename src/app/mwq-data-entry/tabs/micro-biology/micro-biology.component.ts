@@ -37,6 +37,7 @@ export class MicroBiologyComponent implements OnInit {
   saveMwqDataEntryResp: any;
   fieldColorValidatior: any;
   module: String;
+  isDisabled: boolean = true;
 
   constructor(public route: Router,
     public toastr: ToastsManager,
@@ -94,7 +95,7 @@ export class MicroBiologyComponent implements OnInit {
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
     // this.js["jsonInput"] = this.dataEntry;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-
+    this.isDisabled = false;
     /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
     console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
     console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo)); */

@@ -198,6 +198,7 @@ export class UploadFilesComponent implements OnInit {
       console.log("----saveMwqDataEntryResp----", this.saveMwqDataEntryResp, this.saveMwqDataEntryResp.loadDataResult.Status);
       if (this.saveMwqDataEntryResp.loadDataResult.Status === "Success") {
         this.toastr.success(this.saveMwqDataEntryResp.loadDataResult.Message, "Success");
+        this.route.navigate(["mwqDataQc", "qc-info"]);
       }
       else {
         this.toastr.error(this.saveMwqDataEntryResp.loadDataResult.Message);

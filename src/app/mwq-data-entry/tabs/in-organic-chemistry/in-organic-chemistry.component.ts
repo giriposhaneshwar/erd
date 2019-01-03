@@ -62,6 +62,7 @@ export class InOrganicChemistryComponent implements OnInit {
   graphData: any;
   graphDataKey: string = "inOrganicChemistry";
   fieldColorValidatior: any;
+  isDisabled: boolean = true;
 
   constructor(public route: Router, public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService, public config: Config, public toastr: ToastsManager, vcr: ViewContainerRef) {
@@ -124,6 +125,7 @@ export class InOrganicChemistryComponent implements OnInit {
     this.dataEntry[this.iocs_mercuryComponentKey] = iocs_mercury;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    this.isDisabled = false;
     console.log("At inOrganicChemistryDetails Save Screen");
   }
   inOrgChemTabNavNext(module) {

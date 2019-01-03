@@ -147,6 +147,7 @@ export class SiteDataComponent implements OnInit {
 
   module: String;
   dateval = '';
+  isDisabled: boolean = true;
   
   constructor(
     public route: Router,
@@ -173,7 +174,7 @@ export class SiteDataComponent implements OnInit {
     /* if(module.module == "mwqDataQc"){
       this.localStore.store.set(this.dataEntryKey, this.localStore.store.get('qcData'));
     } */
-    // get DAta
+    // get Data
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
       this.dataEntry = localData.data;
@@ -419,7 +420,7 @@ export class SiteDataComponent implements OnInit {
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    
+    this.isDisabled = false;
     //this.siteDataTabNext(this.module);
     // console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }

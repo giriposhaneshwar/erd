@@ -783,7 +783,7 @@
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrgChemTabNavPrev(module)">Previous</button>
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrganicChemistryDetailsSave(iocw_cadmium,iocw_chromium,iocw_cobalt,iocw_copper,iocw_lead,iocw_manganese,iocw_nickel,iocw_zinc,iocw_iron,iocw_mercury,iocs_cadmium,iocs_chromium,iocs_cobalt,iocs_copper,iocs_lead,iocs_manganese,iocs_nickel,iocs_zinc,iocs_iron,iocs_mercury)">Save</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="inOrgChemTabNavNext(module)">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="inOrgChemTabNavNext(module)">Next</button>
             </div>
           </div>
         </div>

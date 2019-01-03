@@ -45,7 +45,8 @@ export class GeneralChemistryComponent implements OnInit {
   testMethodResp: any;
   extractionMethodDetails = [];
   extractionMethodResp: any;
-
+  isDisabled: boolean = true;
+  
   constructor(
     public route: Router,
     public toastr: ToastsManager,
@@ -75,6 +76,7 @@ export class GeneralChemistryComponent implements OnInit {
     this.dataEntry[this.tssComponentKey] = tss;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    this.isDisabled = false;
     console.log("At Save Screen");
   }
 

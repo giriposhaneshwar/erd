@@ -44,7 +44,7 @@ export class InSituParametersComponent implements OnInit {
   sechiDisc: any = { surfaceValue: "", bottomValue: "", bottom5m: "", bottom10m: "", bottom15m: "", bottom20m: "", bottom25m: "", bottom30m: "", bottom35m: "", bottom40m: "" };
 
   fieldColorValidatior: any;
-
+  isDisabled: boolean = true;
 
   constructor(
     public route: Router,
@@ -114,7 +114,7 @@ export class InSituParametersComponent implements OnInit {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
 
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    //this.inSituTabNext(this.module);
+    this.isDisabled = false;
     console.log("At Save Screen");
   }
 

@@ -14,7 +14,7 @@
         </div>
       </div>
       <!--<mat-divider></mat-divider>-->
-      <form  #f="ngForm" name="form" class="form" (ngSubmit)="f.form.valid && insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)"
+      <form #f="ngForm" name="form" class="form" (change)="optionValueChange(f)" (ngSubmit)="f.form.valid && insituDetailsSave(temperature,conductivity,salinity,pH,dissolvedO,Chlorophyll_a,sechiDisc)"
         novalidate>
         <div class="col-sm-12 section col-xs-12 formTableSection">
           <div class="row formHeading">
@@ -46,11 +46,7 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Temperature°c {{f.submitted | json}}</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input 
-                      type="text" 
-                      [(ngModel)]="temperature.surfaceValue" 
-                      class="form-control tbl tbl-per-30" 
-                      [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
+              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
                           'white': temperature.surfaceValue == '',
                           'orange': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMean, 
                           'green': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMax && 
@@ -108,17 +104,18 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Bottom"
               [threshold]="fieldColorValidatior.Temparature.prarmaterThreshold"></div>
           </div>
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Conductivity(mS/cm)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivitySurfaceVal.invalid),
-                            'white': conductivity.surfaceValue == '',
-                            'orange': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
-                            'green': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
-                              conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMean, 
-                            'red': conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMax}"
+                              'white': conductivity.surfaceValue == '',
+                              'orange': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
+                              'green': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMean, 
+                              'red': conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMax}"
                 (keyup)="checkValueThreshold(conductivity.surfaceValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
-                fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
+                  fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" #conductivitySurfaceVal="ngModel"
                 OnlyNumber="true" required autocomplete="off" />
 
@@ -129,13 +126,13 @@
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),
-                'white': conductivity.bottomValue == '',
-                'orange': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
-                'green': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
-                conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMean, 
-                'red': conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMax}"
+                  'white': conductivity.bottomValue == '',
+                  'orange': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
+                  'green': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                  conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMean, 
+                  'red': conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMax}"
                 (keyup)="checkValueThreshold(conductivity.bottomValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
-                fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
+                  fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" #conductivityBottomVal="ngModel"
                 required autocomplete="off" OnlyNumber="true" />
             </div>
@@ -168,17 +165,18 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Bottom"
               [threshold]="fieldColorValidatior.Conductivity.prarmaterThreshold"></div>
           </div>
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Salinity(ppt)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),
-                'white': salinity.surfaceValue == '',
-                'orange': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMean, 
-                'green': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMax && 
-                   salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMean, 
-                'red': salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMax}"
+                  'white': salinity.surfaceValue == '',
+                  'orange': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMean, 
+                  'green': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMax && 
+                     salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMean, 
+                  'red': salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMax}"
                 (keyup)="checkValueThreshold(salinity.surfaceValue, fieldColorValidatior.Salinity.prarmaterThreshold,
-                fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
+                  fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
                 autocomplete="off" name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel"
                 OnlyNumber="true" required />
               <!-- <span class="pad l-15">ppt (at Surface)</span> -->
@@ -188,13 +186,13 @@
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ppt (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),
-                      'white': salinity.bottomValue == '',
-                      'orange': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMean, 
-                      'green': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMax  && 
-                          salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMean, 
-                      'red': salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMax }"
+                        'white': salinity.bottomValue == '',
+                        'orange': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMean, 
+                        'green': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMax  && 
+                            salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMean, 
+                        'red': salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMax }"
                 (keyup)="checkValueThreshold(salinity.bottomValue, fieldColorValidatior.Salinity.prarmaterThreshold,
-                  fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
+                    fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
                 name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required
                 OnlyNumber="true" autocomplete="off" />
             </div>
@@ -227,6 +225,7 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Bottom"
               [threshold]="fieldColorValidatior.Salinity.prarmaterThreshold"></div>
           </div>
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">pH</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
@@ -273,17 +272,18 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Bottom"
               [threshold]="50"></div>
           </div>
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">DissolveOxygen (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),
-                          'white': dissolvedO.surfaceValue == '',
-                          'orange': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean,
-                          'green': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
-                              dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                          'red': dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax}"
+                            'white': dissolvedO.surfaceValue == '',
+                            'orange': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                            'green': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                            'red': dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax}"
                 (keyup)="checkValueThreshold(dissolvedO.surfaceValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
-                  fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
+                    fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
                 name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel"
                 OnlyNumber="true" required autocomplete="off" />
               <!-- <span class="pad l-15">mg/L (at Surface)</span> -->
@@ -293,13 +293,13 @@
             <!-- <div class="clearfix tbl tbl-per-15 text-left">mg/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),
-                'white': dissolvedO.bottomValue == '',
-                'orange': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                'green': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax  && 
-                        dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                'red': dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax }"
+                  'white': dissolvedO.bottomValue == '',
+                  'orange': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                  'green': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax  && 
+                          dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
+                  'red': dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax }"
                 (keyup)="checkValueThreshold(dissolvedO.bottomValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
-                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
+                    fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="dissolvedObottomValue" [(ngModel)]="dissolvedO.bottomValue" #dissolvedObottomValue="ngModel"
                 OnlyNumber="true" required autocomplete="off" />
             </div>
@@ -332,17 +332,18 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Bottom"
               [threshold]="fieldColorValidatior.Chlorophyll_a.prarmaterThreshold"></div>
           </div>
+
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll(μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aSurfaceValue.invalid),
-                  'white': Chlorophyll_a.surfaceValue == '',
-                  'orange': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                  'green': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax  &&
-                     Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                  'red': Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax }"
+                    'white': Chlorophyll_a.surfaceValue == '',
+                    'orange': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                    'green': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax  &&
+                       Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                    'red': Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax }"
                 (keyup)="checkValueThreshold(Chlorophyll_a.surfaceValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
-                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
+                    fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aSurfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" #Chlorophyll_aSurfaceValue="ngModel"
                 OnlyNumber="true" required autocomplete="off" />
               <!-- <span class="pad l-15">ug/L (at Surface)</span> -->
@@ -352,13 +353,13 @@
             <!-- <div class="clearfix tbl tbl-per-15 text-left">ug/L (at Deepwater)</div> -->
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),
-                'white': Chlorophyll_a.bottomValue == '',
-                'orange': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                'green': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
-                  Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                'red': Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax}"
+                  'white': Chlorophyll_a.bottomValue == '',
+                  'orange': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                  'green': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                    Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
+                  'red': Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax}"
                 (keyup)="checkValueThreshold(Chlorophyll_a.bottomValue , fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
-                  fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
+                    fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aBottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" #Chlorophyll_aBottomValue="ngModel"
                 required autocomplete="off" OnlyNumber="true" />
             </div>
@@ -391,17 +392,18 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Bottom"
               [threshold]="fieldColorValidatior.Sechi_Disc.prarmaterThreshold"></div>
           </div>
+          
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc Reading(Feet)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && sechiDiscSurfaceValue.invalid),
-                    'white': sechiDisc.surfaceValue == '',
-                    'orange': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
-                    'green': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMax && 
-                        sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
-                    'red': sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMax}"
+                      'white': sechiDisc.surfaceValue == '',
+                      'orange': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
+                      'green': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMax && 
+                          sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
+                      'red': sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMax}"
                 (keyup)="checkValueThreshold(sechiDisc.surfaceValue, fieldColorValidatior.Sechi_Disc.prarmaterThreshold,
-                    fieldColorValidatior.Sechi_Disc.prarmaterStandDevition,fieldColorValidatior.Sechi_Disc.prarmaterMax)"
+                      fieldColorValidatior.Sechi_Disc.prarmaterStandDevition,fieldColorValidatior.Sechi_Disc.prarmaterMax)"
                 name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel"
                 autocomplete="off" required OnlyNumber="true" />
               <!-- <span class="pad l-15">Feet (at Surface)</span> -->
@@ -414,6 +416,7 @@
             </div>
             <div class="clearfix tbl tbl-per-15 text-center"></div>
           </div>
+
         </div>
 
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
@@ -424,76 +427,73 @@
               <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabNext(module)">Next</button> -->
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabPrev(module)">Previous</button>
               <input type="submit" class="btn btn-primary gap gap-5 gap-lr" value="Save" />
-              <button  class="btn btn-primary gap gap-5 gap-lr" [disabled]="!f.form.valid" (click)="inSituTabNext(module)">Next</button>
+              <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="inSituTabNext(module)">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modalContainer" [ngClass]="optionsModalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
+          <div class="shadowSection" (click)="optionsModalClose()"></div>
+          <div class="modalSection">
+            <div class="modalHeader">
+              <div class="title"> </div>
+              <div class="closeBtn">
+                <a href="javascript:void(0)" (click)="optionsModalClose()">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </a>
+              </div>
+            </div>
+            <div class="modalBody">
+              <!-- <form #f="ngForm" class="form" (change)="optionValueChange(f)"> -->
+              <div class="form-group">
+                <div class="row formRow">
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option5m" [(ngModel)]="optionValue.option5m"
+                        value="5m" />5m
+                    </label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option10m" [(ngModel)]="optionValue.option10m"
+                        value="10m" />10m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option15m" [(ngModel)]="optionValue.option15m"
+                        value="15m" />15m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option20m" [(ngModel)]="optionValue.option20m"
+                        value="20m" />20m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option25m" [(ngModel)]="optionValue.option25m"
+                        value="25m" />25m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option30m" [(ngModel)]="optionValue.option30m"
+                        value="30m" />30m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option35m" [(ngModel)]="optionValue.option35m"
+                        value="35m" />35m</label>
+                  </div>
+                  <div class="clearfix tbl tbl-per-10 text-left">
+                    <label><input type="checkbox" class="form-control" name="option40m" [(ngModel)]="optionValue.option40m"
+                        value="40m" />40m</label>
+                  </div>
+                </div>
+
+
+              </div>
+              <!--  </form> -->
+            </div>
+            <div class="modalFooter">
+
             </div>
           </div>
         </div>
       </form>
-    </div>
-  </div>
-
-  <div class="modalContainer" [ngClass]="optionsModalShowWindow ? 'openModel' : 'closeModel'" [ngStyle]="{'z-index': '9999'}">
-    <div class="shadowSection" (click)="optionsModalClose()"></div>
-    <div class="modalSection">
-      <div class="modalHeader">
-        <div class="title"> </div>
-        <div class="closeBtn">
-          <a href="javascript:void(0)" (click)="optionsModalClose()">
-            <i class="glyphicon glyphicon-remove"></i>
-          </a>
-        </div>
-      </div>
-      <div class="modalBody">
-        <form #f="ngForm" class="form" (change)="optionValueChange(f)">
-          <div class="form-group">
-            <div class="row formRow">
-              <div class="clearfix tbl tbl-per-10 text-left">
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option5m" [(ngModel)]="optionValue.option5m"
-                    value="5m" />5m
-                </label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option10m" [(ngModel)]="optionValue.option10m"
-                    value="10m" />10m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option15m" [(ngModel)]="optionValue.option15m"
-                    value="15m" />15m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option20m" [(ngModel)]="optionValue.option20m"
-                    value="20m" />20m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option25m" [(ngModel)]="optionValue.option25m"
-                    value="25m" />25m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option30m" [(ngModel)]="optionValue.option30m"
-                    value="30m" />30m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option35m" [(ngModel)]="optionValue.option35m"
-                    value="35m" />35m</label>
-              </div>
-              <div class="clearfix tbl tbl-per-10 text-left">
-                <label><input type="checkbox" class="form-control" name="option40m" [(ngModel)]="optionValue.option40m"
-                    value="40m" />40m</label>
-              </div>
-            </div>
-
-
-          </div>
-        </form>
-      </div>
-      <div class="modalFooter">
-        <!-- <div class="row text-right">
-          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDatePrev()">Add</button>
-          <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button>
-      </div> -->
-      </div>
     </div>
   </div>
 </div>
