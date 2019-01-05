@@ -13,6 +13,7 @@ import { DownloadMwqDataComponent } from './download-mwq-data/download-mwq-data.
 import { DownloadBuoysDataService } from './download-buoys-data/download-buoys-data.service';
 import { DownloadMwqDataService } from './download-mwq-data/download-mwq-data.service';
 import { DownloadMwqIndicesDataService } from './download-mwq-indicies-data/download-mwq-indices-data.service';
+import { MouseWheelDirective } from './mouse.wheel.directive';
 
 
 @NgModule({
@@ -21,12 +22,12 @@ import { DownloadMwqIndicesDataService } from './download-mwq-indicies-data/down
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule, 
-    MatCardModule, 
+    MatInputModule,
+    MatCardModule,
     DirectivesModule,
     RouterModule.forChild(DownloadDataRoutes)
   ],
-  declarations: [DownloadDataComponent,DownloadMwqIndiciesDataComponent,DownloadBuoysDataComponent,DownloadMwqDataComponent],
-  providers: [DownloadBuoysDataService,DownloadMwqDataService,DownloadMwqIndicesDataService]
+  declarations: [DownloadDataComponent, DownloadMwqIndiciesDataComponent, DownloadBuoysDataComponent, DownloadMwqDataComponent, MouseWheelDirective],
+  providers: [DownloadBuoysDataService, DownloadMwqDataService, DownloadMwqIndicesDataService]
 })
 export class DownloadDataModule { }

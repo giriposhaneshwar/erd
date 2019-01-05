@@ -1,8 +1,6 @@
 <div class="container-fluid">
-  <!-- <form class="form" [formGroup]="siteDataform" (ngSubmit)="siteDetailsSave(siteData,sampleInformation)"> -->
-  <form name="form" (ngSubmit)="f.form.valid && siteDetailsSave(siteData,sampleInformation)" #f="ngForm" novalidate>
-    <!-- <form class="form" name="form"> -->
-
+  <form class="form" name="form" (ngSubmit)="f.form.valid && siteDetailsSave(siteData,sampleInformation)" #f="ngForm"
+    novalidate>
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
       <div class="panel panel-primary ">
         <div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> SITE DETAILS</div>

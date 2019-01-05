@@ -360,7 +360,7 @@
     width: 250px;
     min-height: 350px;
     max-height: 500px;
-    overflow-y: scroll;
+    //overflow-y: scroll;
     top: 60px;
     z-index: 9999;
     transition: all 1s;
@@ -394,7 +394,7 @@
         display: block;
         margin-top: 15px;
         height: 350px;
-        overflow-y: scroll;
+        //overflow-y: scroll;
     }
 }
 

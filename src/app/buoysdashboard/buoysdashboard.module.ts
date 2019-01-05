@@ -9,6 +9,7 @@ import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from '../core/widgster/directives.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { MouseWheelDirective } from './mouse.wheel.directive';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     LoadingBarHttpClientModule,
     RouterModule.forChild(BuoysDashboardRoutes)
   ],
-  declarations: [BuoysdashboardComponent]
+  declarations: [BuoysdashboardComponent,MouseWheelDirective]
 })
 export class BuoysdashboardModule { 
   BuoysdashboardComponent:any;

@@ -74,7 +74,11 @@ export class QcRemarksComponent implements OnInit {
     this.js["jsonInput"] = this.dataEntry;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     console.log("At QC Update Screen" + JSON.stringify(this.js));
-    this.updateMwqDataEntryQcData(this.js);
+    let isValid = this.doValidate(this.dataEntry);
+    if (isValid) {
+      this.updateMwqDataEntryQcData(this.js);
+    }
+  
   }
 
   updateMwqDataEntryQcData(jsonMwqDataEntryInfo) {
@@ -91,6 +95,8 @@ export class QcRemarksComponent implements OnInit {
     });
   }
 
+
+
   qCRemarksBtnTabNavPrev(module) {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "microbiology"]);
@@ -100,6 +106,59 @@ export class QcRemarksComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "upload-files"]);
       console.log("At mwqDataQc - upload-files Screen");
     }
+  }
+
+  doValidate(obj) {
+    let isRequired = [];
+    let popMessage = [];
+    let requiredObj = {};
+    for (let item in obj) {
+      let row = obj[item];
+      requiredObj[item] = [];
+      if (typeof row === "object") {
+        for (let subItem in row) {
+          let subRow = row[subItem];
+          // if (item !== 'upload' || item != 'AddFiles' || item != 'DeleteFiles') {
+          if (item !== 'upload') {
+            if (subRow === "") {
+              isRequired.push(subItem);
+              popMessage.push(subItem + " is required from " + item);
+              requiredObj[item].push(subItem);
+            }
+          }
+          // console.log("\n\n");
+          // // http://voidcanvas.com/make-console-log-output-colorful-and-stylish-in-browser-node/
+          console.log("%c" + item, "color: #c00; font-weight: bold; text-transform: uppercase;");
+          // console.log(subItem, subRow);
+        }
+        // console.log("\n\nAt Row", typeof row, item, row);
+      }
+      // console.log("Showing list of item", item);
+    }
+    // console.log("Manditory fields", requiredObj);
+    if (isRequired.length > 0) {
+      let message = "";
+      message += "<div class='popMessage'>"
+      for (let row in requiredObj) {
+        let item = requiredObj[row];
+        if (item.length > 0) {
+          message += "<b>" + row + "</b> : <span style='color: #bbb'>" + item.join(', ') + "</span><br>"
+        }
+      }
+      message += '</div>';
+      /* this.toastr.info('<input type="checkbox" checked> Success!', 'With HTML', {
+        allowHtml: true
+      }); */
+      this.toastr.error(
+        message,
+        "Faied to submit! Please fill the required fields",
+        { toastLife: 30000, allowHtml: true, }
+      );
+    }
+    if (isRequired.length === 0) {
+      return true
+    }
+    return false;
   }
 
 }

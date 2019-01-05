@@ -1,15 +1,12 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CommonModule } from "@angular/common";
-import { HttpModule, Http } from "@angular/http";
+import { HttpModule } from "@angular/http";
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from "@angular/flex-layout";
-// import { TourNgBootstrapModule } from 'ngx-tour-ng-bootstrap';
 import { DemoMaterialModule } from "./material-demo.module";
-
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
@@ -17,7 +14,6 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateService } from "@ngx-translate/core";
 import "hammerjs";
-
 import { SilkAppComponent } from "./app.component";
 import { AppRoutes } from "./app-routing.module";
 import { MainComponent } from "./main/main.component";
@@ -27,7 +23,6 @@ import { MenuItems } from "./core/menu/menu-items/menu-items";
 import { HorizontalMenuItems } from "./core/menu/menu-items/horizontal-menu-items";
 import { PageTitleService } from "./core/page-title/page-title.service";
 import { Config } from "./appConfiguration/config";
-import { HistoricalGraphDirective } from "./partials/historical-graph.directive";
 import { ToastModule } from 'ng6-toastr/ng2-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -67,7 +62,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }
     })
   ],
-  declarations: [SilkAppComponent, MainComponent, AuthLayoutComponent],
+  declarations: [SilkAppComponent, MainComponent, AuthLayoutComponent ],
   bootstrap: [SilkAppComponent],
   providers: [
     MenuItems,

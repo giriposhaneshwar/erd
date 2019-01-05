@@ -25,12 +25,14 @@
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
-                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false">
+                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false" required
+                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
-                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false">
+                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false" required
+                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadBuoysIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
@@ -60,7 +62,11 @@
                     }"></i>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Incident Name" [width]="500"></ngx-datatable-column>
+            <ngx-datatable-column name="Incident Name" [width]="500">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <div class="text-center">{{value}}</div>
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Created Date" [width]="200">
               <small class="text-muted"><i class="fa fa-clock-o">{{value}}</i></small>
             </ngx-datatable-column>

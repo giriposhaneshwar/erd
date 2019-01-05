@@ -26,15 +26,15 @@
             </div>
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
-              <!-- <input class="form-control" type="date" id="example-date-input" [max]="dateval" [(ngModel)]="fromDateFilter" > -->
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
-                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false">
+                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
-              <!-- <input class="form-control" type="date" id="example-date-input" [max]="dateval" [(ngModel)]="toDateFilter" > -->
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
-                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false">
+                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadBloomIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>

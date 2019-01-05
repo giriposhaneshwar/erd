@@ -157,17 +157,19 @@
         <span>From</span>
         <!-- <input type="date" [(ngModel)]="fromDateFilter" name="fromDate" id="fromDate" placeholder="From Date" [max]="dateval" /> -->
         <input type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
-          [min]="startMinDate" [max]="startMaxDate" onkeydown="return false">
+          [min]="startMinDate" [max]="startMaxDate" onkeydown="return false" [disabled]="isDisabled" mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+          (mouseWheelDown)="mouseWheelDownFunc(event)">
       </label>
       <label>
         <span>To</span>
         <!-- <input type="date" [(ngModel)]="toDateFilter" name="toDate" id="toDate" placeholder="To Date" [max]="dateval" /> -->
         <input type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
-          [min]="endMinDate" [max]="endMaxDate" onkeydown="return false">
+          [min]="endMinDate" [max]="endMaxDate" onkeydown="return false" [disabled]="isDisabled" mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+          (mouseWheelDown)="mouseWheelDownFunc(event)">
       </label>
     </div>
     <div class="text-center">
-      <button class="btn btn-primary" (click)="chooseDatesPeriod(fromDateFilter,toDateFilter)">Apply</button>
+      <button class="btn btn-primary" [disabled]="isDisabled" (click)="chooseDatesPeriod(fromDateFilter,toDateFilter)">Apply</button>
     </div>
   </div>
 </div>

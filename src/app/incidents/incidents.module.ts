@@ -11,6 +11,7 @@ import { BloomsIncidentComponent } from './blooms/blooms-incidents.component';
 import { TabsModule } from 'ngx-bootstrap';
 import { AlgolBloomIncidentsComponent } from './algol-bloom/algol-bloom-incidents.component';
 import { AgmCoreModule } from '@agm/core';
+import { MouseWheelDirective } from './mouse.wheel.directive';
 
 @NgModule({
   imports: [
@@ -18,16 +19,16 @@ import { AgmCoreModule } from '@agm/core';
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule, 
-    MatCardModule, 
+    MatInputModule,
+    MatCardModule,
     DirectivesModule,
-    
+
     TabsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAFgM81Qz-SwfTzUsr4F51AgDj0HdN88CQ'
     }),
     RouterModule.forChild(IncidentsRoutes)
   ],
-  declarations: [BuoysIncidentsComponent, BloomsIncidentComponent, AlgolBloomIncidentsComponent]
+  declarations: [BuoysIncidentsComponent, BloomsIncidentComponent, AlgolBloomIncidentsComponent, MouseWheelDirective]
 })
 export class IncidentsModule { }

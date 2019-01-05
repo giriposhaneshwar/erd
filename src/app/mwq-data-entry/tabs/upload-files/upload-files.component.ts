@@ -157,6 +157,7 @@ export class UploadFilesComponent implements OnInit {
 
     let isValid = this.doValidate(dataEntry);
 
+    
     // this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
     //console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));

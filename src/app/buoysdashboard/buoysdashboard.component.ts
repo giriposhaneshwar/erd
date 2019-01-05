@@ -6,7 +6,6 @@ import { map } from 'rxjs/operators';
 import { BuoysDashboardService } from './buoysdashboard.service';
 import * as moment from 'moment';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import * as $ from 'jquery';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -42,12 +41,16 @@ export class BuoysdashboardComponent implements OnInit {
   startMaxDate: any;
   endMinDate: any;
   endMaxDate: any;
-
+  isDisabled: boolean = true;
+  mouseWheelDir:any;
+  event:any;
+  
   handleFormChange(data) {
     if (data == "lastModified") {
       this.spinner.show();
       console.log(" Last Modified ", moment().startOf('hour').fromNow());
       this.showBuoysDashboardData(this.fromDate, this.toDate);
+      this.isDisabled = true;
     }
     else if (data == "currentDay") {
       this.spinner.show();
@@ -55,6 +58,7 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Current Day " + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
+      this.isDisabled = true;
     }
     else if (data == "lastoneweek") {
       this.spinner.show();
@@ -62,7 +66,7 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Last 1 Week" + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
-      //console.log("Data Submit", data);
+      this.isDisabled = true;
     }
     else if (data == "lasttwoweeks") {
       this.spinner.show();
@@ -70,7 +74,7 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Last 2 Week" + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
-      //console.log("Data Submit", data);
+      this.isDisabled = true;
     }
     else if (data == "lastOneMonth") {
       this.spinner.show();
@@ -78,7 +82,7 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Last 30 Days" + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
-      //console.log("Data Submit", data);
+      this.isDisabled = true;
     }
     else if (data == "lastTwoMonths") {
       this.spinner.show();
@@ -86,7 +90,7 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Last 60 Days" + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
-      // console.log("Data Submit", data);
+      this.isDisabled = true;
     }
     else if (data == "lastThreeMonths") {
       this.spinner.show();
@@ -94,10 +98,10 @@ export class BuoysdashboardComponent implements OnInit {
       this.toDate = moment().format('YYYY-MM-DD');
       console.log(" Last 90 Days" + this.fromDate, this.toDate);
       this.showBuoysDashboardData(this.fromDate, this.toDate);
-      //console.log("Data Submit", data);
+      this.isDisabled = true;
     }
     else if (data == "choosePeriod") {
-
+      this.isDisabled = false;
       console.log("Data Submit", data);
       console.log(" Last selected Dates" + this.fromDate, this.toDate);
       this.chooseDatesPeriod(this.fromDate, this.toDate);
@@ -197,5 +201,13 @@ export class BuoysdashboardComponent implements OnInit {
     } else {
       this.endMaxDate = this.dateval;
     }
+  }
+
+  mouseWheelUpFunc(evt) {
+    this.mouseWheelDir = 'upward direction';
+  }
+
+  mouseWheelDownFunc(evt) {
+    this.mouseWheelDir = 'downward direction';
   }
 }

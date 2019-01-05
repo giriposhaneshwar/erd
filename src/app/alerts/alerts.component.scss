@@ -33,3 +33,8 @@
 .ngx-datatable.scroll-horz .datatable-body{
     height: 250px !important;
 }
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border-color: #C00000;
+}

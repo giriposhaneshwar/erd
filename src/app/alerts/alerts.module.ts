@@ -7,9 +7,10 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule } from '@angular/material';
 import { DirectivesModule } from 'app/core/widgster/directives.module';
-import { TypeaheadModule  } from 'ngx-bootstrap';
-import {TabsModule } from 'ngx-bootstrap';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap';
+import { TabsModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MouseWheelDirective } from './mouse.wheel.directive';
 
 @NgModule({
   imports: [
@@ -17,8 +18,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule, 
-    MatCardModule, 
+    MatInputModule,
+    MatCardModule,
     DirectivesModule,
     NgbModule.forRoot(),
     TypeaheadModule.forRoot(),
@@ -26,7 +27,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RouterModule.forChild(AlertsRoutes)
   ],
   declarations: [
-    AlertsComponent,
+    AlertsComponent, MouseWheelDirective
   ]
 })
 export class AlertsModule { }

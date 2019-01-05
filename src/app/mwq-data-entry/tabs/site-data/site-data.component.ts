@@ -420,6 +420,7 @@ export class SiteDataComponent implements OnInit {
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+    
     this.isDisabled = false;
     //this.siteDataTabNext(this.module);
     // console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);

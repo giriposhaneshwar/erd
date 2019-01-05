@@ -6,6 +6,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'ms-alerts',
@@ -41,7 +42,9 @@ export class AlertsComponent implements OnInit {
   startMaxDate: any;
   endMinDate: any;
   endMaxDate: any;
-
+  mouseWheelDir: string = '';
+  event: any;
+  
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(private pageTitleService: PageTitleService,
     private alertService: AlertService,
@@ -58,7 +61,6 @@ export class AlertsComponent implements OnInit {
 
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
-    this.spinner.show();
   }
 
   dateForamt() {
@@ -85,32 +87,50 @@ export class AlertsComponent implements OnInit {
   }
 
   loadAlertsData(fromDate, toDate): void {
-    console.log("----loadAlertsData----", fromDate + "------" + toDate);
-    this.alertService.getAlertsData(fromDate, toDate).subscribe((resp) => {
-      this.alertsResp = resp;
-      this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
-      this.alertResultStatus = this.alertsResp.getAlertResult.Status;
-      console.log("----alertsDetails----", this.alertsDetails.length);
-      if (this.alertResultStatus === 'Success') {
-        console.log(this.alertResultStatus, this.alertsResp.getAlertResult.AlertList.length, this.alertsResp.getAlertResult.Message);
-        this.alertResultStatusMessage = "The given dates " + fromDate + " to " + toDate + " alerts information not available";
-        if (this.alertsDetails.length > 0) {
+    console.log("Dates", fromDate, toDate);
+    if (fromDate !== undefined && toDate !== undefined) {
+      if (this.isValidDate(fromDate) && this.isValidDate(toDate)) {
+        console.log("Valid Dates");
+        this.alertService.getAlertsData(fromDate, toDate).subscribe((resp) => {
+          this.alertsResp = resp;
           this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
-          this.selected = [this.alertsDetails[0]];
-          this.temp = [...this.alertsDetails];
-          this.spinner.hide();
-        } else {
-          this.alertsDetails = [];
-          this.spinner.hide();
-        }
+          this.alertResultStatus = this.alertsResp.getAlertResult.Status;
+          console.log("----alertsDetails----", this.alertsDetails.length);
+          if (this.alertResultStatus === 'Success') {
+            if (this.alertsDetails.length > 0) {
+              this.alertsDetails = this.alertsResp.getAlertResult.AlertList;
+              this.selected = [this.alertsDetails[0]];
+              this.temp = [...this.alertsDetails];
+              this.spinner.hide();
+            } else {
+              this.alertsDetails = [];
+              console.log(this.alertResultStatus, this.alertsResp.getAlertResult.AlertList.length, this.alertsResp.getAlertResult.Message);
+              this.alertResultStatusMessage = "The given dates " + fromDate + " to " + toDate + " alerts information not available";
+              this.spinner.hide();
+            }
+          }
+          else if (this.alertResultStatus === 'Failed') {
+            console.log("Error occured");
+            this.alertResultStatusMessage = this.alertsResp.getAlertResult.Message;
+            this.spinner.hide();
+          }
+        });
       }
-      else if (this.alertResultStatus === 'Failed') {
-        console.log("Error occured");
-        this.alertResultStatusMessage = this.alertsResp.getAlertResult.Message;
+      else {
+        console.log("In Valid Dates");
+        //  this.toastr.error("From Date & To Date is mandatory fields, Please provide the valid input.");
+        this.alertResultStatusMessage = "From Date & To Date is mandatory fields. Please provide the valid input.";
+        this.alertsDetails = [];
         this.spinner.hide();
       }
-    });
-
+    }
+    else {
+      console.log("Dates are empty");
+      this.toastr.error("From Date & Todate is mandatory");
+      this.alertResultStatusMessage = "From Date & Todate is mandatory, Please provide the valid input for From Date & To Date";
+      this.alertsDetails = [];
+      this.spinner.hide();
+    }
   }
 
   createIncident(selected) {
@@ -120,7 +140,6 @@ export class AlertsComponent implements OnInit {
     this.alertService.createIncidentForAlertsData(selectedAlertId, createdBy).subscribe((resp) => {
       this.newBuoysIncidentResp = resp;
       console.log("----Created Incident----", resp);
-      //this.newBuoysIncidentDetails = this.newBuoysIncidentResp.IncidentCreateResult;
       if (this.newBuoysIncidentResp.IncidentCreateResult === 'sucess') {
         this.toastr.success(this.newBuoysIncidentResp.IncidentCreateResult, "Incident Created Successfully");
         this.loadAlertsData(this.fromDate, this.toDate);
@@ -150,5 +169,47 @@ export class AlertsComponent implements OnInit {
     this.alertsDetails = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
+  }
+
+  daysInMonth(m, y) { // m is 0 indexed: 0-11
+    switch (m) {
+      case 1:
+        return (y % 4 === 0 && y % 100) || y % 400 === 0 ? 29 : 28;
+      case 8: case 3: case 5: case 10:
+        return 30;
+      default:
+        return 31
+    }
+  }
+
+  isValid(d, m, y) {
+    if (y >= 1900) {
+      return m > 0 && m <= 12 && d > 0 && d <= this.daysInMonth(m, y);
+    }
+    else {
+      this.toastr.error("Invalid Year");
+      return false;
+    }
+  }
+
+  isValidDate(objDate) {
+    let inputDate = moment(objDate, 'YYYY/MM/DD');
+    let month = inputDate.format('M');
+    let day = inputDate.format('D');
+    let year = inputDate.format('YYYY');
+    let retValue = false;
+    if (this.isValid(day, month, year)) {
+      return retValue = true;
+    }
+    else {
+      return retValue = false;
+    }
+  }
+  mouseWheelUpFunc(evt) {
+    this.mouseWheelDir = 'upward direction';
+  }
+
+  mouseWheelDownFunc(evt) {
+    this.mouseWheelDir = 'downward direction';
   }
 }

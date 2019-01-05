@@ -60,7 +60,7 @@ export class BloomsIncidentComponent implements OnInit {
   startMaxDate: any;
   endMinDate: any;
   endMaxDate: any;
-
+  event: any;
   @ViewChild(NgForm) f: NgForm;
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -96,34 +96,53 @@ export class BloomsIncidentComponent implements OnInit {
 
   loadBloomIncidentsData(fromDate, toDate): void {
     console.log(fromDate, toDate);
-    this.incidentsService.getBloomsIncidentData(fromDate, toDate).subscribe((resp) => {
-      this.bloomsIncidentResp = resp;
-      this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
-      this.bloomsIncidentResultStatus = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Status;
-      console.log(this.bloomsIncidentResultStatus, this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList.length,
-        this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Message);
+    if (fromDate !== undefined && toDate !== undefined) {
 
-      if (this.bloomsIncidentResultStatus === 'Success') {
-        if (this.bloomsIncidentDetails.length > 0) {
+      if (this.isValidDate(fromDate) && this.isValidDate(toDate)) {
+        this.incidentsService.getBloomsIncidentData(fromDate, toDate).subscribe((resp) => {
+          this.bloomsIncidentResp = resp;
           this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
-          this.selectedRow = [this.bloomsIncidentDetails[0]];
-          this.temp = [...this.bloomsIncidentDetails];
-          console.log("----bloomsIncidentDetails----", this.bloomsIncidentDetails);
-          this.spinner.hide();
-        } else {
-          this.bloomsIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " Incidents information not available";
-          this.bloomsIncidentDetails = [];
-          this.spinner.hide();
-        }
-      }
-      else if (this.bloomsIncidentResultStatus === 'Failed') {
-        console.log("Error occured");
-        this.bloomsIncidentResultStatusMessage = this.bloomsIncidentResp.getAlertResult.Message;
+          this.bloomsIncidentResultStatus = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Status;
+          console.log(this.bloomsIncidentResultStatus, this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList.length,
+            this.bloomsIncidentResp.getAlgalbloomIncidentsResult.Message);
+
+          if (this.bloomsIncidentResultStatus === 'Success') {
+            if (this.bloomsIncidentDetails.length > 0) {
+              this.bloomsIncidentDetails = this.bloomsIncidentResp.getAlgalbloomIncidentsResult.AlgalBloomList;
+              this.selectedRow = [this.bloomsIncidentDetails[0]];
+              this.temp = [...this.bloomsIncidentDetails];
+              console.log("----bloomsIncidentDetails----", this.bloomsIncidentDetails);
+              this.spinner.hide();
+            } else {
+              this.bloomsIncidentResultStatusMessage = "The selected dates " + fromDate + " to " + toDate + " Incidents information not available";
+              this.bloomsIncidentDetails = [];
+              this.spinner.hide();
+            }
+          }
+          else if (this.bloomsIncidentResultStatus === 'Failed') {
+            console.log("Error occured");
+            this.bloomsIncidentResultStatusMessage = this.bloomsIncidentResp.getAlertResult.Message;
+            this.bloomsIncidentDetails = [];
+            this.spinner.hide();
+          }
+        });
+      } else {
+        console.log("In Valid Dates");
+       // this.toastr.error("Please provide the valid input for From Date & To Date");
+        this.bloomsIncidentResultStatusMessage = "Please provide the valid input for From Date & To Date";
+        this.bloomsIncidentDetails = [];
         this.spinner.hide();
       }
+    }
+    else {
+      console.log("Dates are empty");
+      this.toastr.error("From Date & Todate is mandatory");
+      this.bloomsIncidentResultStatusMessage = "From Date & Todate is mandatory, Please provide the valid input for From Date & To Date";
+      this.bloomsIncidentDetails = [];
       this.spinner.hide();
-    });
+    }
   }
+
 
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selectedRow);
@@ -143,19 +162,6 @@ export class BloomsIncidentComponent implements OnInit {
     this.bloomsIncidentDetails = temp;
     // Whenever the filter changes, always go back to the first page
     this.table.offset = 0;
-  }
-
-
-  addTableRow() {
-    this.openModal();
-  }
-  siteDatePrev() { }
-  openModal() {
-    this.modalShowWindow = true;
-  }
-  closeModal() {
-    this.modalShowWindow = false;
-    this.f.resetForm();
   }
 
 
@@ -198,12 +204,13 @@ export class BloomsIncidentComponent implements OnInit {
       }
     });
   }
+
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------", this.dateval)
   }
+
   dateRangeValidate(dt, field) {
-    console.log("Getting Min Dat", field, dt);
+    //  console.log("Getting Min Dat", field, dt);
     let stDate = this.fromDateFilter;
     let edDate = this.toDateFilter;
     if (stDate !== undefined) {
@@ -218,7 +225,7 @@ export class BloomsIncidentComponent implements OnInit {
       this.endMaxDate = this.dateval;
     }
   }
-  
+
   createAlgolBloomIncident(blommIncidentInfo) {
     this.js["clsMWQAlgalbloomIncident"] = blommIncidentInfo;
     console.log("---------" + JSON.stringify(this.js));
@@ -266,7 +273,6 @@ export class BloomsIncidentComponent implements OnInit {
   }
 
   isNumberKey(evt) {
-    //debugger;
     let charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode == 46 && evt.srcElement.value.split('.').length > 1) {
       return false;
@@ -274,5 +280,63 @@ export class BloomsIncidentComponent implements OnInit {
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
       return false;
     return true;
+  }
+
+  /* Validating the user input dates Start*/
+  isValidDate(objDate) {
+    let inputDate = moment(objDate, 'YYYY/MM/DD');
+    let month = inputDate.format('M');
+    let day = inputDate.format('D');
+    let year = inputDate.format('YYYY');
+    let retValue = false;
+    if (this.isValid(day, month, year)) {
+      return retValue = true;
+    }
+    else {
+      return retValue = false;
+    }
+  }
+
+  daysInMonth(m, y) { // m is 0 indexed: 0-11
+    switch (m) {
+      case 1:
+        return (y % 4 === 0 && y % 100) || y % 400 === 0 ? 29 : 28;
+      case 8: case 3: case 5: case 10:
+        return 30;
+      default:
+        return 31
+    }
+  }
+
+  isValid(d, m, y) {
+    if (y >= 1900) {
+      return m > 0 && m <= 12 && d > 0 && d <= this.daysInMonth(m, y);
+    }
+    else {
+      this.toastr.error("Invalid Year");
+      return false;
+    }
+  }
+  /* Validating the user input dates End*/
+
+  addTableRow() {
+    this.openModal();
+  }
+  openModal() {
+    this.modalShowWindow = true;
+  }
+  closeModal() {
+    this.modalShowWindow = false;
+    this.f.resetForm();
+  }
+
+  mouseWheelDir: string = '';
+
+  mouseWheelUpFunc(evt) {
+    this.mouseWheelDir = 'upward direction';
+  }
+
+  mouseWheelDownFunc(evt) {
+    this.mouseWheelDir = 'downward direction';
   }
 } 
