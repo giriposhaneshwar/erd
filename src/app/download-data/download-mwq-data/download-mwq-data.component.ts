@@ -29,6 +29,11 @@ export class DownloadMwqDataComponent implements OnInit {
   endMinDate: any;
   endMaxDate: any;
   event: any;
+  selectedMwqDataDetails = [];
+  rows = [];
+  columns = [];
+  selected = [];
+
   constructor(
     private pageTitleService: PageTitleService,
     private http: HttpClient,
@@ -41,6 +46,60 @@ export class DownloadMwqDataComponent implements OnInit {
     this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
     this.toDate = moment().format("YYYY-MM-DD");
     this.downloadMwqData(this.fromDate, this.toDate);
+
+    this.columns = [
+      {
+        prop: 'selected',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
+      },
+      { prop: 'siteName', name: 'Site Name', width: '250' },
+      { prop: 'temperature', name: 'Temperature', width: '150' },
+      { prop: 'conductivity', name: 'Conductivity', width: '150' },
+      { prop: 'salinity', name: 'Salinity', width: '150' },
+      { prop: 'pH', name: 'pH', width: '100' },
+      { prop: 'dissolveOxygen', name: 'Dissolve Oxygen', width: '200' },
+      { prop: 'chlorophyll', name: 'Chlorophyll', width: '200' },
+      { prop: 'sechiDiscReading', name: 'Sechi Disc Reading', width: '200' },
+      { prop: 'nitriteN', name: 'Nitrite-N', width: '200' },
+      { prop: 'nitrateN', name: 'Nitrate-N', width: '200' },
+      { prop: 'silicateSi', name: 'Silicate-Si', width: '200' },
+      { prop: 'ammoniaN', name: 'Ammonia-N', width: '200' },
+      { prop: 'phosphateP', name: 'Phosphate-P', width: '200' },
+      { prop: 'bod', name: 'BOD', width: '100' },
+      { prop: 'tss', name: 'TSS', width: '100' },
+      { prop: 'cadmiumWater', name: 'Cadmium Water', width: '200' },
+      { prop: 'chromiumWater', name: 'Chromium Water', width: '200' },
+      { prop: 'cobaltWater', name: 'Cobalt Water', width: '200' },
+      { prop: 'copper', name: 'Copper', width: '100' },
+      { prop: 'lead', name: 'Lead', width: '100' },
+      { prop: 'manganese', name: 'Manganese', width: '150' },
+      { prop: 'nickel', name: 'Nickel', width: '100' },
+      { prop: 'zinc', name: 'Zinc', width: '100' },
+      { prop: 'iron', name: 'Iron', width: '100' },
+      { prop: 'mercury', name: 'Mercury', width: '150' },
+      { prop: 'cadmiumSediment', name: 'Cadmium Sediment', width: '200' },
+      { prop: 'cobaltSediment', name: 'Cobalt Sediment', width: '200' },
+      { prop: 'chromiumSediment', name: 'Chromium Sediment', width: '200' },
+      { prop: 'leadSediment', name: 'Lead Sediment', width: '200' },
+      { prop: 'copperSediment', name: 'Copper Sediment', width: '200' },
+      { prop: 'nickelSediment', name: 'Nickel Sediment', width: '200' },
+      { prop: 'manganeseSediment', name: 'Manganese Sediment', width: '250' },
+      { prop: 'zincSediment', name: 'Zinc Sediment', width: '200' },
+      { prop: 'ironSediment', name: 'Iron Sediment', width: '200' },
+      { prop: 'mercurySediment', name: 'Mercury Sediment', width: '200' },
+      { prop: 'pcbSediment', name: 'PCB Sediment', width: '200' },
+      { prop: 'tphSediment', name: 'TPH Sediment', width: '200' },
+      { prop: 'totalColiform', name: 'Total Coliform', width: '200' },
+      { prop: 'fecalColiform', name: 'Fecal Coliform', width: '200' },
+      { prop: 'enterococci', name: 'Enterococci', width: '200' },
+      { prop: 'createdDate', name: 'Created Date', width: '200' }
+    ];
   }
 
   ngOnInit() {
@@ -94,8 +153,13 @@ export class DownloadMwqDataComponent implements OnInit {
     }
   }
 
+  //Adde below event function 
+  onSelect(row) {
+    this.selectedMwqDataDetails = row.selected;
+  }
+
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.downloadMwqDataDetails, 'MWQ_Data');
+    this.excelService.exportAsExcelFile(this.selectedMwqDataDetails, 'MWQ_Data');
   }
 
   dateForamt() {
@@ -145,7 +209,7 @@ export class DownloadMwqDataComponent implements OnInit {
         return 31
     }
   }
-  
+
   isValid(d, m, y) {
     if (y >= 1900) {
       return m > 0 && m <= 12 && d > 0 && d <= this.daysInMonth(m, y);

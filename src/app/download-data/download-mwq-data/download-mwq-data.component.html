@@ -26,15 +26,15 @@
                         <div class="col-3">
                             <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter"
                                 (change)="dateRangeValidate(fromDateFilter, 'start')" [min]="startMinDate" [max]="startMaxDate"
-                                onkeydown="return false" required 
-                                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
+                                onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                                (mouseWheelDown)="mouseWheelDownFunc(event)">
                         </div>
                         <label for="example-date-input" class="col-form-label">To Date</label>
                         <div class="col-3">
                             <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter"
                                 (change)="dateRangeValidate(toDateFilter, 'end')" [min]="endMinDate" [max]="endMaxDate"
-                                onkeydown="return false" required
-                                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
+                                onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                                (mouseWheelDown)="mouseWheelDownFunc(event)">
                         </div>
                         <button type="submit" class="send-btn btn btn-primary" (click)="downloadMwqData(fromDateFilter,toDateFilter)">Send</button>
                     </div>
@@ -52,7 +52,7 @@
                 <p>{{downloadMwqDataResultStatusMessage}}</p>
             </div>
             <div class="widget-body" *ngIf="downloadMwqDataDetails.length > 0">
-                <ngx-datatable class="material" [rows]="downloadMwqDataDetails" [columnMode]="'standard'"
+                <!-- <ngx-datatable class="material" [rows]="downloadMwqDataDetails" [columnMode]="'standard'"
                     [headerHeight]="50" [footerHeight]="50" [rowHeight]="25" [limit]="10" [scrollbarH]="true">
                     <ngx-datatable-column name="Site Name">
                         <ng-template let-value="value" ngx-datatable-cell-template>
@@ -259,12 +259,16 @@
                             <div class="text-center">{{value}}</div>
                         </ng-template>
                     </ngx-datatable-column>
+                </ngx-datatable> -->
+                <ngx-datatable class="material" [rows]="downloadMwqDataDetails" [columnMode]="'standard'"
+                    [headerHeight]="50" [footerHeight]="50" [rowHeight]="36" [limit]="10" [columns]="columns" [scrollbarH]="true"
+                    [selected]="selected" [selectionType]="'checkbox'" [selectAllRowsOnPage]="false" (select)='onSelect($event)'>
                 </ngx-datatable>
+
                 <div class="form-group mar t-20 col-xs-12 col-sm-12">
                     <div class="row text-right">
                         <div class="col-xs-12 col-sm-12">
                             <button class="btn btn-primary gap gap-5 gap-lr" (click)="exportAsXLSX()">Export to Excel</button>
-                            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDateSave()">Cancel</button> -->
                         </div>
                     </div>
                 </div>

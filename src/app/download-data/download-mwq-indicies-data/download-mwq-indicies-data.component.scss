@@ -17,3 +17,6 @@ textarea.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
   border-color: #C00000;
 }
+:host ::ng-deep .datatable-body-cell {
+	text-align: center !important;
+}

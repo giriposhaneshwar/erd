@@ -63,6 +63,51 @@ export class GeneralChemistryComponent implements OnInit {
     console.log("Input Data", data, key);
   }
 
+  totalPhospDetailsSave(totalPhosp){
+    this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  totalNitrogenDetailsSave(totalNitrogen){
+    this.dataEntry[this.totalNitrogenComponentKey] = totalNitrogen;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  nitriteNDetailsSave(nitriteN){
+    this.dataEntry[this.nitriteNComponentKey] = nitriteN;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  nitrateNDetailsSave(nitrateN){
+    this.dataEntry[this.nitrateNComponentKey] = nitrateN;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  silicateSlDetailsSave(silicateSl){
+    this.dataEntry[this.silicateSlComponentKey] = silicateSl;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  ammoniaNDetailsSave(ammoniaN){
+    this.dataEntry[this.ammoniaNComponentKey] = ammoniaN;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  phosphatePDetailsSave(phosphateP){
+    this.dataEntry[this.phosphatePComponentKey] = phosphateP;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  bodDetailsSave(bod){
+    this.dataEntry[this.bodComponentKey] = bod;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  tssDetailsSave(tss){
+    this.dataEntry[this.tssComponentKey] = tss;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  
   generalChemistryDetailsSave(totalPhosp, totalNitrogen, nitriteN, nitrateN, silicateSl, ammoniaN, phosphateP, bod, tss) {
 
     this.dataEntry[this.totalPhospComponentKey] = totalPhosp;

@@ -104,6 +104,42 @@ export class InSituParametersComponent implements OnInit {
     //this.selectedEventType = [this.eventTypeDetails[0]];
   }
 
+  temperatureDetailsSave(temperature){
+    this.dataEntry[this.temperatureComponentKey] = temperature;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  conductivityDetailsSave(conductivity){
+    this.dataEntry[this.conductivityComponentKey] = conductivity;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  salinityDetailsSave(salinity){
+    this.dataEntry[this.salinityComponentKey] = salinity;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  pHDetailsSave(pH){
+    this.dataEntry[this.pHComponentKey] = pH;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  dissolvedODetailsSave(dissolvedO){
+    this.dataEntry[this.dissolvedOComponentKey] = dissolvedO;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  Chlorophyll_aDetailsSave(Chlorophyll_a){
+    this.dataEntry[this.chlorophyll_aComponentKey] = Chlorophyll_a;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  sechiDiscDetailsSave(sechiDisc){
+    this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+
   insituDetailsSave(temperature, conductivity, salinity, pH, dissolvedO, Chlorophyll_a, sechiDisc) {
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.dataEntry[this.conductivityComponentKey] = conductivity;

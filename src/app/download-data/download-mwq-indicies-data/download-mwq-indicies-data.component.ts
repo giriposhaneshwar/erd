@@ -11,6 +11,7 @@ import { ToastsManager } from 'ng6-toastr';
   templateUrl: './download-mwq-indicies-data.component.html',
   styleUrls: ['./download-mwq-indicies-data.component.scss']
 })
+
 export class DownloadMwqIndiciesDataComponent implements OnInit {
   mondalOpen: any;
   dateval = '';
@@ -30,6 +31,17 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
 
   mouseWheelDir: string = '';
   event: any;
+
+  selectedMwqIndicesDetails = [];
+  //rows = [];
+  columns = [];
+  selected = [];
+
+
+  
+
+  
+
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
     private excelService: DownloadMwqIndicesDataService,
@@ -42,6 +54,25 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     this.toDate = moment().format("YYYY-MM-DD");
     console.log(this.fromDate, this.toDate);
     this.downloadMwqIndicesData(this.fromDate, this.toDate);
+
+    this.columns = [
+      {
+      prop: 'selected',
+      sortable: false,
+      canAutoResize: false,
+      draggable: false,
+      resizable: false,
+      headerCheckboxable: true,
+      checkboxable: true,
+      width: 30
+      },
+      { prop: 'siteid', name: 'Siteid', width: '200' },
+      { prop: 'microbialIndex', name: 'Microbial Index', width: '200' },
+      { prop: 'eutrophicationIndex', name: 'Eutrophication Index', width: '200' },
+      { prop: 'sedimentIndex', name: 'Sediment Index', width: '200' },
+      { prop: 'createdDate', name: 'Month', width: '200' },
+    
+    ];
   }
 
   ngOnInit() {
@@ -117,9 +148,15 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     }
   }
 
-  exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.downloadMwqIndicesDetails, 'MWQ_Indices_Data');
-  }
+//Adde below event function 
+onSelect(row) {
+  this.selectedMwqIndicesDetails = row.selected;
+}
+
+//Replace the below function
+exportAsXLSX(): void {
+  this.excelService.exportAsExcelFile(this.selectedMwqIndicesDetails, 'MWQ_Indices_Data');
+}
 
   daysInMonth(m, y) { // m is 0 indexed: 0-11
     switch (m) {

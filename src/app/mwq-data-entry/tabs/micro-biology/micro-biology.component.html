@@ -10,10 +10,6 @@
           </div>
         </div>
       </div>
-      <!--  <div *ngIf="saveMwqDataEntryResp"> Record saved successf ully
-       <alert type="success">
-          <strong>Well done!</strong> You successfully read this important alert message.
-      </alert> -->
     </div>
     <form class="form" name="form" (ngSubmit)="f.form.valid && microBiologySiteDateSave(totalColiform,enterococci,fecalColiform)"
       #f="ngForm" novalidate>
@@ -22,13 +18,13 @@
           <div class="clearfix tbl tbl-per-20 text-center"></div>
           <div class="clearfix tbl tbl-per-10 text-center"><b>Value</b></div>
           <!-- <div class="clearfix tbl tbl-per-10 text-center"><b>Unit</b></div> -->
-          <div class="clearfix tbl tbl-per-20 text-center"><b>Historial Graph</b></div>
+          <div class="clearfix tbl tbl-per-20 text-center"><b>Historical Graph</b></div>
           <div class="clearfix tbl tbl-per-15 text-center"><b>MQL</b></div>
           <div class="clearfix tbl tbl-per-15 text-center"><b>Extraction Method</b></div>
           <div class="clearfix tbl tbl-per-20 text-center"><b>Test Method</b></div>
         </div>
         <div class="row formRow">
-          <div class="clearfix tbl tbl-per-20 text-left">Total coliform(cfu/100ml)</div>
+          <div class="clearfix tbl tbl-per-20 text-left">Total coliform (cfu/100ml)</div>
           <div class="clearfix tbl tbl-per-10 text-center microbiology">
             <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && totalColiformSurfaceValue.invalid),
                 'white': totalColiform.surfaceValue == '',
@@ -38,17 +34,16 @@
                 'red': totalColiform.surfaceValue >= fieldColorValidatior.Total_Coliform.prarmaterMax}"
               (keyup)="checkValueThreshold(totalColiform.surfaceValue, fieldColorValidatior.Total_Coliform.prarmaterThreshold,
                 fieldColorValidatior.Total_Coliform.prarmaterStandDevition,fieldColorValidatior.Total_Coliform.prarmaterMax)"
+                (input)="totalColiformDetailsSave(totalColiform)"
               name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue" #totalColiformSurfaceValue="ngModel"
               autocomplete="off" required OnlyNumber="true" />
           </div>
-          <!-- <div class="clearfix tbl tbl-per-10 text-center">
-            cfu/100ml
-          </div> -->
-          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Total_Coliform" [threshold]="fieldColorValidatior.Total_Coliform.prarmaterThreshold"></div>
+          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Total_Coliform"
+            [threshold]="fieldColorValidatior.Total_Coliform.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalColiform.mql" name="totalColiformMql"
               #totalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformMql.invalid)}"
-              required>
+              (click)="totalColiformDetailsSave(totalColiform)" required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -56,7 +51,7 @@
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.extractionMethod" name="totalColiformExtractionMethod"
               #totalColiformExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformExtractionMethod.invalid)}"
-              required>
+              (click)="totalColiformDetailsSave(totalColiform)" required>
               <option value="" disabled selected hidden>Select Extraction Method</option>
               <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
             </select>
@@ -64,7 +59,7 @@
           <div class="clearfix tbl tbl-per-20 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="totalColiform.testMethod" name="totalColiformTestMethod"
               #totalColiformTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformTestMethod.invalid)}"
-              required>
+              (click)="totalColiformDetailsSave(totalColiform)" required>
               <option value="" disabled selected hidden>Select Test Method</option>
               <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
             </select>
@@ -72,7 +67,7 @@
         </div>
 
         <div class="row formRow">
-          <div class="clearfix tbl tbl-per-20 text-left">Enterococci(cfu/100ml)</div>
+          <div class="clearfix tbl tbl-per-20 text-left">Enterococci (cfu/100ml)</div>
           <div class="clearfix tbl tbl-per-10 text-center microbiology">
             <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && enterococciSurfaceValue.invalid),
                 'white': enterococci.surfaceValue == '',
@@ -82,16 +77,16 @@
                 'red': enterococci.surfaceValue >= fieldColorValidatior.Enterococci.prarmaterMax}"
               (keyup)="checkValueThreshold(enterococci.surfaceValue, fieldColorValidatior.Enterococci.prarmaterThreshold,
                 fieldColorValidatior.Enterococci.prarmaterStandDevition,fieldColorValidatior.Enterococci.prarmaterMax)"
+                (input)="enterococciDetailsSave(enterococci)"
               name="enterococciSurfaceValue" [(ngModel)]="enterococci.surfaceValue" #enterococciSurfaceValue="ngModel"
               autocomplete="off" required OnlyNumber="true" />
           </div>
-         <!--  <div class="clearfix tbl tbl-per-10 text-center">
-            cfu/100ml
-          </div> -->
-          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Enterococci" [threshold]="fieldColorValidatior.Enterococci.prarmaterThreshold"></div>
+          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Enterococci"
+            [threshold]="fieldColorValidatior.Enterococci.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="enterococci.mql" name="enterococciMql"
-              #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" required>
+              #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" 
+              (click)="enterococciDetailsSave(enterococci)" required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -99,7 +94,7 @@
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.extractionMethod" name="enterococciExtractionMethod"
               #enterococciExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciExtractionMethod.invalid)}"
-              required>
+              (click)="enterococciDetailsSave(enterococci)" required>
               <option value="" disabled selected hidden>Select Extraction Method</option>
               <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
             </select>
@@ -107,7 +102,7 @@
           <div class="clearfix tbl tbl-per-20 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="enterococci.testMethod" name="enterococciTestMethod"
               #enterococciTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciTestMethod.invalid)}"
-              required>
+              (click)="enterococciDetailsSave(enterococci)" required>
               <option value="" disabled selected hidden>Select Test Method</option>
               <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
             </select>
@@ -115,10 +110,9 @@
         </div>
 
         <div class="row formRow">
-          <div class="clearfix tbl tbl-per-20 text-left">Fecal Coliform(cfu/100ml)</div>
+          <div class="clearfix tbl tbl-per-20 text-left">Fecal Coliform (cfu/100ml)</div>
           <div class="clearfix tbl tbl-per-10 text-center microbiology">
-            <input type="text" class="form-control tbl tbl-per-30" 
-                    [ngClass]="{'is-invalid': (f.submitted && fecalColiformSurfaceValue.invalid),
+            <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && fecalColiformSurfaceValue.invalid),
                     'white': fecalColiform.surfaceValue == '',
                     'orange': fecalColiform.surfaceValue <= fieldColorValidatior.Fecal_Coliform.prarmaterMean, 
                     'green': fecalColiform.surfaceValue <= fieldColorValidatior.Fecal_Coliform.prarmaterMax && 
@@ -126,17 +120,16 @@
                     'red': fecalColiform.surfaceValue > fieldColorValidatior.Fecal_Coliform.prarmaterMax}"
               (keyup)="checkValueThreshold(fecalColiform.surfaceValue, fieldColorValidatior.Fecal_Coliform.prarmaterThreshold,
                     fieldColorValidatior.Fecal_Coliform.prarmaterStandDevition,fieldColorValidatior.Fecal_Coliform.prarmaterMax)"
+                    (input)="fecalColiformDetailsSave(fecalColiform)"
               name="fecalColiformSurfaceValue" [(ngModel)]="fecalColiform.surfaceValue" #fecalColiformSurfaceValue="ngModel"
               autocomplete="off" required OnlyNumber="true" />
           </div>
-        <!--   <div class="clearfix tbl tbl-per-10 text-center">
-            cfu/100ml
-          </div> -->
-          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Fecal_Coliform" [threshold]="fieldColorValidatior.Fecal_Coliform.prarmaterThreshold"></div>
+          <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Fecal_Coliform"
+            [threshold]="fieldColorValidatior.Fecal_Coliform.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="fecalColiform.mql" name="fecalColiformMql"
               #fecalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformMql.invalid)}"
-              required>
+              (click)="fecalColiformDetailsSave(fecalColiform)"required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -144,7 +137,7 @@
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.extractionMethod" name="fecalColiformExtractionMethod"
               #fecalColiformExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformExtractionMethod.invalid)}"
-              required>
+              (click)="fecalColiformDetailsSave(fecalColiform)" required>
               <option value="" disabled selected hidden>Select Extraction Method</option>
               <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
             </select>
@@ -152,19 +145,24 @@
           <div class="clearfix tbl tbl-per-20 text-center">
             <select id="gc-text-tm" class="form-control" [(ngModel)]="fecalColiform.testMethod" name="fecalColiformTestMethod"
               #fecalColiformTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformTestMethod.invalid)}"
-              required>
+              (click)="fecalColiformDetailsSave(fecalColiform)" required>
               <option value="" disabled selected hidden>Select Test Method</option>
               <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
             </select>
           </div>
         </div>
+
       </div>
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
+            <ul class="legend">
+              <li><span class="StandardDeviation"></span>Value <= Parameater Mean</li> <li><span class="MoreThresholdValue"></span>Value
+                  >= Parameater Max</li>
+              <li><span class="CorrectValue"></span>Value <= Parameater Max & Value>= Parameater Mean</li>
+            </ul>
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologyTabNavPrev(module)">Previous</button>
             <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
-            <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologySiteDateSave(totalColiform,enterococci,fecalColiform)">Save</button> -->
             <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="microBiologyTabNavNext(module)">Next</button>
           </div>
         </div>

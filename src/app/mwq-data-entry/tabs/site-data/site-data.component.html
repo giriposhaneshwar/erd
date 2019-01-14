@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form class="form" name="form" (ngSubmit)="f.form.valid && siteDetailsSave(siteData,sampleInformation)" #f="ngForm"
+  <form class="form" name="form" (ngSubmit)="f.form.valid && dataEntrySave(siteData,sampleInformation)" #f="ngForm"
     novalidate>
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-bottom: 1em;">
       <div class="panel panel-primary ">
@@ -9,17 +9,9 @@
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Project Name</div>
               <div class="clearfix tbl tbl-per-20 text-left ">
-                <!--         <input  type="text" 
-                        [(ngModel)]="siteData.projectName" 
-                        class="form-control text-left" 
-                        placeholder="SMPL31072018-001"
-                        name="projectName" 
-                        #projectName="ngModel" 
-                        [ngClass]="{'is-invalid': (f.submitted && projectName.invalid) }"
-                        required /> -->
-
                 <select class="form-control" [(ngModel)]="siteData.projectName" name="projectName" #projectName="ngModel"
-                  [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }" required>
+                  [ngClass]="{ 'is-invalid': f.submitted && projectName.invalid }" required
+                  (click)="siteDetailsSave(siteData)">
                   <option value="" disabled selected hidden>Select Project Name</option>
                   <option *ngFor="let prjNames of projectNamesDetails" value="{{prjNames.projectID}}">{{prjNames.projectName}}</option>
                 </select>
@@ -27,7 +19,8 @@
               <div class="clearfix tbl tbl-per-15 text-left">Site Category</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <select class="form-control" id="sd-text-siteCategory" [(ngModel)]="siteData.siteCategory" name="category"
-                  #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required>
+                  #category="ngModel" [ngClass]="{ 'is-invalid': f.submitted && category.invalid }" required
+                  (click)="siteDetailsSave(siteData)">
                   <option value="" disabled selected hidden>Select Site Category</option>
                   <option *ngFor="let siteCat of siteCategory" value="{{siteCat.CategoryID}}">{{siteCat.CategoryName}}</option>
                 </select>
@@ -37,7 +30,7 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <select class="form-control" id="sd-text-siteName" [(ngModel)]="siteData.siteName" name="siteName"
                   (change)="onchangeSiteName(siteData.siteName)" #siteName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && siteName.invalid }"
-                  required>
+                  (click)="siteDetailsSave(siteData)" required>
                   <option value="" disabled selected hidden>Select Site Name</option>
                   <option *ngFor="let siteDet of siteDetails" value="{{siteDet.Site_Id}}">{{siteDet.siteName}}</option>
                 </select>
@@ -58,21 +51,21 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleRefNum" name="refNum"
                   placeholder="SMPL31072018-001" #refNum="ngModel" [ngClass]="{ 'is-invalid': f.submitted && refNum.invalid }"
-                  required autocomplete="off" />
-                <!-- <div *ngIf="f.submitted && refNum.invalid" class="invalid-feedback">
-                  <div *ngIf="refNum.errors.required">Number is required</div>
-                </div> -->
+                  required autocomplete="off" 
+                  (input)="sampleBasicInfoSave(sampleInformation)"/>
               </div>
 
               <div class="clearfix tbl tbl-per-15 text-left">Depth</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSource" name="source"
-                  #source="ngModel" [ngClass]="{ 'is-invalid': f.submitted && source.invalid }" required autocomplete="off" />
+                  #source="ngModel" [ngClass]="{ 'is-invalid': f.submitted && source.invalid }" required autocomplete="off" 
+                  (input)="sampleBasicInfoSave(sampleInformation)"/>
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Preservation</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <select class="form-control" id="sd-text-preservation" [(ngModel)]="sampleInformation.samplePreservation"
                   name="preservation" #preservation="ngModel" [ngClass]="{ 'is-invalid': f.submitted && preservation.invalid }"
+                  (click)="sampleBasicInfoSave(sampleInformation)"
                   required>
                   <option value="" disabled selected hidden>Select Preservation</option>
                   <option *ngFor="let presrvDet of preservationDetails" value="{{presrvDet.Preservation_Id}}">{{presrvDet.preservationName}}</option>
@@ -81,13 +74,11 @@
             </div>
 
             <div class="row">
-
               <div class="clearfix tbl tbl-per-15 text-left">Sample By*</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-
-                <!-- <select class="form-control" id="sd-text-sampleBy" [(ngModel)]="selectedSampleBy"> -->
                 <select class="form-control" id="sd-text-sampleBy" [(ngModel)]="sampleInformation.sampleBy" name="samplBy"
-                  #samplBy="ngModel" [ngClass]="{ 'is-invalid': f.submitted && samplBy.invalid }" required>
+                  #samplBy="ngModel" [ngClass]="{ 'is-invalid': f.submitted && samplBy.invalid }" 
+                  (click)="sampleBasicInfoSave(sampleInformation)" required>
                   <option value="" disabled selected hidden>Select Sample By</option>
                   <option *ngFor="let sampleBy of sampleByDetails" value="{{sampleBy.SampleBy_Id}}">{{sampleBy.samplByName}}</option>
                 </select>
@@ -96,20 +87,22 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="date" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDate" name="sampleDate"
                   #sampleDate="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleDate.invalid }" required [max]="dateval"
+                  (input)="sampleBasicInfoSave(sampleInformation)"
                   onkeydown="return false" />
               </div>
               <div class="clearfix tbl tbl-per-10 text-left">Time</div>
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="time" class="form-control text-left" [(ngModel)]="sampleInformation.sampleTime" name="sampleTime"
-                  #sampleTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleTime.invalid }" required />
+                  #sampleTime="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampleTime.invalid }" required 
+                  (input)="sampleBasicInfoSave(sampleInformation)"/>
               </div>
             </div>
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Event Type</div>
               <div class="clearfix tbl tbl-per-20 text-left">
-                <!-- <select class="form-control" id="sd-text-eventType" [(ngModel)]="selectedEventType"> -->
                 <select class="form-control" id="sd-text-eventType" [(ngModel)]="sampleInformation.sampleEventType"
                   name="sampEventType" #sampEventType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sampEventType.invalid }"
+                  (click)="sampleBasicInfoSave(sampleInformation)"
                   required>
                   <option value="" disabled selected hidden>Select Event Type</option>
                   <option *ngFor="let eventType of eventTypeDetails" value="{{eventType.EventType_Id}}">{{eventType.eventTypeName}}</option>
@@ -119,19 +112,19 @@
               <div class="clearfix tbl tbl-per-20 text-left">
                 <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleSiteDefaultValue"
                   name="siteDefValue" #siteDefValue="ngModel" OnlyNumber="true" [ngClass]="{ 'is-invalid': f.submitted && siteDefValue.invalid }"
-                  required autocomplete="off" />
+                  required autocomplete="off" 
+                  (input)="sampleBasicInfoSave(sampleInformation)" />
               </div>
             </div>
 
             <div class="row">
               <div class="clearfix tbl tbl-per-15 text-left">Description</div>
               <div class="clearfix tbl tbl-per-85 text-left">
-                <!-- <input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
-                      name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
-                      required autocomplete="off" /> -->
                 <textarea rows="5" cols="50" class="form-control text-left" [(ngModel)]="sampleInformation.sampleDescription"
                   name="description" #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }"
-                  required autocomplete="off"></textarea>
+                  (input)="sampleBasicInfoSave(sampleInformation)"
+                  required autocomplete="off">
+                </textarea>
               </div>
             </div>
 
@@ -142,7 +135,6 @@
     <div class="col-md-12 col-md-offset-12 col-sm-8 col-sm-offset-2 top" style="margin-top: 1em;">
       <div class="row text-right">
         <div class="col-xs-12 col-sm-12">
-          <!-- <button class="btn btn-primary gap gap-5 gap-lr" (click)="siteDataTabPrev(module)">Previous</button> -->
           <button type="submit" class="btn btn-primary gap gap-5 gap-lr">Save</button>
           <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="siteDataTabNext(module)">Next</button>
         </div>

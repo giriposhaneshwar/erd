@@ -194,15 +194,17 @@ export class BloomsIncidentComponent implements OnInit {
             that.bloomUploadFiles.push(item);
             that.blommIncidentInfo.upload.push(item);
           }
-          console.log("Uploaded fileds", that.blommIncidentInfo.upload)
+          console.log("Uploaded fileds", that.blommIncidentInfo.upload);
+         
         } else {
           // if no files in response throw error message
         }
-
+      
         // that.uploadFileList.push()
         // alert(data);
       }
     });
+      
   }
 
   dateForamt() {
@@ -328,6 +330,7 @@ export class BloomsIncidentComponent implements OnInit {
   closeModal() {
     this.modalShowWindow = false;
     this.f.resetForm();
+    this.blommIncidentInfo.upload=[];
   }
 
   mouseWheelDir: string = '';

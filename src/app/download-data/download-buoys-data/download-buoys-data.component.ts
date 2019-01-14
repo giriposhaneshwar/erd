@@ -28,9 +28,11 @@ export class DownloadBuoysDataComponent implements OnInit {
   startMaxDate: any;
   endMinDate: any;
   endMaxDate: any;
-
   mouseWheelDir: string = '';
   event: any;
+  selectedBuoysDataDetails = [];
+  rows = [];
+  columns = [];
 
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
@@ -45,6 +47,30 @@ export class DownloadBuoysDataComponent implements OnInit {
     this.toDate = moment().format("YYYY-MM");
     console.log("-------this.fromDate, this.toDate---------", this.fromDate, this.toDate);
     this.downloadBUOYSDataList(this.fromDate, this.toDate);
+
+    this.columns = [
+      {
+        prop: 'selected',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
+      },
+      { prop: 'siteName', name: 'Site Name', width: '150' },
+      { prop: 'temparature', name: 'Temparature', width: '150' },
+      { prop: 'blueGreenAlgae', name: 'Blue Green Algae', width: '200' },
+      { prop: 'conductivity', name: 'Conductivity', width: '150' },
+      { prop: 'battary', name: 'Battery', width: '150' },
+      { prop: 'cholorophyllA', name: 'CholorophyllA', width: '150' },
+      { prop: 'salinity', name: 'Salinity', width: '100' },
+      { prop: 'dosat', name: 'Dosat', width: '100' },
+      { prop: 'doxy', name: 'Doxy', width: '100' },
+      { prop: 'ph', name: 'ph', width: '100' },
+      { prop: 'createddate', name: 'Createddate', width: '200' }
+    ];
   }
 
   ngOnInit() {
@@ -110,8 +136,13 @@ export class DownloadBuoysDataComponent implements OnInit {
     }
   }
 
+  //Adde below event function 
+  onSelect(row) {
+    this.selectedBuoysDataDetails = row.selected;
+  }
+
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.downloadBUOYSDataDetails, 'BUOYS_Data');
+    this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
   }
 
   /* Validating the user input dates Start*/

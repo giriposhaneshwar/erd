@@ -55,8 +55,19 @@ export class OrganicChemistryComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "in-organic-chemistry"]);
       console.log("At mwqDataQc - in-organic-chemistry Screen");
     }
-    //this.route.navigate(["mwqDataEntry", "in-organic-chemistry"]);
   }
+
+  
+  oc_totalPhospDetailsSave(oc_totalPhosp){
+    this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  oc_tphDetailsSave(oc_tph){
+    this.dataEntry[this.oc_tphComponentKey] = oc_tph;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  
   organicChemistrySiteDetailsSave(oc_totalPhosp, oc_tph) {
     this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
     this.dataEntry[this.oc_tphComponentKey] = oc_tph;

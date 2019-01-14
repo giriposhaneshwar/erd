@@ -96,8 +96,107 @@ export class InOrganicChemistryComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "general-chemistry"]);
       console.log("At mwqDataQc - general-chemistry Screen");
     }
-    // this.route.navigate(["mwqDataEntry", "general-chemistry"]);
   }
+
+  iocw_cadmiumDetailsSave(iocw_cadmium) {
+    this.dataEntry[this.iocw_cadmiumComponentKey] = iocw_cadmium;;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_chromiumDetailsSave(iocw_chromium) {
+    this.dataEntry[this.iocw_chromiumComponentKey] = iocw_chromium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_cobaltDetailsSave(iocw_cobalt) {
+    this.dataEntry[this.iocw_cobaltComponentKey] = iocw_cobalt;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_copperDetailsSave(iocw_copper) {
+    this.dataEntry[this.iocw_copperComponentKey] = iocw_copper;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_leadDetailsSave(iocw_lead) {
+    this.dataEntry[this.iocw_leadComponentKey] = iocw_lead;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_manganeseDetailsSave(iocw_manganese) {
+    this.dataEntry[this.iocw_manganeseComponentKey] = iocw_manganese;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_nickelDetailsSave(iocw_nickel) {
+    this.dataEntry[this.iocw_nickelComponentKey] = iocw_nickel;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_zincDetailsSave(iocw_zinc) {
+    this.dataEntry[this.iocw_zincComponentKey] = iocw_zinc;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  } 
+
+  iocw_ironDetailsSave(iocw_iron) {
+    this.dataEntry[this.iocw_ironComponentKey] = iocw_iron;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_mercuryDetailsSave(iocw_mercury) {
+    this.dataEntry[this.iocw_mercuryComponentKey] = iocw_mercury;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_cadmiumDetailsSave(iocs_cadmium) {
+    this.dataEntry[this.iocs_cadmiumComponentKey] = iocs_cadmium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_chromiumDetailsSave(iocs_chromium) {
+    this.dataEntry[this.iocs_chromiumComponentKey] = iocs_chromium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_cobaltDetailsSave(iocs_cobalt) {
+    this.dataEntry[this.iocs_cobaltComponentKey] = iocs_cobalt;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_copperDetailsSave(iocs_copper) {
+    this.dataEntry[this.iocs_copperComponentKey] = iocs_copper;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_leadDetailsSave(iocs_lead) {
+    this.dataEntry[this.iocs_leadComponentKey] = iocs_lead;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_manganeseDetailsSave(iocs_manganese) {
+    this.dataEntry[this.iocs_manganeseComponentKey] = iocs_manganese;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_nickelDetailsSave(iocs_nickel) {
+    this.dataEntry[this.iocs_nickelComponentKey] = iocs_nickel;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_zincDetailsSave(iocs_zinc) {
+    this.dataEntry[this.iocs_zincComponentKey] = iocs_zinc;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry); 
+  }
+
+  iocs_ironDetailsSave(iocs_iron) {
+    this.dataEntry[this.iocs_ironComponentKey] = iocs_iron;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocs_mercuryDetailsSave(iocs_mercury) {
+    this.dataEntry[this.iocs_mercuryComponentKey] = iocs_mercury;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
   inOrganicChemistryDetailsSave(iocw_cadmium, iocw_chromium, iocw_cobalt, iocw_copper, iocw_lead, iocw_manganese,
     iocw_nickel, iocw_zinc, iocw_iron, iocw_mercury, iocs_cadmium, iocs_chromium, iocs_cobalt, iocs_copper, iocs_lead,
     iocs_manganese, iocs_nickel, iocs_zinc, iocs_iron, iocs_mercury) {
@@ -259,15 +358,4 @@ export class InOrganicChemistryComponent implements OnInit {
     });
   }
 
-  /*
-  extractionMethodDetails = [];
-  extractionMethodResp: any;
-  loaadExtractionMethodData() {
-    this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
-      this.extractionMethodResp = resp;
-      this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
-      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
-    });
-  }
-*/
 }

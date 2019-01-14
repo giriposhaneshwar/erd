@@ -51,7 +51,7 @@
             <div class="widget-body" *ngIf="downloadBUOYSDataDetails.length > 0">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" widget>
                     <div class="widget-body">
-                        <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'force'"
+                        <!--  <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'force'"
                             [headerHeight]="50" [footerHeight]="50" [rowHeight]="25" [limit]="5" [scrollbarH]="true">
                             <ngx-datatable-column name="Site Name">
                                 <ng-template let-value="value" ngx-datatable-cell-template>
@@ -108,7 +108,13 @@
                                     <div class="text-center">{{value}}</div>
                                 </ng-template>
                             </ngx-datatable-column>
+                        </ngx-datatable> -->
+                        <ngx-datatable class="material" [rows]="downloadBUOYSDataDetails" [columnMode]="'standard'"
+                            [headerHeight]="50" [footerHeight]="50" [rowHeight]="36" [limit]="10" [columns]="columns"
+                            [scrollbarH]="true" [selected]="selected" [selectionType]="'checkbox'"
+                            [selectAllRowsOnPage]="false" (select)='onSelect($event)'>
                         </ngx-datatable>
+
                     </div>
                 </div>
                 <div class="form-group mar t-20 col-xs-12 col-sm-12">

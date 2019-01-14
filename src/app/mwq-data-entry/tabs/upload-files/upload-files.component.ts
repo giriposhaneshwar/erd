@@ -111,6 +111,10 @@ export class UploadFilesComponent implements OnInit {
         if (files.length > 0) {
           for (let i = 0; i < files.length; i++) {
             let item = files[i];
+            if(that.uploadFileList[0] === item.name)
+            {
+              console.log("Duplicate file");
+            }
             that.uploadFileList.push(item);
             that.addedFilesList.push(item);
           }
@@ -120,6 +124,7 @@ export class UploadFilesComponent implements OnInit {
           console.log("Added files ", that.addedFilesList);
           that.dataEntry['upload'] = that.uploadFileList;
           that.dataEntry['AddFiles'] = that.addedFilesList;
+          console.log("upload files ", that.uploadFileList);
           // that.dataEntry["DeleteFiles"] = this.deletedFilesList;
           that.localStore.store.set(that.dataEntryKey, that.dataEntry);
         } else {

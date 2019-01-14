@@ -148,7 +148,7 @@ export class SiteDataComponent implements OnInit {
   module: String;
   dateval = '';
   isDisabled: boolean = true;
-  
+
   constructor(
     public route: Router,
     public localStore: AppStorageService,
@@ -331,7 +331,7 @@ export class SiteDataComponent implements OnInit {
 
       this.dataEntry[this.oc_totalPhospComponentKey] = this.oc_totalPhosp;
       this.dataEntry[this.oc_tphComponentKey] = this.oc_tph;
-      
+
       this.dataEntry[this.totalColiformComponentKey] = this.totalColiform;
       this.dataEntry[this.enterococciComponentKey] = this.enterococci;
       this.dataEntry[this.fecalColiformComponentKey] = this.fecalColiform;
@@ -416,14 +416,22 @@ export class SiteDataComponent implements OnInit {
     });
   }
 
-  siteDetailsSave(siteDetailsdata, sampleInfoData) {
+  siteDetailsSave(siteDetailsdata) {
+    this.dataEntry[this.dataComponentKey] = siteDetailsdata;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  sampleBasicInfoSave(sampleInfoData) {
+    this.dataEntry[this.sampleInformationKey] = sampleInfoData;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  
+  dataEntrySave(siteDetailsdata, sampleInfoData) {
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-    
+
     this.isDisabled = false;
-    //this.siteDataTabNext(this.module);
-    // console.log("At siteDetails Save Screen" + " siteDetailsdata --" + siteDetailsdata + "sampleInfoData --" + sampleInfoData);
   }
 
   siteDataTabNext(module) {

@@ -85,22 +85,32 @@ export class MicroBiologyComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "organic-chemistry"]);
       console.log("At mwqDataQc - organic-chemistry Screen");
     }
-    //this.route.navigate(["mwqDataEntry", "organic-chemistry"]);
-    //console.log("At organic-chemistry Screen");
   }
-  microBiologySiteDateSave(totalColiform, enterococci, fecalColiform) {
 
+  totalColiformDetailsSave(totalColiform){
+    this.dataEntry[this.totalColiformComponentKey] = totalColiform;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  enterococciDetailsSave(enterococci){
+    this.dataEntry[this.enterococciComponentKey] = enterococci;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  fecalColiformDetailsSave(fecalColiform){
+    this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  
+
+  microBiologySiteDateSave(totalColiform, enterococci, fecalColiform) {
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
-    // this.js["jsonInput"] = this.dataEntry;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     this.isDisabled = false;
-    /* let jsonMwqDataEntryInfo = this.localStore.store.get(this.dataEntryKey);
-    console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
-    console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo)); */
-    //this.saveMwqData(this.js);
   }
+  
   microBiologyTabNavNext(module) {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "upload-files"]);
@@ -110,8 +120,6 @@ export class MicroBiologyComponent implements OnInit {
       this.route.navigate(["mwqDataQc", "upload-files"]);
       console.log("At mwqDataQc - upload-files Screen");
     }
-    // this.route.navigate(["mwqDataEntry", "upload-files"]);
-    // console.log("At upload-files Screen");
   }
 
   ngOnInit() {
