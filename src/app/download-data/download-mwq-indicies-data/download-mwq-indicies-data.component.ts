@@ -36,11 +36,7 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
   //rows = [];
   columns = [];
   selected = [];
-
-
-  
-
-  
+  isDisabled: boolean = true;  
 
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
@@ -149,13 +145,34 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
   }
 
 //Adde below event function 
-onSelect(row) {
+/* onSelect(row) {
   this.selectedMwqIndicesDetails = row.selected;
 }
 
 //Replace the below function
 exportAsXLSX(): void {
   this.excelService.exportAsExcelFile(this.selectedMwqIndicesDetails, 'MWQ_Indices_Data');
+}
+ */
+
+onSelect(row) {
+  this.selectedMwqIndicesDetails = row.selected;
+  if (this.selectedMwqIndicesDetails.length > 0) {
+    this.isDisabled = false;
+  }
+  else {
+    this.isDisabled = true;
+  }
+}
+
+exportAsXLSX(): void {
+  console.log(this.selectedMwqIndicesDetails.length);
+  if (this.selectedMwqIndicesDetails.length > 0) {
+    this.excelService.exportAsExcelFile(this.selectedMwqIndicesDetails, 'BUOYS_Data');
+  }
+  else {
+    this.toastr.error("To Export the data, Please check any of the record");
+  }
 }
 
   daysInMonth(m, y) { // m is 0 indexed: 0-11

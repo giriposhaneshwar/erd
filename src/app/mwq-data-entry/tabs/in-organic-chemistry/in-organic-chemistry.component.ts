@@ -74,15 +74,15 @@ export class InOrganicChemistryComponent implements OnInit {
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {
     if (value > threshould) {
-      this.toastr.error("Input Value " + value + " Morethan Threshould " + threshould + " Value ");
+      this.toastr.error("Input Value " + value + " More than Threshould " + threshould + " Value ");
     }
 
     if (value > standDevition) {
-      this.toastr.error("Input Value " + value + " Morethan Prarmater StandDevition " + standDevition + " Value ");
+      this.toastr.error("Input Value " + value + " More than Prarmater Standard Deviation " + standDevition + " Value ");
     }
 
     if (value > maxValue) {
-      this.toastr.error("Input Value " + value + " Morethan Pararmater Max " + maxValue + " Value ");
+      this.toastr.error("Input Value " + value + " More than Pararmater Max " + maxValue + " Value ");
     }
   }
 

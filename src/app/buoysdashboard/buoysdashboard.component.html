@@ -28,7 +28,9 @@
             [headerHeight]="50" [footerHeight]="30" [rowHeight]="30" [scrollbarV]="true">
             <ngx-datatable-column name="Station Id" [width]="115"></ngx-datatable-column>
             <ngx-datatable-column name="Station Name" [width]="150">
-              <!-- <div class="text-center">{{value}}</div> -->
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                <div class="text-center">{{value}}</div>
+              </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Temperature" [width]="135">
               <ng-template let-value="value" ngx-datatable-cell-template>
@@ -85,9 +87,9 @@
             </ngx-datatable-column>
           </ngx-datatable>
           <!-- <ul class="legend">
-            <li><span class="StandardDeviation"></span>Value <= Parameater Mean</li> <li><span class="MoreThresholdValue"></span>Value
-                >= Parameater Max</li>
-            <li><span class="CorrectValue"></span>Value <= Parameater Max & Value>= Parameater Mean</li>
+            <li><span class="StandardDeviation"></span>Value <= Parameter Mean</li> <li><span class="MoreThresholdValue"></span>Value
+                >= Parameter Max</li>
+            <li><span class="CorrectValue"></span>Value <= Parameter Max & Value>= Parameter Mean</li>
           </ul> -->
         </mat-card>
       </div>
@@ -127,7 +129,6 @@
         <span>Last two weeks</span>
       </label>
     </div>
-
     <div>
       <label for="lastOneMonth">
         <input [(ngModel)]="radioGroup" (change)="handleFormChange(radioGroup)" type="radio" id="lastOneMonth" name="buoysDashboard"

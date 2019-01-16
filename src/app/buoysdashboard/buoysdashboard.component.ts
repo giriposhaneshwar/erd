@@ -112,6 +112,7 @@ export class BuoysdashboardComponent implements OnInit {
     console.log("Selected From Date", fromDateFilter, "Selected To Date", toDateFilter);
     this.spinner.show();
     this.showBuoysDashboardData(fromDateFilter, toDateFilter);
+    //this.mondalOpen = false;
   }
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
@@ -170,6 +171,7 @@ export class BuoysdashboardComponent implements OnInit {
           this.restItems = [];
           this.spinner.hide();
         }
+        
       }
       else if (this.resultStatus === 'Failed') {
         console.log("Error occured");
@@ -177,6 +179,7 @@ export class BuoysdashboardComponent implements OnInit {
         this.spinner.hide();
       }
     });
+   
   }
 
   dateForamt() {
@@ -185,7 +188,7 @@ export class BuoysdashboardComponent implements OnInit {
   }
 
   dateRangeValidate(dt, field) {
-   // console.log("Getting Min Dat", field, dt);
+    console.log("Getting Dae", field, dt);
     let stDate = this.fromDateFilter;
     let edDate = this.toDateFilter;
 

@@ -167,7 +167,7 @@ export class HistoricalGraphDirective implements OnChanges {
       .enter()
       .append("text")
       .attr("class", "marker markerLabel")
-      .attr("font-size", "10px")
+      .attr("font-size", "8px")
       .attr("x", function(d) {
         return x(d.x);
       })

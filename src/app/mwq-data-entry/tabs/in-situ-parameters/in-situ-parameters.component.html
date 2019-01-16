@@ -276,7 +276,7 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">DissolveOxygen (mg/L)</div>
+            <div class="clearfix tbl tbl-per-10 text-left">DissolvedOxygen (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),
                             'white': dissolvedO.surfaceValue == '',
@@ -420,11 +420,13 @@
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <ul class="legend">
-                <li><span class="StandardDeviation"></span>Value <= Parameater Mean</li> <li><span class="MoreThresholdValue"></span>Value
-                    >= Parameater Max</li>
-                <li><span class="CorrectValue"></span>Value <= Parameater Max & Value>= Parameater Mean</li>
-              </ul>
+              <div>
+                  <ul class="legend">
+                      <li><span class="StandardDeviation"></span>Value <= Parameter Mean</li> <li><span class="MoreThresholdValue"></span>Value
+                          >= Parameter Max</li>
+                      <li><span class="CorrectValue"></span>Value <= Parameter Max & Value>= Parameter Mean</li>
+                    </ul>
+              </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabPrev(module)">Previous</button>
               <input type="submit" class="btn btn-primary gap gap-5 gap-lr" value="Save" />
               <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="inSituTabNext(module)">Next</button>

@@ -120,13 +120,12 @@ export class ConfigureParametersComponent implements OnInit {
     });
   }
 
-/*   numberOnly(event): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+  checkValue(minValue,maxValue){
+    console.log(minValue,maxValue);
+    if(minValue>=maxValue){
+      this.toastr.error("MIN value should be less than MAX value");
     }
-    return true;
-  } */
+  }
 
   numberOnly(evt) {
     //debugger;

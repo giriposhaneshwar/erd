@@ -107,7 +107,6 @@
               autocomplete="off" [ngClass]="{'is-invalid': (f.submitted && parameterId.invalid)}" required>
           </div>
         </div>
-
         <div class="form-group row">
           <label for="example-text-input " class="col-3 col-form-label">Param Name</label>
           <div class="col-8">
@@ -149,7 +148,7 @@
           <div class="col-8">
             <input class="form-control is-invalid" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue"
               autocomplete="off" id="example-text-input" name="maxValue" #maxValue="ngModel" (keypress)="numberOnly($event)"
-              [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" required>
+              [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" (keyup)="checkValue(configureParam.minValue,configureParam.maxValue)" required>
           </div>
         </div>
 

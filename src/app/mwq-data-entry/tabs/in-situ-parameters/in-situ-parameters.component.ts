@@ -187,7 +187,7 @@ export class InSituParametersComponent implements OnInit {
       this.toastr.error(
         "Input Value " +
         value +
-        " Morethan Threshould " +
+        " More than Threshould " +
         threshould +
         " Value "
       );
@@ -197,7 +197,7 @@ export class InSituParametersComponent implements OnInit {
       this.toastr.error(
         "Input Value " +
         value +
-        " Morethan Prarmater StandDevition " +
+        " More than Prarmater Standard Deviation " +
         standDevition +
         " Value "
       );
@@ -207,7 +207,7 @@ export class InSituParametersComponent implements OnInit {
       this.toastr.error(
         "Input Value " +
         value +
-        " Morethan Pararmater Max " +
+        " More than Pararmater Max " +
         maxValue +
         " Value "
       );

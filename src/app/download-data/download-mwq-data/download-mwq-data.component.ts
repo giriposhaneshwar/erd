@@ -33,6 +33,7 @@ export class DownloadMwqDataComponent implements OnInit {
   rows = [];
   columns = [];
   selected = [];
+  isDisabled: boolean = true;
 
   constructor(
     private pageTitleService: PageTitleService,
@@ -46,6 +47,7 @@ export class DownloadMwqDataComponent implements OnInit {
     this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
     this.toDate = moment().format("YYYY-MM-DD");
     this.downloadMwqData(this.fromDate, this.toDate);
+
 
     this.columns = [
       {
@@ -156,10 +158,23 @@ export class DownloadMwqDataComponent implements OnInit {
   //Adde below event function 
   onSelect(row) {
     this.selectedMwqDataDetails = row.selected;
+    if(this.selectedMwqDataDetails.length>0){
+      this.isDisabled =false;
+    }
+    else{
+      this.isDisabled =true;
+    }
   }
 
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.selectedMwqDataDetails, 'MWQ_Data');
+    console.log(this.selectedMwqDataDetails.length);
+    if(this.selectedMwqDataDetails.length>0)
+    {
+      this.excelService.exportAsExcelFile(this.selectedMwqDataDetails, 'MWQ_Data');
+    }
+    else{
+      this.toastr.error("To Export the data, Please check any of the record");
+    }
   }
 
   dateForamt() {

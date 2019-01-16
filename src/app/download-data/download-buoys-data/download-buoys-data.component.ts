@@ -31,8 +31,10 @@ export class DownloadBuoysDataComponent implements OnInit {
   mouseWheelDir: string = '';
   event: any;
   selectedBuoysDataDetails = [];
-  rows = [];
+  rows = [];  
+  isDisabled: boolean = true;
   columns = [];
+
 
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
@@ -137,13 +139,36 @@ export class DownloadBuoysDataComponent implements OnInit {
   }
 
   //Adde below event function 
+  /*   onSelect(row) {
+      this.selectedBuoysDataDetails = row.selected;
+    }
+  
+    exportAsXLSX(): void {
+      this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
+    } */
+
+
+  //Adde below event function 
   onSelect(row) {
     this.selectedBuoysDataDetails = row.selected;
+    if (this.selectedBuoysDataDetails.length > 0) {
+      this.isDisabled = false;
+    }
+    else {
+      this.isDisabled = true;
+    }
   }
 
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
+    console.log(this.selectedBuoysDataDetails.length);
+    if (this.selectedBuoysDataDetails.length > 0) {
+      this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
+    }
+    else {
+      this.toastr.error("To Export the data, Please check any of the record");
+    }
   }
+
 
   /* Validating the user input dates Start*/
   isValidDate(objDate) {
