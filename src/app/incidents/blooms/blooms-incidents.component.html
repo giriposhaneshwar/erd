@@ -144,8 +144,10 @@
                   target="_blank"><i class="glyphicon glyphicon-download-alt"></i></a>
                 <span>{{file.fileName}}</span>
               </td> -->
-              <td class="ng-tns-c6-0" colspan="2"><a class="btn btn-primary" href="{{domain+ file.fileUrl}}" target="_blank"><i
-                    class="glyphicon glyphicon-download-alt"></i></a>
+              <td class="ng-tns-c6-0" colspan="2" style="max-height: 71px;overflow-y: auto;">
+                <a class="btn btn-primary" href="{{domain+ file.fileUrl}}" target="_blank" >
+                  <i class="glyphicon glyphicon-download-alt"></i>
+                </a>
                 <span>{{file.fileName}}</span>
               </td>
             </tr>
@@ -250,7 +252,7 @@
             <button class="btn btn-primary gap gap-5 gap-lr">Upload</button>
           </div>
         </form>
-        <div class="filesListHolder">
+        <div class="filesListHolder" style="max-height: 71px;overflow-y: auto;">
           <ul>
             <li *ngFor="let file of blommIncidentInfo.upload">
               <a class="btn btn-primary" href="{{file.downloadLink + '/' +file.fileStoreName}}" target="_blank"><i

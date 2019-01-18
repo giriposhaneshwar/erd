@@ -422,9 +422,9 @@
             <div class="col-xs-12 col-sm-12">
               <div>
                   <ul class="legend">
-                      <li><span class="StandardDeviation"></span>Value <= Parameter Mean</li> <li><span class="MoreThresholdValue"></span>Value
-                          >= Parameter Max</li>
-                      <li><span class="CorrectValue"></span>Value <= Parameter Max & Value>= Parameter Mean</li>
+                      <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
+                      <br/><li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
+                      <br/><li><span class="CorrectValue"></span>Data is okay </li>
                     </ul>
               </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabPrev(module)">Previous</button>
@@ -445,7 +445,7 @@
                 </a>
               </div>
             </div>
-            <div class="modalBody">
+            <div class="modalBody" style="overflow-y:auto ">
               <!-- <form #f="ngForm" class="form" (change)="optionValueChange(f)"> -->
               <div class="form-group">
                 <div class="row formRow">
