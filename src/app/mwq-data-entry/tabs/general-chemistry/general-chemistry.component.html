@@ -46,7 +46,7 @@
                 name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" (keyup)="checkValueThreshold(totalPhosp.surfaceValue, fieldColorValidatior.TotalPhosp.prarmaterThreshold, 
                                             fieldColorValidatior.TotalPhosp.prarmaterStandDevition, 
                                             fieldColorValidatior.TotalPhosp.prarmaterMax)"
-                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" (input)="totalPhospDetailsSave(totalPhosp)"/>
+                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" (input)="totalPhospDetailsSave(totalPhosp)" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -63,8 +63,8 @@
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="totalPhosp.testMethod" name="totalPhospTestMethod"
-                #totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospTestMethod.invalid)}" required
-                 (click)="totalPhospDetailsSave(totalPhosp)">
+                #totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospTestMethod.invalid)}"
+                required (click)="totalPhospDetailsSave(totalPhosp)">
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -86,8 +86,8 @@
                           fieldColorValidatior.Total_Nitrogen.prarmaterThreshold,
                           fieldColorValidatior.Total_Nitrogen.prarmaterStandDevition,
                           fieldColorValidatior.Total_Nitrogen.prarmaterMax)"
-                (input)="totalNitrogenDetailsSave(totalNitrogen)"
-                required autocomplete="off" OnlyNumber="true" required/>
+                (input)="totalNitrogenDetailsSave(totalNitrogen)" required autocomplete="off" OnlyNumber="true"
+                required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -97,8 +97,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql"
                 #totalNitrogenMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenMql.invalid)}"
-                (click)="totalNitrogenDetailsSave(totalNitrogen)"
-                required>
+                (click)="totalNitrogenDetailsSave(totalNitrogen)" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -106,8 +105,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="totalNitrogen.testMethod" name="totalNitrogenTestMethod"
                 #totalNitrogenTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenTestMethod.invalid)}"
-                (click)="totalNitrogenDetailsSave(totalNitrogen)"
-                required>
+                (click)="totalNitrogenDetailsSave(totalNitrogen)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -124,13 +122,11 @@
                   'green': nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMax 
                         && nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMean, 
                   'red': nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMax}"
-                name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel" 
-                (keyup)="checkValueThreshold(nitriteN.surfaceValue, 
+                name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel" (keyup)="checkValueThreshold(nitriteN.surfaceValue, 
                           fieldColorValidatior.Nitrite_N.prarmaterThreshold,
                           fieldColorValidatior.Nitrite_N.prarmaterStandDevition,
                           fieldColorValidatior.Nitrite_N.prarmaterMax)"
-                (input)="nitriteNDetailsSave(nitriteN)"
-                required autocomplete="off" OnlyNumber="true" />
+                (input)="nitriteNDetailsSave(nitriteN)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -139,8 +135,7 @@
               [threshold]="fieldColorValidatior.Nitrite_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql" #nitriteNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required 
-                (click)="nitriteNDetailsSave(nitriteN)">
+                [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required (click)="nitriteNDetailsSave(nitriteN)">
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -148,8 +143,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="nitriteN.testMethod" name="nitriteNTestMethod"
                 #nitriteNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && nitriteNTestMethod.invalid)}"
-                (click)="nitriteNDetailsSave(nitriteN)"
-                required>
+                (click)="nitriteNDetailsSave(nitriteN)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -166,13 +160,11 @@
                     'green': nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMax 
                         && nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMean, 
                     'red': nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMax}"
-                name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel" 
-                (keyup)="checkValueThreshold(nitrateN.surfaceValue, 
+                name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel" (keyup)="checkValueThreshold(nitrateN.surfaceValue, 
                   fieldColorValidatior.Nitrate_N.prarmaterThreshold,
                   fieldColorValidatior.Nitrate_N.prarmaterStandDevition,
                   fieldColorValidatior.Nitrate_N.prarmaterMax)"
-                (input)="nitrateNDetailsSave(nitrateN)"
-                required autocomplete="off" OnlyNumber="true" />
+                (input)="nitrateNDetailsSave(nitrateN)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -181,8 +173,8 @@
               [threshold]="fieldColorValidatior.Nitrate_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql" #nitrateNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" 
-                (click)="nitrateNDetailsSave(nitrateN)" required>
+                [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" (click)="nitrateNDetailsSave(nitrateN)"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -211,8 +203,7 @@
                         fieldColorValidatior.Silicate_Sl.prarmaterThreshold,
                         fieldColorValidatior.Silicate_Sl.prarmaterStandDevition,
                         fieldColorValidatior.Silicate_Sl.prarmaterMax)"
-                (input)="silicateSlDetailsSave(silicateSl)"
-                required autocomplete="off" OnlyNumber="true" />
+                (input)="silicateSlDetailsSave(silicateSl)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -221,8 +212,8 @@
               [threshold]="fieldColorValidatior.Silicate_Sl.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql"
-                #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" 
-                (click)="silicateSlDetailsSave(silicateSl)" required>
+                #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" (click)="silicateSlDetailsSave(silicateSl)"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -230,8 +221,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="silicateSl.testMethod" name="silicateSlTestMethod"
                 #silicateSlTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlTestMethod.invalid)}"
-                (click)="silicateSlDetailsSave(silicateSl)"
-                required>
+                (click)="silicateSlDetailsSave(silicateSl)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -251,9 +241,8 @@
                   fieldColorValidatior.Ammonia_N.prarmaterThreshold,
                   fieldColorValidatior.Ammonia_N.prarmaterStandDevition,
                   fieldColorValidatior.Ammonia_N.prarmaterMax)"
-                (input)="ammoniaNDetailsSave(ammoniaN)" 
-                name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel"
-                required autocomplete="off" OnlyNumber="true" />
+                (input)="ammoniaNDetailsSave(ammoniaN)" name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue"
+                #ammoniaNsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -262,8 +251,8 @@
               [threshold]="fieldColorValidatior.Ammonia_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql" #ammoniaNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" 
-                (click)="ammoniaNDetailsSave(ammoniaN)" required>
+                [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" (click)="ammoniaNDetailsSave(ammoniaN)"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -271,8 +260,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="ammoniaN.testMethod" name="ammoniaNTestMethod"
                 #ammoniaNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && ammoniaNTestMethod.invalid)}"
-                (click)="ammoniaNDetailsSave(ammoniaN)" 
-                required>
+                (click)="ammoniaNDetailsSave(ammoniaN)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -293,8 +281,8 @@
                 fieldColorValidatior.Phosphate_P.prarmaterThreshold,
                 fieldColorValidatior.Phosphate_P.prarmaterStandDevition,
                 fieldColorValidatior.Phosphate_P.prarmaterMax)"
-                (input)="phosphatePDetailsSave(phosphateP)" 
-                #phosphatePsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (input)="phosphatePDetailsSave(phosphateP)" #phosphatePsurfaceValue="ngModel" required autocomplete="off"
+                OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -303,8 +291,8 @@
               [threshold]="fieldColorValidatior.Phosphate_P.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql"
-                #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" 
-                (click)="phosphatePDetailsSave(phosphateP)" required>
+                #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" (click)="phosphatePDetailsSave(phosphateP)"
+                required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -333,8 +321,7 @@
                                             fieldColorValidatior.BOD.prarmaterThreshold,
                                             fieldColorValidatior.BOD.prarmaterStandDevition,
                                             fieldColorValidatior.BOD.prarmaterMax)"
-                (input)="bodDetailsSave(bod)"
-                #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (input)="bodDetailsSave(bod)" #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
@@ -349,8 +336,8 @@
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="bod.testMethod" name="bodTestMethod"
-                #bodTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && bodTestMethod.invalid)}" 
-                (click)="bodDetailsSave(bod)" required>
+                #bodTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && bodTestMethod.invalid)}" (click)="bodDetailsSave(bod)"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -370,8 +357,7 @@
                 (keyup)="checkValueThreshold(tss.surfaceValue, fieldColorValidatior.TSS.prarmaterThreshold,
                   fieldColorValidatior.TSS.prarmaterStandDevition, 
                   fieldColorValidatior.TSS.prarmaterMa)"
-                  (input)="tssDetailsSave(tss)"
-                #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (input)="tssDetailsSave(tss)" #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
@@ -379,16 +365,15 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS" [threshold]="fieldColorValidatior.TSS.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql" #tssMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" 
-                (click)="tssDetailsSave(tss)" required>
+                [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" (click)="tssDetailsSave(tss)" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="tss.testMethod" name="tssTestMethod"
-                #tssTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && tssTestMethod.invalid)}" 
-                (click)="tssDetailsSave(tss)" required>
+                #tssTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && tssTestMethod.invalid)}" (click)="tssDetailsSave(tss)"
+                required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -398,11 +383,15 @@
         <div class="form-group mar t-20 col-xs-12 col-sm-12">
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
-              <ul class="legend">
-                <li><span class="StandardDeviation"></span>Value <= Parameter Mean</li> <li><span class="MoreThresholdValue"></span>Value
-                    >= Parameter Max</li>
-                <li><span class="CorrectValue"></span>Value <= Parameter Max & Value>= Parameter Mean</li>
-              </ul>
+              <div>
+                <ul class="legend">
+                  <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
+                  <br />
+                  <li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
+                  <br />
+                  <li><span class="CorrectValue"></span>Data is okay </li>
+                </ul>
+              </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="genChemTabNavPrev(module)">Previous</button>
               <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
               <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="genChemTabNavNext(module)">Next</button>

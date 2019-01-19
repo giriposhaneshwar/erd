@@ -34,16 +34,15 @@
                 'red': totalColiform.surfaceValue >= fieldColorValidatior.Total_Coliform.prarmaterMax}"
               (keyup)="checkValueThreshold(totalColiform.surfaceValue, fieldColorValidatior.Total_Coliform.prarmaterThreshold,
                 fieldColorValidatior.Total_Coliform.prarmaterStandDevition,fieldColorValidatior.Total_Coliform.prarmaterMax)"
-                (input)="totalColiformDetailsSave(totalColiform)"
-              name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue" #totalColiformSurfaceValue="ngModel"
-              autocomplete="off" required OnlyNumber="true" />
+              (input)="totalColiformDetailsSave(totalColiform)" name="totalColiformSurfaceValue" [(ngModel)]="totalColiform.surfaceValue"
+              #totalColiformSurfaceValue="ngModel" autocomplete="off" required OnlyNumber="true" />
           </div>
           <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Total_Coliform"
             [threshold]="fieldColorValidatior.Total_Coliform.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalColiform.mql" name="totalColiformMql"
-              #totalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformMql.invalid)}"
-              (click)="totalColiformDetailsSave(totalColiform)" required>
+              #totalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalColiformMql.invalid)}" (click)="totalColiformDetailsSave(totalColiform)"
+              required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -77,16 +76,15 @@
                 'red': enterococci.surfaceValue >= fieldColorValidatior.Enterococci.prarmaterMax}"
               (keyup)="checkValueThreshold(enterococci.surfaceValue, fieldColorValidatior.Enterococci.prarmaterThreshold,
                 fieldColorValidatior.Enterococci.prarmaterStandDevition,fieldColorValidatior.Enterococci.prarmaterMax)"
-                (input)="enterococciDetailsSave(enterococci)"
-              name="enterococciSurfaceValue" [(ngModel)]="enterococci.surfaceValue" #enterococciSurfaceValue="ngModel"
-              autocomplete="off" required OnlyNumber="true" />
+              (input)="enterococciDetailsSave(enterococci)" name="enterococciSurfaceValue" [(ngModel)]="enterococci.surfaceValue"
+              #enterococciSurfaceValue="ngModel" autocomplete="off" required OnlyNumber="true" />
           </div>
           <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Enterococci"
             [threshold]="fieldColorValidatior.Enterococci.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="enterococci.mql" name="enterococciMql"
-              #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" 
-              (click)="enterococciDetailsSave(enterococci)" required>
+              #enterococciMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && enterococciMql.invalid)}" (click)="enterococciDetailsSave(enterococci)"
+              required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -120,16 +118,15 @@
                     'red': fecalColiform.surfaceValue > fieldColorValidatior.Fecal_Coliform.prarmaterMax}"
               (keyup)="checkValueThreshold(fecalColiform.surfaceValue, fieldColorValidatior.Fecal_Coliform.prarmaterThreshold,
                     fieldColorValidatior.Fecal_Coliform.prarmaterStandDevition,fieldColorValidatior.Fecal_Coliform.prarmaterMax)"
-                    (input)="fecalColiformDetailsSave(fecalColiform)"
-              name="fecalColiformSurfaceValue" [(ngModel)]="fecalColiform.surfaceValue" #fecalColiformSurfaceValue="ngModel"
-              autocomplete="off" required OnlyNumber="true" />
+              (input)="fecalColiformDetailsSave(fecalColiform)" name="fecalColiformSurfaceValue" [(ngModel)]="fecalColiform.surfaceValue"
+              #fecalColiformSurfaceValue="ngModel" autocomplete="off" required OnlyNumber="true" />
           </div>
           <div class="clearfix tbl tbl-per-20 text-center" msHistoricalGraph [graphData]="graphData.Fecal_Coliform"
             [threshold]="fieldColorValidatior.Fecal_Coliform.prarmaterThreshold"></div>
           <div class="clearfix tbl tbl-per-15 text-center">
             <select id="oc-text-MQL" class="form-control" [(ngModel)]="fecalColiform.mql" name="fecalColiformMql"
-              #fecalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformMql.invalid)}"
-              (click)="fecalColiformDetailsSave(fecalColiform)"required>
+              #fecalColiformMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && fecalColiformMql.invalid)}" (click)="fecalColiformDetailsSave(fecalColiform)"
+              required>
               <option value="" disabled selected hidden>Select MQL</option>
               <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
             </select>
@@ -156,11 +153,15 @@
       <div class="form-group mar t-20 col-xs-12 col-sm-12">
         <div class="row text-right">
           <div class="col-xs-12 col-sm-12">
-            <ul class="legend">
-              <li><span class="StandardDeviation"></span>Value <= Parameter Mean</li> <li><span class="MoreThresholdValue"></span>Value
-                  >= Parameter Max</li>
-              <li><span class="CorrectValue"></span>Value <= Parameter Max & Value>= Parameter Mean</li>
-            </ul>
+            <div>
+              <ul class="legend">
+                <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
+                <br />
+                <li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
+                <br />
+                <li><span class="CorrectValue"></span>Data is okay </li>
+              </ul>
+            </div>
             <button class="btn btn-primary gap gap-5 gap-lr" (click)="microBiologyTabNavPrev(module)">Previous</button>
             <button class="btn btn-primary gap gap-5 gap-lr">Save</button>
             <button class="btn btn-primary gap gap-5 gap-lr" [disabled]="isDisabled" (click)="microBiologyTabNavNext(module)">Next</button>
