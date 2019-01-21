@@ -90,9 +90,8 @@ export class UploadFilesComponent implements OnInit {
     let that = this;
     let data = new FormData();
     $.each($('.uploadFile')[0].files, function (i, file) {
-      console.log("-------file info-------" + i, file);
+      /* console.log("-------file info-------" + i, file); */
       data.append('file-' + i, file);
-
 
     });
     // debugger;
@@ -105,26 +104,36 @@ export class UploadFilesComponent implements OnInit {
       type: 'POST',
       success: function (data) {
         // debugger;
-        console.log("Response Data", data);
+        /* console.log("Response Data", data); */
         let files = data.SaveFileResult.clsUploadFilesl;
         // debugger;
         if (files.length > 0) {
           for (let i = 0; i < files.length; i++) {
             let item = files[i];
-            if(that.uploadFileList[0] === item.name)
-            {
-              console.log("Duplicate file");
+            console.log("Duplicate file---" + JSON.stringify(that.uploadFileList), item.fileName);
+            if (that.uploadFileList.length === 0) {
+              that.uploadFileList.push(item);
+              that.addedFilesList.push(item);
             }
-            that.uploadFileList.push(item);
-            that.addedFilesList.push(item);
+            else {
+              if(that.uploadFileList[i].fileName===item.fileName){
+                console.log("MACHED");
+                alert("Duplicate file not allowed "+item.fileName );
+              }
+              else{
+                console.log("NOT MACHED");
+                that.uploadFileList.push(item);
+                that.addedFilesList.push(item);
+              }
+            }
           }
           let jsonMwqDataEntryInfo = that.localStore.store.get(that.dataEntryKey);
           that.dataEntry = jsonMwqDataEntryInfo.data;
 
-          console.log("Added files ", that.addedFilesList);
+          /* console.log("Added files ", that.addedFilesList); */
           that.dataEntry['upload'] = that.uploadFileList;
           that.dataEntry['AddFiles'] = that.addedFilesList;
-          console.log("upload files ", that.uploadFileList);
+          /*  console.log("upload files ", that.uploadFileList); */
           // that.dataEntry["DeleteFiles"] = this.deletedFilesList;
           that.localStore.store.set(that.dataEntryKey, that.dataEntry);
         } else {
@@ -151,6 +160,9 @@ export class UploadFilesComponent implements OnInit {
     console.log("At Save Screen");
   }
 
+  uploadDuplicateFiles(fileName) {
+    this.toastr.error(fileName, " Duplicate files are not allowed");
+  }
 
   dataEntrySave(sampleInformation) {
 
@@ -162,7 +174,7 @@ export class UploadFilesComponent implements OnInit {
 
     let isValid = this.doValidate(dataEntry);
 
-    
+
     // this.localStore.store.set(this.dataEntryKey, this.dataEntry);
 
     //console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
@@ -252,7 +264,7 @@ export class UploadFilesComponent implements OnInit {
       if (typeof row === "object") {
         for (let subItem in row) {
           let subRow = row[subItem];
-         // if (item !== 'upload' || item != 'AddFiles' || item != 'DeleteFiles') {
+          // if (item !== 'upload' || item != 'AddFiles' || item != 'DeleteFiles') {
           if (item !== 'upload') {
             if (subRow === "") {
               isRequired.push(subItem);
@@ -270,13 +282,13 @@ export class UploadFilesComponent implements OnInit {
       // console.log("Showing list of item", item);
     }
     // console.log("Manditory fields", requiredObj);
-    if(isRequired.length > 0){
+    if (isRequired.length > 0) {
       let message = "";
       message += "<div class='popMessage'>"
-      for(let row in requiredObj){
+      for (let row in requiredObj) {
         let item = requiredObj[row];
-        if(item.length > 0){
-          message += "<b>"+row+"</b> : <span style='color: #bbb'>"+ item.join(', ')+"</span><br>"
+        if (item.length > 0) {
+          message += "<b>" + row + "</b> : <span style='color: #bbb'>" + item.join(', ') + "</span><br>"
         }
       }
       message += '</div>';

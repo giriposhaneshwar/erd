@@ -7,12 +7,12 @@
 					<!-- action="{{apiUrl}}"  method="post" encrypt="multipart/form-data" -->
 					<form class="form-inline" method="post" encrypt="multipart/form-data" style="margin-top:2%;margin-bottom:2%">
 						<div class="form-group">
-							<input type='file' class="uploadFile" (change)="fileChanged($event)">
+							<input type='file' class="uploadFile">
 						</div>
 						<div style="width:3%"></div>
 						<div style="width:3%"></div>
 						<div class="form-group custom-file-upload">
-							<button class="btn btn-primary gap gap-5 gap-lr">Upload</button>
+							<button class="btn btn-primary gap gap-5 gap-lr" (click)="fileChanged($event)">Upload</button>
 						</div>
 					</form>
 				</div>
@@ -35,8 +35,6 @@
 											<span>{{file.fileName}}</span>
 										</div>
 										<div class="col-sm-6 text-right">
-											<!-- <a class="btn btn-primary mar r-5" href="{{domain  + file.link}}" target="_blank">Download</a>
-											<a class="btn btn-primary" href="javascript:void(0)" (click)="fileDelete(file.link)">Delete</a> -->
 											<b class="btn btn-primary btn-circle btn-color1"><a class="glyphicon glyphicon-download-alt" href="{{domain  + file.fileStoreName}}"
 												 target="_blank"></a></b>
 											<b class="btn btn-primary btn-circle btn-color2"><a class="glyphicon glyphicon-remove" href="javascript:void(0)"
@@ -56,8 +54,8 @@
 		<div class="panel panel-primary border" style="margin-top: 1em;">
 			<div class="panel-heading panel-color white"><i class="fa fa-chevron-down"></i> Comment</div>
 			<div class="panel-body">
-				<!-- <textarea style="width:100%;border:none"></textarea> -->
-				<input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.dataEntryComments" name="dataEntryComments" autocomplete="off"/>
+				<input type="text" class="form-control text-left" [(ngModel)]="sampleInformation.dataEntryComments" name="dataEntryComments"
+				 autocomplete="off" />
 			</div>
 		</div>
 	</div>
