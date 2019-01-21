@@ -31,6 +31,7 @@ export class DownloadBuoysDataComponent implements OnInit {
   mouseWheelDir: string = '';
   event: any;
   selectedBuoysDataDetails = [];
+  resultArray = [];
   rows = [];  
   isDisabled: boolean = true;
   columns = [];
@@ -139,19 +140,25 @@ export class DownloadBuoysDataComponent implements OnInit {
   }
 
   //Adde below event function 
-  /*   onSelect(row) {
-      this.selectedBuoysDataDetails = row.selected;
-    }
-  
-    exportAsXLSX(): void {
-      this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
-    } */
-
-
-  //Adde below event function 
   onSelect(row) {
     this.selectedBuoysDataDetails = row.selected;
     if (this.selectedBuoysDataDetails.length > 0) {
+      this.resultArray = this.selectedBuoysDataDetails.map(function (elm) {
+
+        return {
+          'Site Name': elm.siteName,
+          'Temparature': elm.temparature,
+          'Blue Green Algae': elm.blueGreenAlgae,
+          'Conductivity': elm.conductivity,
+          'Battery': elm.battary,
+          'CholorophyllA': elm.cholorophyllA,
+          'Salinity': elm.salinity,
+          'Do SAT': elm.dosat,
+          'DO XY': elm.doxy,
+          'pH': elm.ph,
+          'Created Date': elm.createddate,
+        };
+      });
       this.isDisabled = false;
     }
     else {
@@ -160,9 +167,9 @@ export class DownloadBuoysDataComponent implements OnInit {
   }
 
   exportAsXLSX(): void {
-    console.log(this.selectedBuoysDataDetails.length);
-    if (this.selectedBuoysDataDetails.length > 0) {
-      this.excelService.exportAsExcelFile(this.selectedBuoysDataDetails, 'BUOYS_Data');
+    console.log(this.resultArray.length);
+    if (this.resultArray.length > 0) {
+      this.excelService.exportAsExcelFile(this.resultArray, 'BUOYS_Data');
     }
     else {
       this.toastr.error("To Export the data, Please check any of the record");

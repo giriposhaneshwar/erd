@@ -347,6 +347,14 @@
         }
     }
 }
+#toast-container > div{
+    margin: 0px;
+    margin-bottom: -2px;
+    box-shadow: none;
+    &:hover{
+        box-shadow: none;
+    }
+}
 
 .graphHolder {
     width: 100%;

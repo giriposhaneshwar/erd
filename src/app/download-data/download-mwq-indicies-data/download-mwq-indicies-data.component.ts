@@ -31,12 +31,13 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
 
   mouseWheelDir: string = '';
   event: any;
+  resultArray = [];
 
   selectedMwqIndicesDetails = [];
   //rows = [];
   columns = [];
   selected = [];
-  isDisabled: boolean = true;  
+  isDisabled: boolean = true;
 
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient,
@@ -53,21 +54,21 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
 
     this.columns = [
       {
-      prop: 'selected',
-      sortable: false,
-      canAutoResize: false,
-      draggable: false,
-      resizable: false,
-      headerCheckboxable: true,
-      checkboxable: true,
-      width: 30
+        prop: 'selected',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
       },
       { prop: 'siteid', name: 'Siteid', width: '200' },
       { prop: 'microbialIndex', name: 'Microbial Index', width: '200' },
       { prop: 'eutrophicationIndex', name: 'Eutrophication Index', width: '200' },
       { prop: 'sedimentIndex', name: 'Sediment Index', width: '200' },
       { prop: 'createdDate', name: 'Month', width: '200' },
-    
+
     ];
   }
 
@@ -144,36 +145,34 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
     }
   }
 
-//Adde below event function 
-/* onSelect(row) {
-  this.selectedMwqIndicesDetails = row.selected;
-}
+  onSelect(row) {
+    this.selectedMwqIndicesDetails = row.selected;
+    if (this.selectedMwqIndicesDetails.length > 0) {
+      this.resultArray = this.selectedMwqIndicesDetails.map(function (elm) {
 
-//Replace the below function
-exportAsXLSX(): void {
-  this.excelService.exportAsExcelFile(this.selectedMwqIndicesDetails, 'MWQ_Indices_Data');
-}
- */
+        return {
+          'Site Id': elm.siteid,
+          'Microbial Index': elm.microbialIndex,
+          'Eutrophication Index': elm.eutrophicationIndex,
+          'Sediment Index': elm.sedimentIndex,
+          'Month': elm.createdDate
+        };
+      });
+      this.isDisabled = false;
+    }
+    else {
+      this.isDisabled = true;
+    }
+  }
 
-onSelect(row) {
-  this.selectedMwqIndicesDetails = row.selected;
-  if (this.selectedMwqIndicesDetails.length > 0) {
-    this.isDisabled = false;
+  exportAsXLSX(): void {
+    if (this.resultArray.length > 0) {
+      this.excelService.exportAsExcelFile(this.resultArray, 'MWQ_INDICES_DATA');
+    }
+    else {
+      this.toastr.error("To Export the data, Please check any of the record");
+    }
   }
-  else {
-    this.isDisabled = true;
-  }
-}
-
-exportAsXLSX(): void {
-  console.log(this.selectedMwqIndicesDetails.length);
-  if (this.selectedMwqIndicesDetails.length > 0) {
-    this.excelService.exportAsExcelFile(this.selectedMwqIndicesDetails, 'BUOYS_Data');
-  }
-  else {
-    this.toastr.error("To Export the data, Please check any of the record");
-  }
-}
 
   daysInMonth(m, y) { // m is 0 indexed: 0-11
     switch (m) {

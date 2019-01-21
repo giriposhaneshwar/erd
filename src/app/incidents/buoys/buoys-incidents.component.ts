@@ -46,6 +46,29 @@ export class BuoysIncidentsComponent implements OnInit {
     { name: 'Incident Reported DateTime' },
     { name: 'Incident Severity' }
   ];
+
+  statusOpen = [
+    { id: "In Progres", name: "In Progres" },
+    { id: "Closed", name: "Closed" }
+  ];
+
+  statusInProgress = [
+    { id: "In Progres", name: "In Progres" },
+    { id: "Fixed", name: "Fixed" }
+  ];
+
+  statusFixed = [
+    { id: "Fixed", name: "Fixed" },
+    { id: "Closed", name: "Closed" }
+  ];
+
+  statusClosed = [
+    { id: "Re-Open", name: "Re-Open" },
+    { id: "Closed", name: "Closed" }
+  ];
+
+  statusTemp=[];
+
   startMinDate: any;
   startMaxDate: any;
   endMinDate: any;
@@ -61,7 +84,10 @@ export class BuoysIncidentsComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vcr);
     this.dateForamt();
   }
+  onOptionsSelected(statusSelectedValue) {
+    console.log("---" + statusSelectedValue);
 
+  }
   ngOnInit() {
     this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
     this.toDate = moment().format("YYYY-MM-DD");
@@ -71,6 +97,7 @@ export class BuoysIncidentsComponent implements OnInit {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
     this.spinner.show();
     this.dateRangeValidate(undefined, undefined);
+    this.statusTemp = this.statusOpen;
   }
   incidentListSizeReset() {
     // debugger;
@@ -127,6 +154,19 @@ export class BuoysIncidentsComponent implements OnInit {
                     this.selectedValue = formValue;
                     this.selectedValueForm = formValue[0];
                     this.buyosStatus = formValue[0].status;
+                    console.log("--------------"+this.buyosStatus);
+                    if(this.buyosStatus === "In Progress"){
+                      console.log("------buyosStatus--------"+this.buyosStatus);
+                      this.statusTemp = this.statusInProgress;
+                    }
+                    else if(this.buyosStatus === "Fixed"){
+                      console.log("------buyosStatus--------"+this.buyosStatus);
+                      this.statusTemp = this.statusFixed;
+                    }
+                    else if(this.buyosStatus === "Closed"){
+                      console.log("------buyosStatus--------"+this.buyosStatus);
+                      this.statusTemp = this.statusClosed;
+                    }
                     this.buyosSelectedId = formValue[0].incidentId;
                     this.fetchIncidentHistoryDetails(this.buyosSelectedId);
                     break;
@@ -158,7 +198,7 @@ export class BuoysIncidentsComponent implements OnInit {
         });
       } else {
         console.log("In Valid Dates");
-       // this.toastr.error("From Date & To Date is mandatory fields, Please provide the valid input.");
+        // this.toastr.error("From Date & To Date is mandatory fields, Please provide the valid input.");
         this.buoysIncidentResultStatusMessage = "From Date & To Date is mandatory fields. Please provide the valid input.";
         this.buoysIncidentDetails = [];
         this.spinner.hide();

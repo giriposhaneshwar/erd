@@ -25,14 +25,14 @@
             <label for="example-date-input" class="col-form-label">From Date</label>
             <div class="col-3">
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fromDateFilter" (change)="dateRangeValidate(fromDateFilter, 'start')"
-                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false" required
-                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
+                [min]="startMinDate" [max]="startMaxDate" onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <label for="example-date-input" class="col-form-label">To Date</label>
             <div class="col-3">
               <input class="form-control" type="date" id="example-date-input" [(ngModel)]="toDateFilter" (change)="dateRangeValidate(toDateFilter, 'end')"
-                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false" required
-                mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)" (mouseWheelDown)="mouseWheelDownFunc(event)">
+                [min]="endMinDate" [max]="endMaxDate" onkeydown="return false" required mouseWheel (mouseWheelUp)="mouseWheelUpFunc(event)"
+                (mouseWheelDown)="mouseWheelDownFunc(event)">
             </div>
             <button type="submit" class="send-btn btn btn-primary" (click)="loadBuoysIncidentsData(fromDateFilter,toDateFilter)">Send</button>
           </div>
@@ -129,16 +129,23 @@
               <td class="ng-tns-c6-0">Created Date</td>
               <td class="ng-tns-c6-0">{{selectedValue[0].createdDate}}</td>
             </tr>
+
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Status</td>
               <td class="ng-tns-c6-0">
-                <select class="form-control" [disabled]="buyosStatus === 'Closed'" [(ngModel)]="selectedValue[0].status">
+                <!--  <select class="form-control" [disabled]="buyosStatus === 'Closed'" [(ngModel)]="selectedValue[0].status">
                   <option value="" disabled selected hidden>Select Status</option>
                   <option value="Open">Open</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Fixed">Fixed</option>
                   <option value="Re-Open">Re-Open</option>
                   <option value="Closed">Closed</option>
+                </select> -->
+                <!-- <select class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'> -->
+                <select class="form-control" [disabled]="buyosStatus === 'Closed'" [(ngModel)]="selectedValue[0].status"
+                  (ngModelChange)='onOptionsSelected($event)'>
+                  <option value="" disabled selected hidden>Select Status</option>
+                  <option *ngFor='let staOpen of statusTemp' [value]="staOpen.name">{{staOpen.name}}</option>
                 </select>
               </td>
               <!-- <td class="ng-tns-c6-0">{{selectedValue.status}}</td> -->

@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, OnInit, ViewContainerRef, HostListener, ElementRef } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { Config } from "app/appConfiguration/config";
 import { ToastsManager } from "ng6-toastr";
+import { $$iterator } from "rxjs/internal/symbol/iterator";
+import * as $ from 'jquery';
+declare var $;
 
 @Component({
   selector: "ms-in-situ-parameters",
@@ -46,11 +49,17 @@ export class InSituParametersComponent implements OnInit {
   fieldColorValidatior: any;
   isDisabled: boolean = true;
 
+  @HostListener("focus") onFocus() {
+    let ele = this.el.nativeElement.querySelector('input');
+    console.log("ele", ele);
+  }
+
   constructor(
     public route: Router,
     public localStore: AppStorageService,
     public config: Config,
     public toastr: ToastsManager,
+    private el: ElementRef,
     vcr: ViewContainerRef
   ) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -100,41 +109,86 @@ export class InSituParametersComponent implements OnInit {
       this.dataEntry[this.sechiDiscComponentKey] = this.sechiDisc;
       this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     }
+
+    this.doCheckOptionValues(this.dataEntry, ["Temperature", "Conductivity", "Salinity", "pH", "Dissolved_O_", "Chlorophyll_a", "Sechi_Disc"]);
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
     //this.selectedEventType = [this.eventTypeDetails[0]];
   }
+  doCheckOptionValues(data, arr) {
+    console.log("Options Check ", data, arr);
+    for (let i = 0; i < arr.length; i++) {
+      let item = arr[i];
+      let m5, m10, m15, m20, m25, m30, m35, m40;
+      if (data.hasOwnProperty(item)) {
+        if (data[item].hasOwnProperty('bottom5m')) {
+          m5 = (data[item].bottom5m !== undefined && data[item].bottom5m !== "" && data[item].bottom5m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom10m')) {
+          m10 = (data[item].bottom10m !== undefined && data[item].bottom10m !== "" && data[item].bottom10m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom15m')) {
+          m15 = (data[item].bottom15m !== undefined && data[item].bottom15m !== "" && data[item].bottom15m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom20m')) {
+          m20 = (data[item].bottom20m !== undefined && data[item].bottom20m !== "" && data[item].bottom20m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom25m')) {
+          m25 = (data[item].bottom25m !== undefined && data[item].bottom25m !== "" && data[item].bottom25m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom30m')) {
+          m30 = (data[item].bottom30m !== undefined && data[item].bottom30m !== "" && data[item].bottom30m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom35m')) {
+          m35 = (data[item].bottom35m !== undefined && data[item].bottom35m !== "" && data[item].bottom35m !== "0") ? true : false;
+        }
+        if (data[item].hasOwnProperty('bottom40m')) {
+          m40 = (data[item].bottom40m !== undefined && data[item].bottom40m !== "" && data[item].bottom40m !== "0") ? true : false;
+        }
+      }
+      console.log("Changed at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
+      if (m5 === true) { this.optionValue.option5m = true; }
+      if (m10 === true) { this.optionValue.option10m = true; }
+      if (m15 === true) { this.optionValue.option15m = true; }
+      if (m20 === true) { this.optionValue.option20m = true; }
+      if (m25 === true) { this.optionValue.option25m = true; }
+      if (m30 === true) { this.optionValue.option30m = true; }
+      if (m35 === true) { this.optionValue.option35m = true; }
+      if (m40 === true) { this.optionValue.option40m = true; }
+      console.log("selected at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
+    }
+  }
 
-  temperatureDetailsSave(temperature){
+  temperatureDetailsSave(temperature) {
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  conductivityDetailsSave(conductivity){
+  conductivityDetailsSave(conductivity) {
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  salinityDetailsSave(salinity){
+  salinityDetailsSave(salinity) {
     this.dataEntry[this.salinityComponentKey] = salinity;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  pHDetailsSave(pH){
+  pHDetailsSave(pH) {
     this.dataEntry[this.pHComponentKey] = pH;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  dissolvedODetailsSave(dissolvedO){
+  dissolvedODetailsSave(dissolvedO) {
     this.dataEntry[this.dissolvedOComponentKey] = dissolvedO;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  Chlorophyll_aDetailsSave(Chlorophyll_a){
+  Chlorophyll_aDetailsSave(Chlorophyll_a) {
     this.dataEntry[this.chlorophyll_aComponentKey] = Chlorophyll_a;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  sechiDiscDetailsSave(sechiDisc){
+  sechiDiscDetailsSave(sechiDisc) {
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
@@ -163,9 +217,14 @@ export class InSituParametersComponent implements OnInit {
       console.log("At mwqDataQc - site-details Screen");
     }
   }
+  toastClear() {
+    $('#toast-container').find('.toast').remove();
+  }
 
   inSituTabNext(module) {
     if (module === "mwqDataEntry") {
+      //$('#toast-container').find('.toast').remove();
+      this.toastClear();
       this.route.navigate(["mwqDataEntry", "general-chemistry"]);
       console.log("At mwqDataEntry - general-chemistry Screen");
     } else {
@@ -182,48 +241,51 @@ export class InSituParametersComponent implements OnInit {
     console.log("Color Values", colorVal);
   }
 
-  checkValueThreshold(value, threshould, standDevition, maxValue) {
-    if (value > threshould) {
-      this.toastr.error(
-        "Input Value " +
-        value +
-        " More than Threshould " +
-        threshould +
-        " Value "
-      );
-    }
 
-    if (value > standDevition) {
-      this.toastr.error(
-        "Input Value " +
-        value +
-        " More than Prarmater Standard Deviation " +
-        standDevition +
-        " Value "
-      );
-    }
+checkValueThreshold(value, threshould, standDevition, maxValue) {
 
-    if (value > maxValue) {
-      this.toastr.error(
-        "Input Value " +
-        value +
-        " More than Pararmater Max " +
-        maxValue +
-        " Value "
-      );
-    }
+  if (value > threshould) {
+    this.toastr.error(
+      "Input Value " +
+      value +
+      " More than Threshould " +
+      threshould +
+      " Value "
+    );
   }
 
-  checkd5mbotoom(bottom5m) {
-    console.log("--bottom5m----" + bottom5m);
+  if (value > standDevition) {
+    this.toastr.error(
+      "Input Value " +
+      value +
+      " More than Prarmater Standard Deviation " +
+      standDevition +
+      " Value "
+    );
   }
-  openOptionModal() {
-    this.optionsModalShowWindow = true;
+
+  if (value > maxValue) {
+    this.toastr.error(
+      "Input Value " +
+      value +
+      " More than Pararmater Max " +
+      maxValue +
+      " Value "
+    );
   }
-  optionsModalClose() {
-    this.optionsModalShowWindow = false;
-  }
-  optionValueChange(form) {
-    console.log("Changed", form.value);
-  }
+}
+
+checkd5mbotoom(bottom5m) {
+  console.log("--bottom5m----" + bottom5m);
+}
+openOptionModal() {
+  this.optionsModalShowWindow = true;
+}
+optionsModalClose() {
+  this.optionsModalShowWindow = false;
+}
+optionValueChange(form) {
+  console.log("Changed", form.value);
+  // this.toastClear();
+}
 }

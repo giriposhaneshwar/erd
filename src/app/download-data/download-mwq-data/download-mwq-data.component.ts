@@ -34,6 +34,7 @@ export class DownloadMwqDataComponent implements OnInit {
   columns = [];
   selected = [];
   isDisabled: boolean = true;
+  resultArray = [];
 
   constructor(
     private pageTitleService: PageTitleService,
@@ -158,28 +159,73 @@ export class DownloadMwqDataComponent implements OnInit {
   //Adde below event function 
   onSelect(row) {
     this.selectedMwqDataDetails = row.selected;
-    if(this.selectedMwqDataDetails.length>0){
-      this.isDisabled =false;
+    if (this.selectedMwqDataDetails.length > 0) {
+
+      this.resultArray = this.selectedMwqDataDetails.map(function (elm) {
+
+        return {
+          'Site Name': elm.siteName,
+          'Temperature': elm.temperature,
+          'Conductivity': elm.conductivity,
+          'Salinity': elm.salinity,
+          'pH': elm.pH,
+          'Dissolved Oxygen': elm.dissolveOxygen,
+          'Chlorophyll': elm.chlorophyll,
+          'Sechi Disc Reading': elm.sechiDiscReading,
+          'Nitrite-N': elm.nitriteN,
+          'Nitrate-N': elm.nitrateN,
+          'Silicate-Si': elm.silicateSi,
+          'Ammonia-N': elm.ammoniaN,
+          'Phosphate-P': elm.phosphateP,
+          'BOD': elm.bod,
+          'TSS': elm.tss,
+          'Cadmium Water': elm.cadmiumWater,
+          'Chromium Water': elm.chromiumWater,
+          'Cobalt Water': elm.cobaltWater,
+          'Copper': elm.copper,
+          'Lead': elm.lead,
+          'Manganese': elm.manganese,
+          'Nickel': elm.nickel,
+          'Zinc': elm.zinc,
+          'Iron': elm.iron,
+          'Mercury': elm.mercury,
+          'Cadmium Sediment': elm.cadmiumSediment,
+          'Cobalt Sediment': elm.cobaltSediment,
+          'Chromium Sediment': elm.chromiumSediment,
+          'Lead Sediment': elm.leadSediment,
+          'Copper Sediment': elm.copperSediment,
+          'Nickel Sediment': elm.nickelSediment,
+          'Manganese Sediment': elm.manganeseSediment,
+          'Zinc Sediment': elm.zincSediment,
+          'Iron Sediment': elm.ironSediment,
+          'Mercury Sediment': elm.mercurySediment,
+          'PCB Sediment': elm.pcbSediment,
+          'TPH Sediment': elm.tphSediment,
+          'Total Coliform': elm.totalColiform,
+          'Fecal Coliform': elm.fecalColiform,
+          'Enterococci': elm.enterococci,
+          'Created Date': elm.createdDate
+        };
+      });
+      this.isDisabled = false;
     }
-    else{
-      this.isDisabled =true;
+    else {
+      this.isDisabled = true;
     }
   }
 
   exportAsXLSX(): void {
-    console.log(this.selectedMwqDataDetails.length);
-    if(this.selectedMwqDataDetails.length>0)
-    {
-      this.excelService.exportAsExcelFile(this.selectedMwqDataDetails, 'MWQ_Data');
+    console.log(this.resultArray.length);
+    if (this.resultArray.length > 0) {
+      this.excelService.exportAsExcelFile(this.resultArray, 'MWQ_Data');
     }
-    else{
+    else {
       this.toastr.error("To Export the data, Please check any of the record");
     }
   }
 
   dateForamt() {
     this.dateval = moment().format('YYYY-MM-DD'); // Gets today's date
-    console.log("-------todayDate---------", this.dateval)
   }
 
   dateRangeValidate(dt, field) {
