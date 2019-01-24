@@ -36,7 +36,7 @@
                 fieldColorValidatior.PCB.prarmaterStandDevition,fieldColorValidatior.PCB.prarmaterMax)"
                 (input)="oc_totalPhospDetailsSave(oc_totalPhosp)"
                 name="oc_totalPhospSurfaceValue" [(ngModel)]="oc_totalPhosp.surfaceValue" #oc_totalPhospSurfaceValue="ngModel"
-                required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()"  required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Phosp"
               [threshold]="fieldColorValidatior.PCB.prarmaterThreshold"></div>
@@ -79,7 +79,7 @@
               fieldColorValidatior.TPH.prarmaterStandDevition,fieldColorValidatior.TPH.prarmaterMax)"
               (click)="oc_tphDetailsSave(oc_tph)"
                 autocomplete="off" name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel"
-                required OnlyNumber="true" />
+                (focus)="toastClear()"  required OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TPH" [threshold]="fieldColorValidatior.TPH.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-15 text-center">

@@ -44,7 +44,7 @@
                     fieldColorValidatior.Cadmium_Water.prarmaterStandDevition,
                     fieldColorValidatior.Cadmium_Water.prarmaterMax)"
                 (input)="iocw_cadmiumDetailsSave(iocw_cadmium)" name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue"
-                #iocw_cadmiumSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" #iocw_cadmiumSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Water"
               [threshold]="fieldColorValidatior.Cadmium_Water.prarmaterThreshold"></div>
@@ -79,7 +79,7 @@
                   fieldColorValidatior.Chromium_Water.prarmaterStandDevition,fieldColorValidatior.Chromium_Water.prarmaterMax)"
                 (input)="iocw_chromiumDetailsSave(iocw_chromium)" autocomplete="off" name="iocw_chromiumSurfaceValue"
                 [(ngModel)]="iocw_chromium.surfaceValue" #iocw_chromiumSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumSurfaceValue.invalid }"
-                required OnlyNumber="true" />
+                (focus)="toastClear()" required OnlyNumber="true" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Water"
@@ -115,7 +115,7 @@
                   fieldColorValidatior.Cobalt_Water.prarmaterStandDevition,fieldColorValidatior.Cobalt_Water.prarmaterMax)"
                 (input)="iocw_cobaltDetailsSave(iocw_cobalt)" autocomplete="off" name="iocw_cobaltSurfaceValue"
                 [(ngModel)]="iocw_cobalt.surfaceValue" #iocw_cobaltSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltSurfaceValue.invalid }"
-                required OnlyNumber="true" />
+                (focus)="toastClear()" required OnlyNumber="true" />
             </div>
             <!--  <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -152,7 +152,7 @@
                 (keyup)="checkValueThreshold(iocw_copper.surfaceValue, fieldColorValidatior.Copper_Water.prarmaterThreshold,
                   fieldColorValidatior.Copper_Water.prarmaterStandDevition,fieldColorValidatior.Copper_Water.prarmaterMax)"
                 (input)="iocw_copperDetailsSave(iocw_copper)" autocomplete="off" name="iocw_copperSurfaceValue"
-                [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel" required OnlyNumber="true" />
+                (focus)="toastClear()" [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -189,7 +189,7 @@
                 (keyup)="checkValueThreshold(iocw_lead.surfaceValue, fieldColorValidatior.Lead_Water.prarmaterThreshold,
                   fieldColorValidatior.Lead_Water.prarmaterStandDevition,fieldColorValidatior.Lead_Water.prarmaterMax)"
                 (input)="iocw_leadDetailsSave(iocw_lead)" autocomplete="off" name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue"
-                #iocw_leadSurfaceValue="ngModel" required OnlyNumber="true" />
+                (focus)="toastClear()" #iocw_leadSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Water"
@@ -224,7 +224,7 @@
                 (keyup)="checkValueThreshold(iocw_manganese.surfaceValue, fieldColorValidatior.Manganese_Water.prarmaterThreshold,
                   fieldColorValidatior.Manganese_Water.prarmaterStandDevition,fieldColorValidatior.Manganese_Water.prarmaterMax)"
                 (input)="iocw_manganeseDetailsSave(iocw_manganese)" autocomplete="off" name="iocw_manganeseSurfaceValue"
-                [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel" required OnlyNumber="true" />
+                (focus)="toastClear()" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Water"
               [threshold]="fieldColorValidatior.Manganese_Water.prarmaterThreshold"></div>
@@ -258,7 +258,7 @@
                 (keyup)="checkValueThreshold(iocw_nickel.surfaceValue, fieldColorValidatior.Nickel_Water.prarmaterThreshold,
                   fieldColorValidatior.Nickel_Water.prarmaterStandDevition,fieldColorValidatior.Nickel_Water.prarmaterMax)"
                 (input)="iocw_nickelDetailsSave(iocw_nickel)" autocomplete="off" name="iocw_nickelSurfaceValue"
-                [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel" required OnlyNumber="true" />
+                (focus)="toastClear()" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel" required OnlyNumber="true" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -296,7 +296,7 @@
                   fieldColorValidatior.Zinc_Water.prarmaterStandDevition,fieldColorValidatior.Zinc_Water.prarmaterMax)"
                 (input)="iocw_zincDetailsSave(iocw_zinc)" autocomplete="off" name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue"
                 #iocw_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincSurfaceValue.invalid }"
-                required OnlyNumber="true" />
+                (focus)="toastClear()" required OnlyNumber="true" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Water"
@@ -332,7 +332,7 @@
                   fieldColorValidatior.Iron_Water.prarmaterStandDevition,fieldColorValidatior.Iron_Water.prarmaterMax)"
                 (input)="iocw_ironDetailsSave(iocw_iron)" autocomplete="off" name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue"
                 #iocw_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironSurfaceValue.invalid }"
-                required OnlyNumber="true" />
+                (focus)="toastClear()" required OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Water"
               [threshold]="fieldColorValidatior.Iron_Water.prarmaterThreshold"></div>
@@ -367,7 +367,7 @@
                   fieldColorValidatior.Mercury_Water.prarmaterStandDevition,fieldColorValidatior.Mercury_Water.prarmaterMax)"
                 (input)="iocw_mercuryDetailsSave(iocw_mercury)" autocomplete="off" name="iocw_mercurySurfaceValue"
                 [(ngModel)]="iocw_mercury.surfaceValue" #iocw_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }"
-                required OnlyNumber="true" />
+                (focus)="toastClear()" required OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Water"
               [threshold]="fieldColorValidatior.Mercury_Water.prarmaterThreshold"></div>
@@ -422,7 +422,7 @@
                       (keyup)="checkValueThreshold(iocs_cadmium.surfaceValue, fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,
                         fieldColorValidatior.Cadmium_Sediment.prarmaterStandDevition,fieldColorValidatior.Cadmium_Sediment.prarmaterMax)"
                       (input)="iocs_cadmiumDetailsSave(iocs_cadmium)" autocomplete="off" name="iocs_cadmiumSurfaceValue"
-                      [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel" required OnlyNumber="true" />
+                      (focus)="toastClear()" [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Sediment"
                     [threshold]="fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold"></div>
@@ -456,7 +456,7 @@
                       (keyup)="checkValueThreshold(iocs_chromium.surfaceValue, fieldColorValidatior.Chromium_Sediment.prarmaterThreshold,
                         fieldColorValidatior.Chromium_Sediment.prarmaterStandDevition,fieldColorValidatior.Chromium_Sediment.prarmaterMax)"
                       (input)="iocs_chromiumDetailsSave(iocs_chromium)" autocomplete="off" name="iocs_chromiumSurfaceValue"
-                      [(ngModel)]="iocs_chromium.surfaceValue" #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" />
+                      (focus)="toastClear()" [(ngModel)]="iocs_chromium.surfaceValue" #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Sediment"
                     [threshold]="fieldColorValidatior.Chromium_Sediment.prarmaterThreshold"></div>
@@ -490,7 +490,7 @@
                       (keyup)="checkValueThreshold(iocs_cobalt.surfaceValue, fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold,
                         fieldColorValidatior.Cobalt_Sediment.prarmaterStandDevition,fieldColorValidatior.Cobalt_Sediment.prarmaterMax)"
                       (input)="iocs_cobaltDetailsSave(iocs_cobalt)" autocomplete="off" name="iocs_cobaltSurfaceValue"
-                      [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel" required OnlyNumber="true" />
+                      (focus)="toastClear()" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Sediment"
                     [threshold]="fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold"></div>
@@ -524,7 +524,7 @@
                       (keyup)="checkValueThreshold(iocs_copper.surfaceValue, fieldColorValidatior.Copper_Sediment.prarmaterThreshold,
                         fieldColorValidatior.Copper_Sediment.prarmaterStandDevition,fieldColorValidatior.Copper_Sediment.prarmaterMax)"
                       (input)="iocs_copperDetailsSave(iocs_copper)" autocomplete="off" name="iocs_copperSurfaceValue"
-                      [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel" required OnlyNumber="true" />
+                      (focus)="toastClear()" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Sediment"
                     [threshold]="fieldColorValidatior.Copper_Sediment.prarmaterThreshold"></div>
@@ -558,7 +558,7 @@
                       (keyup)="checkValueThreshold(iocs_lead.surfaceValue, fieldColorValidatior.Lead_Sediment.prarmaterThreshold,
                         fieldColorValidatior.Lead_Sediment.prarmaterStandDevition,fieldColorValidatior.Lead_Sediment.prarmaterMax)"
                       (input)="iocs_leadDetailsSave(iocs_lead)" autocomplete="off" name="iocs_leadSurfaceValue"
-                      [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel" required OnlyNumber="true" />
+                      (focus)="toastClear()" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Sediment"
                     [threshold]="fieldColorValidatior.Lead_Sediment.prarmaterThreshold"></div>
@@ -593,7 +593,7 @@
                         fieldColorValidatior.Manganese_Sediment.prarmaterStandDevition,fieldColorValidatior.Manganese_Sediment.prarmaterMax)"
                       (input)="iocs_manganeseDetailsSave(iocs_manganese)" autocomplete="off" name="iocs_manganeseSurfaceValue"
                       [(ngModel)]="iocs_manganese.surfaceValue" #iocs_manganeseSurfaceValue="ngModel" required
-                      OnlyNumber="true" />
+                      (focus)="toastClear()" OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Sediment"
                     [threshold]="fieldColorValidatior.Manganese_Sediment.prarmaterThreshold"></div>
@@ -628,7 +628,7 @@
                         fieldColorValidatior.Nickel_Sediment.prarmaterStandDevition,fieldColorValidatior.Nickel_Sediment.prarmaterMax)"
                       (input)="iocs_nickelDetailsSave(iocs_nickel)" autocomplete="off" name="iocs_nickelSurfaceValue"
                       [(ngModel)]="iocs_nickel.surfaceValue" #iocs_nickelSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelSurfaceValue.invalid }"
-                      required OnlyNumber="true" />
+                      (focus)="toastClear()" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Sediment"
                     [threshold]="fieldColorValidatior.Nickel_Sediment.prarmaterThreshold"></div>
@@ -663,7 +663,7 @@
                         fieldColorValidatior.Zinc_Sediment.prarmaterStandDevition,fieldColorValidatior.Zinc_Sediment.prarmaterMax)"
                       (input)="iocs_zincDetailsSave(iocs_zinc)" autocomplete="off" name="iocs_zincSurfaceValue"
                       [(ngModel)]="iocs_zinc.surfaceValue" #iocs_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincSurfaceValue.invalid }"
-                      required OnlyNumber="true" />
+                      (focus)="toastClear()" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Sediment"
                     [threshold]="fieldColorValidatior.Zinc_Sediment.prarmaterThreshold"></div>
@@ -698,7 +698,7 @@
                         fieldColorValidatior.Iron_Sediment.prarmaterStandDevition,fieldColorValidatior.Iron_Sediment.prarmaterMax)"
                       (input)="iocs_ironDetailsSave(iocs_iron)" autocomplete="off" name="iocs_ironSurfaceValue"
                       [(ngModel)]="iocs_iron.surfaceValue" #iocs_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironSurfaceValue.invalid }"
-                      required OnlyNumber="true" />
+                      (focus)="toastClear()" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Sediment"
                     [threshold]="fieldColorValidatior.Iron_Sediment.prarmaterThreshold"></div>
@@ -733,7 +733,7 @@
                         fieldColorValidatior.Mercury_Sediment.prarmaterStandDevition,fieldColorValidatior.Mercury_Sediment.prarmaterMax)"
                       (input)="iocs_mercuryDetailsSave(iocs_mercury)" autocomplete="off" name="iocs_mercurySurfaceValue"
                       [(ngModel)]="iocs_mercury.surfaceValue" #iocs_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercurySurfaceValue.invalid }"
-                      required OnlyNumber="true" />
+                      (focus)="toastClear()" required OnlyNumber="true" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Sediment"
                     [threshold]="fieldColorValidatior.Mercury_Sediment.prarmaterThreshold"></div>

@@ -181,4 +181,9 @@ export class MicroBiologyComponent implements OnInit {
       //  console.log("----extractionMethodDetails----", this.extractionMethodDetails);
     });
   }
+
+  toastClear() {
+    this.toastr.clearAllToasts();
+    //$('#toast-container').find('.toast').remove();
+  }
 }

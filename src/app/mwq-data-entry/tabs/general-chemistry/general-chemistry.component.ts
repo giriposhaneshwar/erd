@@ -247,13 +247,9 @@ export class GeneralChemistryComponent implements OnInit {
     }
   }
 
-  /*loaadExtractionMethodData() {
-    this.mwqDataEntryService.fetchExtractionMethodData().subscribe((resp) => {
-      this.extractionMethodResp = resp;
-      this.extractionMethodDetails = this.extractionMethodResp.getExtractionResult.MQLList;
-      console.log("----extractionMethodDetails----", this.extractionMethodDetails);
-    });
+  toastClear() {
+    this.toastr.clearAllToasts();
+    //$('#toast-container').find('.toast').remove();
   }
-*/
 
 }

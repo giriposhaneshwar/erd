@@ -46,7 +46,8 @@
                 name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" (keyup)="checkValueThreshold(totalPhosp.surfaceValue, fieldColorValidatior.TotalPhosp.prarmaterThreshold, 
                                             fieldColorValidatior.TotalPhosp.prarmaterStandDevition, 
                                             fieldColorValidatior.TotalPhosp.prarmaterMax)"
-                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" (input)="totalPhospDetailsSave(totalPhosp)" />
+                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" (input)="totalPhospDetailsSave(totalPhosp)"
+                (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -87,7 +88,7 @@
                           fieldColorValidatior.Total_Nitrogen.prarmaterStandDevition,
                           fieldColorValidatior.Total_Nitrogen.prarmaterMax)"
                 (input)="totalNitrogenDetailsSave(totalNitrogen)" required autocomplete="off" OnlyNumber="true"
-                required />
+                (focus)="toastClear()" required />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -126,7 +127,7 @@
                           fieldColorValidatior.Nitrite_N.prarmaterThreshold,
                           fieldColorValidatior.Nitrite_N.prarmaterStandDevition,
                           fieldColorValidatior.Nitrite_N.prarmaterMax)"
-                (input)="nitriteNDetailsSave(nitriteN)" required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" (input)="nitriteNDetailsSave(nitriteN)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -164,7 +165,7 @@
                   fieldColorValidatior.Nitrate_N.prarmaterThreshold,
                   fieldColorValidatior.Nitrate_N.prarmaterStandDevition,
                   fieldColorValidatior.Nitrate_N.prarmaterMax)"
-                (input)="nitrateNDetailsSave(nitrateN)" required autocomplete="off" OnlyNumber="true" />
+                  (focus)="toastClear()" (input)="nitrateNDetailsSave(nitrateN)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -203,7 +204,7 @@
                         fieldColorValidatior.Silicate_Sl.prarmaterThreshold,
                         fieldColorValidatior.Silicate_Sl.prarmaterStandDevition,
                         fieldColorValidatior.Silicate_Sl.prarmaterMax)"
-                (input)="silicateSlDetailsSave(silicateSl)" required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" (input)="silicateSlDetailsSave(silicateSl)" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -241,7 +242,7 @@
                   fieldColorValidatior.Ammonia_N.prarmaterThreshold,
                   fieldColorValidatior.Ammonia_N.prarmaterStandDevition,
                   fieldColorValidatior.Ammonia_N.prarmaterMax)"
-                (input)="ammoniaNDetailsSave(ammoniaN)" name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue"
+                (focus)="toastClear()" (input)="ammoniaNDetailsSave(ammoniaN)" name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue"
                 #ammoniaNsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -281,7 +282,7 @@
                 fieldColorValidatior.Phosphate_P.prarmaterThreshold,
                 fieldColorValidatior.Phosphate_P.prarmaterStandDevition,
                 fieldColorValidatior.Phosphate_P.prarmaterMax)"
-                (input)="phosphatePDetailsSave(phosphateP)" #phosphatePsurfaceValue="ngModel" required autocomplete="off"
+                (focus)="toastClear()" (input)="phosphatePDetailsSave(phosphateP)" #phosphatePsurfaceValue="ngModel" required autocomplete="off"
                 OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
@@ -321,7 +322,7 @@
                                             fieldColorValidatior.BOD.prarmaterThreshold,
                                             fieldColorValidatior.BOD.prarmaterStandDevition,
                                             fieldColorValidatior.BOD.prarmaterMax)"
-                (input)="bodDetailsSave(bod)" #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" (input)="bodDetailsSave(bod)" #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
@@ -357,7 +358,7 @@
                 (keyup)="checkValueThreshold(tss.surfaceValue, fieldColorValidatior.TSS.prarmaterThreshold,
                   fieldColorValidatior.TSS.prarmaterStandDevition, 
                   fieldColorValidatior.TSS.prarmaterMa)"
-                (input)="tssDetailsSave(tss)" #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" (input)="tssDetailsSave(tss)" #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L

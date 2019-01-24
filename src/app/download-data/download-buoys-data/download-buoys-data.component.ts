@@ -147,14 +147,14 @@ export class DownloadBuoysDataComponent implements OnInit {
 
         return {
           'Site Name': elm.siteName,
-          'Temparature': elm.temparature,
+          'Temperature': elm.temparature,
           'Blue Green Algae': elm.blueGreenAlgae,
           'Conductivity': elm.conductivity,
           'Battery': elm.battary,
           'CholorophyllA': elm.cholorophyllA,
           'Salinity': elm.salinity,
-          'Do SAT': elm.dosat,
-          'DO XY': elm.doxy,
+          'Dosat': elm.dosat,
+          'Doxy': elm.doxy,
           'pH': elm.ph,
           'Created Date': elm.createddate,
         };

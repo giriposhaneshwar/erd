@@ -66,7 +66,7 @@
                 (keyup)="checkValueThreshold(temperature.surfaceValue, fieldColorValidatior.Temparature.prarmaterThreshold,
                     fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
                 name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" OnlyNumber="true" required autocomplete="off"
-                (input)="temperatureDetailsSave(temperature)" />
+                (input)="temperatureDetailsSave(temperature)" (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Surface"
               [threshold]="fieldColorValidatior.Temparature.prarmaterThreshold"></div>
@@ -80,7 +80,8 @@
                 (keyup)="checkValueThreshold(temperature.bottomValue, fieldColorValidatior.Temparature.prarmaterThreshold,
                 fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
                 name="temperatureBottomVal" [(ngModel)]="temperature.bottomValue" #temperatureBottomVal="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="temperatureDetailsSave(temperature)" />
+                OnlyNumber="true" required autocomplete="off" (input)="temperatureDetailsSave(temperature)"
+                (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
@@ -124,7 +125,8 @@
                 (keyup)="checkValueThreshold(conductivity.surfaceValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
                   fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" #conductivitySurfaceVal="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="conductivityDetailsSave(conductivity)" />
+                OnlyNumber="true" required autocomplete="off" (input)="conductivityDetailsSave(conductivity)" 
+                (focus)="toastClear()"/>
 
               <!-- <span class="pad l-15">mS/gm (at Surface)</span> -->
             </div>
@@ -141,7 +143,8 @@
                 (keyup)="checkValueThreshold(conductivity.bottomValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
                   fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
                 name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" #conductivityBottomVal="ngModel"
-                required autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                required autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" 
+                (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom5m"
@@ -185,7 +188,7 @@
                 (keyup)="checkValueThreshold(salinity.surfaceValue, fieldColorValidatior.Salinity.prarmaterThreshold,
                   fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
                 autocomplete="off" name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel"
-                OnlyNumber="true" required (input)="salinityDetailsSave(salinity)" />
+                OnlyNumber="true" required (input)="salinityDetailsSave(salinity)" (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Surface"
               [threshold]="fieldColorValidatior.Salinity.prarmaterThreshold"></div>
@@ -199,7 +202,7 @@
                 (keyup)="checkValueThreshold(salinity.bottomValue, fieldColorValidatior.Salinity.prarmaterThreshold,
                     fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
                 name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required
-                OnlyNumber="true" autocomplete="off" (input)="salinityDetailsSave(salinity)" />
+                OnlyNumber="true" autocomplete="off" (input)="salinityDetailsSave(salinity)" (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="salinity.bottom5m"
@@ -236,14 +239,14 @@
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHsurfaceValue.invalid),'white': pH.surfaceValue == '','red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
                 name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required autocomplete="off"
-                OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                OnlyNumber="true" (input)="pHDetailsSave(pH)" (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Surface"
               [threshold]="50"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
                 name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required autocomplete="off"
-                OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                OnlyNumber="true" (input)="pHDetailsSave(pH)" (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="pH.bottom5m"
@@ -288,7 +291,8 @@
                 (keyup)="checkValueThreshold(dissolvedO.surfaceValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
                     fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
                 name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" />
+                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" 
+                (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Surface"
               [threshold]="fieldColorValidatior.Dissolved_O_.prarmaterThreshold"></div>
@@ -302,7 +306,8 @@
                 (keyup)="checkValueThreshold(dissolvedO.bottomValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
                     fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
                 name="dissolvedObottomValue" [(ngModel)]="dissolvedO.bottomValue" #dissolvedObottomValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" />
+                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" 
+                (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom5m"
@@ -346,7 +351,8 @@
                 (keyup)="checkValueThreshold(Chlorophyll_a.surfaceValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
                     fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aSurfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" #Chlorophyll_aSurfaceValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                OnlyNumber="true" required autocomplete="off" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"
+                (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Surface"
               [threshold]="fieldColorValidatior.Chlorophyll_a.prarmaterThreshold"></div>
@@ -360,7 +366,8 @@
                 (keyup)="checkValueThreshold(Chlorophyll_a.bottomValue , fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
                     fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
                 name="Chlorophyll_aBottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" #Chlorophyll_aBottomValue="ngModel"
-                required autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                required autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)" 
+                (focus)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom5m"
@@ -404,7 +411,8 @@
                 (keyup)="checkValueThreshold(sechiDisc.surfaceValue, fieldColorValidatior.Sechi_Disc.prarmaterThreshold,
                       fieldColorValidatior.Sechi_Disc.prarmaterStandDevition,fieldColorValidatior.Sechi_Disc.prarmaterMax)"
                 name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel"
-                autocomplete="off" required OnlyNumber="true" (input)="sechiDiscDetailsSave(sechiDisc)"/>
+                autocomplete="off" required OnlyNumber="true" (input)="sechiDiscDetailsSave(sechiDisc)"
+                (focus)="toastClear()"/>
               
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Sechi_Disc_Surface"

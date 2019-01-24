@@ -164,4 +164,9 @@ export class OrganicChemistryComponent implements OnInit {
     }
   }
 
+  toastClear() {
+    this.toastr.clearAllToasts();
+    //$('#toast-container').find('.toast').remove();
+  }
+  
 }

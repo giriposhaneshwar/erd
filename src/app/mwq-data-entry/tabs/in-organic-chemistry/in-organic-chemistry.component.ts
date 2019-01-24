@@ -358,4 +358,9 @@ export class InOrganicChemistryComponent implements OnInit {
     });
   }
 
+  toastClear() {
+    this.toastr.clearAllToasts();
+    //$('#toast-container').find('.toast').remove();
+  }
+
 }

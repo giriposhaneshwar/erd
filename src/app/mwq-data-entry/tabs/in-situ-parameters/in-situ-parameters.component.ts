@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef, HostListener, ElementRef } from "@
 import { Router } from "@angular/router";
 import { AppStorageService } from "app/appConfiguration/app-config.service";
 import { Config } from "app/appConfiguration/config";
-import { ToastsManager } from "ng6-toastr";
+import { ToastsManager, Toast } from "ng6-toastr";
 import { $$iterator } from "rxjs/internal/symbol/iterator";
 import * as $ from 'jquery';
 declare var $;
@@ -145,7 +145,7 @@ export class InSituParametersComponent implements OnInit {
           m40 = (data[item].bottom40m !== undefined && data[item].bottom40m !== "" && data[item].bottom40m !== "0") ? true : false;
         }
       }
-      console.log("Changed at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
+      //console.log("Changed at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
       if (m5 === true) { this.optionValue.option5m = true; }
       if (m10 === true) { this.optionValue.option10m = true; }
       if (m15 === true) { this.optionValue.option15m = true; }
@@ -154,7 +154,7 @@ export class InSituParametersComponent implements OnInit {
       if (m30 === true) { this.optionValue.option30m = true; }
       if (m35 === true) { this.optionValue.option35m = true; }
       if (m40 === true) { this.optionValue.option40m = true; }
-      console.log("selected at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
+      //console.log("selected at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
     }
   }
 
@@ -217,13 +217,14 @@ export class InSituParametersComponent implements OnInit {
       console.log("At mwqDataQc - site-details Screen");
     }
   }
+
   toastClear() {
-    $('#toast-container').find('.toast').remove();
+    this.toastr.clearAllToasts();
+    //$('#toast-container').find('.toast').remove();
   }
 
   inSituTabNext(module) {
     if (module === "mwqDataEntry") {
-      //$('#toast-container').find('.toast').remove();
       this.toastClear();
       this.route.navigate(["mwqDataEntry", "general-chemistry"]);
       console.log("At mwqDataEntry - general-chemistry Screen");
@@ -240,7 +241,6 @@ export class InSituParametersComponent implements OnInit {
     }
     console.log("Color Values", colorVal);
   }
-
 
 checkValueThreshold(value, threshould, standDevition, maxValue) {
 
