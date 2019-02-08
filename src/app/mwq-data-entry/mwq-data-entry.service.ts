@@ -50,8 +50,8 @@ export class MwqDataEntryService {
     let bodyParams = {};
     let headers_value = new HttpHeaders();
     headers_value = headers_value.set("Content-Type", "application/json");
-    return this.http.post<any[]>(this.apiUrl + "/GetparamatersValdationValues", bodyParams, { headers: headers_value })
-    //return this.http.get<any[]>(this.jsonapiUrl + "GetparamatersValdationValues.json").pipe(map(data => data));
+    //return this.http.post<any[]>(this.apiUrl + "/GetparamatersValdationValues", bodyParams, { headers: headers_value })
+    return this.http.get<any[]>(this.jsonapiUrl + "GetparamatersValdationValues.json").pipe(map(data => data));
   }
 
   fetchSiteNameData(): Observable<any[]> {

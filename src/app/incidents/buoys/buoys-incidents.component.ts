@@ -47,24 +47,29 @@ export class BuoysIncidentsComponent implements OnInit {
     { name: 'Incident Severity' }
   ];
   statusOpen = [
-    { id: "Open", name: "Open" },
+    //{ id: "Open", name: "Open" },
     { id: "In Progress", name: "In Progress" },
     { id: "Closed", name: "Closed" }
   ];
 
   statusInProgress = [
-    { id: "In Progress", name: "In Progress" },
+    //{ id: "In Progress", name: "In Progress" },
     { id: "Fixed", name: "Fixed" }
   ];
 
   statusFixed = [
-    { id: "Fixed", name: "Fixed" },
-    { id: "Closed", name: "Closed" }
+    { id: "Closed", name: "Closed" },
+    { id: "ReOpen", name: "ReOpen" }
   ];
 
   statusClosed = [
-    { id: "Re-Open", name: "Re-Open" },
+    { id: "ReOpen", name: "ReOpen" },
     { id: "Closed", name: "Closed" }
+  ];
+
+  statusReOpen = [
+    { id: "Closed", name: "Closed" },
+    { id: "Fixed", name: "Fixed" }
   ];
 
   statusTemp = [];
@@ -84,10 +89,23 @@ export class BuoysIncidentsComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vcr);
     this.dateForamt();
   }
-  onOptionsSelected(statusSelectedValue) {
-    console.log("---" + statusSelectedValue);
 
+  onOptionsSelected(statusSelectedValue, buoysIncidentRemarks: HTMLInputElement, buoysIncidentRemarksBtn:HTMLInputElement) {
+   // console.log("---" + statusSelectedValue + "buoysIncidentRemarks----" + buoysIncidentRemarks);
+    if (statusSelectedValue === 'Closed' || statusSelectedValue === 'ReOpen' || 
+        statusSelectedValue === 'In Progress' || statusSelectedValue === 'Fixed') {
+      if (buoysIncidentRemarks != null) {
+        buoysIncidentRemarks.disabled = false;
+        buoysIncidentRemarksBtn.disabled = false;
+      }
+    }
+    else {
+      buoysIncidentRemarks.disabled = true;
+      buoysIncidentRemarksBtn.disabled = true;
+    }
   }
+
+
   ngOnInit() {
     this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
     this.toDate = moment().format("YYYY-MM-DD");
@@ -131,16 +149,16 @@ export class BuoysIncidentsComponent implements OnInit {
 
   /* Fetcb BUOYS Incidents from Database with the User input dates */
   loadBuoysIncidentsData(fromDate, toDate): void {
-    console.log(fromDate, toDate);
+    //console.log(fromDate, toDate);
     if (fromDate !== undefined && toDate !== undefined) {
       if (this.isValidDate(fromDate) && this.isValidDate(toDate)) {
         this.incidentsService.getBuoysIncidentData(fromDate, toDate).subscribe((resp) => {
           this.buoysIncidentResp = resp;
           this.buoysIncidentDetails = this.buoysIncidentResp.getIncidentsResult.IncidentsList;
           this.buoysIncidentResultStatus = this.buoysIncidentResp.getIncidentsResult.Status;
-          console.log(this.buoysIncidentResultStatus,
+         /*  console.log(this.buoysIncidentResultStatus,
             this.buoysIncidentResp.getIncidentsResult.IncidentsList.length,
-            this.buoysIncidentResp.getIncidentsResult.Message);
+            this.buoysIncidentResp.getIncidentsResult.Message); */
 
           if (this.buoysIncidentResultStatus === 'Success') {
             if (this.buoysIncidentDetails.length > 0) {
@@ -156,22 +174,27 @@ export class BuoysIncidentsComponent implements OnInit {
                     this.buyosStatus = formValue[0].status;
                     this.buyosSelectedId = formValue[0].incidentId;
 
-                    console.log("--------------" + this.selectedValue[0].status);
+                   // console.log("--------------" + this.selectedValue[0].status);
                     if (this.selectedValue[0].status === "Open") {
-                      console.log("------buyosStatus--------" + this.selectedValue[0].status);
+                      //console.log("------buyosStatus--------" + this.selectedValue[0].status);
                       this.statusTemp = this.statusOpen;
                     }
                     else if (this.selectedValue[0].status === "In Progress") {
-                      console.log("------buyosStatus--------" + this.selectedValue[0].status);
+                      
                       this.statusTemp = this.statusInProgress;
+                      console.log("------buyosStatus--------" + this.statusTemp);
                     }
                     else if (this.selectedValue[0].status === "Fixed") {
-                      console.log("------buyosStatus--------" + this.selectedValue[0].status);
+                     // console.log("------buyosStatus--------" + this.selectedValue[0].status);
                       this.statusTemp = this.statusFixed;
                     }
                     else if (this.selectedValue[0].status === "Closed") {
-                      console.log("------buyosStatus--------" + this.selectedValue[0].status);
+                      //console.log("------buyosStatus--------" + this.selectedValue[0].status);
                       this.statusTemp = this.statusClosed;
+                    }
+                    else if (this.selectedValue[0].status === "ReOpen") {
+                      //console.log("------buyosStatus--------" + this.selectedValue[0].status);
+                      this.statusTemp = this.statusReOpen;
                     }
 
                     this.fetchIncidentHistoryDetails(this.buyosSelectedId);
@@ -214,7 +237,7 @@ export class BuoysIncidentsComponent implements OnInit {
             }
           }
           else if (this.buoysIncidentResultStatus === 'Failed') {
-            console.log("Error occured");
+            //console.log("Error occured");
             this.buoysIncidentResultStatusMessage = this.buoysIncidentResp.getIncidentsResult.Message;
             this.buoysIncidentDetails = [];
             this.spinner.hide();
@@ -222,7 +245,7 @@ export class BuoysIncidentsComponent implements OnInit {
           this.spinner.hide();
         });
       } else {
-        console.log("In Valid Dates");
+       // console.log("In Valid Dates");
         // this.toastr.error("From Date & To Date is mandatory fields, Please provide the valid input.");
         this.buoysIncidentResultStatusMessage = "From Date & To Date is mandatory fields. Please provide the valid input.";
         this.buoysIncidentDetails = [];
@@ -230,7 +253,7 @@ export class BuoysIncidentsComponent implements OnInit {
       }
     }
     else {
-      console.log("Dates are empty");
+      //console.log("Dates are empty");
       this.toastr.error("From Date & Todate is mandatory");
       this.buoysIncidentResultStatusMessage = "From Date & Todate is mandatory, Please provide the valid input for From Date & To Date";
       this.buoysIncidentDetails = [];
@@ -238,14 +261,14 @@ export class BuoysIncidentsComponent implements OnInit {
     }
   }
 
-  onSelect({ selected }) {
+  onSelect({ selected }, buoysIncidentRemarks: HTMLInputElement, buoysIncidentRemarksBtn:HTMLInputElement) {
     let selectedIncidentId = selected[0].incidentId;
     this.buyosStatus = selected[0].status;
     this.buyosSelectedId = selectedIncidentId;
 
     //console.log("--------------" + this.selectedValue[0].status);
     if (this.selectedValue[0].status === "Open") {
-     // console.log("------buyosStatus--------" + this.selectedValue[0].status);
+      // console.log("------buyosStatus--------" + this.selectedValue[0].status);
       this.statusTemp = this.statusOpen;
     }
     else if (this.selectedValue[0].status === "In Progress") {
@@ -253,12 +276,22 @@ export class BuoysIncidentsComponent implements OnInit {
       this.statusTemp = this.statusInProgress;
     }
     else if (this.selectedValue[0].status === "Fixed") {
-     // console.log("------buyosStatus--------" + this.selectedValue[0].status);
+      // console.log("------buyosStatus--------" + this.selectedValue[0].status);
       this.statusTemp = this.statusFixed;
+      buoysIncidentRemarks.disabled = true;
+      buoysIncidentRemarksBtn.disabled = true;
     }
     else if (this.selectedValue[0].status === "Closed") {
-     // console.log("------buyosStatus--------" + this.selectedValue[0].status);
+      debugger;
+      // console.log("------buyosStatus--------" + this.selectedValue[0].status);
       this.statusTemp = this.statusClosed;
+      (<HTMLInputElement>document.getElementById('buoysIncidentRemarks')).disabled = true;
+      (<HTMLInputElement>document.getElementById('buoysIncidentRemarksBtn')).disabled = true;
+      //buoysIncidentRemarksBtn.disabled = true;
+    }
+    else if (this.selectedValue[0].status === "ReOpen") {
+      // console.log("------buyosStatus--------" + this.selectedValue[0].status);
+      this.statusTemp = this.statusReOpen;
     }
 
     console.log('Select Event', selectedIncidentId);
@@ -269,7 +302,7 @@ export class BuoysIncidentsComponent implements OnInit {
     this.incidentsService.getBuoysIncidentHistoryInfo(selectedIncidentId).subscribe((resp) => {
       this.buoysIncidentHistoryResp = resp;
       this.buoysIncidentHistoryDetails = this.buoysIncidentHistoryResp.GetIncidentHistoryResult.incidentHistory;
-     // console.log("----buoysIncidentHistoryDetails----", this.buoysIncidentHistoryDetails);
+      // console.log("----buoysIncidentHistoryDetails----", this.buoysIncidentHistoryDetails);
     });
   }
   onActivate(event) {
@@ -289,7 +322,7 @@ export class BuoysIncidentsComponent implements OnInit {
   }
 
   updateIncident(selIncident) {
-    console.log("--Selected Incident to update--" + (JSON.stringify(selIncident)));
+    //console.log("--Selected Incident to update--" + (JSON.stringify(selIncident)));
     let selectedIncidentId = selIncident.incidentId;
     let incUpdatedBy = "Admin";
     let incStatus = selIncident.status;
@@ -299,19 +332,24 @@ export class BuoysIncidentsComponent implements OnInit {
     this.buyosSelectedId = selIncident.incidentId;
 
     console.log(selectedIncidentId, incUpdatedBy, incStatus, incComments);
-    this.incidentsService.updateBuoysIncidentInfo(selectedIncidentId, incUpdatedBy, incStatus, incComments).subscribe((resp) => {
-      // this.buyosSelectedId = resp.IncidentStatusUpdateResult.;
-      this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
-      this.toDate = moment().format("YYYY-MM-DD");
-      console.log(" Last Three Months " + this.fromDate + " Current Day ", "----" + this.toDate);
+    if (incComments) {
+      this.incidentsService.updateBuoysIncidentInfo(selectedIncidentId, incUpdatedBy, incStatus, incComments).subscribe((resp) => {
+        // this.buyosSelectedId = resp.IncidentStatusUpdateResult.;
+        this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
+        this.toDate = moment().format("YYYY-MM-DD");
+        //console.log(" Last Three Months " + this.fromDate + " Current Day ", "----" + this.toDate);
 
-      this.loadBuoysIncidentsData(this.fromDate, this.toDate);
-      this.buoysIncidentUpdateResp = resp;
-      this.buoysIncidentUpdateDetails = this.buoysIncidentUpdateResp.IncidentStatusUpdateResult;
-      console.log("----buoysIncidentUpdateDetails----", this.buoysIncidentUpdateDetails);
+        this.loadBuoysIncidentsData(this.fromDate, this.toDate);
+        this.buoysIncidentUpdateResp = resp;
+        this.buoysIncidentUpdateDetails = this.buoysIncidentUpdateResp.IncidentStatusUpdateResult;
+        //console.log("----buoysIncidentUpdateDetails----", this.buoysIncidentUpdateDetails);
 
-      this.toastr.success(this.buoysIncidentUpdateResp.IncidentStatusUpdateResult, "Record Updated Successfully");
-    });
+        this.toastr.success(this.buoysIncidentUpdateResp.IncidentStatusUpdateResult, "Record Updated Successfully");
+      });
+    }
+    else {
+      this.toastr.error("Please Enter Remarks");
+    }
   }
 
 

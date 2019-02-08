@@ -30,6 +30,7 @@ export class CustomOption extends ToastOptions {
   showCloseButton = true;
   enableHTML = true;
   dismiss = "click";
+  maxOpened = 1;
 }
 
 @NgModule({

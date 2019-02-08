@@ -53,7 +53,7 @@
         <div class="table-responsive">
           <ngx-datatable #table class="material sorting customTable" [rows]="buoysIncidentDetails" [columnMode]="'standard'"
             [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35" [limit]="5" [selected]="selectedValue"
-            [selectionType]="'single'" (select)='onSelect($event)'>
+            [selectionType]="'single'" (select)='onSelect($event,buoysIncidentRemarks,buoysIncidentRemarksBtn)'>
             <ngx-datatable-column name="Severity" [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 <i class="fa fa-arrow-up " [ngClass]="{'text-success mr-2': value=== 'Low',
@@ -142,8 +142,12 @@
                 </select> -->
                 <!-- <select class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)'> -->
                 <select class="form-control" [disabled]="buyosStatus === 'Closed'" [(ngModel)]="selectedValue[0].status"
-                  (ngModelChange)='onOptionsSelected($event)'>
-                  <option value="" disabled selected hidden>Select Status</option>
+                  (ngModelChange)='onOptionsSelected($event,buoysIncidentRemarks,buoysIncidentRemarksBtn)'>
+                  <option value="Open" disabled selected hidden>Open</option>
+                  <option value="Fixed" disabled selected hidden>Fixed</option>
+                  <option value="Closed" disabled selected hidden>Closed</option>
+                  <option value="ReOpen" disabled selected hidden>ReOpen</option>
+                  <option value="In Progress" disabled selected hidden>In Progress</option>
                   <option *ngFor='let staOpen of statusTemp' [value]="staOpen.name">{{staOpen.name}}</option>
                 </select>
               </td>
@@ -152,15 +156,18 @@
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0">Remarks</td>
               <td class="ng-tns-c6-0">
-                <textarea class="form-control" [disabled]="buyosStatus === 'Closed'" id="exampleTextarea" rows="3"
-                  [(ngModel)]="selectedValue[0].remarks"></textarea>
+                <textarea class="form-control" [disabled]="buyosStatus === 'Fixed' || buyosStatus ==='Closed'" id="buoysIncidentRemarks" rows="3"
+                  [(ngModel)]="selectedValue[0].remarks" #buoysIncidentRemarks></textarea>
+
+                 <!--  <textarea class="form-control" id="buoysIncidentRemarks" rows="3"
+                  [(ngModel)]="selectedValue[0].remarks" #buoysIncidentRemarks></textarea> -->
               </td>
             </tr>
             <tr class="ng-tns-c6-0">
               <td class="ng-tns-c6-0" colspan="2">
                 <div class="text-center" style="margin-bottom: 2em;">
-                  <button class="btn btn-primary" (click)="updateIncident(selectedValue[0])" [disabled]="buyosStatus ==='Closed'">Update
-                    Incident</button>
+                  <button class="btn btn-primary" (click)="updateIncident(selectedValue[0])" id="buoysIncidentRemarksBtn" 
+                    #buoysIncidentRemarksBtn [disabled]="buyosStatus ==='Fixed' || buyosStatus ==='Closed'">Update Incident</button>
                 </div>
               </td>
             </tr>
@@ -169,6 +176,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-6 col-full buoysIncident" widget *ngIf="buoysIncidentDetails.length > 0">
     <div class="silk-card border-success pb-0 buoysIncidentList" [ngStyle]="{height: incidentListSizeReset()+'px'}">

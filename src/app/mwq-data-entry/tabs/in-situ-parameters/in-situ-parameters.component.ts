@@ -5,6 +5,8 @@ import { Config } from "app/appConfiguration/config";
 import { ToastsManager, Toast } from "ng6-toastr";
 import { $$iterator } from "rxjs/internal/symbol/iterator";
 import * as $ from 'jquery';
+import * as d3 from "d3";
+import { d } from "@angular/core/src/render3";
 declare var $;
 
 @Component({
@@ -49,6 +51,13 @@ export class InSituParametersComponent implements OnInit {
   fieldColorValidatior: any;
   isDisabled: boolean = true;
 
+  tempBottomGraphData: any;
+  condBottomGraphData: any;
+  saliBottomGraphData: any;
+  phBottomGraphData: any;
+  dissBottomGraphData: any;
+  chloBottomGraphData: any;
+
   @HostListener("focus") onFocus() {
     let ele = this.el.nativeElement.querySelector('input');
     console.log("ele", ele);
@@ -75,6 +84,12 @@ export class InSituParametersComponent implements OnInit {
     let insituParamsgraphData = this.localStore.store.get("graphData");
     this.graphData = insituParamsgraphData.data.insituParams;
     console.log("-----insituParams----------" + this.graphData);
+
+    /* setInterval( () => {
+      let newVal = Math.floor(Math.random() * 100) +1;
+      this.graphData.Temparature_Bottom[1] = newVal;
+      this.graphData.Temparature_Bottom[3] = newVal;
+    }, 2000); */
 
     if (localData.status == "success") {
       this.dataEntry = localData.data;
@@ -158,43 +173,55 @@ export class InSituParametersComponent implements OnInit {
     }
   }
 
-  temperatureDetailsSave(temperature) {
+  temperatureDetailsSave(temperature, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  conductivityDetailsSave(conductivity) {
+  conductivityDetailsSave(conductivity, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  salinityDetailsSave(salinity) {
+  salinityDetailsSave(salinity, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.salinityComponentKey] = salinity;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  pHDetailsSave(pH) {
+  pHDetailsSave(pH, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.pHComponentKey] = pH;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  dissolvedODetailsSave(dissolvedO) {
+  dissolvedODetailsSave(dissolvedO, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.dissolvedOComponentKey] = dissolvedO;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  Chlorophyll_aDetailsSave(Chlorophyll_a) {
+  Chlorophyll_aDetailsSave(Chlorophyll_a, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.chlorophyll_aComponentKey] = Chlorophyll_a;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  sechiDiscDetailsSave(sechiDisc) {
+  sechiDiscDetailsSave(sechiDisc, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.sechiDiscComponentKey] = sechiDisc;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
 
   insituDetailsSave(temperature, conductivity, salinity, pH, dissolvedO, Chlorophyll_a, sechiDisc) {
+    this.toastr.clearAllToasts();
+
     this.dataEntry[this.temperatureComponentKey] = temperature;
     this.dataEntry[this.conductivityComponentKey] = conductivity;
     this.dataEntry[this.salinityComponentKey] = salinity;
@@ -223,6 +250,138 @@ export class InSituParametersComponent implements OnInit {
     //$('#toast-container').find('.toast').remove();
   }
 
+
+  insituTemparatureGraphDataGenrate(graphData, thereshold, graphName) {
+    if (this.tempBottomGraphData === undefined) {
+      this.tempBottomGraphData = this.graphData.Temparature_Bottom;
+      console.log("-----tempBottomGraphData-----" + this.tempBottomGraphData);
+    }
+    if (graphName === 'Temparature_Bottom') {
+      this.graphData.Temparature_Bottom = this.tempBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.tempBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.Temparature_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.tempBottomGraphData);
+    }
+  }
+
+  insituConductivityGraphDataGenrate(graphData, thereshold,graphName) {
+
+   /*  console.log(graphData, thereshold);
+    let tempGraphData = this.graphData;
+    this.graphData = tempGraphData;
+    this.graphData.Conductivity_Bottom = graphData; */
+    if (this.condBottomGraphData === undefined) {
+      this.condBottomGraphData = this.graphData.Conductivity_Bottom;
+      console.log("-----condBottomGraphData-----" + this.condBottomGraphData);
+    }
+    if (graphName === 'Conductivity_Bottom') {
+      this.graphData.Conductivity_Bottom = this.condBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.condBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.Conductivity_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.condBottomGraphData);
+    }
+  }
+
+  insituSalinityGraphDataGenrate(graphData, thereshold,graphName) {
+   /*  this.toastr.clearAllToasts();
+    //this.graphData.Temparature_Bottom = graphData;
+    let tempGraphData = this.graphData;
+    this.graphData = tempGraphData;
+    this.graphData.Salinity_Bottom = graphData; */
+
+    if (this.saliBottomGraphData === undefined) {
+      this.saliBottomGraphData = this.graphData.Salinity_Bottom;
+      console.log("-----saliBottomGraphData-----" + this.saliBottomGraphData);
+    }
+    if (graphName === 'Salinity_Bottom') {
+      this.graphData.Salinity_Bottom = this.saliBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.saliBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.Salinity_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.saliBottomGraphData);
+    }
+  }
+
+  insituinsitupHGraphDataGenrate(graphData, thereshold,graphName) {
+/*     this.toastr.clearAllToasts();
+    //this.graphData.Temparature_Bottom = graphData;
+    let tempGraphData = this.graphData;
+    this.graphData = tempGraphData;
+    this.graphData.pH_Bottom = graphData; */
+
+    if (this.phBottomGraphData === undefined) {
+      this.phBottomGraphData = this.graphData.pH_Bottom;
+      console.log("-----phBottomGraphData-----" + this.phBottomGraphData);
+    }
+    if (graphName === 'pH_Bottom') {
+      this.graphData.pH_Bottom = this.phBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.phBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.pH_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.phBottomGraphData);
+    }
+  }
+
+  insituinsituDissolved_O_GraphDataGenrate(graphData, thereshold,graphName) {
+/*     this.toastr.clearAllToasts();
+    //this.graphData.Temparature_Bottom = graphData;
+    let tempGraphData = this.graphData;
+    this.graphData = tempGraphData;
+    this.graphData.Dissolved_O_Bottom = graphData; */
+
+    if (this.dissBottomGraphData === undefined) {
+      this.dissBottomGraphData = this.graphData.Dissolved_O_Bottom;
+      console.log("-----dissBottomGraphData-----" + this.dissBottomGraphData);
+    }
+    if (graphName === 'Dissolved_O_Bottom') {
+      this.graphData.Dissolved_O_Bottom = this.dissBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.dissBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.Dissolved_O_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.dissBottomGraphData);
+    }
+  }
+
+  insituinsituChlorophyll_aGraphDataGenrate(graphData, thereshold,graphName) {
+  /*   this.toastr.clearAllToasts();
+    //this.graphData.Temparature_Bottom = graphData;
+    let tempGraphData = this.graphData;
+    this.graphData = tempGraphData;
+    this.graphData.Chlorophyll_a_Bottom = graphData; */
+
+    if (this.chloBottomGraphData === undefined) {
+      this.chloBottomGraphData = this.graphData.Chlorophyll_a_Bottom;
+      console.log("-----chloBottomGraphData-----" + this.chloBottomGraphData);
+    }
+    if (graphName === 'Chlorophyll_a_Bottom') {
+      this.graphData.Chlorophyll_a_Bottom = this.chloBottomGraphData
+      //console.log("-----IF-----" + graphData, thereshold, graphName, this.chloBottomGraphData);
+    }
+    else {
+      let tempGraphData = this.graphData;
+      this.graphData = tempGraphData;
+      this.graphData.Chlorophyll_a_Bottom = graphData;
+      //console.log("-----ELSE-----" + graphData, thereshold, graphName, this.chloBottomGraphData);
+    }
+  }
+
   inSituTabNext(module) {
     if (module === "mwqDataEntry") {
       this.toastClear();
@@ -242,50 +401,101 @@ export class InSituParametersComponent implements OnInit {
     console.log("Color Values", colorVal);
   }
 
-checkValueThreshold(value, threshould, standDevition, maxValue) {
+  checkValueThreshold(value, threshould, standDevition, maxValue) {
 
-  if (value > threshould) {
-    this.toastr.error(
-      "Input Value " +
-      value +
-      " More than Threshould " +
-      threshould +
-      " Value "
-    );
+    if (value > threshould) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Threshold " +
+        threshould +
+        " Value "
+      );
+    }
+
+    if (value > standDevition) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Standard Deviation " +
+        standDevition +
+        " Value "
+      );
+    }
+
+    if (value > maxValue) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Max " +
+        maxValue +
+        " Value "
+      );
+    }
   }
 
-  if (value > standDevition) {
-    this.toastr.error(
-      "Input Value " +
-      value +
-      " More than Prarmater Standard Deviation " +
-      standDevition +
-      " Value "
-    );
+  checkd5mbotoom(bottom5m) {
+    console.log("--bottom5m----" + bottom5m);
+  }
+  openOptionModal() {
+    this.optionsModalShowWindow = true;
+  }
+  optionsModalClose() {
+    this.optionsModalShowWindow = false;
+  }
+  optionValueChange(form) {
+    console.log("Changed", form.value);
+    // this.toastClear();
   }
 
-  if (value > maxValue) {
-    this.toastr.error(
-      "Input Value " +
-      value +
-      " More than Pararmater Max " +
-      maxValue +
-      " Value "
-    );
-  }
-}
 
-checkd5mbotoom(bottom5m) {
-  console.log("--bottom5m----" + bottom5m);
-}
-openOptionModal() {
-  this.optionsModalShowWindow = true;
-}
-optionsModalClose() {
-  this.optionsModalShowWindow = false;
-}
-optionValueChange(form) {
-  console.log("Changed", form.value);
-  // this.toastClear();
-}
+  checkValueThresholdNew(value, meanValue, threshould, standDevition, rangeMaxValue) {
+
+    // console.log(value, minValue, maxValue, meanValue, threshould, standDevition);
+    if (value > threshould) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Threshold " +
+        threshould +
+        " Value "
+      );
+    }
+
+    if (value > standDevition) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Standard Deviation " +
+        standDevition +
+        " Value "
+      );
+    }
+
+    if (value > rangeMaxValue) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " Parameter Out of range " +
+        rangeMaxValue +
+        " Value "
+      );
+    }
+
+    if (value < meanValue) {
+      
+      //this.toastClear();
+//debugger;
+//console.log(this.toastr.index);
+      this.toastr.warning(
+        "Input Value " +
+        value +
+        " Less than Parameter Mean " +
+        meanValue +
+        " Value "
+      );
+      
+    }
+
+  }
 }

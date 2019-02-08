@@ -35,22 +35,27 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_cadmiumSurfaceValue.invalid),
                               'white': iocw_cadmium.surfaceValue == '',
-                              'orange': iocw_cadmium.surfaceValue <= fieldColorValidatior.Cadmium_Water.prarmaterMean, 
-                              'green': iocw_cadmium.surfaceValue <= fieldColorValidatior.Cadmium_Water.prarmaterMax 
-                                     && iocw_cadmium.surfaceValue >= fieldColorValidatior.Cadmium_Water.prarmaterMean, 
-                              'red': iocw_cadmium.surfaceValue >= fieldColorValidatior.Cadmium_Water.prarmaterMax }"
-                (keyup)="checkValueThreshold(iocw_cadmium.surfaceValue, 
-                    fieldColorValidatior.Cadmium_Water.prarmaterThreshold,
-                    fieldColorValidatior.Cadmium_Water.prarmaterStandDevition,
-                    fieldColorValidatior.Cadmium_Water.prarmaterMax)"
-                (input)="iocw_cadmiumDetailsSave(iocw_cadmium)" name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue"
-                (focus)="toastClear()" #iocw_cadmiumSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                              'orange': (iocw_cadmium.surfaceValue  > fieldColorValidatior.Cadmium_Water.prarmaterMax &&
+                                        iocw_cadmium.surfaceValue  <= fieldColorValidatior.Cadmium_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_cadmium.surfaceValue  < fieldColorValidatior.Cadmium_Water.prarmaterMin &&
+                                        iocw_cadmium.surfaceValue  >= fieldColorValidatior.Cadmium_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_cadmium.surfaceValue  > fieldColorValidatior.Cadmium_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_cadmium.surfaceValue  < fieldColorValidatior.Cadmium_Water.prarmaterMinValueDeviation && 
+                                        iocw_cadmium.surfaceValue  >=0),                                               
+                              'green':  iocw_cadmium.surfaceValue  <= fieldColorValidatior.Cadmium_Water.prarmaterMax && 
+                                        iocw_cadmium.surfaceValue  >= fieldColorValidatior.Cadmium_Water.prarmaterMin}"
+                (input)="iocw_cadmiumDetailsSave(iocw_cadmium,iocw_cadmium.surfaceValue,
+                fieldColorValidatior.Cadmium_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Cadmium_Water.prarmaterMean,
+                fieldColorValidatior.Cadmium_Water.prarmaterThreshold,fieldColorValidatior.Cadmium_Water.prarmaterStandDeviation)" 
+                name="iocw_cadmiumSurfaceValue" [(ngModel)]="iocw_cadmium.surfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" #iocw_cadmiumSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Water"
               [threshold]="fieldColorValidatior.Cadmium_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select class="form-control" [(ngModel)]="iocw_cadmium.mql" name="iocw_cadmiumMql" #iocw_cadmiumMql="ngModel"
-                [ngClass]="{ 'is-invalid': (f.submitted && iocw_cadmiumMql.invalid)}" (click)="iocw_cadmiumDetailsSave(iocw_cadmium)"
+                [ngClass]="{ 'is-invalid': (f.submitted && iocw_cadmiumMql.invalid)}" 
+                (click)="iocw_cadmiumDetailsListSave(iocw_cadmium)" (focus)="toastClear()"
                 required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
@@ -59,7 +64,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_cadmium.testMethod" name="iocw_cadmiumtestMethod"
                 #iocw_cadmiumtestMethod="ngModel" [ngClass]="{ 'is-invalid': (f.submitted && iocw_cadmiumtestMethod.invalid) }"
-                (click)="iocw_cadmiumDetailsSave(iocw_cadmium)" required>
+                (click)="iocw_cadmiumDetailsListSave(iocw_cadmium)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -71,15 +76,20 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_chromiumSurfaceValue.invalid),
                               'white': iocw_chromium.surfaceValue == '',
-                              'orange': iocw_chromium.surfaceValue <= fieldColorValidatior.Chromium_Water.prarmaterMean, 
-                              'green': iocw_chromium.surfaceValue <= fieldColorValidatior.Chromium_Water.prarmaterMax 
-                                  && iocw_chromium.surfaceValue >= fieldColorValidatior.Chromium_Water.prarmaterMean, 
-                              'red': iocw_chromium.surfaceValue >= fieldColorValidatior.Chromium_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_chromium.surfaceValue, fieldColorValidatior.Chromium_Water.prarmaterThreshold,
-                  fieldColorValidatior.Chromium_Water.prarmaterStandDevition,fieldColorValidatior.Chromium_Water.prarmaterMax)"
-                (input)="iocw_chromiumDetailsSave(iocw_chromium)" autocomplete="off" name="iocw_chromiumSurfaceValue"
+                              'orange': (iocw_chromium.surfaceValue  > fieldColorValidatior.Chromium_Water.prarmaterMax &&
+                                        iocw_chromium.surfaceValue  <= fieldColorValidatior.Chromium_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_chromium.surfaceValue  < fieldColorValidatior.Chromium_Water.prarmaterMin &&
+                                        iocw_chromium.surfaceValue  >= fieldColorValidatior.Chromium_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_chromium.surfaceValue  > fieldColorValidatior.Chromium_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_chromium.surfaceValue  < fieldColorValidatior.Chromium_Water.prarmaterMinValueDeviation && 
+                                        iocw_chromium.surfaceValue  >=0),                                               
+                              'green':  iocw_chromium.surfaceValue  <= fieldColorValidatior.Chromium_Water.prarmaterMax && 
+                                        iocw_chromium.surfaceValue  >= fieldColorValidatior.Chromium_Water.prarmaterMin}"
+                (input)="iocw_chromiumDetailsSave(iocw_chromium,iocw_chromium.surfaceValue,
+                fieldColorValidatior.Chromium_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Chromium_Water.prarmaterMean,
+                fieldColorValidatior.Chromium_Water.prarmaterThreshold,fieldColorValidatior.Chromium_Water.prarmaterStandDeviation)" autocomplete="off" name="iocw_chromiumSurfaceValue"
                 [(ngModel)]="iocw_chromium.surfaceValue" #iocw_chromiumSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumSurfaceValue.invalid }"
-                (focus)="toastClear()" required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Water"
@@ -87,7 +97,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_chromium.mql" name="iocw_chromiumMql"
                 #iocw_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumMql.invalid }"
-                (click)="iocw_chromiumDetailsSave(iocw_chromium)" required>
+                (click)="iocw_chromiumDetailsListSave(iocw_chromium)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -95,7 +105,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_chromium.testMethod" name="iocw_chromiumTestMethod"
                 #iocw_chromiumTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_chromiumTestMethod.invalid }"
-                (click)="iocw_chromiumDetailsSave(iocw_chromium)" required>
+                (click)="iocw_chromiumDetailsListSave(iocw_chromium)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -107,15 +117,21 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_cobaltSurfaceValue.invalid),
                               'white': iocw_cobalt.surfaceValue == '',
-                              'orange': iocw_cobalt.surfaceValue <= fieldColorValidatior.Cobalt_Water.prarmaterMean, 
-                              'green': iocw_cobalt.surfaceValue <= fieldColorValidatior.Cobalt_Water.prarmaterMax 
-                                && iocw_cobalt.surfaceValue >= fieldColorValidatior.Cobalt_Water.prarmaterMean, 
-                              'red': iocw_cobalt.surfaceValue >= fieldColorValidatior.Cobalt_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_cobalt.surfaceValue, fieldColorValidatior.Cobalt_Water.prarmaterThreshold,
-                  fieldColorValidatior.Cobalt_Water.prarmaterStandDevition,fieldColorValidatior.Cobalt_Water.prarmaterMax)"
-                (input)="iocw_cobaltDetailsSave(iocw_cobalt)" autocomplete="off" name="iocw_cobaltSurfaceValue"
+                            'orange': (iocw_cobalt.surfaceValue  > fieldColorValidatior.Cobalt_Water.prarmaterMax &&
+                                        iocw_cobalt.surfaceValue  <= fieldColorValidatior.Cobalt_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_cobalt.surfaceValue  < fieldColorValidatior.Cobalt_Water.prarmaterMin &&
+                                        iocw_cobalt.surfaceValue  >= fieldColorValidatior.Cobalt_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_cobalt.surfaceValue  > fieldColorValidatior.Cobalt_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_cobalt.surfaceValue  < fieldColorValidatior.Cobalt_Water.prarmaterMinValueDeviation && 
+                                        iocw_cobalt.surfaceValue  >=0),                                               
+                              'green':  iocw_cobalt.surfaceValue  <= fieldColorValidatior.Cobalt_Water.prarmaterMax && 
+                                        iocw_cobalt.surfaceValue  >= fieldColorValidatior.Cobalt_Water.prarmaterMin}"
+                (input)="iocw_cobaltDetailsSave(iocw_cobalt,iocw_cobalt.surfaceValue,
+                fieldColorValidatior.Cobalt_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Cobalt_Water.prarmaterMean,
+                fieldColorValidatior.Cobalt_Water.prarmaterThreshold,fieldColorValidatior.Cobalt_Water.prarmaterStandDeviation)" 
+                autocomplete="off" name="iocw_cobaltSurfaceValue"
                 [(ngModel)]="iocw_cobalt.surfaceValue" #iocw_cobaltSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltSurfaceValue.invalid }"
-                (focus)="toastClear()" required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <!--  <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -124,8 +140,8 @@
               [threshold]="fieldColorValidatior.Cobalt_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_cobalt.mql" name="iocw_cobaltMql"
-                #iocw_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltMql.invalid }" (click)="iocw_cobaltDetailsSave(iocw_cobalt)"
-                required>
+                #iocw_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltMql.invalid }" 
+                (click)="iocw_cobaltDetailsListSave(iocw_cobalt)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -133,7 +149,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_cobalt.testMethod" name="iocw_cobaltTestMethod"
                 #iocw_cobaltTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_cobaltTestMethod.invalid }"
-                (click)="iocw_cobaltDetailsSave(iocw_cobalt)" required>
+                (click)="iocw_cobaltDetailsListSave(iocw_cobalt)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -145,14 +161,20 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_copperSurfaceValue.invalid),
                               'white': iocw_copper.surfaceValue == '',
-                              'orange': iocw_copper.surfaceValue <= fieldColorValidatior.Copper_Water.prarmaterMean, 
-                              'green': iocw_copper.surfaceValue <= fieldColorValidatior.Copper_Water.prarmaterMax 
-                                && iocw_copper.surfaceValue >= fieldColorValidatior.Copper_Water.prarmaterMean, 
-                              'red': iocw_copper.surfaceValue >= fieldColorValidatior.Copper_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_copper.surfaceValue, fieldColorValidatior.Copper_Water.prarmaterThreshold,
-                  fieldColorValidatior.Copper_Water.prarmaterStandDevition,fieldColorValidatior.Copper_Water.prarmaterMax)"
-                (input)="iocw_copperDetailsSave(iocw_copper)" autocomplete="off" name="iocw_copperSurfaceValue"
-                (focus)="toastClear()" [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel" required OnlyNumber="true" />
+                              'orange': (iocw_copper.surfaceValue  > fieldColorValidatior.Copper_Water.prarmaterMax &&
+                                        iocw_copper.surfaceValue  <= fieldColorValidatior.Copper_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_copper.surfaceValue  < fieldColorValidatior.Copper_Water.prarmaterMin &&
+                                        iocw_copper.surfaceValue  >= fieldColorValidatior.Copper_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_copper.surfaceValue  > fieldColorValidatior.Copper_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_copper.surfaceValue  < fieldColorValidatior.Copper_Water.prarmaterMinValueDeviation && 
+                                        iocw_copper.surfaceValue  >=0),                                               
+                              'green':  iocw_copper.surfaceValue  <= fieldColorValidatior.Copper_Water.prarmaterMax && 
+                                        iocw_copper.surfaceValue  >= fieldColorValidatior.Copper_Water.prarmaterMin}"
+                (input)="iocw_copperDetailsSave(iocw_copper,iocw_copper.surfaceValue,
+                fieldColorValidatior.Copper_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Copper_Water.prarmaterMean,
+                fieldColorValidatior.Copper_Water.prarmaterThreshold,fieldColorValidatior.Copper_Water.prarmaterStandDeviation)" 
+                autocomplete="off" name="iocw_copperSurfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocw_copper.surfaceValue" #iocw_copperSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -161,8 +183,8 @@
               [threshold]="fieldColorValidatior.Copper_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_copper.mql" name="iocw_copperMql"
-                #iocw_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_copperMql.invalid }" (click)="iocw_copperDetailsSave(iocw_copper)"
-                required>
+                #iocw_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_copperMql.invalid }" 
+                (click)="iocw_copperDetailsListSave(iocw_copper)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -170,7 +192,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_copper.testMethod" name="iocw_coppertestMethod"
                 #iocw_coppertestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_coppertestMethod.invalid }"
-                (click)="iocw_copperDetailsSave(iocw_copper)" required>
+                (click)="iocw_copperDetailsListSave(iocw_copper)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -182,22 +204,28 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_leadSurfaceValue.invalid),
                               'white': iocw_lead.surfaceValue == '',
-                              'orange': iocw_lead.surfaceValue <= fieldColorValidatior.Lead_Water.prarmaterMean, 
-                              'green': iocw_lead.surfaceValue <= fieldColorValidatior.Lead_Water.prarmaterMax 
-                              && iocw_lead.surfaceValue >= fieldColorValidatior.Lead_Water.prarmaterMean, 
-                              'red': iocw_lead.surfaceValue >= fieldColorValidatior.Lead_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_lead.surfaceValue, fieldColorValidatior.Lead_Water.prarmaterThreshold,
-                  fieldColorValidatior.Lead_Water.prarmaterStandDevition,fieldColorValidatior.Lead_Water.prarmaterMax)"
-                (input)="iocw_leadDetailsSave(iocw_lead)" autocomplete="off" name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue"
-                (focus)="toastClear()" #iocw_leadSurfaceValue="ngModel" required OnlyNumber="true" />
+                            'orange': (iocw_lead.surfaceValue  > fieldColorValidatior.Lead_Water.prarmaterMax &&
+                                        iocw_lead.surfaceValue  <= fieldColorValidatior.Lead_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_lead.surfaceValue  < fieldColorValidatior.Lead_Water.prarmaterMin &&
+                                        iocw_lead.surfaceValue  >= fieldColorValidatior.Lead_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_lead.surfaceValue  > fieldColorValidatior.Lead_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_lead.surfaceValue  < fieldColorValidatior.Lead_Water.prarmaterMinValueDeviation && 
+                                        iocw_lead.surfaceValue  >=0),                                               
+                              'green':  iocw_lead.surfaceValue  <= fieldColorValidatior.Lead_Water.prarmaterMax && 
+                                        iocw_lead.surfaceValue  >= fieldColorValidatior.Lead_Water.prarmaterMin}"
+                (input)="iocw_leadDetailsSave(iocw_lead,iocw_lead.surfaceValue,
+                fieldColorValidatior.Lead_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Lead_Water.prarmaterMean,
+                fieldColorValidatior.Lead_Water.prarmaterThreshold,fieldColorValidatior.Lead_Water.prarmaterStandDeviation)" 
+                autocomplete="off" name="iocw_leadSurfaceValue" [(ngModel)]="iocw_lead.surfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" #iocw_leadSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Water"
               [threshold]="fieldColorValidatior.Lead_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_lead.mql" name="iocw_leadMql"
-                #iocw_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_leadMql.invalid }" (click)="iocw_leadDetailsSave(iocw_lead)"
-                required>
+                #iocw_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_leadMql.invalid }" 
+                (click)="iocw_leadDetailsListSave(iocw_lead)" (focus)="toastClear()"  required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -205,7 +233,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_lead.testMethod" name="iocw_leadtestMethod"
                 #iocw_leadtestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_leadtestMethod.invalid }"
-                (click)="iocw_leadDetailsSave(iocw_lead)" required>
+                (click)="iocw_leadDetailsListSave(iocw_lead)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -217,21 +245,27 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_manganeseSurfaceValue.invalid),
                               'white': iocw_manganese.surfaceValue == '',
-                              'orange': iocw_manganese.surfaceValue <= fieldColorValidatior.Manganese_Water.prarmaterMean, 
-                              'green': iocw_manganese.surfaceValue <= fieldColorValidatior.Manganese_Water.prarmaterMax 
-                              && iocw_manganese.surfaceValue >= fieldColorValidatior.Manganese_Water.prarmaterMean, 
-                              'red': iocw_manganese.surfaceValue >= fieldColorValidatior.Manganese_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_manganese.surfaceValue, fieldColorValidatior.Manganese_Water.prarmaterThreshold,
-                  fieldColorValidatior.Manganese_Water.prarmaterStandDevition,fieldColorValidatior.Manganese_Water.prarmaterMax)"
-                (input)="iocw_manganeseDetailsSave(iocw_manganese)" autocomplete="off" name="iocw_manganeseSurfaceValue"
-                (focus)="toastClear()" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel" required OnlyNumber="true" />
+                            'orange': (iocw_manganese.surfaceValue  > fieldColorValidatior.Manganese_Water.prarmaterMax &&
+                                        iocw_manganese.surfaceValue  <= fieldColorValidatior.Manganese_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_manganese.surfaceValue  < fieldColorValidatior.Manganese_Water.prarmaterMin &&
+                                        iocw_manganese.surfaceValue  >= fieldColorValidatior.Manganese_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_manganese.surfaceValue  > fieldColorValidatior.Manganese_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_manganese.surfaceValue  < fieldColorValidatior.Manganese_Water.prarmaterMinValueDeviation && 
+                                        iocw_manganese.surfaceValue  >=0),                                               
+                              'green':  iocw_manganese.surfaceValue  <= fieldColorValidatior.Manganese_Water.prarmaterMax && 
+                                        iocw_manganese.surfaceValue  >= fieldColorValidatior.Manganese_Water.prarmaterMin}"
+                (input)="iocw_manganeseDetailsSave(iocw_manganese,iocw_manganese.surfaceValue,
+                fieldColorValidatior.Manganese_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Manganese_Water.prarmaterMean,
+                fieldColorValidatior.Manganese_Water.prarmaterThreshold,fieldColorValidatior.Manganese_Water.prarmaterStandDeviation)" 
+                autocomplete="off" name="iocw_manganeseSurfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocw_manganese.surfaceValue" #iocw_manganeseSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Water"
               [threshold]="fieldColorValidatior.Manganese_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_manganese.mql" name="iocw_manganeseMql"
                 #iocw_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_manganeseMql.invalid }"
-                (click)="iocw_manganeseDetailsSave(iocw_manganese)" required>
+                (click)="iocw_manganeseDetailsListSave(iocw_manganese)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -239,7 +273,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_manganese.testMethod" name="iocw_manganeseTestMethod"
                 #iocw_manganeseTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_manganeseTestMethod.invalid }"
-                (click)="iocw_manganeseDetailsSave(iocw_manganese)" required>
+                (click)="iocw_manganeseDetailsListSave(iocw_manganese)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -251,14 +285,19 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_nickelSurfaceValue.invalid),
                               'white': iocw_nickel.surfaceValue == '',
-                              'orange': iocw_nickel.surfaceValue <= fieldColorValidatior.Nickel_Water.prarmaterMean, 
-                              'green': iocw_nickel.surfaceValue <= fieldColorValidatior.Nickel_Water.prarmaterMax 
-                              && iocw_nickel.surfaceValue >= fieldColorValidatior.Nickel_Water.prarmaterMean, 
-                              'red': iocw_nickel.surfaceValue >= fieldColorValidatior.Nickel_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_nickel.surfaceValue, fieldColorValidatior.Nickel_Water.prarmaterThreshold,
-                  fieldColorValidatior.Nickel_Water.prarmaterStandDevition,fieldColorValidatior.Nickel_Water.prarmaterMax)"
-                (input)="iocw_nickelDetailsSave(iocw_nickel)" autocomplete="off" name="iocw_nickelSurfaceValue"
-                (focus)="toastClear()" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel" required OnlyNumber="true" />
+                              'orange': (iocw_nickel.surfaceValue  > fieldColorValidatior.Nickel_Water.prarmaterMax &&
+                                        iocw_nickel.surfaceValue  <= fieldColorValidatior.Nickel_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_nickel.surfaceValue  < fieldColorValidatior.Nickel_Water.prarmaterMin &&
+                                        iocw_nickel.surfaceValue  >= fieldColorValidatior.Nickel_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_nickel.surfaceValue  > fieldColorValidatior.Nickel_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_nickel.surfaceValue  < fieldColorValidatior.Nickel_Water.prarmaterMinValueDeviation && 
+                                        iocw_nickel.surfaceValue  >=0),                                               
+                              'green':  iocw_nickel.surfaceValue  <= fieldColorValidatior.Nickel_Water.prarmaterMax && 
+                                        iocw_nickel.surfaceValue  >= fieldColorValidatior.Nickel_Water.prarmaterMin}"
+                (input)="iocw_nickelDetailsSave(iocw_nickel,iocw_nickel.surfaceValue,
+                fieldColorValidatior.Nickel_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Nickel_Water.prarmaterMean,
+                fieldColorValidatior.Nickel_Water.prarmaterThreshold,fieldColorValidatior.Nickel_Water.prarmaterStandDeviation)" autocomplete="off" name="iocw_nickelSurfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocw_nickel.surfaceValue" #iocw_nickelSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center">
                 μg/L
@@ -267,8 +306,8 @@
               [threshold]="fieldColorValidatior.Nickel_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_nickel.mql" name="iocw_nickelMql"
-                #iocw_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelMql.invalid }" (click)="iocw_nickelDetailsSave(iocw_nickel)"
-                required>
+                #iocw_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelMql.invalid }" 
+                (click)="iocw_nickelDetailsListSave(iocw_nickel)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -276,7 +315,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_nickel.testMethod" name="iocw_nickelTestMethod"
                 #iocw_nickelTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_nickelTestMethod.invalid }"
-                (click)="iocw_nickelDetailsSave(iocw_nickel)" required>
+                (click)="iocw_nickelDetailsListSave(iocw_nickel)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -288,23 +327,28 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_zincSurfaceValue.invalid),
                               'white': iocw_zinc.surfaceValue == '',
-                              'orange': iocw_zinc.surfaceValue <= fieldColorValidatior.Zinc_Water.prarmaterMean, 
-                              'green': iocw_zinc.surfaceValue <= fieldColorValidatior.Zinc_Water.prarmaterMax 
-                                && iocw_zinc.surfaceValue >= fieldColorValidatior.Zinc_Water.prarmaterMean, 
-                              'red': iocw_zinc.surfaceValue >= fieldColorValidatior.Zinc_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_zinc.surfaceValue, fieldColorValidatior.Zinc_Water.prarmaterThreshold,
-                  fieldColorValidatior.Zinc_Water.prarmaterStandDevition,fieldColorValidatior.Zinc_Water.prarmaterMax)"
-                (input)="iocw_zincDetailsSave(iocw_zinc)" autocomplete="off" name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue"
+                              'orange': (iocw_zinc.surfaceValue  > fieldColorValidatior.Zinc_Water.prarmaterMax &&
+                                        iocw_zinc.surfaceValue  <= fieldColorValidatior.Zinc_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_zinc.surfaceValue  < fieldColorValidatior.Zinc_Water.prarmaterMin &&
+                                        iocw_zinc.surfaceValue  >= fieldColorValidatior.Zinc_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_zinc.surfaceValue  > fieldColorValidatior.Zinc_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_zinc.surfaceValue  < fieldColorValidatior.Zinc_Water.prarmaterMinValueDeviation && 
+                                        iocw_zinc.surfaceValue  >=0),                                               
+                              'green':  iocw_zinc.surfaceValue  <= fieldColorValidatior.Zinc_Water.prarmaterMax && 
+                                        iocw_zinc.surfaceValue  >= fieldColorValidatior.Zinc_Water.prarmaterMin}"
+                (input)="iocw_zincDetailsSave(iocw_zinc,iocw_zinc.surfaceValue,fieldColorValidatior.Zinc_Water.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Zinc_Water.prarmaterMean,fieldColorValidatior.Zinc_Water.prarmaterThreshold,
+                fieldColorValidatior.Zinc_Water.prarmaterStandDeviation)" autocomplete="off" name="iocw_zincSurfaceValue" [(ngModel)]="iocw_zinc.surfaceValue"
                 #iocw_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincSurfaceValue.invalid }"
-                (focus)="toastClear()" required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
 
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Water"
               [threshold]="fieldColorValidatior.Zinc_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_zinc.mql" name="iocw_zincMql"
-                #iocw_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincMql.invalid }" (click)="iocw_zincDetailsSave(iocw_zinc)"
-                required>
+                #iocw_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincMql.invalid }" 
+                (click)="iocw_zincDetailsListSave(iocw_zinc)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -312,7 +356,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_zinc.testMethod" name="iocw_zincTestMethod"
                 #iocw_zincTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_zincTestMethod.invalid }"
-                (click)="iocw_zincDetailsSave(iocw_zinc)" required>
+                (click)="iocw_zincDetailsListSave(iocw_zinc)" (focus)="toastClear()"  required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -324,22 +368,27 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_ironSurfaceValue.invalid),
                               'white': iocw_iron.surfaceValue == '',
-                              'orange': iocw_iron.surfaceValue <= fieldColorValidatior.Iron_Water.prarmaterMean, 
-                              'green': iocw_iron.surfaceValue <= fieldColorValidatior.Iron_Water.prarmaterMax 
-                                && iocw_iron.surfaceValue >= fieldColorValidatior.Iron_Water.prarmaterMean, 
-                              'red': iocw_iron.surfaceValue >= fieldColorValidatior.Iron_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_iron.surfaceValue, fieldColorValidatior.Iron_Water.prarmaterThreshold,
-                  fieldColorValidatior.Iron_Water.prarmaterStandDevition,fieldColorValidatior.Iron_Water.prarmaterMax)"
-                (input)="iocw_ironDetailsSave(iocw_iron)" autocomplete="off" name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue"
+                              'orange': (iocw_iron.surfaceValue  > fieldColorValidatior.Iron_Water.prarmaterMax &&
+                                        iocw_iron.surfaceValue  <= fieldColorValidatior.Iron_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_iron.surfaceValue  < fieldColorValidatior.Iron_Water.prarmaterMin &&
+                                        iocw_iron.surfaceValue  >= fieldColorValidatior.Iron_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_iron.surfaceValue  > fieldColorValidatior.Iron_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_iron.surfaceValue  < fieldColorValidatior.Iron_Water.prarmaterMinValueDeviation && 
+                                        iocw_iron.surfaceValue  >=0),                                               
+                              'green':  iocw_iron.surfaceValue  <= fieldColorValidatior.Iron_Water.prarmaterMax && 
+                                        iocw_iron.surfaceValue  >= fieldColorValidatior.Iron_Water.prarmaterMin}"
+                (input)="iocw_ironDetailsSave(iocw_iron,iocw_iron.surfaceValue,fieldColorValidatior.Iron_Water.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Iron_Water.prarmaterMean,
+                fieldColorValidatior.Iron_Water.prarmaterThreshold,fieldColorValidatior.Iron_Water.prarmaterStandDeviation)" autocomplete="off" name="iocw_ironSurfaceValue" [(ngModel)]="iocw_iron.surfaceValue"
                 #iocw_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironSurfaceValue.invalid }"
-                (focus)="toastClear()" required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Water"
               [threshold]="fieldColorValidatior.Iron_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_iron.mql" name="iocw_ironMql"
-                #iocw_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironMql.invalid }" (click)="iocw_ironDetailsSave(iocw_iron)"
-                required>
+                #iocw_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironMql.invalid }" 
+                (click)="iocw_ironDetailsListSave(iocw_iron)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -347,7 +396,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_iron.testMethod" name="iocw_ironTestMethod"
                 #iocw_ironTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_ironTestMethod.invalid }"
-                (click)="iocw_ironDetailsSave(iocw_iron)" required>
+                (click)="iocw_ironDetailsListSave(iocw_iron)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -359,22 +408,28 @@
             <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistryWater">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocw_mercurySurfaceValue.invalid),
                               'white': iocw_mercury.surfaceValue == '',
-                              'orange': iocw_mercury.surfaceValue <= fieldColorValidatior.Mercury_Water.prarmaterMean, 
-                              'green': iocw_mercury.surfaceValue <= fieldColorValidatior.Mercury_Water.prarmaterMax 
-                                && iocw_mercury.surfaceValue >= fieldColorValidatior.Mercury_Water.prarmaterMean, 
-                              'red': iocw_mercury.surfaceValue >= fieldColorValidatior.Mercury_Water.prarmaterMax}"
-                (keyup)="checkValueThreshold(iocw_mercury.surfaceValue, fieldColorValidatior.Mercury_Water.prarmaterThreshold,
-                  fieldColorValidatior.Mercury_Water.prarmaterStandDevition,fieldColorValidatior.Mercury_Water.prarmaterMax)"
-                (input)="iocw_mercuryDetailsSave(iocw_mercury)" autocomplete="off" name="iocw_mercurySurfaceValue"
+                              'orange': (iocw_mercury.surfaceValue  > fieldColorValidatior.Mercury_Water.prarmaterMax &&
+                                        iocw_mercury.surfaceValue  <= fieldColorValidatior.Mercury_Water.prarmaterMaxValueDeviation) || 
+                                        (iocw_mercury.surfaceValue  < fieldColorValidatior.Mercury_Water.prarmaterMin &&
+                                        iocw_mercury.surfaceValue  >= fieldColorValidatior.Mercury_Water.prarmaterMinValueDeviation),
+                              'red':    (iocw_mercury.surfaceValue  > fieldColorValidatior.Mercury_Water.prarmaterMaxValueDeviation) ||
+                                        (iocw_mercury.surfaceValue  < fieldColorValidatior.Mercury_Water.prarmaterMinValueDeviation && 
+                                        iocw_mercury.surfaceValue  >=0),                                               
+                              'green':  iocw_mercury.surfaceValue  <= fieldColorValidatior.Mercury_Water.prarmaterMax && 
+                                        iocw_mercury.surfaceValue  >= fieldColorValidatior.Mercury_Water.prarmaterMin}"
+                (input)="iocw_mercuryDetailsSave(iocw_mercury,iocw_mercury.surfaceValue,
+                fieldColorValidatior.Mercury_Water.prarmaterMaxValueDeviation,fieldColorValidatior.Mercury_Water.prarmaterMean,
+                fieldColorValidatior.Mercury_Water.prarmaterThreshold,fieldColorValidatior.Mercury_Water.prarmaterStandDeviation)" 
+                autocomplete="off" name="iocw_mercurySurfaceValue"
                 [(ngModel)]="iocw_mercury.surfaceValue" #iocw_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercurySurfaceValue.invalid }"
-                (focus)="toastClear()" required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Water"
               [threshold]="fieldColorValidatior.Mercury_Water.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocw_mercury.mql" name="iocw_mercuryMql"
-                #iocw_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercuryMql.invalid }" (click)="iocw_mercuryDetailsSave(iocw_mercury)"
-                required>
+                #iocw_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercuryMql.invalid }" 
+                (click)="iocw_mercuryDetailsListSave(iocw_mercury)" (focus)="toastClear()"  required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -382,7 +437,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="iocw_mercury.testMethod" name="iocw_mercuryTestMethod"
                 #iocw_mercuryTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocw_mercuryTestMethod.invalid }"
-                (click)="iocw_mercuryDetailsSave(iocw_mercury)" required>
+                (click)="iocw_mercuryDetailsListSave(iocw_mercury)" (focus)="toastClear()"  required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -415,21 +470,26 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_cadmiumSurfaceValue.invalid),
                                     'white': iocs_cadmium.surfaceValue == '',
-                                    'orange': iocs_cadmium.surfaceValue <= fieldColorValidatior.Cadmium_Sediment.prarmaterMean, 
-                                    'green': iocs_cadmium.surfaceValue <= fieldColorValidatior.Cadmium_Sediment.prarmaterMax 
-                                      && iocs_cadmium.surfaceValue >= fieldColorValidatior.Cadmium_Sediment.prarmaterMean, 
-                                    'red': iocs_cadmium.surfaceValue >= fieldColorValidatior.Cadmium_Sediment.prarmaterMax}"
-                      (keyup)="checkValueThreshold(iocs_cadmium.surfaceValue, fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Cadmium_Sediment.prarmaterStandDevition,fieldColorValidatior.Cadmium_Sediment.prarmaterMax)"
-                      (input)="iocs_cadmiumDetailsSave(iocs_cadmium)" autocomplete="off" name="iocs_cadmiumSurfaceValue"
-                      (focus)="toastClear()" [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel" required OnlyNumber="true" />
+                                    'orange': (iocs_cadmium.surfaceValue  > fieldColorValidatior.Cadmium_Sediment.prarmaterMax &&
+                                              iocs_cadmium.surfaceValue  <= fieldColorValidatior.Cadmium_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_cadmium.surfaceValue  < fieldColorValidatior.Cadmium_Sediment.prarmaterMin &&
+                                              iocs_cadmium.surfaceValue  >= fieldColorValidatior.Cadmium_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_cadmium.surfaceValue  > fieldColorValidatior.Cadmium_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_cadmium.surfaceValue  < fieldColorValidatior.Cadmium_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_cadmium.surfaceValue  >=0),                                               
+                                    'green':  iocs_cadmium.surfaceValue  <= fieldColorValidatior.Cadmium_Sediment.prarmaterMax && 
+                                              iocs_cadmium.surfaceValue  >= fieldColorValidatior.Cadmium_Sediment.prarmaterMin}"
+                          (input)="iocs_cadmiumDetailsSave(iocs_cadmium,iocs_cadmium.surfaceValue,
+                    fieldColorValidatior.Cadmium_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Cadmium_Sediment.prarmaterMean,
+                    fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold,fieldColorValidatior.Cadmium_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_cadmiumSurfaceValue"
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocs_cadmium.surfaceValue" #iocs_cadmiumSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cadmium_Sediment"
                     [threshold]="fieldColorValidatior.Cadmium_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cadmium.mql" name="iocs_cadmiumMql"
                       #iocs_cadmiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cadmiumMql.invalid }"
-                      (click)="iocs_cadmiumDetailsSave(iocs_cadmium)" required>
+                      (click)="iocs_cadmiumDetailsListSave(iocs_cadmium)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -437,7 +497,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_cadmium.testMethod" name="iocs_cadmiumTestMethod"
                       #iocs_cadmiumTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cadmiumTestMethod.invalid }"
-                      (click)="iocs_cadmiumDetailsSave(iocs_cadmium)" required>
+                      (click)="iocs_cadmiumDetailsListSave(iocs_cadmium)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -449,21 +509,27 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_chromiumSurfaceValue.invalid),
                                     'white': iocs_chromium.surfaceValue == '',
-                                    'orange': iocs_chromium.surfaceValue <= fieldColorValidatior.Chromium_Sediment.prarmaterMean, 
-                                    'green': iocs_chromium.surfaceValue <= fieldColorValidatior.Chromium_Sediment.prarmaterMax  
-                                      && iocs_chromium.surfaceValue >= fieldColorValidatior.Chromium_Sediment.prarmaterMean, 
-                                    'red': iocs_chromium.surfaceValue >= fieldColorValidatior.Chromium_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_chromium.surfaceValue, fieldColorValidatior.Chromium_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Chromium_Sediment.prarmaterStandDevition,fieldColorValidatior.Chromium_Sediment.prarmaterMax)"
-                      (input)="iocs_chromiumDetailsSave(iocs_chromium)" autocomplete="off" name="iocs_chromiumSurfaceValue"
-                      (focus)="toastClear()" [(ngModel)]="iocs_chromium.surfaceValue" #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" />
+                                    'orange': (iocs_chromium.surfaceValue  > fieldColorValidatior.Chromium_Sediment.prarmaterMax &&
+                                              iocs_chromium.surfaceValue  <= fieldColorValidatior.Chromium_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_chromium.surfaceValue  < fieldColorValidatior.Chromium_Sediment.prarmaterMin &&
+                                              iocs_chromium.surfaceValue  >= fieldColorValidatior.Chromium_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_chromium.surfaceValue  > fieldColorValidatior.Chromium_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_chromium.surfaceValue  < fieldColorValidatior.Chromium_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_chromium.surfaceValue  >=0),                                               
+                                    'green':  iocs_chromium.surfaceValue  <= fieldColorValidatior.Chromium_Sediment.prarmaterMax && 
+                                              iocs_chromium.surfaceValue  >= fieldColorValidatior.Chromium_Sediment.prarmaterMin}"
+                      (input)="iocs_chromiumDetailsSave(iocs_chromium,iocs_chromium.surfaceValue,
+                      fieldColorValidatior.Chromium_Sediment.prarmaterMaxValueDeviation,
+                      fieldColorValidatior.Chromium_Sediment.prarmaterMean,fieldColorValidatior.Chromium_Sediment.prarmaterThreshold,
+                      fieldColorValidatior.Chromium_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_chromiumSurfaceValue"
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocs_chromium.surfaceValue" #iocs_chromiumSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chromium_Sediment"
                     [threshold]="fieldColorValidatior.Chromium_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_chromium.mql" name="iocs_chromiumMql"
                       #iocs_chromiumMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_chromiumMql.invalid }"
-                      (click)="iocs_chromiumDetailsSave(iocs_chromium)" required>
+                      (click)="iocs_chromiumDetailsListSave(iocs_chromium)"  (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -471,7 +537,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_chromium.testMethod" name="iocs_chromiumTestMethod"
                       #iocs_chromiumTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_chromiumTestMethod.invalid }"
-                      (click)="iocs_chromiumDetailsSave(iocs_chromium)" required>
+                      (click)="iocs_chromiumDetailsListSave(iocs_chromium)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -483,21 +549,26 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_cobaltSurfaceValue.invalid),
                                     'white': iocs_cobalt.surfaceValue == '',
-                                    'orange': iocs_cobalt.surfaceValue <= fieldColorValidatior.Cobalt_Sediment.prarmaterMean, 
-                                    'green': iocs_cobalt.surfaceValue <= fieldColorValidatior.Cobalt_Sediment.prarmaterMax  && 
-                                        iocs_cobalt.surfaceValue >= fieldColorValidatior.Cobalt_Sediment.prarmaterMean, 
-                                    'red': iocs_cobalt.surfaceValue >= fieldColorValidatior.Cobalt_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_cobalt.surfaceValue, fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Cobalt_Sediment.prarmaterStandDevition,fieldColorValidatior.Cobalt_Sediment.prarmaterMax)"
-                      (input)="iocs_cobaltDetailsSave(iocs_cobalt)" autocomplete="off" name="iocs_cobaltSurfaceValue"
-                      (focus)="toastClear()" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel" required OnlyNumber="true" />
+                                    'orange': (iocs_cobalt.surfaceValue  > fieldColorValidatior.Cobalt_Sediment.prarmaterMax &&
+                                              iocs_cobalt.surfaceValue  <= fieldColorValidatior.Cobalt_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_cobalt.surfaceValue  < fieldColorValidatior.Cobalt_Sediment.prarmaterMin &&
+                                              iocs_cobalt.surfaceValue  >= fieldColorValidatior.Cobalt_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_cobalt.surfaceValue  > fieldColorValidatior.Cobalt_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_cobalt.surfaceValue  < fieldColorValidatior.Cobalt_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_cobalt.surfaceValue  >=0),                                               
+                                    'green':  iocs_cobalt.surfaceValue  <= fieldColorValidatior.Cobalt_Sediment.prarmaterMax && 
+                                              iocs_cobalt.surfaceValue  >= fieldColorValidatior.Cobalt_Sediment.prarmaterMin}"
+                      (input)="iocs_cobaltDetailsSave(iocs_cobalt,iocs_cobalt.surfaceValue,
+                      fieldColorValidatior.Cobalt_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Cobalt_Sediment.prarmaterMean,
+                      fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold,fieldColorValidatior.Cobalt_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_cobaltSurfaceValue"
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocs_cobalt.surfaceValue" #iocs_cobaltSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Cobalt_Sediment"
                     [threshold]="fieldColorValidatior.Cobalt_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_cobalt.mql" name="iocs_cobaltMql"
                       #iocs_cobaltMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cobaltMql.invalid }"
-                      (click)="iocs_cobaltDetailsSave(iocs_cobalt)" required>
+                      (click)="iocs_cobaltDetailsListSave(iocs_cobalt)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -505,7 +576,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_cobalt.testMethod" name="iocs_cobaltTestMethod"
                       #iocs_cobaltTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_cobaltTestMethod.invalid }"
-                      (click)="iocs_cobaltDetailsSave(iocs_cobalt)" required>
+                      (click)="iocs_cobaltDetailsListSave(iocs_cobalt)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -517,21 +588,26 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_copperSurfaceValue.invalid),
                                     'white': iocs_copper.surfaceValue == '',
-                                    'orange': iocs_copper.surfaceValue <= fieldColorValidatior.Copper_Sediment.prarmaterMean, 
-                                    'green': iocs_copper.surfaceValue <= fieldColorValidatior.Copper_Sediment.prarmaterMax  && 
-                                    iocs_copper.surfaceValue >= fieldColorValidatior.Copper_Sediment.prarmaterMean, 
-                                    'red': iocs_copper.surfaceValue >= fieldColorValidatior.Copper_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_copper.surfaceValue, fieldColorValidatior.Copper_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Copper_Sediment.prarmaterStandDevition,fieldColorValidatior.Copper_Sediment.prarmaterMax)"
-                      (input)="iocs_copperDetailsSave(iocs_copper)" autocomplete="off" name="iocs_copperSurfaceValue"
-                      (focus)="toastClear()" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel" required OnlyNumber="true" />
+                                    'orange': (iocs_copper.surfaceValue  > fieldColorValidatior.Copper_Sediment.prarmaterMax &&
+                                              iocs_copper.surfaceValue  <= fieldColorValidatior.Copper_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_copper.surfaceValue  < fieldColorValidatior.Copper_Sediment.prarmaterMin &&
+                                              iocs_copper.surfaceValue  >= fieldColorValidatior.Copper_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_copper.surfaceValue  > fieldColorValidatior.Copper_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_copper.surfaceValue  < fieldColorValidatior.Copper_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_copper.surfaceValue  >=0),                                               
+                                    'green':  iocs_copper.surfaceValue  <= fieldColorValidatior.Copper_Sediment.prarmaterMax && 
+                                              iocs_copper.surfaceValue  >= fieldColorValidatior.Copper_Sediment.prarmaterMin}"
+                      (input)="iocs_copperDetailsSave(iocs_copper,iocs_copper.surfaceValue,
+                      fieldColorValidatior.Copper_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Copper_Sediment.prarmaterMean,
+                      fieldColorValidatior.Copper_Sediment.prarmaterThreshold,fieldColorValidatior.Copper_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_copperSurfaceValue"
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocs_copper.surfaceValue" #iocs_copperSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Copper_Sediment"
                     [threshold]="fieldColorValidatior.Copper_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_copper.mql" name="iocs_copperMql"
                       #iocs_copperMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_copperMql.invalid }"
-                      (click)="iocs_copperDetailsSave(iocs_copper)" required>
+                      (click)="iocs_copperDetailsListSave(iocs_copper)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -539,7 +615,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_copper.testMethod" name="iocs_copperTestMethod"
                       #iocs_copperTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_copperTestMethod.invalid }"
-                      (click)="iocs_copperDetailsSave(iocs_copper)" required>
+                      (click)="iocs_copperDetailsListSave(iocs_copper)" (focus)="toastClear()"  required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -551,21 +627,26 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_leadSurfaceValue.invalid),
                                     'white': iocs_lead.surfaceValue == '',
-                                    'orange': iocs_lead.surfaceValue <= fieldColorValidatior.Lead_Sediment.prarmaterMean, 
-                                    'green': iocs_lead.surfaceValue <= fieldColorValidatior.Lead_Sediment.prarmaterMax  && 
-                                    iocs_lead.surfaceValue >= fieldColorValidatior.Lead_Sediment.prarmaterMean, 
-                                    'red': iocs_lead.surfaceValue >= fieldColorValidatior.Lead_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_lead.surfaceValue, fieldColorValidatior.Lead_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Lead_Sediment.prarmaterStandDevition,fieldColorValidatior.Lead_Sediment.prarmaterMax)"
-                      (input)="iocs_leadDetailsSave(iocs_lead)" autocomplete="off" name="iocs_leadSurfaceValue"
-                      (focus)="toastClear()" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel" required OnlyNumber="true" />
+                                    'orange': (iocs_lead.surfaceValue  > fieldColorValidatior.Lead_Sediment.prarmaterMax &&
+                                              iocs_lead.surfaceValue  <= fieldColorValidatior.Lead_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_lead.surfaceValue  < fieldColorValidatior.Lead_Sediment.prarmaterMin &&
+                                              iocs_lead.surfaceValue  >= fieldColorValidatior.Lead_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_lead.surfaceValue  > fieldColorValidatior.Lead_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_lead.surfaceValue  < fieldColorValidatior.Lead_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_lead.surfaceValue  >=0),                                               
+                                    'green':  iocs_lead.surfaceValue  <= fieldColorValidatior.Lead_Sediment.prarmaterMax && 
+                                              iocs_lead.surfaceValue  >= fieldColorValidatior.Lead_Sediment.prarmaterMin}"
+                      (input)="iocs_leadDetailsSave(iocs_lead,iocs_lead.surfaceValue,
+                      fieldColorValidatior.Lead_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Lead_Sediment.prarmaterMean,
+                      fieldColorValidatior.Lead_Sediment.prarmaterThreshold,fieldColorValidatior.Lead_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_leadSurfaceValue"
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" [(ngModel)]="iocs_lead.surfaceValue" #iocs_leadSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Lead_Sediment"
                     [threshold]="fieldColorValidatior.Lead_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_lead.mql" name="iocs_leadMql"
-                      #iocs_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_leadMql.invalid }" (click)="iocs_leadDetailsSave(iocs_lead)"
-                      required>
+                      #iocs_leadMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_leadMql.invalid }" 
+                      (click)="iocs_leadDetailsListSave(iocs_lead)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -573,7 +654,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_lead.testMethod" name="iocs_leadTestMethod"
                       #iocs_leadTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_leadTestMethod.invalid }"
-                      (click)="iocs_leadDetailsSave(iocs_lead)" required>
+                      (click)="iocs_leadDetailsListSave(iocs_lead)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -585,22 +666,27 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_manganeseSurfaceValue.invalid),
                                     'white': iocs_manganese.surfaceValue == '',
-                                    'orange': iocs_manganese.surfaceValue <= fieldColorValidatior.Manganese_Sediment.prarmaterMean, 
-                                    'green': iocs_manganese.surfaceValue <= fieldColorValidatior.Manganese_Sediment.prarmaterMax 
-                                      && iocs_manganese.surfaceValue >= fieldColorValidatior.Manganese_Sediment.prarmaterMean, 
-                                    'red': iocs_manganese.surfaceValue >= fieldColorValidatior.Manganese_Sediment.prarmaterMax}"
-                      (keyup)="checkValueThreshold(iocs_manganese.surfaceValue, fieldColorValidatior.Manganese_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Manganese_Sediment.prarmaterStandDevition,fieldColorValidatior.Manganese_Sediment.prarmaterMax)"
-                      (input)="iocs_manganeseDetailsSave(iocs_manganese)" autocomplete="off" name="iocs_manganeseSurfaceValue"
+                                    'orange': (iocs_manganese.surfaceValue  > fieldColorValidatior.Manganese_Sediment.prarmaterMax &&
+                                              iocs_manganese.surfaceValue  <= fieldColorValidatior.Manganese_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_manganese.surfaceValue  < fieldColorValidatior.Manganese_Sediment.prarmaterMin &&
+                                              iocs_manganese.surfaceValue  >= fieldColorValidatior.Manganese_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_manganese.surfaceValue  > fieldColorValidatior.Manganese_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_manganese.surfaceValue  < fieldColorValidatior.Manganese_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_manganese.surfaceValue  >=0),                                               
+                                    'green':  iocs_manganese.surfaceValue  <= fieldColorValidatior.Manganese_Sediment.prarmaterMax && 
+                                              iocs_manganese.surfaceValue  >= fieldColorValidatior.Manganese_Sediment.prarmaterMin}"
+                      (input)="iocs_manganeseDetailsSave(iocs_manganese,iocs_manganese.surfaceValue,
+                      fieldColorValidatior.Manganese_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Manganese_Sediment.prarmaterMean,
+                      fieldColorValidatior.Manganese_Sediment.prarmaterThreshold,fieldColorValidatior.Manganese_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_manganeseSurfaceValue"
                       [(ngModel)]="iocs_manganese.surfaceValue" #iocs_manganeseSurfaceValue="ngModel" required
-                      (focus)="toastClear()" OnlyNumber="true" />
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Manganese_Sediment"
                     [threshold]="fieldColorValidatior.Manganese_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_manganese.mql" name="iocs_manganeseMql"
                       #iocs_manganeseMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_manganeseMql.invalid }"
-                      (click)="iocs_manganeseDetailsSave(iocs_manganese)" required>
+                      (click)="iocs_manganeseDetailsListSave(iocs_manganese)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -608,7 +694,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_manganese.testMethod" name="iocs_manganeseTestMethod"
                       #iocs_manganeseTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_manganeseTestMethod.invalid }"
-                      (click)="iocs_manganeseDetailsSave(iocs_manganese)" required>
+                      (click)="iocs_manganeseDetailsListSave(iocs_manganese)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -620,22 +706,27 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_nickelSurfaceValue.invalid),
                                     'white': iocs_nickel.surfaceValue == '',
-                                    'orange': iocs_nickel.surfaceValue <= fieldColorValidatior.Nickel_Sediment.prarmaterMean, 
-                                    'green': iocs_nickel.surfaceValue <= fieldColorValidatior.Nickel_Sediment.prarmaterMax && 
-                                    iocs_nickel.surfaceValue >= fieldColorValidatior.Nickel_Sediment.prarmaterMean, 
-                                    'red': iocs_nickel.surfaceValue >= fieldColorValidatior.Nickel_Sediment.prarmaterMax}"
-                      (keyup)="checkValueThreshold(iocs_nickel.surfaceValue, fieldColorValidatior.Nickel_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Nickel_Sediment.prarmaterStandDevition,fieldColorValidatior.Nickel_Sediment.prarmaterMax)"
-                      (input)="iocs_nickelDetailsSave(iocs_nickel)" autocomplete="off" name="iocs_nickelSurfaceValue"
+                                    'orange': (iocs_nickel.surfaceValue  > fieldColorValidatior.Nickel_Sediment.prarmaterMax &&
+                                              iocs_nickel.surfaceValue  <= fieldColorValidatior.Nickel_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_nickel.surfaceValue  < fieldColorValidatior.Nickel_Sediment.prarmaterMin &&
+                                              iocs_nickel.surfaceValue  >= fieldColorValidatior.Nickel_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_nickel.surfaceValue  > fieldColorValidatior.Nickel_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_nickel.surfaceValue  < fieldColorValidatior.Nickel_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_nickel.surfaceValue  >=0),                                               
+                                    'green':  iocs_nickel.surfaceValue  <= fieldColorValidatior.Nickel_Sediment.prarmaterMax && 
+                                              iocs_nickel.surfaceValue  >= fieldColorValidatior.Nickel_Sediment.prarmaterMin}"
+                      (input)="iocs_nickelDetailsSave(iocs_nickel,iocs_nickel.surfaceValue,
+                      fieldColorValidatior.Nickel_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Nickel_Sediment.prarmaterMean,
+                      fieldColorValidatior.Nickel_Sediment.prarmaterThreshold,fieldColorValidatior.Nickel_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_nickelSurfaceValue"
                       [(ngModel)]="iocs_nickel.surfaceValue" #iocs_nickelSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelSurfaceValue.invalid }"
-                      (focus)="toastClear()" required OnlyNumber="true" />
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nickel_Sediment"
                     [threshold]="fieldColorValidatior.Nickel_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_nickel.mql" name="iocs_nickelMql"
                       #iocs_nickelMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelMql.invalid }"
-                      (click)="iocs_nickelDetailsSave(iocs_nickel)" required>
+                      (click)="iocs_nickelDetailsListSave(iocs_nickel)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -643,7 +734,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_nickel.testMethod" name="iocs_nickelTestMethod"
                       #iocs_nickelTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_nickelTestMethod.invalid }"
-                      (click)="iocs_nickelDetailsSave(iocs_nickel)" required>
+                      (click)="iocs_nickelDetailsListSave(iocs_nickel)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -654,23 +745,28 @@
                   <div class="clearfix tbl tbl-per-20 text-left">Zinc (mg/kg)</div>
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_zincSurfaceValue.invalid),
-                                    'white': iocs_zinc.surfaceValue == '',
-                                    'orange': iocs_zinc.surfaceValue <= fieldColorValidatior.Zinc_Sediment.prarmaterMean, 
-                                    'green': iocs_zinc.surfaceValue <= fieldColorValidatior.Zinc_Sediment.prarmaterMax  && 
-                                    iocs_zinc.surfaceValue >= fieldColorValidatior.Zinc_Sediment.prarmaterMean, 
-                                    'red': iocs_zinc.surfaceValue >= fieldColorValidatior.Zinc_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_zinc.surfaceValue, fieldColorValidatior.Zinc_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Zinc_Sediment.prarmaterStandDevition,fieldColorValidatior.Zinc_Sediment.prarmaterMax)"
-                      (input)="iocs_zincDetailsSave(iocs_zinc)" autocomplete="off" name="iocs_zincSurfaceValue"
+                                    'white' : iocs_zinc.surfaceValue == '',
+                                     'orange': (iocs_zinc.surfaceValue  > fieldColorValidatior.Zinc_Sediment.prarmaterMax &&
+                                              iocs_zinc.surfaceValue  <= fieldColorValidatior.Zinc_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_zinc.surfaceValue  < fieldColorValidatior.Zinc_Sediment.prarmaterMin &&
+                                              iocs_zinc.surfaceValue  >= fieldColorValidatior.Zinc_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_zinc.surfaceValue  > fieldColorValidatior.Zinc_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_zinc.surfaceValue  < fieldColorValidatior.Zinc_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_zinc.surfaceValue  >=0),                                               
+                                    'green':  iocs_zinc.surfaceValue  <= fieldColorValidatior.Zinc_Sediment.prarmaterMax && 
+                                              iocs_zinc.surfaceValue  >= fieldColorValidatior.Zinc_Sediment.prarmaterMin }"
+                      (input)="iocs_zincDetailsSave(iocs_zinc,iocs_zinc.surfaceValue,
+                      fieldColorValidatior.Zinc_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Zinc_Sediment.prarmaterMean,
+                      fieldColorValidatior.Zinc_Sediment.prarmaterThreshold,fieldColorValidatior.Zinc_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_zincSurfaceValue"
                       [(ngModel)]="iocs_zinc.surfaceValue" #iocs_zincSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincSurfaceValue.invalid }"
-                      (focus)="toastClear()" required OnlyNumber="true" />
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Zinc_Sediment"
                     [threshold]="fieldColorValidatior.Zinc_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_zinc.mql" name="iocs_zincMql"
                       #iocs_zincMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincMql.invalid }"
-                      required>
+                      (click)="iocs_zincDetailsListSave(iocs_zinc)"  (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -678,7 +774,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_zinc.testMethod" name="iocs_zincTestMethod"
                       #iocs_zincTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_zincTestMethod.invalid }"
-                      required>
+                      (click)="iocs_zincDetailsListSave(iocs_zinc)"  (focus)="toastClear()"  required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -690,22 +786,27 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_ironSurfaceValue.invalid),
                                   'white': iocs_iron.surfaceValue == '',
-                                  'orange': iocs_iron.surfaceValue <= fieldColorValidatior.Iron_Sediment.prarmaterMean, 
-                                  'green': iocs_iron.surfaceValue <= fieldColorValidatior.Iron_Sediment.prarmaterMax  
-                                    && iocs_iron.surfaceValue >= fieldColorValidatior.Iron_Sediment.prarmaterMean, 
-                                  'red': iocs_iron.surfaceValue >= fieldColorValidatior.Iron_Sediment.prarmaterMax }"
-                      (keyup)="checkValueThreshold(iocs_iron.surfaceValue, fieldColorValidatior.Iron_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Iron_Sediment.prarmaterStandDevition,fieldColorValidatior.Iron_Sediment.prarmaterMax)"
-                      (input)="iocs_ironDetailsSave(iocs_iron)" autocomplete="off" name="iocs_ironSurfaceValue"
+                                  'orange': (iocs_iron.surfaceValue  > fieldColorValidatior.Iron_Sediment.prarmaterMax &&
+                                              iocs_iron.surfaceValue  <= fieldColorValidatior.Iron_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_iron.surfaceValue  < fieldColorValidatior.Iron_Sediment.prarmaterMin &&
+                                              iocs_iron.surfaceValue  >= fieldColorValidatior.Iron_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_iron.surfaceValue  > fieldColorValidatior.Iron_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_iron.surfaceValue  < fieldColorValidatior.Iron_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_iron.surfaceValue  >=0),                                               
+                                    'green':  iocs_iron.surfaceValue  <= fieldColorValidatior.Iron_Sediment.prarmaterMax && 
+                                              iocs_iron.surfaceValue  >= fieldColorValidatior.Iron_Sediment.prarmaterMin}"
+                      (input)="iocs_ironDetailsSave(iocs_iron,iocs_iron.surfaceValue,
+                      fieldColorValidatior.Iron_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Iron_Sediment.prarmaterMean,
+                      fieldColorValidatior.Iron_Sediment.prarmaterThreshold,fieldColorValidatior.Iron_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_ironSurfaceValue"
                       [(ngModel)]="iocs_iron.surfaceValue" #iocs_ironSurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironSurfaceValue.invalid }"
-                      (focus)="toastClear()" required OnlyNumber="true" />
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Iron_Sediment"
                     [threshold]="fieldColorValidatior.Iron_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_iron.mql" name="iocs_ironMql"
-                      #iocs_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironMql.invalid }" (click)="iocs_ironDetailsSave(iocs_iron)"
-                      required>
+                      #iocs_ironMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironMql.invalid }" 
+                      (click)="iocs_ironDetailsListSave(iocs_iron)"  (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -713,7 +814,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_iron.testMethod" name="iocs_ironTestMethod"
                       #iocs_ironTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_ironTestMethod.invalid }"
-                      (click)="iocs_ironDetailsSave(iocs_iron)" required>
+                      (click)="iocs_ironDetailsListSave(iocs_iron)"  (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -725,22 +826,27 @@
                   <div class="clearfix tbl tbl-per-10 text-center inOrganicChemistrySediment">
                     <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && iocs_mercurySurfaceValue.invalid),
                                     'white': iocs_mercury.surfaceValue == '',
-                                    'orange': iocs_mercury.surfaceValue <= fieldColorValidatior.Mercury_Sediment.prarmaterMean, 
-                                    'green': iocs_mercury.surfaceValue <= fieldColorValidatior.Mercury_Sediment.prarmaterMax && 
-                                      iocs_mercury.surfaceValue >= fieldColorValidatior.Mercury_Sediment.prarmaterMean, 
-                                    'red': iocs_mercury.surfaceValue >= fieldColorValidatior.Mercury_Sediment.prarmaterMax}"
-                      (keyup)="checkValueThreshold(iocs_mercury.surfaceValue, fieldColorValidatior.Mercury_Sediment.prarmaterThreshold,
-                        fieldColorValidatior.Mercury_Sediment.prarmaterStandDevition,fieldColorValidatior.Mercury_Sediment.prarmaterMax)"
-                      (input)="iocs_mercuryDetailsSave(iocs_mercury)" autocomplete="off" name="iocs_mercurySurfaceValue"
+                                    'orange': (iocs_mercury.surfaceValue  > fieldColorValidatior.Mercury_Sediment.prarmaterMax &&
+                                              iocs_mercury.surfaceValue  <= fieldColorValidatior.Mercury_Sediment.prarmaterMaxValueDeviation) || 
+                                              (iocs_mercury.surfaceValue  < fieldColorValidatior.Mercury_Sediment.prarmaterMin &&
+                                              iocs_mercury.surfaceValue  >= fieldColorValidatior.Mercury_Sediment.prarmaterMinValueDeviation),
+                                    'red':    (iocs_mercury.surfaceValue  > fieldColorValidatior.Mercury_Sediment.prarmaterMaxValueDeviation) ||
+                                              (iocs_mercury.surfaceValue  < fieldColorValidatior.Mercury_Sediment.prarmaterMinValueDeviation && 
+                                              iocs_mercury.surfaceValue  >=0),                                               
+                                    'green':  iocs_mercury.surfaceValue  <= fieldColorValidatior.Mercury_Sediment.prarmaterMax && 
+                                              iocs_mercury.surfaceValue  >= fieldColorValidatior.Mercury_Sediment.prarmaterMin}"
+                      (input)="iocs_mercuryDetailsSave(iocs_mercury,iocs_mercury.surfaceValue,
+                      fieldColorValidatior.Mercury_Sediment.prarmaterMaxValueDeviation,fieldColorValidatior.Mercury_Sediment.prarmaterMean,
+                      fieldColorValidatior.Mercury_Sediment.prarmaterThreshold,fieldColorValidatior.Mercury_Sediment.prarmaterStandDeviation)" autocomplete="off" name="iocs_mercurySurfaceValue"
                       [(ngModel)]="iocs_mercury.surfaceValue" #iocs_mercurySurfaceValue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercurySurfaceValue.invalid }"
-                      (focus)="toastClear()" required OnlyNumber="true" />
+                      (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" required OnlyNumber="true" DecimalPlaces="2" />
                   </div>
                   <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Mercury_Sediment"
                     [threshold]="fieldColorValidatior.Mercury_Sediment.prarmaterThreshold"></div>
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="oc-text-MQL" class="form-control" [(ngModel)]="iocs_mercury.mql" name="iocs_mercuryMql"
                       #iocs_mercuryMql="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercuryMql.invalid }"
-                      (click)="iocs_mercuryDetailsSave(iocs_mercury)" required>
+                      (click)="iocs_mercuryDetailsListSave(iocs_mercury)" (focus)="toastClear()" required>
                       <option value="" disabled selected hidden>Select MQL</option>
                       <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
                     </select>
@@ -748,7 +854,7 @@
                   <div class="clearfix tbl tbl-per-25 text-center">
                     <select id="gc-text-tm" class="form-control" [(ngModel)]="iocs_mercury.testMethod" name="iocs_mercuryTestMethod"
                       #iocs_mercuryTestMethod="ngModel" [ngClass]="{ 'is-invalid': f.submitted && iocs_mercuryTestMethod.invalid }"
-                      (click)="iocs_mercuryDetailsSave(iocs_mercury)" required>
+                      (click)="iocs_mercuryDetailsListSave(iocs_mercury)" (focus)="toastClear()"  required>
                       <option value="" disabled selected hidden>Select Test Method</option>
                       <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
                     </select>
@@ -765,11 +871,9 @@
             <div class="col-xs-12 col-sm-12">
               <div>
                 <ul class="legend">
-                  <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
-                  <br />
-                  <li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
-                  <br />
-                  <li><span class="CorrectValue"></span>Data is okay </li>
+                    <li><span class="CorrectValue"></span>Within range </li>
+                    <li><span class="StandardDeviation"></span>20% deviation</li>
+                    <li><span class="MoreThresholdValue"></span> Out of range </li>
                 </ul>
               </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inOrgChemTabNavPrev(module)">Previous</button>

@@ -155,7 +155,7 @@ export class DownloadBuoysDataComponent implements OnInit {
           'Salinity': elm.salinity,
           'Dosat': elm.dosat,
           'Doxy': elm.doxy,
-          'pH': elm.ph,
+          'ph': elm.ph,
           'Created Date': elm.createddate,
         };
       });

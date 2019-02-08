@@ -54,9 +54,14 @@
       </div>
       <div class="widget-body" *ngIf="alertsDetails.length > 0">
         <mat-card style="padding: 0;">
-          <ngx-datatable class="material sorting customTable" style="height: 400px;" [rows]="alertsDetails"
+         <!--  <ngx-datatable class="material sorting customTable" style="height: 360px;" [rows]="alertsDetails"
             [columnMode]="'standard'" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35"
-            [limit]="10" [selected]="selected" [selectionType]="'single'" (activate)="onActivate($event)" [scrollbarV]="true"
+            [limit]="10" [selected]="selected" [selectionType]="'single'" (activate)="onActivate($event)" [scrollbarH]="true"
+            (select)='onSelect($event)'> -->
+            
+        <ngx-datatable #table class="material sorting customTable" style="height: 385px; overflow-y: hidden;" [rows]="alertsDetails"
+            [columnMode]="'standard'" [limit]="6" [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="35"
+            [scrollbarH]="true" [selected]="selected" [selectionType]="'single'" (activate)="onActivate($event)" 
             (select)='onSelect($event)'>
             <ngx-datatable-column name="Severity" [width]="110">
               <ng-template let-value="value" ngx-datatable-cell-template>

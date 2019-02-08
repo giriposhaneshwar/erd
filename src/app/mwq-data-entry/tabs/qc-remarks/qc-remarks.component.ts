@@ -151,7 +151,7 @@ export class QcRemarksComponent implements OnInit {
       }); */
       this.toastr.error(
         message,
-        "Faied to submit! Please fill the required fields",
+        "Failed to submit! Please fill the required fields",
         { toastLife: 30000, allowHtml: true, }
       );
     }

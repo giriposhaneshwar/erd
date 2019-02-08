@@ -43,9 +43,10 @@ export class BloomsIncidentComponent implements OnInit {
   toDate: any;
   bloomUploadFiles: any[] = [];
   js = {};
+  glbalTxtFileUpload : HTMLInputElement;
   blommIncidentInfo: any = {
     incidentName: "", stationId: "", lattitude: "", longitude: "", incidentLocation: "", areaCovered: "", bloomType: "",
-    affectedSpecies: "", createdBy: "Admin", status: "Open", remarks: "", upload: []
+    affectedSpecies: "", createdBy: "Admin", status: "Open", remarks: "", upload: [], txtFileUpload:""
   };
   dateval = '';
   fromDateFilter: any;
@@ -165,11 +166,12 @@ export class BloomsIncidentComponent implements OnInit {
   }
 
 
-  fileChanged(e) {
+  fileChanged(e, txtFileUpload : HTMLInputElement) {
     let uploadedFile = e.target.files;
     console.log("Body SElection", $('body'));
     let that = this;
     let data = new FormData();
+  
     $.each($('.uploadFile')[0].files, function (i, file) {
       // debugger;
       data.append('file-' + i, file);
@@ -190,9 +192,25 @@ export class BloomsIncidentComponent implements OnInit {
         if (files.length > 0) {
           for (let i = 0; i < files.length; i++) {
             let item = files[i];
-            item['downloadLink'] = that.domain;
-            that.bloomUploadFiles.push(item);
-            that.blommIncidentInfo.upload.push(item);
+            console.log("Duplicate file---" + JSON.stringify(that.bloomUploadFiles), item.fileName);
+            if (that.bloomUploadFiles.length === 0) {
+              item['downloadLink'] = that.domain;
+              that.bloomUploadFiles.push(item);
+              that.blommIncidentInfo.upload.push(item);
+            }
+            else {
+              if(that.bloomUploadFiles[i].fileName===item.fileName){
+                console.log("MACHED");
+                alert("Duplicate file not allowed "+item.fileName );
+              }
+              else{
+                console.log("NOT MACHED");
+                item['downloadLink'] = that.domain;
+                that.bloomUploadFiles.push(item);
+                that.blommIncidentInfo.upload.push(item);
+    
+              }
+            }
           }
           console.log("Uploaded fileds", that.blommIncidentInfo.upload);
          
@@ -204,7 +222,9 @@ export class BloomsIncidentComponent implements OnInit {
         // alert(data);
       }
     });
-      
+    if(txtFileUpload.value != 'undefined'){
+      txtFileUpload.value=null;
+    }
   }
 
   dateForamt() {
@@ -244,8 +264,8 @@ export class BloomsIncidentComponent implements OnInit {
       }
     });
     this.f.resetForm();
-    this.closeModal();
-    var fromDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+    this.closeModal(this.glbalTxtFileUpload);
+    var fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
     let toDate = moment().format("YYYY-MM-DD");
     this.loadBloomIncidentsData(fromDate, toDate);
   }
@@ -325,12 +345,17 @@ export class BloomsIncidentComponent implements OnInit {
     this.openModal();
   }
   openModal() {
-    this.modalShowWindow = true;
+    this.modalShowWindow = true;    
+    this.blommIncidentInfo.txtFileUpload === '';
   }
-  closeModal() {
+  closeModal(txtFileUpload : HTMLInputElement) {
+    this.glbalTxtFileUpload = txtFileUpload;
     this.modalShowWindow = false;
     this.f.resetForm();
     this.blommIncidentInfo.upload=[];
+    if(txtFileUpload.value != 'undefined'){
+      txtFileUpload.value=null;
+    }
   }
 
   mouseWheelDir: string = '';

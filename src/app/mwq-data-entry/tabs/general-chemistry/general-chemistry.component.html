@@ -36,28 +36,31 @@
               <!-- {{totalPhosp.surfaceValue  | json}} - {{fieldColorValidatior.TotalPhosp.prarmaterMax |json}} -->
             </div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" autocomplete="off" class="form-control tbl tbl-per-30" [ngClass]="{
-                      'is-invalid': (f.submitted && totalPhospSurfaceValue.invalid),
-                      'white': totalPhosp.surfaceValue == '',
-                      'orange': totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMean, 
-                      'green': totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMax 
-                             && totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMean, 
-                      'red': totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMax}"
-                name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" (keyup)="checkValueThreshold(totalPhosp.surfaceValue, fieldColorValidatior.TotalPhosp.prarmaterThreshold, 
-                                            fieldColorValidatior.TotalPhosp.prarmaterStandDevition, 
-                                            fieldColorValidatior.TotalPhosp.prarmaterMax)"
-                #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" (input)="totalPhospDetailsSave(totalPhosp)"
-                (focus)="toastClear()" />
+              <input type="text" autocomplete="off" class="form-control tbl tbl-per-30" (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"
+                    [ngClass]="{'is-invalid'  : (f.submitted && totalPhospSurfaceValue.invalid), 
+                                'white' : totalPhosp.surfaceValue == '',
+                                'orange': (totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMax &&
+                                          totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMaxValueDeviation) || 
+                                          (totalPhosp.surfaceValue < fieldColorValidatior.TotalPhosp.prarmaterMin &&
+                                          totalPhosp.surfaceValue >= fieldColorValidatior.TotalPhosp.prarmaterMinValueDeviation),
+                                'red':    (totalPhosp.surfaceValue > fieldColorValidatior.TotalPhosp.prarmaterMaxValueDeviation) ||
+                                          (totalPhosp.surfaceValue < fieldColorValidatior.TotalPhosp.prarmaterMinValueDeviation && 
+                                          totalPhosp.surfaceValue >=0),                                               
+                                'green':  totalPhosp.surfaceValue <= fieldColorValidatior.TotalPhosp.prarmaterMax && 
+                                          totalPhosp.surfaceValue >= fieldColorValidatior.TotalPhosp.prarmaterMin}"
+                      name="totalPhospSurfaceValue" [(ngModel)]="totalPhosp.surfaceValue" 
+                      #totalPhospSurfaceValue="ngModel" required OnlyNumber="true" DecimalPlaces="2" 
+                      (input)="totalPhospDetailsSave(totalPhosp,totalPhosp.surfaceValue,
+                      fieldColorValidatior.TotalPhosp.prarmaterMaxValueDeviation,fieldColorValidatior.TotalPhosp.prarmaterMean,
+                      fieldColorValidatior.TotalPhosp.prarmaterThreshold,fieldColorValidatior.TotalPhosp.prarmaterStandDeviation)" />
             </div>
-            <div class="clearfix tbl tbl-per-10 text-center">
-              μg/L
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center">μg/L</div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TotalPhosp"
               [threshold]="fieldColorValidatior.TotalPhosp.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalPhosp.mql" name="totalPhospMql"
                 #totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospMql.invalid)}" required
-                (click)="totalPhospDetailsSave(totalPhosp)">
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="totalPhospDetailsListSave(totalPhosp)">
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -65,30 +68,33 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="totalPhosp.testMethod" name="totalPhospTestMethod"
                 #totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalPhospTestMethod.invalid)}"
-                required (click)="totalPhospDetailsSave(totalPhosp)">
+                (focus)="toastClear()" (keypress)="toastClear()"  required (click)="totalPhospDetailsListSave(totalPhosp)">
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
             </div>
           </div>
-
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Total Nitrogen</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
-                       'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),
-                       'white': totalNitrogen.surfaceValue == '',
-                       'orange': totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMean, 
-                       'green': totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMax 
-                                && totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMean, 
-                       'red': totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMax}"
+              <input type="text" class="form-control tbl tbl-per-30" (focus)="toastClear()" (keypress)="toastClear()"  
+                    autocomplete="off" OnlyNumber="true" DecimalPlaces="2" required
+                    [ngClass]="{'is-invalid': (f.submitted && totalNitrogenSurfaceValue.invalid),
+                            'white' : totalNitrogen.surfaceValue == '',
+                            'orange': (totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMax &&
+                                      totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMaxValueDeviation) || 
+                                      (totalNitrogen.surfaceValue < fieldColorValidatior.Total_Nitrogen.prarmaterMin &&
+                                      totalNitrogen.surfaceValue >= fieldColorValidatior.Total_Nitrogen.prarmaterMinValueDeviation),
+                            'red':    (totalNitrogen.surfaceValue > fieldColorValidatior.Total_Nitrogen.prarmaterMaxValueDeviation) ||
+                                      (totalNitrogen.surfaceValue < fieldColorValidatior.Total_Nitrogen.prarmaterMinValueDeviation && 
+                                      totalNitrogen.surfaceValue >=0),                                               
+                            'green':  totalNitrogen.surfaceValue <= fieldColorValidatior.Total_Nitrogen.prarmaterMax && 
+                                      totalNitrogen.surfaceValue >= fieldColorValidatior.Total_Nitrogen.prarmaterMin}"
                 name="totalNitrogenSurfaceValue" [(ngModel)]="totalNitrogen.surfaceValue" #totalNitrogenSurfaceValue="ngModel"
-                (keyup)="checkValueThreshold(totalNitrogen.surfaceValue, 
-                          fieldColorValidatior.Total_Nitrogen.prarmaterThreshold,
-                          fieldColorValidatior.Total_Nitrogen.prarmaterStandDevition,
-                          fieldColorValidatior.Total_Nitrogen.prarmaterMax)"
-                (input)="totalNitrogenDetailsSave(totalNitrogen)" required autocomplete="off" OnlyNumber="true"
-                (focus)="toastClear()" required />
+                (input)="totalNitrogenDetailsSave(totalNitrogen,totalNitrogen.surfaceValue,
+                fieldColorValidatior.Total_Nitrogen.prarmaterMaxValueDeviation,fieldColorValidatior.Total_Nitrogen.prarmaterMean,
+                fieldColorValidatior.Total_Nitrogen.prarmaterThreshold,fieldColorValidatior.Total_Nitrogen.prarmaterStandDeviation)" 
+                />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -98,7 +104,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="totalNitrogen.mql" name="totalNitrogenMql"
                 #totalNitrogenMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenMql.invalid)}"
-                (click)="totalNitrogenDetailsSave(totalNitrogen)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="totalNitrogenDetailsListSave(totalNitrogen)" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -106,7 +112,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="totalNitrogen.testMethod" name="totalNitrogenTestMethod"
                 #totalNitrogenTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && totalNitrogenTestMethod.invalid)}"
-                (click)="totalNitrogenDetailsSave(totalNitrogen)" required>
+                (focus)="toastClear()" (click)="totalNitrogenDetailsListSave(totalNitrogen)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -116,27 +122,30 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrite-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
-                  'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),
-                  'white': nitriteN.surfaceValue == '',
-                  'orange': nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMean, 
-                  'green': nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMax 
-                        && nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMean, 
-                  'red': nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMax}"
-                name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel" (keyup)="checkValueThreshold(nitriteN.surfaceValue, 
-                          fieldColorValidatior.Nitrite_N.prarmaterThreshold,
-                          fieldColorValidatior.Nitrite_N.prarmaterStandDevition,
-                          fieldColorValidatior.Nitrite_N.prarmaterMax)"
-                (focus)="toastClear()" (input)="nitriteNDetailsSave(nitriteN)" required autocomplete="off" OnlyNumber="true" />
+              <input type="text" class="form-control tbl tbl-per-30" (focus)="toastClear()" (keypress)="toastClear()"  autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                     name="nitriteNsurfaceValue" [(ngModel)]="nitriteN.surfaceValue" #nitriteNsurfaceValue="ngModel" required
+                    [ngClass]="{'is-invalid': (f.submitted && nitriteNsurfaceValue.invalid),
+                                'white':  nitriteN.surfaceValue == '',
+                                'orange': (nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMax &&
+                                          nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMaxValueDeviation) || 
+                                          (nitriteN.surfaceValue < fieldColorValidatior.Nitrite_N.prarmaterMin &&
+                                          nitriteN.surfaceValue >= fieldColorValidatior.Nitrite_N.prarmaterMinValueDeviation),
+                                'red':    (nitriteN.surfaceValue > fieldColorValidatior.Nitrite_N.prarmaterMaxValueDeviation) ||
+                                          (nitriteN.surfaceValue < fieldColorValidatior.Nitrite_N.prarmaterMinValueDeviation && 
+                                          nitriteN.surfaceValue >=0),                                               
+                                'green':  nitriteN.surfaceValue <= fieldColorValidatior.Nitrite_N.prarmaterMax && 
+                                          nitriteN.surfaceValue >= fieldColorValidatior.Nitrite_N.prarmaterMin}"
+                    (input)="nitriteNDetailsSave(nitriteN,nitriteN.surfaceValue,fieldColorValidatior.Nitrite_N.prarmaterMaxValueDeviation,
+                            fieldColorValidatior.Nitrite_N.prarmaterMean,fieldColorValidatior.Nitrite_N.prarmaterThreshold,
+                            fieldColorValidatior.Nitrite_N.prarmaterStandDeviation)"   />
             </div>
-            <div class="clearfix tbl tbl-per-10 text-center">
-              μg/L
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center">μg/L</div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrite_N"
               [threshold]="fieldColorValidatior.Nitrite_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitriteN.mql" name="nitriteNMql" #nitriteNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required (click)="nitriteNDetailsSave(nitriteN)">
+                [ngClass]="{'is-invalid': (f.submitted && nitriteNMql.invalid)}" required 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="nitriteNDetailsListSave(nitriteN)">
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -144,7 +153,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="nitriteN.testMethod" name="nitriteNTestMethod"
                 #nitriteNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && nitriteNTestMethod.invalid)}"
-                (click)="nitriteNDetailsSave(nitriteN)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="nitriteNDetailsListSave(nitriteN)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -154,27 +163,30 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Nitrate-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{
-                    'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),
-                    'white': nitrateN.surfaceValue == '',
-                    'orange': nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMean, 
-                    'green': nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMax 
-                        && nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMean, 
-                    'red': nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMax}"
-                name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" #nitrateNsurfaceValue="ngModel" (keyup)="checkValueThreshold(nitrateN.surfaceValue, 
-                  fieldColorValidatior.Nitrate_N.prarmaterThreshold,
-                  fieldColorValidatior.Nitrate_N.prarmaterStandDevition,
-                  fieldColorValidatior.Nitrate_N.prarmaterMax)"
-                  (focus)="toastClear()" (input)="nitrateNDetailsSave(nitrateN)" required autocomplete="off" OnlyNumber="true" />
+              <input type="text" class="form-control tbl tbl-per-30" name="nitrateNsurfaceValue" [(ngModel)]="nitrateN.surfaceValue" 
+              #nitrateNsurfaceValue="ngModel"  (focus)="toastClear()" (keypress)="toastClear()"  required autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+              [ngClass]="{'is-invalid': (f.submitted && nitrateNsurfaceValue.invalid),
+                          'white' : nitrateN.surfaceValue == '',
+                          'orange': (nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMax &&
+                                    nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMaxValueDeviation) || 
+                                    (nitrateN.surfaceValue < fieldColorValidatior.Nitrate_N.prarmaterMin &&
+                                    nitrateN.surfaceValue >= fieldColorValidatior.Nitrate_N.prarmaterMinValueDeviation),
+                          'red':    (nitrateN.surfaceValue > fieldColorValidatior.Nitrate_N.prarmaterMaxValueDeviation) ||
+                                    (nitrateN.surfaceValue < fieldColorValidatior.Nitrate_N.prarmaterMinValueDeviation && 
+                                    nitrateN.surfaceValue >=0),                                               
+                          'green':  nitrateN.surfaceValue <= fieldColorValidatior.Nitrate_N.prarmaterMax && 
+                                    nitrateN.surfaceValue >= fieldColorValidatior.Nitrate_N.prarmaterMin}"
+                 (input)="nitrateNDetailsSave(nitrateN,nitrateN.surfaceValue,
+                 fieldColorValidatior.Nitrate_N.prarmaterMaxValueDeviation,fieldColorValidatior.Nitrate_N.prarmaterMean,
+                 fieldColorValidatior.Nitrate_N.prarmaterThreshold,fieldColorValidatior.Nitrate_N.prarmaterStandDeviation)"  />
             </div>
-            <div class="clearfix tbl tbl-per-10 text-center">
-              μg/L
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center">μg/L</div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Nitrate_N"
               [threshold]="fieldColorValidatior.Nitrate_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="nitrateN.mql" name="nitrateNMql" #nitrateNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" (click)="nitrateNDetailsSave(nitrateN)"
+                [ngClass]="{'is-invalid': (f.submitted && nitrateNMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="nitrateNDetailsListSave(nitrateN)"
                 required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
@@ -183,7 +195,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="nitrateN.testMethod" name="nitrateNTestMethod"
                 #nitrateNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && nitrateNTestMethod.invalid)}"
-                (click)="nitrateNDetailsSave(nitrateN)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="nitrateNDetailsListSave(nitrateN)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -193,18 +205,22 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Silicate-Si (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),
-                'white': silicateSl.surfaceValue == '',
-                'orange': silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMean, 
-                'green': silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMax  
-                    && silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMean, 
-                'red': silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMax }"
-                name="silicateSlsurfaceValue" [(ngModel)]="silicateSl.surfaceValue" #silicateSlsurfaceValue="ngModel"
-                (keyup)="checkValueThreshold(silicateSl.surfaceValue, 
-                        fieldColorValidatior.Silicate_Sl.prarmaterThreshold,
-                        fieldColorValidatior.Silicate_Sl.prarmaterStandDevition,
-                        fieldColorValidatior.Silicate_Sl.prarmaterMax)"
-                (focus)="toastClear()" (input)="silicateSlDetailsSave(silicateSl)" required autocomplete="off" OnlyNumber="true" />
+              <input type="text" class="form-control tbl tbl-per-30" name="silicateSlsurfaceValue" [(ngModel)]="silicateSl.surfaceValue" 
+              #silicateSlsurfaceValue="ngModel"  (focus)="toastClear()" (keypress)="toastClear()" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" required
+              [ngClass]="{'is-invalid': (f.submitted && silicateSlsurfaceValue.invalid),
+                'white' : silicateSl.surfaceValue == '',
+                'orange': (silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMax &&
+                                    silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMaxValueDeviation) || 
+                                    (silicateSl.surfaceValue < fieldColorValidatior.Silicate_Sl.prarmaterMin &&
+                                    silicateSl.surfaceValue >= fieldColorValidatior.Silicate_Sl.prarmaterMinValueDeviation),
+                'red':    (silicateSl.surfaceValue > fieldColorValidatior.Silicate_Sl.prarmaterMaxValueDeviation) ||
+                                    (silicateSl.surfaceValue < fieldColorValidatior.Silicate_Sl.prarmaterMinValueDeviation && 
+                                    silicateSl.surfaceValue >=0),                                               
+                'green':  silicateSl.surfaceValue <= fieldColorValidatior.Silicate_Sl.prarmaterMax && 
+                                    silicateSl.surfaceValue >= fieldColorValidatior.Silicate_Sl.prarmaterMin}"
+                (input)="silicateSlDetailsSave(silicateSl,silicateSl.surfaceValue,
+                fieldColorValidatior.Silicate_Sl.prarmaterMaxValueDeviation,fieldColorValidatior.Silicate_Sl.prarmaterMean,
+                fieldColorValidatior.Silicate_Sl.prarmaterThreshold,fieldColorValidatior.Silicate_Sl.prarmaterStandDeviation)"   />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -213,7 +229,8 @@
               [threshold]="fieldColorValidatior.Silicate_Sl.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="silicateSl.mql" name="silicateSlMql"
-                #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" (click)="silicateSlDetailsSave(silicateSl)"
+                #silicateSlMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="silicateSlDetailsListSave(silicateSl)"
                 required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
@@ -222,7 +239,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="silicateSl.testMethod" name="silicateSlTestMethod"
                 #silicateSlTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && silicateSlTestMethod.invalid)}"
-                (click)="silicateSlDetailsSave(silicateSl)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="silicateSlDetailsListSave(silicateSl)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -232,18 +249,22 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Ammonia-N (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),
-              'white': ammoniaN.surfaceValue == '',
-              'orange': ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMean, 
-              'green': ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMax 
-                  && ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMean, 
-              'red': ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMax }"
-                (keyup)="checkValueThreshold(ammoniaN.surfaceValue, 
-                  fieldColorValidatior.Ammonia_N.prarmaterThreshold,
-                  fieldColorValidatior.Ammonia_N.prarmaterStandDevition,
-                  fieldColorValidatior.Ammonia_N.prarmaterMax)"
-                (focus)="toastClear()" (input)="ammoniaNDetailsSave(ammoniaN)" name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue"
-                #ammoniaNsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+              <input type="text" class="form-control tbl tbl-per-30"  (focus)="toastClear()" (keypress)="toastClear()"  
+              name="ammoniaNsurfaceValue" [(ngModel)]="ammoniaN.surfaceValue" #ammoniaNsurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+              [ngClass]="{'is-invalid': (f.submitted && ammoniaNsurfaceValue.invalid),
+                          'white':  ammoniaN.surfaceValue == '',
+                          'orange': (ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMax &&
+                                    ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMaxValueDeviation) || 
+                                    (ammoniaN.surfaceValue < fieldColorValidatior.Ammonia_N.prarmaterMin &&
+                                    ammoniaN.surfaceValue >= fieldColorValidatior.Ammonia_N.prarmaterMinValueDeviation),
+                          'red':    (ammoniaN.surfaceValue > fieldColorValidatior.Ammonia_N.prarmaterMaxValueDeviation) ||
+                                    (ammoniaN.surfaceValue < fieldColorValidatior.Ammonia_N.prarmaterMinValueDeviation && 
+                                    ammoniaN.surfaceValue >=0),                                               
+                          'green':  ammoniaN.surfaceValue <= fieldColorValidatior.Ammonia_N.prarmaterMax && 
+                                    ammoniaN.surfaceValue >= fieldColorValidatior.Ammonia_N.prarmaterMin}"
+                (input)="ammoniaNDetailsSave(ammoniaN,ammoniaN.surfaceValue,
+                fieldColorValidatior.Ammonia_N.prarmaterMaxValueDeviation,fieldColorValidatior.Ammonia_N.prarmaterMean,
+                fieldColorValidatior.Ammonia_N.prarmaterThreshold,fieldColorValidatior.Ammonia_N.prarmaterStandDeviation)" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -252,7 +273,8 @@
               [threshold]="fieldColorValidatior.Ammonia_N.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="ammoniaN.mql" name="ammoniaNMql" #ammoniaNMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" (click)="ammoniaNDetailsSave(ammoniaN)"
+                [ngClass]="{'is-invalid': (f.submitted && ammoniaNMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="ammoniaNDetailsListSave(ammoniaN)"
                 required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
@@ -261,7 +283,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="ammoniaN.testMethod" name="ammoniaNTestMethod"
                 #ammoniaNTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && ammoniaNTestMethod.invalid)}"
-                (click)="ammoniaNDetailsSave(ammoniaN)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="ammoniaNDetailsListSave(ammoniaN)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -271,19 +293,22 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-15 text-left">Phosphate-P (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue"
+              <input type="text" class="form-control tbl tbl-per-30" name="phosphatePsurfaceValue" [(ngModel)]="phosphateP.surfaceValue"  
+                (focus)="toastClear()" (keypress)="toastClear()"  #phosphatePsurfaceValue="ngModel"  required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
                 [ngClass]="{'is-invalid': (f.submitted && phosphatePsurfaceValue.invalid),
-              'white': phosphateP.surfaceValue == '',
-              'orange': phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMean, 
-              'green': phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMax 
-                  && phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMean, 
-              'red': phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMax }"
-                (keyup)="checkValueThreshold(phosphateP.surfaceValue, 
-                fieldColorValidatior.Phosphate_P.prarmaterThreshold,
-                fieldColorValidatior.Phosphate_P.prarmaterStandDevition,
-                fieldColorValidatior.Phosphate_P.prarmaterMax)"
-                (focus)="toastClear()" (input)="phosphatePDetailsSave(phosphateP)" #phosphatePsurfaceValue="ngModel" required autocomplete="off"
-                OnlyNumber="true" />
+                            'white':  phosphateP.surfaceValue == '',
+                            'orange': (phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMax &&
+                            phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMaxValueDeviation) || 
+                            (phosphateP.surfaceValue < fieldColorValidatior.Phosphate_P.prarmaterMin &&
+                            phosphateP.surfaceValue >= fieldColorValidatior.Phosphate_P.prarmaterMinValueDeviation),
+                  'red':    (phosphateP.surfaceValue > fieldColorValidatior.Phosphate_P.prarmaterMaxValueDeviation) ||
+                            (phosphateP.surfaceValue < fieldColorValidatior.Phosphate_P.prarmaterMinValueDeviation && 
+                            phosphateP.surfaceValue >=0),                                               
+                  'green':  phosphateP.surfaceValue <= fieldColorValidatior.Phosphate_P.prarmaterMax && 
+                            phosphateP.surfaceValue >= fieldColorValidatior.Phosphate_P.prarmaterMin}"
+                (input)="phosphatePDetailsSave(phosphateP,phosphateP.surfaceValue,
+                fieldColorValidatior.Phosphate_P.prarmaterMaxValueDeviation,fieldColorValidatior.Phosphate_P.prarmaterMean,
+                fieldColorValidatior.Phosphate_P.prarmaterThreshold,fieldColorValidatior.Phosphate_P.prarmaterStandDeviation)" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               μg/L
@@ -292,7 +317,8 @@
               [threshold]="fieldColorValidatior.Phosphate_P.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="phosphateP.mql" name="phosphatePMql"
-                #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" (click)="phosphatePDetailsSave(phosphateP)"
+                #phosphatePMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="phosphatePDetailsListSave(phosphateP)"
                 required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
@@ -301,7 +327,7 @@
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="phosphateP.testMethod" name="phosphatePTestMethod"
                 #phosphatePTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && phosphatePTestMethod.invalid)}"
-                (click)="phosphatePDetailsSave(phosphateP)" required>
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="phosphatePDetailsListSave(phosphateP)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -312,17 +338,22 @@
             <div class="clearfix tbl tbl-per-15 text-left">BOD (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" pattern="^[0-9]{1,5}$" class="form-control tbl tbl-per-30" name="bodSurfaceValue"
-                [(ngModel)]="bod.surfaceValue" [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),
-                            'white': bod.surfaceValue == '',
-                            'orange': bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMean, 
-                            'green': bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMax  
-                                && bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMean, 
-                            'red': bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMax }"
-                (keyup)="checkValueThreshold(bod.surfaceValue, 
-                                            fieldColorValidatior.BOD.prarmaterThreshold,
-                                            fieldColorValidatior.BOD.prarmaterStandDevition,
-                                            fieldColorValidatior.BOD.prarmaterMax)"
-                (focus)="toastClear()" (input)="bodDetailsSave(bod)" #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                [(ngModel)]="bod.surfaceValue" (focus)="toastClear()" (keypress)="toastClear()"  (keypress)="toastClear()"  
+                #bodSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'is-invalid': (f.submitted && bodSurfaceValue.invalid),
+                            'white':  bod.surfaceValue == '',
+                            'orange': (bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMax &&
+                                      bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMaxValueDeviation) || 
+                                      (bod.surfaceValue < fieldColorValidatior.BOD.prarmaterMin &&
+                                      bod.surfaceValue >= fieldColorValidatior.BOD.prarmaterMinValueDeviation),
+                            'red':    (bod.surfaceValue > fieldColorValidatior.BOD.prarmaterMaxValueDeviation) ||
+                                      (bod.surfaceValue < fieldColorValidatior.BOD.prarmaterMinValueDeviation && 
+                                      bod.surfaceValue >=0),                                               
+                            'green':  bod.surfaceValue <= fieldColorValidatior.BOD.prarmaterMax && 
+                                      bod.surfaceValue >= fieldColorValidatior.BOD.prarmaterMin}"
+                          (input)="bodDetailsSave(bod,bod.surfaceValue,fieldColorValidatior.BOD.prarmaterMaxValueDeviation,
+                          fieldColorValidatior.BOD.prarmaterMean,fieldColorValidatior.BOD.prarmaterThreshold,
+                          fieldColorValidatior.BOD.prarmaterStandDeviation)" />
             </div>
             <div class="clearfix tbl tbl-per-10 text-center">
               mg/L
@@ -330,15 +361,16 @@
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.BOD" [threshold]="fieldColorValidatior.BOD.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="bod.mql" name="bodMql" #bodMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && bodMql.invalid)}" (click)="bodDetailsSave(bod)" required>
+                [ngClass]="{'is-invalid': (f.submitted && bodMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="bodDetailsListSave(bod)" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="bod.testMethod" name="bodTestMethod"
-                #bodTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && bodTestMethod.invalid)}" (click)="bodDetailsSave(bod)"
-                required>
+                #bodTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && bodTestMethod.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="bodDetailsListSave(bod)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -349,32 +381,36 @@
             <div class="clearfix tbl tbl-per-15 text-left">TSS (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center generalChemistryValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" name="tssSurfaceValue" [(ngModel)]="tss.surfaceValue"
+                (focus)="toastClear()" (keypress)="toastClear()"  #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
                 [ngClass]="{'is-invalid': (f.submitted && tssSurfaceValue.invalid),
-                            'white': tss.surfaceValue == '',
-                            'orange': tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMean, 
-                            'green': tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMax 
-                                && tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMean, 
-                            'red': tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMax}"
-                (keyup)="checkValueThreshold(tss.surfaceValue, fieldColorValidatior.TSS.prarmaterThreshold,
-                  fieldColorValidatior.TSS.prarmaterStandDevition, 
-                  fieldColorValidatior.TSS.prarmaterMa)"
-                (focus)="toastClear()" (input)="tssDetailsSave(tss)" #tssSurfaceValue="ngModel" required autocomplete="off" OnlyNumber="true" />
+                            'white':  tss.surfaceValue == '',
+                            'orange': (tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMax &&
+                                      tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMaxValueDeviation) || 
+                                      (tss.surfaceValue < fieldColorValidatior.TSS.prarmaterMin &&
+                                      tss.surfaceValue >= fieldColorValidatior.TSS.prarmaterMinValueDeviation),
+                            'red':    (tss.surfaceValue > fieldColorValidatior.TSS.prarmaterMaxValueDeviation) ||
+                                      (tss.surfaceValue < fieldColorValidatior.TSS.prarmaterMinValueDeviation && 
+                                      tss.surfaceValue >=0),                                               
+                            'green':  tss.surfaceValue <= fieldColorValidatior.TSS.prarmaterMax && 
+                                      tss.surfaceValue >= fieldColorValidatior.TSS.prarmaterMin}"
+                (focus)="toastClear()" (keypress)="toastClear()"  (input)="tssDetailsSave(tss,tss.surfaceValue,fieldColorValidatior.TSS.prarmaterMaxValueDeviation,
+                fieldColorValidatior.TSS.prarmaterMean,
+                fieldColorValidatior.TSS.prarmaterThreshold,fieldColorValidatior.TSS.prarmaterStandDeviation)" />
             </div>
-            <div class="clearfix tbl tbl-per-10 text-center">
-              mg/L
-            </div>
+            <div class="clearfix tbl tbl-per-10 text-center">mg/L</div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TSS" [threshold]="fieldColorValidatior.TSS.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="tss.mql" name="tssMql" #tssMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" (click)="tssDetailsSave(tss)" required>
+                [ngClass]="{'is-invalid': (f.submitted && tssMql.invalid)}" 
+                (focus)="toastClear()" (keypress)="toastClear()"  (click)="tssDetailsListSave(tss)" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
             </div>
             <div class="clearfix tbl tbl-per-25 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="tss.testMethod" name="tssTestMethod"
-                #tssTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && tssTestMethod.invalid)}" (click)="tssDetailsSave(tss)"
-                required>
+                #tssTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && tssTestMethod.invalid)}" 
+                (click)="tssDetailsListSave(tss)" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -386,11 +422,9 @@
             <div class="col-xs-12 col-sm-12">
               <div>
                 <ul class="legend">
-                  <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
-                  <br />
-                  <li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
-                  <br />
-                  <li><span class="CorrectValue"></span>Data is okay </li>
+                    <li><span class="CorrectValue"></span>Within range </li>
+                    <li><span class="StandardDeviation"></span>20% deviation</li>
+                    <li><span class="MoreThresholdValue"></span> Out of range </li>
                 </ul>
               </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="genChemTabNavPrev(module)">Previous</button>

@@ -53,61 +53,185 @@
             </div>
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historical Graph</b></div>
           </div>
-
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-10 text-left">Temperature (°c)</div>
+            <div class="clearfix tbl tbl-per-10 text-left">Temperature (°c) </div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
-                          'white': temperature.surfaceValue == '',
-                          'orange': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMean, 
-                          'green': temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMax && 
-                                    temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMean,
-                          'red': temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMax}"
-                (keyup)="checkValueThreshold(temperature.surfaceValue, fieldColorValidatior.Temparature.prarmaterThreshold,
-                    fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
-                name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" OnlyNumber="true" required autocomplete="off"
-                (input)="temperatureDetailsSave(temperature)" (focus)="toastClear()"/>
+              <input type="text" [(ngModel)]="temperature.surfaceValue" class="form-control tbl tbl-per-30" 
+              [ngClass]="{'is-invalid': (f.submitted && temperatureSurfaceVal.invalid), 
+                          'white':  temperature.surfaceValue == '',                          
+                         'orange':  (temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMax &&
+                                    temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                    (temperature.surfaceValue < fieldColorValidatior.Temparature.prarmaterMin &&
+                                    temperature.surfaceValue >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                          'red':    (temperature.surfaceValue > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                    (temperature.surfaceValue < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                    temperature.surfaceValue >=0),                                               
+                          'green':  temperature.surfaceValue <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                    temperature.surfaceValue >= fieldColorValidatior.Temparature.prarmaterMin  }"
+                name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" OnlyNumber="true" DecimalPlaces="2" required autocomplete="off"
+                (input)="temperatureDetailsSave(temperature,temperature.surfaceValue,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation,
+                fieldColorValidatior.Temparature.prarmaterMin,fieldColorValidatior.Temparature.prarmaterMax,
+                fieldColorValidatior.Temparature.prarmaterMinValueDeviation )"
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"/>
             </div>
-            <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Surface"
-              [threshold]="fieldColorValidatior.Temparature.prarmaterThreshold"></div>
+            <div class="clearfix tbl tbl-per-15 text-center Temparature_Surface" msHistoricalGraph [graphData]="graphData.Temparature_Surface"
+              [threshold]="fieldColorValidatior.Temparature.prarmaterThreshold" [graphName]="['Temparature_Surface']"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && temperatureBottomVal.invalid),
-                'white': temperature.bottomValue == '',
-                'orange': temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMean, 
-                'green': temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMax && 
-                          temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMean, 
-                'red': temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMax}"
-                (keyup)="checkValueThreshold(temperature.bottomValue, fieldColorValidatior.Temparature.prarmaterThreshold,
-                fieldColorValidatior.Temparature.prarmaterStandDevition,fieldColorValidatior.Temparature.prarmaterMax)"
+                        'white':  temperature.bottomValue == '',
+                        'orange':  (temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMax &&
+                                   temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                   (temperature.bottomValue < fieldColorValidatior.Temparature.prarmaterMin &&
+                                   temperature.bottomValue >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                         'red':    (temperature.bottomValue > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                   (temperature.bottomValue < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                   temperature.bottomValue >=0),                                               
+                         'green':  temperature.bottomValue <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                   temperature.bottomValue >= fieldColorValidatior.Temparature.prarmaterMin }"
                 name="temperatureBottomVal" [(ngModel)]="temperature.bottomValue" #temperatureBottomVal="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="temperatureDetailsSave(temperature)"
-                (focus)="toastClear()" />
+                OnlyNumber="true" DecimalPlaces="2" required autocomplete="off" (input)="temperatureDetailsSave(temperature,temperature.bottomValue, 
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)"
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_Bottom,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_Bottom')"
+                (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
-              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom5m == '','red': temperature.bottom5m <= 35, 'orange': temperature.bottom5m <= 50 && temperature.bottom5m > 35, 'green': temperature.bottom5m > 50}"
+              <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" 
+              [ngClass]="{'white':  temperature.bottom5m == '',
+                          'orange':  (temperature.bottom5m > fieldColorValidatior.Temparature.prarmaterMax &&
+                          temperature.bottom5m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                          (temperature.bottom5m < fieldColorValidatior.Temparature.prarmaterMin &&
+                          temperature.bottom5m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                'red':    (temperature.bottom5m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                          (temperature.bottom5m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                          temperature.bottom5m >=0),                                               
+                'green':  temperature.bottom5m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                          temperature.bottom5m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom5m" [(ngModel)]="temperature.bottom5m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom10m == '','red': temperature.bottom10m <= 35, 'orange': temperature.bottom10m <= 50 && temperature.bottom10m > 35, 'green': temperature.bottom10m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom5m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_5M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_5M')" 
+                (keypress)="toastClear()" (click)="toastClear()" />
+              <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" 
+                [ngClass]="{'white':  temperature.bottom10m == '',
+                          'orange':  (temperature.bottom10m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                      temperature.bottom10m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                      (temperature.bottom10m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                      temperature.bottom10m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom10m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom10m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom10m >=0),                                               
+                            'green':  temperature.bottom10m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                      temperature.bottom10m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom10m" [(ngModel)]="temperature.bottom10m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom15m == '','red': temperature.bottom15m <= 35, 'orange': temperature.bottom15m <= 50 && temperature.bottom15m > 35, 'green': temperature.bottom15m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom10m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_10M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_10M')" 
+                (keypress)="toastClear()" (click)="toastClear()" />
+              <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white':  temperature.bottom15m == '',
+                                      'orange':  (temperature.bottom15m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                      temperature.bottom15m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                      (temperature.bottom15m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                      temperature.bottom15m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom15m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom15m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom15m >=0),                                               
+                            'green':  temperature.bottom15m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                      temperature.bottom15m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom15m" [(ngModel)]="temperature.bottom15m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom20m == '','red': temperature.bottom20m <= 35, 'orange': temperature.bottom20m <= 50 && temperature.bottom20m > 35, 'green': temperature.bottom20m > 50}"
-                name="tempbottom20m" [(ngModel)]="temperature.bottom20m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom25m == '','red': temperature.bottom25m <= 35, 'orange': temperature.bottom25m <= 50 && temperature.bottom25m > 35, 'green': temperature.bottom25m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom15m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_15M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_15M')" />
+              <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white': temperature.bottom20m == '',
+                                      'orange':  (temperature.bottom20m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                      temperature.bottom20m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                      (temperature.bottom20m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                      temperature.bottom20m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom20m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom20m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom20m >=0),                                               
+                            'green':  temperature.bottom20m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                      temperature.bottom20m >= fieldColorValidatior.Temparature.prarmaterMin}"
+                name="tempbottom20m" [(ngModel)]="temperature.bottom20m" class="form-control" autocomplete="off" 
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom20m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_20M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_20M')" />
+              
+              <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white':  temperature.bottom25m == '',
+                                      'orange':  (temperature.bottom25m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                      temperature.bottom25m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                      (temperature.bottom25m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                      temperature.bottom25m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom25m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom25m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom25m >=0),                                               
+                            'green':  temperature.bottom25m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                      temperature.bottom25m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom25m" [(ngModel)]="temperature.bottom25m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom30m == '','red': temperature.bottom30m <= 35, 'orange': temperature.bottom30m <= 50 && temperature.bottom30m > 35, 'green': temperature.bottom30m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom25m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_25M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_25M')" />
+              
+              <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white':  temperature.bottom30m == '',
+                            'orange':  (temperature.bottom30m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                        temperature.bottom30m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                        (temperature.bottom30m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                        temperature.bottom30m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                              'red':    (temperature.bottom30m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                        (temperature.bottom30m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                        temperature.bottom30m >=0),                                               
+                              'green':  temperature.bottom30m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                        temperature.bottom30m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom30m" [(ngModel)]="temperature.bottom30m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom35m == '','red': temperature.bottom35m <= 35, 'orange': temperature.bottom35m <= 50 && temperature.bottom35m > 35, 'green': temperature.bottom35m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom30m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_30M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_30M')" />
+              
+              <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white':  temperature.bottom35m == '',
+                            'orange':  (temperature.bottom35m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                        temperature.bottom35m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                        (temperature.bottom35m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                        temperature.bottom35m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom35m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom35m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom35m >=0),                                               
+                            'green':  temperature.bottom35m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                            temperature.bottom35m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom35m" [(ngModel)]="temperature.bottom35m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
-              <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" [ngClass]="{'white': temperature.bottom40m == '','red': temperature.bottom40m <= 35, 'orange': temperature.bottom40m <= 50 && temperature.bottom40m > 35, 'green': temperature.bottom40m > 50}"
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom35m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_35M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_35M')" />
+              
+            <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" (keypress)="toastClear()" (click)="toastClear()"
+                [ngClass]="{'white':  temperature.bottom40m == '',
+                            'orange':  (temperature.bottom40m > fieldColorValidatior.Temparature.prarmaterMax &&
+                                      temperature.bottom40m <= fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) || 
+                                      (temperature.bottom40m < fieldColorValidatior.Temparature.prarmaterMin &&
+                                    temperature.bottom40m >= fieldColorValidatior.Temparature.prarmaterMinValueDeviation),
+                            'red':    (temperature.bottom40m > fieldColorValidatior.Temparature.prarmaterMaxValueDeviation) ||
+                                      (temperature.bottom40m < fieldColorValidatior.Temparature.prarmaterMinValueDeviation &&
+                                      temperature.bottom40m >=0),                                               
+                            'green':  temperature.bottom40m <= fieldColorValidatior.Temparature.prarmaterMax && 
+                                      temperature.bottom40m >= fieldColorValidatior.Temparature.prarmaterMin}"
                 name="tempbottom40m" [(ngModel)]="temperature.bottom40m" class="form-control" autocomplete="off"
-                OnlyNumber="true" (input)="temperatureDetailsSave(temperature)" />
+                OnlyNumber="true" DecimalPlaces="2" (input)="temperatureDetailsSave(temperature,temperature.bottom40m,
+                fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)" 
+                (focus)="insituTemparatureGraphDataGenrate(graphData.Temparature_40M,fieldColorValidatior.Temparature.prarmaterThreshold,'Temparature_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Temparature_Bottom"
               [threshold]="fieldColorValidatior.Temparature.prarmaterThreshold"></div>
@@ -117,60 +241,179 @@
             <div class="clearfix tbl tbl-per-10 text-left">Conductivity (mS/cm)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivitySurfaceVal.invalid),
-                              'white': conductivity.surfaceValue == '',
-                              'orange': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
-                              'green': conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
-                                conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMean, 
-                              'red': conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMax}"
-                (keyup)="checkValueThreshold(conductivity.surfaceValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
-                  fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
+                      'white':  conductivity.surfaceValue == '',
+                                'orange':  (conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                (conductivity.surfaceValue < fieldColorValidatior.Conductivity.prarmaterMin &&
+                              conductivity.surfaceValue >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                      'red':    (conductivity.surfaceValue > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                (conductivity.surfaceValue < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                conductivity.surfaceValue >=0),                                               
+                      'green':  conductivity.surfaceValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                conductivity.surfaceValue >= fieldColorValidatior.Conductivity.prarmaterMin}"
                 name="conductivitySurfaceVal" [(ngModel)]="conductivity.surfaceValue" #conductivitySurfaceVal="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="conductivityDetailsSave(conductivity)" 
-                (focus)="toastClear()"/>
-
-              <!-- <span class="pad l-15">mS/gm (at Surface)</span> -->
+                OnlyNumber="true" DecimalPlaces="2" required autocomplete="off" (input)="conductivityDetailsSave(conductivity,conductivity.surfaceValue,
+                fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,fieldColorValidatior.Conductivity.prarmaterMean,
+                fieldColorValidatior.Conductivity.prarmaterThreshold,fieldColorValidatior.Conductivity.prarmaterStandDeviation)"
+                (focus)="toastClear()" (click)="toastClear()" (keypress)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Surface"
-              [threshold]="fieldColorValidatior.Conductivity.prarmaterThreshold"></div>
-            <!-- <div class="clearfix tbl tbl-per-15 text-left">mS/gm (at Deepwater)</div> -->
+              [threshold]="fieldColorValidatior.Conductivity.prarmaterThreshold" ></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),
-                  'white': conductivity.bottomValue == '',
-                  'orange': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMean, 
-                  'green': conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
-                  conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMean, 
-                  'red': conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMax}"
-                (keyup)="checkValueThreshold(conductivity.bottomValue, fieldColorValidatior.Conductivity.prarmaterThreshold,
-                  fieldColorValidatior.Conductivity.prarmaterStandDevition,fieldColorValidatior.Conductivity.prarmaterMax)"
+              <input type="text" class="form-control tbl tbl-per-30" (keypress)="toastClear()" (click)="toastClear()"
+              [ngClass]="{'is-invalid': (f.submitted && conductivityBottomVal.invalid),
+                      'white':  conductivity.bottomValue == '',
+                      'orange':  (conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                  conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                  (conductivity.bottomValue < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                conductivity.bottomValue >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                        'red':    (conductivity.bottomValue > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                  (conductivity.bottomValue < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                  conductivity.bottomValue >=0),                                               
+                        'green':  conductivity.bottomValue <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                  conductivity.bottomValue >= fieldColorValidatior.Conductivity.prarmaterMin}"
                 name="conductivityBottomVal" [(ngModel)]="conductivity.bottomValue" #conductivityBottomVal="ngModel"
-                required autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" 
-                (focus)="toastClear()"/>
+                required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" (input)="conductivityDetailsSave(conductivity,conductivity.bottomValue,
+                fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,fieldColorValidatior.Conductivity.prarmaterMean,
+                fieldColorValidatior.Conductivity.prarmaterThreshold,fieldColorValidatior.Conductivity.prarmaterStandDeviation)"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_Bottom,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_Bottom')" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom5m"
-                [(ngModel)]="conductivity.bottom5m" [ngClass]="{'white': conductivity.bottom5m == '','red': conductivity.bottom5m <= 35, 'orange': conductivity.bottom5m <= 50 && conductivity.bottom5m > 35, 'green': conductivity.bottom5m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
-              <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom10m"
-                [(ngModel)]="conductivity.bottom10m" [ngClass]="{'white': conductivity.bottom10m == '','red': conductivity.bottom10m <= 35, 'orange': conductivity.bottom10m <= 50 && conductivity.bottom10m > 35, 'green': conductivity.bottom10m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom5m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  conductivity.bottom5m == '',
+                            'orange':  (conductivity.bottom5m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                        conductivity.bottom5m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                        (conductivity.bottom5m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                      conductivity.bottom5m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                              'red':    (conductivity.bottom5m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                        (conductivity.bottom5m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                        conductivity.bottom5m >=0),                                               
+                              'green':  conductivity.bottom5m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                        conductivity.bottom5m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom5m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_5M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_5M')" />
+              
+                <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom10m"
+                [(ngModel)]="conductivity.bottom10m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  conductivity.bottom10m == '',
+                           'orange':  (conductivity.bottom10m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                    conductivity.bottom10m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                    (conductivity.bottom10m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                  conductivity.bottom10m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                          'red':    (conductivity.bottom10m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                    (conductivity.bottom10m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                    conductivity.bottom10m >=0),                                               
+                          'green':  conductivity.bottom10m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                    conductivity.bottom10m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom10m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_10M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_10M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom15m"
-                [(ngModel)]="conductivity.bottom15m" [ngClass]="{'white': conductivity.bottom15m == '','red': conductivity.bottom15m <= 35, 'orange': conductivity.bottom15m <= 50 && conductivity.bottom15m > 35, 'green': conductivity.bottom15m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom15m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  conductivity.bottom15m == '',
+                            'orange':  (conductivity.bottom15m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                      conductivity.bottom15m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                      (conductivity.bottom15m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                    conductivity.bottom15m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                            'red':    (conductivity.bottom15m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                      (conductivity.bottom15m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                      conductivity.bottom15m >=0),                                               
+                            'green':  conductivity.bottom15m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                      conductivity.bottom15m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom15m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                 fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                 fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_15M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_15M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom20m"
-                [(ngModel)]="conductivity.bottom20m" [ngClass]="{'white': conductivity.bottom20m == '','red': conductivity.bottom20m <= 35, 'orange': conductivity.bottom20m <= 50 && conductivity.bottom20m > 35, 'green': conductivity.bottom20m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom20m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  conductivity.bottom20m == '',
+                            'orange':  (conductivity.bottom20m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                        conductivity.bottom20m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                        (conductivity.bottom20m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                      conductivity.bottom20m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                            'red':    (conductivity.bottom20m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                      (conductivity.bottom20m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                      conductivity.bottom20m >=0),                                               
+                            'green':  conductivity.bottom20m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                      conductivity.bottom20m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom20m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_20M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_20M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom25m"
-                [(ngModel)]="conductivity.bottom25m" [ngClass]="{'white': conductivity.bottom25m == '','red': conductivity.bottom25m <= 35, 'orange': conductivity.bottom25m <= 50 && conductivity.bottom25m > 35, 'green': conductivity.bottom25m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom25m"  class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white': conductivity.bottom25m == '',
+                            'orange':  (conductivity.bottom25m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                        conductivity.bottom25m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                        (conductivity.bottom25m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                      conductivity.bottom25m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                            'red':    (conductivity.bottom25m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                      (conductivity.bottom25m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                      conductivity.bottom25m >=0),                                               
+                            'green':  conductivity.bottom25m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                      conductivity.bottom25m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom25m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_25M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_25M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom30m"
-                [(ngModel)]="conductivity.bottom30m" [ngClass]="{'white': conductivity.bottom30m == '','red': conductivity.bottom30m <= 35, 'orange': conductivity.bottom30m <= 50 && conductivity.bottom30m > 35, 'green': conductivity.bottom30m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom30m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': conductivity.bottom30m == '',
+                            'orange':  (conductivity.bottom30m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                        conductivity.bottom30m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                        (conductivity.bottom30m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                        conductivity.bottom30m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                          'red':    (conductivity.bottom30m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                    (conductivity.bottom30m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                    conductivity.bottom30m >=0),                                               
+                          'green':  conductivity.bottom30m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                    conductivity.bottom30m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom30m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_30M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_30M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom35m"
-                [(ngModel)]="conductivity.bottom35m" [ngClass]="{'white': conductivity.bottom35m == '','red': conductivity.bottom35m <= 35, 'orange': conductivity.bottom35m <= 50 && conductivity.bottom35m > 35, 'green': conductivity.bottom35m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom35m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  conductivity.bottom35m == '',
+                            'orange':  (conductivity.bottom35m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                                        conductivity.bottom35m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                                        (conductivity.bottom35m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                                        conductivity.bottom35m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                            'red':    (conductivity.bottom35m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                                      (conductivity.bottom35m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                                      conductivity.bottom35m >=0),                                               
+                            'green':  conductivity.bottom35m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                                      conductivity.bottom35m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity,conductivity.bottom35m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation )" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_35M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_35M')" />
+          
               <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="conductivity.bottom40m"
-                [(ngModel)]="conductivity.bottom40m" [ngClass]="{'white': conductivity.bottom40m == '','red': conductivity.bottom40m <= 35, 'orange': conductivity.bottom40m <= 50 && conductivity.bottom40m > 35, 'green': conductivity.bottom40m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="conductivityDetailsSave(conductivity)" />
+                [(ngModel)]="conductivity.bottom40m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  conductivity.bottom40m == '',
+                'orange':  (conductivity.bottom40m > fieldColorValidatior.Conductivity.prarmaterMax &&
+                            conductivity.bottom40m <= fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) || 
+                            (conductivity.bottom40m < fieldColorValidatior.Conductivity.prarmaterMin &&
+                            conductivity.bottom40m >= fieldColorValidatior.Conductivity.prarmaterMinValueDeviation),
+                'red':    (conductivity.bottom40m > fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation) ||
+                          (conductivity.bottom40m < fieldColorValidatior.Conductivity.prarmaterMinValueDeviation &&
+                          conductivity.bottom40m >=0),                                               
+                'green':  conductivity.bottom40m <= fieldColorValidatior.Conductivity.prarmaterMax && 
+                          conductivity.bottom40m >= fieldColorValidatior.Conductivity.prarmaterMin}"
+                (input)="conductivityDetailsSave(conductivity, conductivity.bottom40m,fieldColorValidatior.Conductivity.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Conductivity.prarmaterMean,fieldColorValidatior.Conductivity.prarmaterThreshold,
+                fieldColorValidatior.Conductivity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituConductivityGraphDataGenrate(graphData.Conductivity_40M,fieldColorValidatior.Conductivity.prarmaterThreshold,'Conductivity_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Conductivity_Bottom"
               [threshold]="fieldColorValidatior.Conductivity.prarmaterThreshold"></div>
@@ -179,56 +422,183 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">Salinity (ppt)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),
-                  'white': salinity.surfaceValue == '',
-                  'orange': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMean, 
-                  'green': salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMax && 
-                     salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMean, 
-                  'red': salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMax}"
-                (keyup)="checkValueThreshold(salinity.surfaceValue, fieldColorValidatior.Salinity.prarmaterThreshold,
-                  fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
-                autocomplete="off" name="salinitySurfaceVal" [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel"
-                OnlyNumber="true" required (input)="salinityDetailsSave(salinity)" (focus)="toastClear()" />
+              <input type="text" class="form-control tbl tbl-per-30" required autocomplete="off" name="salinitySurfaceVal" 
+              [(ngModel)]="salinity.surfaceValue" #salinitySurfaceVal="ngModel" OnlyNumber="true" DecimalPlaces="2"  (focus)="toastClear()" 
+              [ngClass]="{'is-invalid': (f.submitted && salinitySurfaceVal.invalid),
+                    'white':  salinity.surfaceValue == '',
+                    'orange':  (salinity.surfaceValue > fieldColorValidatior.Salinity.prarmaterMax &&
+                                salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                (salinity.surfaceValue < fieldColorValidatior.Salinity.prarmaterMin &&
+                                salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                    'red':    (salinity.surfaceValue > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                              (salinity.surfaceValue < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                              salinity.surfaceValue >=0),                                               
+                    'green':  salinity.surfaceValue <= fieldColorValidatior.Salinity.prarmaterMax && 
+                              salinity.surfaceValue >= fieldColorValidatior.Salinity.prarmaterMin}"
+                  (input)="salinityDetailsSave(salinity,salinity.surfaceValue, 
+                          fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                          fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)"
+                  (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Surface"
               [threshold]="fieldColorValidatior.Salinity.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),
-                        'white': salinity.bottomValue == '',
-                        'orange': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMean, 
-                        'green': salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMax  && 
-                            salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMean, 
-                        'red': salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMax }"
-                (keyup)="checkValueThreshold(salinity.bottomValue, fieldColorValidatior.Salinity.prarmaterThreshold,
-                    fieldColorValidatior.Salinity.prarmaterStandDevition,fieldColorValidatior.Salinity.prarmaterMax)"
+              <input type="text" class="form-control tbl tbl-per-30" 
+              [ngClass]="{'is-invalid': (f.submitted && salinityBottomValue.invalid),
+                    'white':  salinity.bottomValue == '',
+                    'orange':  (salinity.bottomValue > fieldColorValidatior.Salinity.prarmaterMax &&
+                                salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                (salinity.bottomValue < fieldColorValidatior.Salinity.prarmaterMin &&
+                                salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                    'red':    (salinity.bottomValue > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                              (salinity.bottomValue < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                              salinity.bottomValue >=0),                                               
+                    'green':  salinity.bottomValue <= fieldColorValidatior.Salinity.prarmaterMax && 
+                              salinity.bottomValue >= fieldColorValidatior.Salinity.prarmaterMin}"
                 name="salinityBottomValue" [(ngModel)]="salinity.bottomValue" #salinityBottomValue="ngModel" required
-                OnlyNumber="true" autocomplete="off" (input)="salinityDetailsSave(salinity)" (focus)="toastClear()" />
+                OnlyNumber="true" DecimalPlaces="2" autocomplete="off" 
+                (input)="salinityDetailsSave(salinity,salinity.bottomValue, 
+                          fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                          fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" 
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_Bottom,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_Bottom')" 
+                (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="salinity.bottom5m"
-                [(ngModel)]="salinity.bottom5m" [ngClass]="{'white': salinity.bottom5m == '','red': salinity.bottom5m <= 35, 'orange': salinity.bottom5m <= 50 && salinity.bottom5m > 35, 'green': salinity.bottom5m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom5m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom5m == '',
+                            'orange':  (salinity.bottom5m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom5m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                        (salinity.bottom5m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom5m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom5m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom5m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom5m >=0),                                               
+                            'green':  salinity.bottom5m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom5m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                 (input)="salinityDetailsSave(salinity,salinity.bottom5m, 
+                 fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                 fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                 (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_5M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_5M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="salinity.bottom10m"
-                [(ngModel)]="salinity.bottom10m" [ngClass]="{'white': salinity.bottom10m == '','red': salinity.bottom10m <= 35, 'orange': salinity.bottom10m <= 50 && salinity.bottom10m > 35, 'green': salinity.bottom10m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom10m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom10m == '',
+                            'orange':  (salinity.bottom10m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                      salinity.bottom10m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                     (salinity.bottom10m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                      salinity.bottom10m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom10m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom10m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom10m >=0),                                               
+                            'green':  salinity.bottom10m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom10m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                 (input)="salinityDetailsSave(salinity,salinity.bottom10m, 
+                 fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                 fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation )" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_10M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_10M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" name="salinity.bottom15m"
-                [(ngModel)]="salinity.bottom15m" [ngClass]="{'white': salinity.bottom15m == '','red': salinity.bottom15m <= 35, 'orange': salinity.bottom15m <= 50 && salinity.bottom15m > 35, 'green': salinity.bottom15m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom15m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom15m == '',
+                            'orange':  (salinity.bottom15m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom15m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                      (salinity.bottom15m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom15m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom15m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom15m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom15m >=0),                                               
+                            'green':  salinity.bottom15m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom15m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                 (input)="salinityDetailsSave(salinity,salinity.bottom15m, 
+                 fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                 fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation )" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_15M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_15M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" name="salinity.bottom20m"
-                [(ngModel)]="salinity.bottom20m" [ngClass]="{'white': salinity.bottom20m == '','red': salinity.bottom20m <= 35, 'orange': salinity.bottom20m <= 50 && salinity.bottom20m > 35, 'green': salinity.bottom20m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom20m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white': salinity.bottom20m == '',
+                            'orange':  (salinity.bottom20m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom20m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                      (salinity.bottom20m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom20m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom20m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom20m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom20m >=0),                                               
+                            'green':  salinity.bottom20m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom20m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                 (input)="salinityDetailsSave(salinity,salinity.bottom20m, 
+                 fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                 fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_20M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_20M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" name="salinity.bottom25m"
-                [(ngModel)]="salinity.bottom25m" [ngClass]="{'white': salinity.bottom25m == '','red': salinity.bottom25m <= 35, 'orange': salinity.bottom25m <= 50 && salinity.bottom25m > 35, 'green': salinity.bottom25m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom25m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom25m == '',
+                            'orange':  (salinity.bottom25m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom25m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                      (salinity.bottom25m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom25m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom25m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom25m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom25m >=0),                                               
+                            'green':  salinity.bottom25m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom25m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                (input)="salinityDetailsSave(salinity,salinity.bottom25m, 
+                fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_25M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_25M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="salinity.bottom30m"
-                [(ngModel)]="salinity.bottom30m" [ngClass]="{'white': salinity.bottom30m == '','red': salinity.bottom30m <= 35, 'orange': salinity.bottom30m <= 50 && salinity.bottom30m > 35, 'green': salinity.bottom30m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom30m"  class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom30m == '',
+                            'orange':  (salinity.bottom30m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom30m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                      (salinity.bottom30m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom30m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom30m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom30m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom30m >=0),                                               
+                            'green':  salinity.bottom30m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom30m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                (input)="salinityDetailsSave(salinity,salinity.bottom30m, 
+                fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_30M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_30M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" name="salinity.bottom35m"
-                [(ngModel)]="salinity.bottom35m" [ngClass]="{'white': salinity.bottom35m == '','red': salinity.bottom35m <= 35, 'orange': salinity.bottom35m <= 50 && salinity.bottom35m > 35, 'green': salinity.bottom35m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom35m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  salinity.bottom35m == '',
+                            'orange':  (salinity.bottom35m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                        salinity.bottom35m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                      (salinity.bottom35m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                        salinity.bottom35m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom35m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom35m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom35m >=0),                                               
+                            'green':  salinity.bottom35m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom35m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                 (input)="salinityDetailsSave(salinity,salinity.bottom35m, 
+                 fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                 fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_35M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_35M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="salinity.bottom40m"
-                [(ngModel)]="salinity.bottom40m" [ngClass]="{'white': salinity.bottom40m == '','red': salinity.bottom40m <= 35, 'orange': salinity.bottom40m <= 50 && salinity.bottom40m > 35, 'green': salinity.bottom40m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="salinityDetailsSave(salinity)" />
+                [(ngModel)]="salinity.bottom40m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  salinity.bottom40m == '',
+                            'orange':  (salinity.bottom40m > fieldColorValidatior.Salinity.prarmaterMax &&
+                                      salinity.bottom40m <= fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) || 
+                                    (salinity.bottom40m < fieldColorValidatior.Salinity.prarmaterMin &&
+                                      salinity.bottom40m >= fieldColorValidatior.Salinity.prarmaterMinValueDeviation),
+                            'red':    (salinity.bottom40m > fieldColorValidatior.Salinity.prarmaterMaxValueDeviation) ||
+                                      (salinity.bottom40m < fieldColorValidatior.Salinity.prarmaterMinValueDeviation &&
+                                      salinity.bottom40m >=0),                                               
+                            'green':  salinity.bottom40m <= fieldColorValidatior.Salinity.prarmaterMax && 
+                                      salinity.bottom40m >= fieldColorValidatior.Salinity.prarmaterMin}"
+                (input)="salinityDetailsSave(salinity,salinity.bottom40m, 
+                fieldColorValidatior.Salinity.prarmaterMaxValueDeviation,fieldColorValidatior.Salinity.prarmaterMean,
+                fieldColorValidatior.Salinity.prarmaterThreshold,fieldColorValidatior.Salinity.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituSalinityGraphDataGenrate(graphData.Salinity_40M,fieldColorValidatior.Salinity.prarmaterThreshold,'Salinity_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Salinity_Bottom"
               [threshold]="fieldColorValidatior.Salinity.prarmaterThreshold"></div>
@@ -237,43 +607,179 @@
           <div class="row formRow">
             <div class="clearfix tbl tbl-per-10 text-left">pH</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHsurfaceValue.invalid),'white': pH.surfaceValue == '','red': pH.surfaceValue <= 35, 'orange': pH.surfaceValue <= 50 && pH.surfaceValue > 35, 'green': pH.surfaceValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHsurfaceValue.invalid),
+                    'white':  pH.surfaceValue == '',
+                    'orange':  (pH.surfaceValue > fieldColorValidatior.pH.prarmaterMax &&
+                                pH.surfaceValue <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                              (pH.surfaceValue < fieldColorValidatior.pH.prarmaterMin &&
+                                pH.surfaceValue >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                      'red':    (pH.surfaceValue > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                (pH.surfaceValue < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                pH.surfaceValue >=0),                                               
+                      'green':  pH.surfaceValue <= fieldColorValidatior.pH.prarmaterMax && 
+                                pH.surfaceValue >= fieldColorValidatior.pH.prarmaterMin}"
                 name="pHsurfaceValue" [(ngModel)]="pH.surfaceValue" #pHsurfaceValue="ngModel" required autocomplete="off"
-                OnlyNumber="true" (input)="pHDetailsSave(pH)" (focus)="toastClear()" />
+                OnlyNumber="true" DecimalPlaces="2" (input)="pHDetailsSave(pH,pH.bottomValue, 
+                fieldColorValidatior.pH.prarmaterMaxValueDeviation,fieldColorValidatior.pH.prarmaterMean,
+                fieldColorValidatior.pH.prarmaterThreshold,fieldColorValidatior.pH.prarmaterStandDeviation)" (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Surface"
               [threshold]="50"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),'white': pH.bottomValue == '','red': pH.bottomValue <= 35, 'orange': pH.bottomValue <= 50 && pH.bottomValue > 35, 'green': pH.bottomValue > 50}"
+              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && pHbottomValue.invalid),
+                    'white':  pH.bottomValue == '',
+                    'orange':  (pH.bottomValue > fieldColorValidatior.pH.prarmaterMax &&
+                                pH.bottomValue <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                              (pH.bottomValue < fieldColorValidatior.pH.prarmaterMin &&
+                                pH.bottomValue >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                      'red':    (pH.bottomValue > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                (pH.bottomValue < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                pH.bottomValue >=0),                                               
+                      'green':  pH.bottomValue <= fieldColorValidatior.pH.prarmaterMax && 
+                                pH.bottomValue >= fieldColorValidatior.pH.prarmaterMin}"
                 name="pHbottomValue" [(ngModel)]="pH.bottomValue" #pHbottomValue="ngModel" required autocomplete="off"
-                OnlyNumber="true" (input)="pHDetailsSave(pH)" (focus)="toastClear()"/>
+                OnlyNumber="true" DecimalPlaces="2" (input)="pHDetailsSave(pH,pH.bottomValue, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" 
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_Bottom,fieldColorValidatior.pH.prarmaterThreshold,'pH_Bottom')"  
+                (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="pH.bottom5m"
-                [(ngModel)]="pH.bottom5m" [ngClass]="{'white': pH.bottom5m == '','red': pH.bottom5m <= 35, 'orange': pH.bottom5m <= 50 && pH.bottom5m > 35, 'green': pH.bottom5m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom5m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"
+                [ngClass]="{'white':  pH.bottom5m == '',
+                            'orange':  (pH.bottom5m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom5m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom5m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom5m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                              'red':    (pH.bottom5m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                        (pH.bottom5m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                        pH.bottom5m >=0),                                               
+                              'green':  pH.bottom5m <= fieldColorValidatior.pH.prarmaterMax && 
+                                        pH.bottom5m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom5m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_5M,fieldColorValidatior.pH.prarmaterThreshold,'pH_5M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="pH.bottom10m"
-                [(ngModel)]="pH.bottom10m" [ngClass]="{'white': pH.bottom10m == '','red': pH.bottom10m <= 35, 'orange': pH.bottom10m <= 50 && pH.bottom10m > 35, 'green': pH.bottom10m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom10m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  pH.bottom10m == '',
+                            'orange':  (pH.bottom10m > fieldColorValidatior.pH.prarmaterMax &&
+                                      pH.bottom10m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                    (pH.bottom10m < fieldColorValidatior.pH.prarmaterMin &&
+                                      pH.bottom10m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                            'red':    (pH.bottom10m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                      (pH.bottom10m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                      pH.bottom10m >=0),                                               
+                            'green':  pH.bottom10m <= fieldColorValidatior.pH.prarmaterMax && 
+                                      pH.bottom10m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom10m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_10M,fieldColorValidatior.pH.prarmaterThreshold,'pH_10M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" name="pH.bottom15m"
-                [(ngModel)]="pH.bottom15m" [ngClass]="{'white': pH.bottom15m == '','red': pH.bottom15m <= 35, 'orange': pH.bottom15m <= 50 && pH.bottom15m > 35, 'green': pH.bottom15m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom15m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': pH.bottom15m == '',
+                            'orange':  (pH.bottom15m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom15m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom15m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom15m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                              'red':    (pH.bottom15m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                        (pH.bottom15m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                        pH.bottom15m >=0),                                               
+                              'green':  pH.bottom15m <= fieldColorValidatior.pH.prarmaterMax && 
+                                        pH.bottom15m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom15m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_15M,fieldColorValidatior.pH.prarmaterThreshold,'pH_15M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" name="pH.bottom20m"
-                [(ngModel)]="pH.bottom20m" [ngClass]="{'white': pH.bottom20m == '','red': pH.bottom20m <= 35, 'orange': pH.bottom20m <= 50 && pH.bottom20m > 35, 'green': pH.bottom20m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom20m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': pH.bottom20m == '',
+                            'orange':  (pH.bottom20m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom20m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom20m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom20m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                              'red':    (pH.bottom20m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                        (pH.bottom20m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                        pH.bottom20m >=0),                                               
+                              'green':  pH.bottom20m <= fieldColorValidatior.pH.prarmaterMax && 
+                                        pH.bottom20m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom20m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)"  (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_20M,fieldColorValidatior.pH.prarmaterThreshold,'pH_20M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" name="pH.bottom25m"
-                [(ngModel)]="pH.bottom25m" [ngClass]="{'white': pH.bottom25m == '','red': pH.bottom25m <= 35, 'orange': pH.bottom25m <= 50 && pH.bottom25m > 35, 'green': pH.bottom25m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom25m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': pH.bottom25m == '',
+                            'orange':  (pH.bottom25m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom25m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom25m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom25m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                              'red':    (pH.bottom25m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                        (pH.bottom25m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                        pH.bottom25m >=0),                                               
+                              'green':  pH.bottom25m <= fieldColorValidatior.pH.prarmaterMax && 
+                                        pH.bottom25m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom25m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_25M,fieldColorValidatior.pH.prarmaterThreshold,'pH_25M')" />
+            
               <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="pH.bottom30m"
-                [(ngModel)]="pH.bottom30m" [ngClass]="{'white': pH.bottom30m == '','red': pH.bottom30m <= 35, 'orange': pH.bottom30m <= 50 && pH.bottom30m > 35, 'green': pH.bottom30m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom30m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': pH.bottom30m == '',
+                            'orange':  (pH.bottom30m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom30m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom30m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom30m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                              'red':    (pH.bottom30m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                        (pH.bottom30m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                        pH.bottom30m >=0),                                               
+                              'green':  pH.bottom30m <= fieldColorValidatior.pH.prarmaterMax && 
+                                        pH.bottom30m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom30m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_30M,fieldColorValidatior.pH.prarmaterThreshold,'pH_30M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" name="pH.bottom35m"
-                [(ngModel)]="pH.bottom35m" [ngClass]="{'white': pH.bottom35m == '','red': pH.bottom35m <= 35, 'orange': pH.bottom35m <= 50 && pH.bottom35m > 35, 'green': pH.bottom35m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
+                [(ngModel)]="pH.bottom35m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  pH.bottom35m == '',
+                            'orange':  (pH.bottom35m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom35m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom35m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom35m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                            'red':    (pH.bottom35m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                      (pH.bottom35m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                      pH.bottom35m >=0),                                               
+                            'green':  pH.bottom35m <= fieldColorValidatior.pH.prarmaterMax && 
+                                      pH.bottom35m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom35m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_35M,fieldColorValidatior.pH.prarmaterThreshold,'pH_35M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="pH.bottom40m"
-                [(ngModel)]="pH.bottom40m" [ngClass]="{'white': pH.bottom40m == '','red': pH.bottom40m <= 35, 'orange': pH.bottom40m <= 50 && pH.bottom40m > 35, 'green': pH.bottom40m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="pHDetailsSave(pH)" />
-
+                [(ngModel)]="pH.bottom40m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  pH.bottom40m == '',
+                            'orange':  (pH.bottom40m > fieldColorValidatior.pH.prarmaterMax &&
+                                        pH.bottom40m <= fieldColorValidatior.pH.prarmaterMaxValueDeviation) || 
+                                      (pH.bottom40m < fieldColorValidatior.pH.prarmaterMin &&
+                                        pH.bottom40m >= fieldColorValidatior.pH.prarmaterMinValueDeviation),
+                            'red':    (pH.bottom40m > fieldColorValidatior.pH.prarmaterMaxValueDeviation) ||
+                                      (pH.bottom40m < fieldColorValidatior.pH.prarmaterMinValueDeviation &&
+                                      pH.bottom40m >=0),                                               
+                            'green':  pH.bottom40m <= fieldColorValidatior.pH.prarmaterMax && 
+                                      pH.bottom40m >= fieldColorValidatior.pH.prarmaterMin}"
+                (input)="pHDetailsSave(pH,pH.bottom40m, fieldColorValidatior.pH.prarmaterMaxValueDeviation,
+                fieldColorValidatior.pH.prarmaterMean,fieldColorValidatior.pH.prarmaterThreshold,
+                fieldColorValidatior.pH.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsitupHGraphDataGenrate(graphData.pH_40M,fieldColorValidatior.pH.prarmaterThreshold,'pH_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.pH_Bottom"
               [threshold]="50"></div>
@@ -283,57 +789,179 @@
             <div class="clearfix tbl tbl-per-10 text-left">DissolvedOxygen (mg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedOsurfaceValue.invalid),
-                            'white': dissolvedO.surfaceValue == '',
-                            'orange': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean,
-                            'green': dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
-                                dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                            'red': dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax}"
-                (keyup)="checkValueThreshold(dissolvedO.surfaceValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
-                    fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
-                name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" 
-                (focus)="toastClear()"/>
+                            'white':  dissolvedO.surfaceValue == '',
+                            'orange':  (dissolvedO.surfaceValue > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.surfaceValue < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.surfaceValue > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.surfaceValue < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.surfaceValue >=0),                                               
+                            'green':  dissolvedO.surfaceValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.surfaceValue >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                name="dissolvedOsurfaceValue" [(ngModel)]="dissolvedO.surfaceValue" #dissolvedOsurfaceValue="ngModel" 
+                OnlyNumber="true" DecimalPlaces="2" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO, dissolvedO.surfaceValue, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" 
+                (focus)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Surface"
               [threshold]="fieldColorValidatior.Dissolved_O_.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && dissolvedObottomValue.invalid),
-                  'white': dissolvedO.bottomValue == '',
-                  'orange': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                  'green': dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax  && 
-                          dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMean, 
-                  'red': dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMax }"
-                (keyup)="checkValueThreshold(dissolvedO.bottomValue, fieldColorValidatior.Dissolved_O_.prarmaterThreshold,
-                    fieldColorValidatior.Dissolved_O_.prarmaterStandDevition,fieldColorValidatior.Dissolved_O_.prarmaterMax)"
+                  'white':  dissolvedO.bottomValue == '',
+                  'orange':  (dissolvedO.bottomValue > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottomValue < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottomValue > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottomValue < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottomValue >=0),                                               
+                            'green':  dissolvedO.bottomValue <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottomValue >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
                 name="dissolvedObottomValue" [(ngModel)]="dissolvedO.bottomValue" #dissolvedObottomValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO)" 
-                (focus)="toastClear()"/>
+                OnlyNumber="true" DecimalPlaces="2" required autocomplete="off" (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottomValue, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" 
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_Bottom,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_Bottom')"
+                (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom5m"
-                [(ngModel)]="dissolvedO.bottom5m" [ngClass]="{'white': dissolvedO.bottom5m == '','red': dissolvedO.bottom5m <= 35, 'orange': dissolvedO.bottom5m <= 50 && dissolvedO.bottom5m > 35, 'green': dissolvedO.bottom5m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom5m"  class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom5m == '',
+                            'orange':  (dissolvedO.bottom5m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom5m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom5m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom5m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom5m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom5m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom5m >=0),                                               
+                            'green':  dissolvedO.bottom5m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom5m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom5m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_5M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_5M')" />
+             
               <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom10m"
-                [(ngModel)]="dissolvedO.bottom10m" [ngClass]="{'white': dissolvedO.bottom10m == '','red': dissolvedO.bottom10m <= 35, 'orange': dissolvedO.bottom10m <= 50 && dissolvedO.bottom10m > 35, 'green': dissolvedO.bottom10m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom10m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom10m == '',
+                            'orange':  (dissolvedO.bottom10m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom10m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom10m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom10m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom10m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom10m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom10m >=0),                                               
+                            'green':  dissolvedO.bottom10m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom10m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom10m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_10M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_10M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom15m"
-                [(ngModel)]="dissolvedO.bottom15m" [ngClass]="{'white': dissolvedO.bottom15m == '','red': dissolvedO.bottom15m <= 35, 'orange': dissolvedO.bottom15m <= 50 && dissolvedO.bottom15m > 35, 'green': dissolvedO.bottom15m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom15m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom15m == '',
+                            'orange':  (dissolvedO.bottom15m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom15m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom15m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom15m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom15m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom15m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom15m >=0),                                               
+                            'green':  dissolvedO.bottom15m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom15m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom15m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_15M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_15M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom20m"
-                [(ngModel)]="dissolvedO.bottom20m" [ngClass]="{'white': dissolvedO.bottom20m == '','red': dissolvedO.bottom20m <= 35, 'orange': dissolvedO.bottom20m <= 50 && dissolvedO.bottom20m > 35, 'green': dissolvedO.bottom20m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom20m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom20m == '',
+                            'orange':  (dissolvedO.bottom20m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom20m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom20m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom20m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom20m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom20m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom20m >=0),                                               
+                            'green':  dissolvedO.bottom20m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom20m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom20m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_20M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_20M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom25m"
-                [(ngModel)]="dissolvedO.bottom25m" [ngClass]="{'white': dissolvedO.bottom25m == '','red': dissolvedO.bottom25m <= 35, 'orange': dissolvedO.bottom25m <= 50 && dissolvedO.bottom25m > 35, 'green': dissolvedO.bottom25m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
-              <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom30m"
-                [(ngModel)]="dissolvedO.bottom30m" [ngClass]="{'white': dissolvedO.bottom30m == '','red': dissolvedO.bottom30m <= 35, 'orange': dissolvedO.bottom30m <= 50 && dissolvedO.bottom30m > 35, 'green': dissolvedO.bottom30m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom25m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom25m == '',
+                            'orange':  (dissolvedO.bottom25m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom25m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom25m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom25m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom25m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom25m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom25m >=0),                                               
+                            'green':  dissolvedO.bottom25m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom25m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom25m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_25M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_25M')" />
+            
+             <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom30m"
+                [(ngModel)]="dissolvedO.bottom30m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white': dissolvedO.bottom30m == '',
+                            'orange':  (dissolvedO.bottom30m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom30m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom30m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom30m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom30m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom30m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom30m >=0),                                               
+                            'green':  dissolvedO.bottom30m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom30m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom30m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_30M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_30M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom35m"
-                [(ngModel)]="dissolvedO.bottom35m" [ngClass]="{'white': dissolvedO.bottom35m == '','red': dissolvedO.bottom35m <= 35, 'orange': dissolvedO.bottom35m <= 50 && dissolvedO.bottom35m > 35, 'green': dissolvedO.bottom35m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
-              <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom40m"
-                [(ngModel)]="dissolvedO.bottom40m" [ngClass]="{'white': dissolvedO.bottom40m == '','red': dissolvedO.bottom40m <= 35, 'orange': dissolvedO.bottom40m <= 50 && dissolvedO.bottom40m > 35, 'green': dissolvedO.bottom40m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="dissolvedODetailsSave(dissolvedO)" />
+                [(ngModel)]="dissolvedO.bottom35m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom35m == '',
+                            'orange':  (dissolvedO.bottom35m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom35m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom35m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom35m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom35m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom35m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom35m >=0),                                               
+                            'green':  dissolvedO.bottom35m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom35m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom35m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_35M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_35M')" />
+              
+             <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="dissolvedO.bottom40m"
+                [(ngModel)]="dissolvedO.bottom40m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  dissolvedO.bottom40m == '',
+                            'orange':  (dissolvedO.bottom40m > fieldColorValidatior.Dissolved_O_.prarmaterMax &&
+                                        dissolvedO.bottom40m <= fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) || 
+                                      (dissolvedO.bottom40m < fieldColorValidatior.Dissolved_O_.prarmaterMin &&
+                                        dissolvedO.bottom40m >= fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation),
+                            'red':    (dissolvedO.bottom40m > fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation) ||
+                                      (dissolvedO.bottom40m < fieldColorValidatior.Dissolved_O_.prarmaterMinValueDeviation && 
+                                      dissolvedO.bottom40m >=0),                                               
+                            'green':  dissolvedO.bottom40m <= fieldColorValidatior.Dissolved_O_.prarmaterMax && 
+                                      dissolvedO.bottom40m >= fieldColorValidatior.Dissolved_O_.prarmaterMin}"
+                (input)="dissolvedODetailsSave(dissolvedO,dissolvedO.bottom40m, 
+                fieldColorValidatior.Dissolved_O_.prarmaterMaxValueDeviation,fieldColorValidatior.Dissolved_O_.prarmaterMean,
+                fieldColorValidatior.Dissolved_O_.prarmaterThreshold,fieldColorValidatior.Dissolved_O_.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituDissolved_O_GraphDataGenrate(graphData.Dissolved_O_40M,fieldColorValidatior.Dissolved_O_.prarmaterThreshold,'Dissolved_O_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Dissolved_O_Bottom"
               [threshold]="fieldColorValidatior.Chlorophyll_a.prarmaterThreshold"></div>
@@ -343,57 +971,179 @@
             <div class="clearfix tbl tbl-per-10 text-left">Chlorophyll (μg/L)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aSurfaceValue.invalid),
-                    'white': Chlorophyll_a.surfaceValue == '',
-                    'orange': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                    'green': Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax  &&
-                       Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                    'red': Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax }"
-                (keyup)="checkValueThreshold(Chlorophyll_a.surfaceValue, fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
-                    fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
+                    'white':  Chlorophyll_a.surfaceValue == '',
+                    'orange':  (Chlorophyll_a.surfaceValue > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                        Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                      (Chlorophyll_a.surfaceValue < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                        Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                      'red':    (Chlorophyll_a.surfaceValue > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                      (Chlorophyll_a.surfaceValue < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                      Chlorophyll_a.surfaceValue >=0),                                               
+                    'green':  Chlorophyll_a.surfaceValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                      Chlorophyll_a.surfaceValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
                 name="Chlorophyll_aSurfaceValue" [(ngModel)]="Chlorophyll_a.surfaceValue" #Chlorophyll_aSurfaceValue="ngModel"
-                OnlyNumber="true" required autocomplete="off" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"
-                (focus)="toastClear()"/>
+                OnlyNumber="true" DecimalPlaces="2" required autocomplete="off" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.surfaceValue,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" 
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Surface"
               [threshold]="fieldColorValidatior.Chlorophyll_a.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesBottom">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && Chlorophyll_aBottomValue.invalid),
-                  'white': Chlorophyll_a.bottomValue == '',
-                  'orange': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                  'green': Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
-                    Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMean, 
-                  'red': Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMax}"
-                (keyup)="checkValueThreshold(Chlorophyll_a.bottomValue , fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,
-                    fieldColorValidatior.Chlorophyll_a.prarmaterStandDevition,fieldColorValidatior.Chlorophyll_a.prarmaterMax)"
+                  'white':  Chlorophyll_a.bottomValue == '',
+                  'orange':  (Chlorophyll_a.bottomValue > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                        Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                      (Chlorophyll_a.bottomValue < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                        Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                      'red':    (Chlorophyll_a.bottomValue > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                      (Chlorophyll_a.bottomValue < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                      Chlorophyll_a.bottomValue >=0),                                               
+                    'green':  Chlorophyll_a.bottomValue <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                      Chlorophyll_a.bottomValue >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
                 name="Chlorophyll_aBottomValue" [(ngModel)]="Chlorophyll_a.bottomValue" #Chlorophyll_aBottomValue="ngModel"
-                required autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)" 
-                (focus)="toastClear()"/>
+                required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottomValue,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" 
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_Bottom,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_Bottom')" 
+                (keypress)="toastClear()" (click)="toastClear()" />
             </div>
             <div class="clearfix tbl tbl-per-40 text-center insituValuesGrid">
               <input [ngStyle]="{'display': (optionValue.option5m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom5m"
-                [(ngModel)]="Chlorophyll_a.bottom5m" [ngClass]="{'white': Chlorophyll_a.bottom5m == '','red': Chlorophyll_a.bottom5m <= 35, 'orange': Chlorophyll_a.bottom5m <= 50 && Chlorophyll_a.bottom5m > 35, 'green': Chlorophyll_a.bottom5m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom5m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom5m == '',
+                            'orange':  (Chlorophyll_a.bottom5m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                            Chlorophyll_a.bottom5m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                          (Chlorophyll_a.bottom5m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                            Chlorophyll_a.bottom5m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                            'red':    (Chlorophyll_a.bottom5m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                          (Chlorophyll_a.bottom5m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                          Chlorophyll_a.bottom5m >=0),                                               
+                            'green':  Chlorophyll_a.bottom5m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                          Chlorophyll_a.bottom5m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom5m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_5M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_5M')" />
+              
               <input [ngStyle]="{'display': (optionValue.option10m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom10m"
-                [(ngModel)]="Chlorophyll_a.bottom10m" [ngClass]="{'white': Chlorophyll_a.bottom10m == '','red': Chlorophyll_a.bottom10m <= 35, 'orange': Chlorophyll_a.bottom10m <= 50 && Chlorophyll_a.bottom10m > 35, 'green': Chlorophyll_a.bottom10m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom10m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2"  
+                [ngClass]="{'white':  Chlorophyll_a.bottom10m == '',
+                            'orange':  (Chlorophyll_a.bottom10m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                          Chlorophyll_a.bottom10m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                        (Chlorophyll_a.bottom10m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                          Chlorophyll_a.bottom10m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                          'red':    (Chlorophyll_a.bottom10m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                        (Chlorophyll_a.bottom10m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                        Chlorophyll_a.bottom10m >=0),                                               
+                          'green':  Chlorophyll_a.bottom10m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                  Chlorophyll_a.bottom10m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom10m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_10M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_10M')" />
+            
               <input [ngStyle]="{'display': (optionValue.option15m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom15m"
-                [(ngModel)]="Chlorophyll_a.bottom15m" [ngClass]="{'white': Chlorophyll_a.bottom15m == '','red': Chlorophyll_a.bottom15m <= 35, 'orange': Chlorophyll_a.bottom15m <= 50 && Chlorophyll_a.bottom15m > 35, 'green': Chlorophyll_a.bottom15m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom15m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom15m == '',
+                            'orange':  (Chlorophyll_a.bottom15m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                          Chlorophyll_a.bottom15m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                        (Chlorophyll_a.bottom15m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                          Chlorophyll_a.bottom15m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                          'red':    (Chlorophyll_a.bottom15m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                        (Chlorophyll_a.bottom15m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                        Chlorophyll_a.bottom15m >=0),                                               
+                          'green':  Chlorophyll_a.bottom15m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                  Chlorophyll_a.bottom15m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom15m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_15M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_15M')" />
+
               <input [ngStyle]="{'display': (optionValue.option20m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom20m"
-                [(ngModel)]="Chlorophyll_a.bottom20m" [ngClass]="{'white': Chlorophyll_a.bottom20m == '','red': Chlorophyll_a.bottom20m <= 35, 'orange': Chlorophyll_a.bottom20m <= 50 && Chlorophyll_a.bottom20m > 35, 'green': Chlorophyll_a.bottom20m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom20m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom20m == '',
+                            'orange':  (Chlorophyll_a.bottom20m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                            Chlorophyll_a.bottom20m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                          (Chlorophyll_a.bottom20m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                            Chlorophyll_a.bottom20m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                            'red':    (Chlorophyll_a.bottom20m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                          (Chlorophyll_a.bottom20m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                          Chlorophyll_a.bottom20m >=0),                                               
+                            'green':  Chlorophyll_a.bottom20m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                    Chlorophyll_a.bottom20m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom20m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_20M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_20M')" />
+
               <input [ngStyle]="{'display': (optionValue.option25m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom25m"
-                [(ngModel)]="Chlorophyll_a.bottom25m" [ngClass]="{'white': Chlorophyll_a.bottom25m == '','red': Chlorophyll_a.bottom25m <= 35, 'orange': Chlorophyll_a.bottom25m <= 50 && Chlorophyll_a.bottom25m > 35, 'green': Chlorophyll_a.bottom25m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom25m"  class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom25m == '',
+                            'orange':  (Chlorophyll_a.bottom25m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                            Chlorophyll_a.bottom25m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                          (Chlorophyll_a.bottom25m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                            Chlorophyll_a.bottom25m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                            'red':    (Chlorophyll_a.bottom25m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                          (Chlorophyll_a.bottom25m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                          Chlorophyll_a.bottom25m >=0),                                               
+                            'green':  Chlorophyll_a.bottom25m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                    Chlorophyll_a.bottom25m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+               (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom25m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+               fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_25M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_25M')" />
+
               <input [ngStyle]="{'display': (optionValue.option30m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom30m"
-                [(ngModel)]="Chlorophyll_a.bottom30m" [ngClass]="{'white': Chlorophyll_a.bottom30m == '','red': Chlorophyll_a.bottom30m <= 35, 'orange': Chlorophyll_a.bottom30m <= 50 && Chlorophyll_a.bottom30m > 35, 'green': Chlorophyll_a.bottom30m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom30m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom30m == '',
+                            'orange':  (Chlorophyll_a.bottom30m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                            Chlorophyll_a.bottom30m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                          (Chlorophyll_a.bottom30m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                            Chlorophyll_a.bottom30m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                            'red':    (Chlorophyll_a.bottom30m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                          (Chlorophyll_a.bottom30m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                          Chlorophyll_a.bottom30m >=0),                                               
+                            'green':  Chlorophyll_a.bottom30m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                    Chlorophyll_a.bottom30m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom30m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_30M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_30M')" />
+
               <input [ngStyle]="{'display': (optionValue.option35m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom35m"
-                [(ngModel)]="Chlorophyll_a.bottom35m" [ngClass]="{'white': Chlorophyll_a.bottom35m == '','red': Chlorophyll_a.bottom35m <= 35, 'orange': Chlorophyll_a.bottom35m <= 50 && Chlorophyll_a.bottom35m > 35, 'green': Chlorophyll_a.bottom35m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom35m" class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom35m == '',
+                            'orange':  (Chlorophyll_a.bottom35m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                            Chlorophyll_a.bottom35m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                          (Chlorophyll_a.bottom35m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                            Chlorophyll_a.bottom35m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                            'red':    (Chlorophyll_a.bottom35m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                          (Chlorophyll_a.bottom35m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                          Chlorophyll_a.bottom35m >=0),                                               
+                            'green':  Chlorophyll_a.bottom35m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                    Chlorophyll_a.bottom35m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+                (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom35m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+                fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+                fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()" (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_35M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_35M')" />
+
               <input [ngStyle]="{'display': (optionValue.option40m) ? 'inline' : 'none'}" type="text" name="Chlorophyll_a.bottom40m"
-                [(ngModel)]="Chlorophyll_a.bottom40m" [ngClass]="{'white': Chlorophyll_a.bottom40m == '','red': Chlorophyll_a.bottom40m <= 35, 'orange': Chlorophyll_a.bottom40m <= 50 && Chlorophyll_a.bottom40m > 35, 'green': Chlorophyll_a.bottom40m > 50}"
-                class="form-control" autocomplete="off" OnlyNumber="true" (input)="Chlorophyll_aDetailsSave(Chlorophyll_a)"/>
+                [(ngModel)]="Chlorophyll_a.bottom40m"  class="form-control" autocomplete="off" OnlyNumber="true" DecimalPlaces="2" 
+                [ngClass]="{'white':  Chlorophyll_a.bottom40m == '',
+                            'orange':  (Chlorophyll_a.bottom40m > fieldColorValidatior.Chlorophyll_a.prarmaterMax &&
+                                          Chlorophyll_a.bottom40m <= fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) || 
+                                        (Chlorophyll_a.bottom40m < fieldColorValidatior.Chlorophyll_a.prarmaterMin &&
+                                          Chlorophyll_a.bottom40m >= fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation),
+                          'red':    (Chlorophyll_a.bottom40m > fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation) ||
+                                        (Chlorophyll_a.bottom40m < fieldColorValidatior.Chlorophyll_a.prarmaterMinValueDeviation && 
+                                        Chlorophyll_a.bottom40m >=0),                                               
+                          'green':  Chlorophyll_a.bottom40m <= fieldColorValidatior.Chlorophyll_a.prarmaterMax && 
+                                  Chlorophyll_a.bottom40m >= fieldColorValidatior.Chlorophyll_a.prarmaterMin}"
+               (input)="Chlorophyll_aDetailsSave(Chlorophyll_a,Chlorophyll_a.bottom40m,fieldColorValidatior.Chlorophyll_a.prarmaterMaxValueDeviation,
+               fieldColorValidatior.Chlorophyll_a.prarmaterMean,
+               fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,fieldColorValidatior.Chlorophyll_a.prarmaterStandDeviation)" (keypress)="toastClear()"  (click)="toastClear()"
+                (focus)="insituinsituChlorophyll_aGraphDataGenrate(graphData.Chlorophyll_a_40M,fieldColorValidatior.Chlorophyll_a.prarmaterThreshold,'Chlorophyll_a_40M')" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Chlorophyll_a_Bottom"
               [threshold]="fieldColorValidatior.Sechi_Disc.prarmaterThreshold"></div>
@@ -403,17 +1153,22 @@
             <div class="clearfix tbl tbl-per-10 text-left">Sechi Disc Reading (Feet)</div>
             <div class="clearfix tbl tbl-per-10 text-center insituValuesSurface">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && sechiDiscSurfaceValue.invalid),
-                      'white': sechiDisc.surfaceValue == '',
-                      'orange': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
-                      'green': sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMax && 
-                          sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMean, 
-                      'red': sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMax}"
-                (keyup)="checkValueThreshold(sechiDisc.surfaceValue, fieldColorValidatior.Sechi_Disc.prarmaterThreshold,
-                      fieldColorValidatior.Sechi_Disc.prarmaterStandDevition,fieldColorValidatior.Sechi_Disc.prarmaterMax)"
+                      'white':  sechiDisc.surfaceValue == '',
+                      'orange':  (sechiDisc.surfaceValue > fieldColorValidatior.Sechi_Disc.prarmaterMax &&
+                                 sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMaxValueDeviation) || 
+                                  (sechiDisc.surfaceValue < fieldColorValidatior.Sechi_Disc.prarmaterMin &&
+                                    sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMinValueDeviation),
+                      'red':    (sechiDisc.surfaceValue > fieldColorValidatior.Sechi_Disc.prarmaterMaxValueDeviation) ||
+                                    (sechiDisc.surfaceValue < fieldColorValidatior.Sechi_Disc.prarmaterMinValueDeviation && 
+                                    sechiDisc.surfaceValue >=0),                                               
+                      'green':  sechiDisc.surfaceValue <= fieldColorValidatior.Sechi_Disc.prarmaterMax && 
+                              sechiDisc.surfaceValue >= fieldColorValidatior.Sechi_Disc.prarmaterMin}"
                 name="sechiDiscSurfaceValue" [(ngModel)]="sechiDisc.surfaceValue" #sechiDiscSurfaceValue="ngModel"
-                autocomplete="off" required OnlyNumber="true" (input)="sechiDiscDetailsSave(sechiDisc)"
-                (focus)="toastClear()"/>
-              
+                autocomplete="off" required OnlyNumber="true" DecimalPlaces="2" (input)="sechiDiscDetailsSave(sechiDisc,sechiDisc.surfaceValue,
+                fieldColorValidatior.Sechi_Disc.prarmaterMaxValueDeviation,fieldColorValidatior.Sechi_Disc.prarmaterMean,
+                fieldColorValidatior.Sechi_Disc.prarmaterThreshold,fieldColorValidatior.Sechi_Disc.prarmaterStandDeviation)" 
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"/>
+
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Sechi_Disc_Surface"
               [threshold]="fieldColorValidatior.Sechi_Disc.prarmaterThreshold"></div>
@@ -430,11 +1185,11 @@
           <div class="row text-right">
             <div class="col-xs-12 col-sm-12">
               <div>
-                  <ul class="legend">
-                      <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
-                      <br/><li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
-                      <br/><li><span class="CorrectValue"></span>Data is okay </li>
-                    </ul>
+                <ul class="legend">
+                  <li><span class="CorrectValue"></span>Within range </li>
+                  <li><span class="StandardDeviation"></span>20% deviation</li>
+                  <li><span class="MoreThresholdValue"></span> Out of range </li>
+                </ul>
               </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="inSituTabPrev(module)">Previous</button>
               <input type="submit" class="btn btn-primary gap gap-5 gap-lr" value="Save" />

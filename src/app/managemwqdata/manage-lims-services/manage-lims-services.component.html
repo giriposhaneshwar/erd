@@ -35,7 +35,7 @@
                   <div class="text-center">{{value}}</div>
               </span>
               <input autofocus (blur)="updateValue($event, 'webServiceUrl', rowIndex)" *ngIf="editing[rowIndex+ '-webServiceUrl']"
-                type="text" [value]="value" />
+                type="text" [value]="value"  size="90" />
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

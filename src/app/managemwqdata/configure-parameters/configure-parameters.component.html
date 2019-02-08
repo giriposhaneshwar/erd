@@ -148,7 +148,8 @@
           <div class="col-8">
             <input class="form-control is-invalid" name="maxValue" type="text" placeholder="Max Value" [(ngModel)]="configureParam.maxValue"
               autocomplete="off" id="example-text-input" name="maxValue" #maxValue="ngModel" (keypress)="numberOnly($event)"
-              [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" (keyup)="checkValue(configureParam.minValue,configureParam.maxValue)" required>
+              [ngClass]="{'is-invalid': (f.submitted && maxValue.invalid)}" (keyup)="checkValue(configureParam.minValue,configureParam.maxValue)"
+              required>
           </div>
         </div>
 

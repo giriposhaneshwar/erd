@@ -15,7 +15,7 @@
         #f="ngForm" novalidate>
         <div class="col-sm-12 col-xs-12 formTableSection">
           <div class="row formHeading">
-            <div class="clearfix tbl tbl-per-20 text-center"></div>
+            <div class="clearfix tbl tbl-per-25 text-center"></div>
             <div class="clearfix tbl tbl-per-10 text-center"><b>Value</b></div>
             <!-- <div class="clearfix tbl tbl-per-10 text-center"><b>Unit</b></div> -->
             <div class="clearfix tbl tbl-per-15 text-center"><b>Historical Graph</b></div>
@@ -24,26 +24,32 @@
             <div class="clearfix tbl tbl-per-20 text-center"><b>Test Method</b></div>
           </div>
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-20 text-left">PCB (ppm)</div>
+            <div class="clearfix tbl tbl-per-25 text-left">PCB (ppm)</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
-              <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospSurfaceValue.invalid),
-                'white': oc_totalPhosp.surfaceValue == '',
-                'orange': oc_totalPhosp.surfaceValue <= fieldColorValidatior.PCB.prarmaterMean, 
-                'green': oc_totalPhosp.surfaceValue <= fieldColorValidatior.PCB.prarmaterMax && 
-                  oc_totalPhosp.surfaceValue > fieldColorValidatior.PCB.prarmaterMean, 
-                'red': oc_totalPhosp.surfaceValue > fieldColorValidatior.PCB.prarmaterMax}"
-                (keyup)="checkValueThreshold(oc_totalPhosp.surfaceValue, fieldColorValidatior.PCB.prarmaterThreshold,
-                fieldColorValidatior.PCB.prarmaterStandDevition,fieldColorValidatior.PCB.prarmaterMax)"
-                (input)="oc_totalPhospDetailsSave(oc_totalPhosp)"
+              <input type="text" class="form-control tbl tbl-per-30" 
+              [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospSurfaceValue.invalid),
+                'white':  oc_totalPhosp.surfaceValue == '',
+                'orange': (oc_totalPhosp.surfaceValue  > fieldColorValidatior.PCB.prarmaterMax &&
+                          oc_totalPhosp.surfaceValue  <= fieldColorValidatior.PCB.prarmaterMaxValueDeviation) || 
+                          (oc_totalPhosp.surfaceValue  < fieldColorValidatior.PCB.prarmaterMin &&
+                          oc_totalPhosp.surfaceValue  >= fieldColorValidatior.PCB.prarmaterMinValueDeviation),
+                'red':    (oc_totalPhosp.surfaceValue  > fieldColorValidatior.PCB.prarmaterMaxValueDeviation) ||
+                          (oc_totalPhosp.surfaceValue  < fieldColorValidatior.PCB.prarmaterMinValueDeviation && 
+                          oc_totalPhosp.surfaceValue  >=0),                                               
+                'green':  oc_totalPhosp.surfaceValue  <= fieldColorValidatior.PCB.prarmaterMax && 
+                          oc_totalPhosp.surfaceValue  >= fieldColorValidatior.PCB.prarmaterMin}"
+                (input)="oc_totalPhospDetailsSave(oc_totalPhosp,oc_totalPhosp.surfaceValue,
+                fieldColorValidatior.PCB.prarmaterMaxValueDeviation,fieldColorValidatior.PCB.prarmaterMean,
+                fieldColorValidatior.PCB.prarmaterThreshold,fieldColorValidatior.PCB.prarmaterStandDeviation)"
                 name="oc_totalPhospSurfaceValue" [(ngModel)]="oc_totalPhosp.surfaceValue" #oc_totalPhospSurfaceValue="ngModel"
-                (focus)="toastClear()"  required autocomplete="off" OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"  required autocomplete="off" OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.Total_Phosp"
               [threshold]="fieldColorValidatior.PCB.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_totalPhosp.mql" name="oc_totalPhospMql"
                 #oc_totalPhospMql="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospMql.invalid)}"
-                (click)="oc_totalPhospDetailsSave(oc_totalPhosp)" required>
+                (click)="oc_totalPhospDetailsListSave(oc_totalPhosp)"  (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -51,7 +57,7 @@
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.extractionMethod" name="oc_totalPhospExtractionMethod"
                 #oc_totalPhospExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospExtractionMethod.invalid)}"
-                (click)="oc_totalPhospDetailsSave(oc_totalPhosp)" required>
+                (click)="oc_totalPhospDetailsListSave(oc_totalPhosp)"  (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
@@ -59,7 +65,7 @@
             <div class="clearfix tbl tbl-per-20 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_totalPhosp.testMethod" name="oc_totalPhospTestMethod"
                 #oc_totalPhospTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_totalPhospTestMethod.invalid)}"
-                (click)="oc_totalPhospDetailsSave(oc_totalPhosp)" required>
+                (click)="oc_totalPhospDetailsListSave(oc_totalPhosp)"  (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -67,24 +73,30 @@
           </div>
 
           <div class="row formRow">
-            <div class="clearfix tbl tbl-per-20 text-left">TPH (ppm)</div>
+            <div class="clearfix tbl tbl-per-25 text-left">TPH (ppm)</div>
             <div class="clearfix tbl tbl-per-10 text-center organicChemistry">
               <input type="text" class="form-control tbl tbl-per-30" [ngClass]="{'is-invalid': (f.submitted && oc_tphSurfaceValue.invalid),
               'white': oc_tph.surfaceValue == '',
-              'orange': oc_tph.surfaceValue <= fieldColorValidatior.TPH.prarmaterMean, 
-              'green': oc_tph.surfaceValue <= fieldColorValidatior.TPH.prarmaterMax && 
-               oc_tph.surfaceValue > fieldColorValidatior.TPH.prarmaterMean,
-              'red': oc_tph.surfaceValue > fieldColorValidatior.TPH.prarmaterMax}"
-                (keyup)="checkValueThreshold(oc_tph.surfaceValue, fieldColorValidatior.TPH.prarmaterThreshold,
-              fieldColorValidatior.TPH.prarmaterStandDevition,fieldColorValidatior.TPH.prarmaterMax)"
-              (click)="oc_tphDetailsSave(oc_tph)"
+              'orange': (oc_tph.surfaceValue  > fieldColorValidatior.TPH.prarmaterMax &&
+                          oc_tph.surfaceValue  <= fieldColorValidatior.TPH.prarmaterMaxValueDeviation) || 
+                          (oc_tph.surfaceValue  < fieldColorValidatior.TPH.prarmaterMin &&
+                          oc_tph.surfaceValue  >= fieldColorValidatior.TPH.prarmaterMinValueDeviation),
+                'red':    (oc_tph.surfaceValue  > fieldColorValidatior.TPH.prarmaterMaxValueDeviation) ||
+                          (oc_tph.surfaceValue  < fieldColorValidatior.TPH.prarmaterMinValueDeviation && 
+                          oc_tph.surfaceValue  >=0),                                               
+                'green':  oc_tph.surfaceValue  <= fieldColorValidatior.TPH.prarmaterMax && 
+                          oc_tph.surfaceValue  >= fieldColorValidatior.TPH.prarmaterMin}"
+              (input)="oc_tphDetailsSave(oc_tph,oc_tph.surfaceValue,fieldColorValidatior.TPH.prarmaterMaxValueDeviation,
+              fieldColorValidatior.TPH.prarmaterMean,fieldColorValidatior.TPH.prarmaterThreshold,
+              fieldColorValidatior.TPH.prarmaterStandDeviation)"
                 autocomplete="off" name="oc_tphSurfaceValue" [(ngModel)]="oc_tph.surfaceValue" #oc_tphSurfaceValue="ngModel"
-                (focus)="toastClear()"  required OnlyNumber="true" />
+                (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"  required OnlyNumber="true" DecimalPlaces="2" />
             </div>
             <div class="clearfix tbl tbl-per-15 text-center" msHistoricalGraph [graphData]="graphData.TPH" [threshold]="fieldColorValidatior.TPH.prarmaterThreshold"></div>
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="oc-text-MQL" class="form-control" [(ngModel)]="oc_tph.mql" name="oc_tphMql" #oc_tphMql="ngModel"
-                [ngClass]="{'is-invalid': (f.submitted && oc_tphMql.invalid)}" (click)="oc_tphDetailsSave(oc_tph)" required>
+                [ngClass]="{'is-invalid': (f.submitted && oc_tphMql.invalid)}" 
+                (click)="oc_tphDetailsListSave(oc_tph)" (focus)="toastClear()"  required>
                 <option value="" disabled selected hidden>Select MQL</option>
                 <option *ngFor="let mwqType of mwqDetails" value="{{mwqType.MQL_Id}}">{{mwqType.MQL_Name}}</option>
               </select>
@@ -92,7 +104,7 @@
             <div class="clearfix tbl tbl-per-15 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.extractionMethod" name="oc_tphExtractionMethod"
                 #oc_tphExtractionMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_tphExtractionMethod.invalid)}"
-                (click)="oc_tphDetailsSave(oc_tph)" required>
+                (click)="oc_tphDetailsListSave(oc_tph)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Extraction Method</option>
                 <option *ngFor="let extMethodDetails of extractionMethodDetails" value="{{extMethodDetails.ExtractionMethod_Id}}">{{extMethodDetails.extractionMethod}}</option>
               </select>
@@ -100,7 +112,7 @@
             <div class="clearfix tbl tbl-per-20 text-center">
               <select id="gc-text-tm" class="form-control" [(ngModel)]="oc_tph.testMethod" name="oc_tphTestMethod"
                 #oc_tphTestMethod="ngModel" [ngClass]="{'is-invalid': (f.submitted && oc_tphTestMethod.invalid)}"
-                (click)="oc_tphDetailsSave(oc_tph)" required>
+                (click)="oc_tphDetailsListSave(oc_tph)" (focus)="toastClear()" required>
                 <option value="" disabled selected hidden>Select Test Method</option>
                 <option *ngFor="let testMethDet of testMethodDetails" value="{{testMethDet.TestMethod_ID}}">{{testMethDet.testMethodName}}</option>
               </select>
@@ -113,11 +125,9 @@
             <div class="col-xs-12 col-sm-12">
               <div>
                 <ul class="legend">
-                  <li><span class="StandardDeviation"></span>Data is not comply with validation rules </li>
-                  <br />
-                  <li><span class="MoreThresholdValue"></span>Data is out of bounds </li>
-                  <br />
-                  <li><span class="CorrectValue"></span>Data is okay </li>
+                    <li><span class="CorrectValue"></span>Within range </li>
+                    <li><span class="StandardDeviation"></span>20% deviation</li>
+                    <li><span class="MoreThresholdValue"></span> Out of range </li>
                 </ul>
               </div>
               <button class="btn btn-primary gap gap-5 gap-lr" (click)="orgChemTabNavPrev(module)">Previous</button>

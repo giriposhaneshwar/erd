@@ -61,15 +61,15 @@ export class MicroBiologyComponent implements OnInit {
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {
     if (value > threshould) {
-      this.toastr.error("Input Value " + value + " More than Threshould " + threshould + " Value ");
+      this.toastr.error("Input Value " + value + " More than Threshold " + threshould + " Value ");
     }
 
     if (value > standDevition) {
-      this.toastr.error("Input Value " + value + " More than Prarmater Standard Deviation " + standDevition + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Standard Deviation " + standDevition + " Value ");
     }
 
     if (value > maxValue) {
-      this.toastr.error("Input Value " + value + " More than Pararmater Max " + maxValue + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Max " + maxValue + " Value ");
     }
   }
 
@@ -87,23 +87,85 @@ export class MicroBiologyComponent implements OnInit {
     }
   }
 
-  totalColiformDetailsSave(totalColiform){
+  totalColiformDetailsSave(totalColiform,value, maxValueDeviation, meanValue, threshould, standDevition){
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.totalColiformComponentKey] = totalColiform;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  totalColiformDetailsListSave(totalColiform){
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  enterococciDetailsSave(enterococci){
+  enterococciDetailsSave(enterococci,value, maxValueDeviation, meanValue, threshould, standDevition){
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.enterococciComponentKey] = enterococci;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  enterococciDetailsListSave(enterococci){
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  fecalColiformDetailsSave(fecalColiform){
+  fecalColiformDetailsSave(fecalColiform,value, maxValueDeviation, meanValue, threshould, standDevition){
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  fecalColiformDetailsListSave(fecalColiform){
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
   
+  checkValueThresholdNew(value, meanValue, threshould, standDevition, rangeMaxValue) {
+    // console.log(value, minValue, maxValue, meanValue, threshould, standDevition);
+    if (value > threshould) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Threshold " +
+        threshould +
+        " Value "
+      );
+    }
+
+    if (value > standDevition) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Standard Deviation " +
+        standDevition +
+        " Value "
+      );
+    }
+
+    if (value > rangeMaxValue) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " Parameter Out of range " +
+        rangeMaxValue +
+        " Value "
+      );
+    }
+
+    if (value < meanValue) {
+      this.toastr.warning(
+        "Input Value " +
+        value +
+        " Less than Parameter Mean " +
+        meanValue +
+        " Value "
+      );
+    }
+
+  }
 
   microBiologySiteDateSave(totalColiform, enterococci, fecalColiform) {
+    this.toastClear();
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;

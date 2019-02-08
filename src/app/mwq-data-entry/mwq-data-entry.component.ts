@@ -170,8 +170,10 @@ export class MwqDataEntryComponent implements OnInit {
           item.prarmaterMax = parseFloat(item.prarmaterMax);
           item.prarmaterMean = parseFloat(item.prarmaterMean);
           item.prarmaterMin = parseFloat(item.prarmaterMin);
-          item.prarmaterStandDevition = parseFloat(item.prarmaterStandDevition);
+          item.prarmaterStandDeviation = parseFloat(item.prarmaterStandDeviation);
           item.prarmaterThreshold = parseFloat(item.prarmaterThreshold);
+          item.prarmaterMinValueDeviation = parseFloat(item.prarmaterMinValueDeviation);
+          item.prarmaterMaxValueDeviation = parseFloat(item.prarmaterMaxValueDeviation);
         }
         // console.log("----paramValidationDetails----", this.paramValidationDetails);
         //this.localStore.store.set(this.paramValuesKey, this.paramValidationDetails);
@@ -814,6 +816,22 @@ export class MwqDataEntryComponent implements OnInit {
               }
             } else {
               this.paramValues[this.sechiDiscComponentKey] = this.sechiDisc;
+            }
+            this.localStore.store.set(this.paramValuesKey, this.paramValues);
+          }
+
+          if (this.paramValidationDetails[i].paramID === 48) {
+            this.pH = this.paramValidationDetails[i];
+            let localData = this.localStore.store.get(this.paramValuesKey);
+            if (localData.status == "success") {
+              this.paramValues = localData.data;
+              if (this.paramValues.hasOwnProperty(this.pHComponentKey)) {
+                this.pH = this.paramValues[this.pHComponentKey];
+              } else {
+                this.paramValues[this.pHComponentKey] = this.pH;
+              }
+            } else {
+              this.paramValues[this.pHComponentKey] = this.pH;
             }
             this.localStore.store.set(this.paramValuesKey, this.paramValues);
           }

@@ -38,7 +38,7 @@ export class GeneralChemistryComponent implements OnInit {
   tss: any = { surfaceValue: "", mql: "", testMethod: "" };
 
   module: String;
-
+  rangeMaxValue: number;
   mwqDetails = [];
   mwqResp: any;
   testMethodDetails = [];
@@ -46,7 +46,7 @@ export class GeneralChemistryComponent implements OnInit {
   extractionMethodDetails = [];
   extractionMethodResp: any;
   isDisabled: boolean = true;
-  
+
   constructor(
     public route: Router,
     public toastr: ToastsManager,
@@ -63,53 +63,98 @@ export class GeneralChemistryComponent implements OnInit {
     console.log("Input Data", data, key);
   }
 
-  totalPhospDetailsSave(totalPhosp){
+  totalPhospDetailsSave(totalPhosp, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  totalPhospDetailsListSave(totalPhosp) {
     this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  totalNitrogenDetailsSave(totalNitrogen){
+  totalNitrogenDetailsSave(totalNitrogen, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.totalNitrogenComponentKey] = totalNitrogen;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  totalNitrogenDetailsListSave(totalNitrogen) {
     this.dataEntry[this.totalNitrogenComponentKey] = totalNitrogen;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  nitriteNDetailsSave(nitriteN){
+  nitriteNDetailsSave(nitriteN, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.nitriteNComponentKey] = nitriteN;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
+  nitriteNDetailsListSave(nitriteN){
+     this.dataEntry[this.nitriteNComponentKey] = nitriteN;
+     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
 
-  nitrateNDetailsSave(nitrateN){
+  nitrateNDetailsSave(nitrateN, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.nitrateNComponentKey] = nitrateN;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  nitrateNDetailsListSave(nitrateN){
     this.dataEntry[this.nitrateNComponentKey] = nitrateN;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  silicateSlDetailsSave(silicateSl){
+  silicateSlDetailsSave(silicateSl, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.silicateSlComponentKey] = silicateSl;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  silicateSlDetailsListSave(silicateSl){
     this.dataEntry[this.silicateSlComponentKey] = silicateSl;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  ammoniaNDetailsSave(ammoniaN){
+  ammoniaNDetailsSave(ammoniaN, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.ammoniaNComponentKey] = ammoniaN;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
+  ammoniaNDetailsListSave(ammoniaN){
+    this.dataEntry[this.ammoniaNComponentKey] = ammoniaN;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry); 
+  }
 
-  phosphatePDetailsSave(phosphateP){
+  phosphatePDetailsSave(phosphateP, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.phosphatePComponentKey] = phosphateP;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  phosphatePDetailsListSave(phosphateP){
     this.dataEntry[this.phosphatePComponentKey] = phosphateP;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  bodDetailsSave(bod){
+  bodDetailsSave(bod, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.bodComponentKey] = bod;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  bodDetailsListSave(bod){
     this.dataEntry[this.bodComponentKey] = bod;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  tssDetailsSave(tss){
+  tssDetailsSave(tss, value, maxValueDeviation, meanValue, threshould, standDevition) {
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.tssComponentKey] = tss;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  
-  generalChemistryDetailsSave(totalPhosp, totalNitrogen, nitriteN, nitrateN, silicateSl, ammoniaN, phosphateP, bod, tss) {
+  tssDetailsListSave(tss){
+    this.dataEntry[this.tssComponentKey] = tss;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
 
+  generalChemistryDetailsSave(totalPhosp, totalNitrogen, nitriteN, nitrateN, silicateSl, ammoniaN, phosphateP, bod, tss) {
+    this.toastClear();
     this.dataEntry[this.totalPhospComponentKey] = totalPhosp;
     this.dataEntry[this.totalNitrogenComponentKey] = totalNitrogen;
     this.dataEntry[this.nitriteNComponentKey] = nitriteN;
@@ -235,16 +280,60 @@ export class GeneralChemistryComponent implements OnInit {
   }
   checkValueThreshold(value, threshould, standDevition, maxValue) {
     if (value > threshould) {
-      this.toastr.error("Input Value " + value + " More than Threshould " + threshould + " Value ");
+      this.toastr.error("Input Value " + value + " More than Threshold " + threshould + " Value ");
     }
 
     if (value > standDevition) {
-      this.toastr.error("Input Value " + value + " More than Prarmater Standard Deviation " + standDevition + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Standard Deviation " + standDevition + " Value ");
     }
 
     if (value > maxValue) {
-      this.toastr.error("Input Value " + value + " More than Pararmater Max " + maxValue + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Max " + maxValue + " Value ");
     }
+  }
+
+  checkValueThresholdNew(value, meanValue, threshould, standDevition, rangeMaxValue) {
+    // console.log(value, minValue, maxValue, meanValue, threshould, standDevition);
+    if (value > threshould) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Threshold " +
+        threshould +
+        " Value "
+      );
+    }
+
+    if (value > standDevition) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Standard Deviation " +
+        standDevition +
+        " Value "
+      );
+    }
+
+    if (value > rangeMaxValue) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " Parameter Out of range " +
+        rangeMaxValue +
+        " Value "
+      );
+    }
+
+    if (value < meanValue) {
+      this.toastr.warning(
+        "Input Value " +
+        value +
+        " Less than Parameter Mean " +
+        meanValue +
+        " Value "
+      );
+    }
+
   }
 
   toastClear() {

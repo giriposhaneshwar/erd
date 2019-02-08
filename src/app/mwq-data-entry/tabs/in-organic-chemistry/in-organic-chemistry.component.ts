@@ -74,15 +74,15 @@ export class InOrganicChemistryComponent implements OnInit {
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {
     if (value > threshould) {
-      this.toastr.error("Input Value " + value + " More than Threshould " + threshould + " Value ");
+      this.toastr.error("Input Value " + value + " More than Threshold " + threshould + " Value ");
     }
 
     if (value > standDevition) {
-      this.toastr.error("Input Value " + value + " More than Prarmater Standard Deviation " + standDevition + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Standard Deviation " + standDevition + " Value ");
     }
 
     if (value > maxValue) {
-      this.toastr.error("Input Value " + value + " More than Pararmater Max " + maxValue + " Value ");
+      this.toastr.error("Input Value " + value + " More than Parameter Max " + maxValue + " Value ");
     }
   }
 
@@ -98,108 +98,274 @@ export class InOrganicChemistryComponent implements OnInit {
     }
   }
 
-  iocw_cadmiumDetailsSave(iocw_cadmium) {
+  iocw_cadmiumDetailsSave(iocw_cadmium,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_cadmiumComponentKey] = iocw_cadmium;;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_cadmiumDetailsListSave(iocw_cadmium) {
     this.dataEntry[this.iocw_cadmiumComponentKey] = iocw_cadmium;;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_chromiumDetailsSave(iocw_chromium) {
+  iocw_chromiumDetailsSave(iocw_chromium,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_chromiumComponentKey] = iocw_chromium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_chromiumDetailsListSave(iocw_chromium) {
     this.dataEntry[this.iocw_chromiumComponentKey] = iocw_chromium;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_cobaltDetailsSave(iocw_cobalt) {
+  iocw_cobaltDetailsSave(iocw_cobalt,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.iocw_cobaltComponentKey] = iocw_cobalt;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
+  iocw_cobaltDetailsListSave(iocw_cobalt) {
+   this.dataEntry[this.iocw_cobaltComponentKey] = iocw_cobalt;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
 
-  iocw_copperDetailsSave(iocw_copper) {
+  iocw_copperDetailsSave(iocw_copper,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_copperComponentKey] = iocw_copper;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_copperDetailsListSave(iocw_copper){
     this.dataEntry[this.iocw_copperComponentKey] = iocw_copper;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_leadDetailsSave(iocw_lead) {
+  iocw_leadDetailsSave(iocw_lead,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_leadComponentKey] = iocw_lead;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_leadDetailsListSave(iocw_lead){
     this.dataEntry[this.iocw_leadComponentKey] = iocw_lead;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_manganeseDetailsSave(iocw_manganese) {
+  iocw_manganeseDetailsSave(iocw_manganese,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_manganeseComponentKey] = iocw_manganese;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_manganeseDetailsListSave(iocw_manganese){
     this.dataEntry[this.iocw_manganeseComponentKey] = iocw_manganese;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_nickelDetailsSave(iocw_nickel) {
+  iocw_nickelDetailsSave(iocw_nickel,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.iocw_nickelComponentKey] = iocw_nickel;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  iocw_zincDetailsSave(iocw_zinc) {
+  iocw_nickelDetailsListSave(iocw_nickel){
+    this.dataEntry[this.iocw_nickelComponentKey] = iocw_nickel;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  iocw_zincDetailsSave(iocw_zinc,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.iocw_zincComponentKey] = iocw_zinc;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   } 
+  iocw_zincDetailsListSave(iocw_zinc){
+    this.dataEntry[this.iocw_zincComponentKey] = iocw_zinc;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
 
-  iocw_ironDetailsSave(iocw_iron) {
+  iocw_ironDetailsSave(iocw_iron,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_ironComponentKey] = iocw_iron;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_ironDetailsListSave(iocw_iron){
     this.dataEntry[this.iocw_ironComponentKey] = iocw_iron;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocw_mercuryDetailsSave(iocw_mercury) {
+  iocw_mercuryDetailsSave(iocw_mercury,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocw_mercuryComponentKey] = iocw_mercury;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocw_mercuryDetailsListSave(iocw_mercury){
     this.dataEntry[this.iocw_mercuryComponentKey] = iocw_mercury;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_cadmiumDetailsSave(iocs_cadmium) {
+  iocs_cadmiumDetailsSave(iocs_cadmium,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_cadmiumComponentKey] = iocs_cadmium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_cadmiumDetailsListSave(iocs_cadmium){
     this.dataEntry[this.iocs_cadmiumComponentKey] = iocs_cadmium;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_chromiumDetailsSave(iocs_chromium) {
+  iocs_chromiumDetailsSave(iocs_chromium,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_chromiumComponentKey] = iocs_chromium;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_chromiumDetailsListSave(iocs_chromium){
     this.dataEntry[this.iocs_chromiumComponentKey] = iocs_chromium;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_cobaltDetailsSave(iocs_cobalt) {
+  iocs_cobaltDetailsSave(iocs_cobalt,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_cobaltComponentKey] = iocs_cobalt;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_cobaltDetailsListSave(iocs_cobalt){
     this.dataEntry[this.iocs_cobaltComponentKey] = iocs_cobalt;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_copperDetailsSave(iocs_copper) {
+  iocs_copperDetailsSave(iocs_copper,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_copperComponentKey] = iocs_copper;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_copperDetailsListSave(iocs_copper){
     this.dataEntry[this.iocs_copperComponentKey] = iocs_copper;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_leadDetailsSave(iocs_lead) {
+  iocs_leadDetailsSave(iocs_lead,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_leadComponentKey] = iocs_lead;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_leadDetailsListSave(iocs_lead){
     this.dataEntry[this.iocs_leadComponentKey] = iocs_lead;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_manganeseDetailsSave(iocs_manganese) {
+  iocs_manganeseDetailsSave(iocs_manganese,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_manganeseComponentKey] = iocs_manganese;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_manganeseDetailsListSave(iocs_manganese){
     this.dataEntry[this.iocs_manganeseComponentKey] = iocs_manganese;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_nickelDetailsSave(iocs_nickel) {
+  iocs_nickelDetailsSave(iocs_nickel,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_nickelComponentKey] = iocs_nickel;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_nickelDetailsListSave(iocs_nickel){
     this.dataEntry[this.iocs_nickelComponentKey] = iocs_nickel;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_zincDetailsSave(iocs_zinc) {
+  iocs_zincDetailsSave(iocs_zinc,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_zincComponentKey] = iocs_zinc;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry); 
+  }
+  iocs_zincDetailsListSave(iocs_zinc){
     this.dataEntry[this.iocs_zincComponentKey] = iocs_zinc;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry); 
   }
 
-  iocs_ironDetailsSave(iocs_iron) {
+  iocs_ironDetailsSave(iocs_iron,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
+    this.dataEntry[this.iocs_ironComponentKey] = iocs_iron;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_ironDetailsListSave(iocs_iron){
     this.dataEntry[this.iocs_ironComponentKey] = iocs_iron;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  iocs_mercuryDetailsSave(iocs_mercury) {
+  iocs_mercuryDetailsSave(iocs_mercury,value, maxValueDeviation, meanValue, threshould, standDevition) {
+    console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
+    this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.iocs_mercuryComponentKey] = iocs_mercury;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+  iocs_mercuryDetailsListSave(iocs_mercury){
+    this.dataEntry[this.iocs_mercuryComponentKey] = iocs_mercury;
+    this.localStore.store.set(this.dataEntryKey, this.dataEntry);
+  }
+
+  checkValueThresholdNew(value, meanValue, threshould, standDevition, rangeMaxValue) {
+    // console.log(value, minValue, maxValue, meanValue, threshould, standDevition);
+    if (value > threshould) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Threshold " +
+        threshould +
+        " Value "
+      );
+    }
+
+    if (value > standDevition) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " More than Parameter Standard Deviation " +
+        standDevition +
+        " Value "
+      );
+    }
+
+    if (value > rangeMaxValue) {
+      this.toastr.error(
+        "Input Value " +
+        value +
+        " Parameter Out of range " +
+        rangeMaxValue +
+        " Value "
+      );
+    }
+
+    if (value < meanValue) {
+      this.toastr.warning(
+        "Input Value " +
+        value +
+        " Less than Parameter Mean " +
+        meanValue +
+        " Value "
+      );
+    }
   }
 
   inOrganicChemistryDetailsSave(iocw_cadmium, iocw_chromium, iocw_cobalt, iocw_copper, iocw_lead, iocw_manganese,
     iocw_nickel, iocw_zinc, iocw_iron, iocw_mercury, iocs_cadmium, iocs_chromium, iocs_cobalt, iocs_copper, iocs_lead,
     iocs_manganese, iocs_nickel, iocs_zinc, iocs_iron, iocs_mercury) {
+
+    this.toastClear();
 
     this.dataEntry[this.iocw_cadmiumComponentKey] = iocw_cadmium;
     this.dataEntry[this.iocw_chromiumComponentKey] = iocw_chromium;

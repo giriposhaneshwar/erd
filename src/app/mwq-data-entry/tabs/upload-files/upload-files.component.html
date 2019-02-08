@@ -7,12 +7,12 @@
 					<!-- action="{{apiUrl}}"  method="post" encrypt="multipart/form-data" -->
 					<form class="form-inline" method="post" encrypt="multipart/form-data" style="margin-top:2%;margin-bottom:2%">
 						<div class="form-group">
-							<input type='file' class="uploadFile">
+							<input type='file' class="uploadFile" #txtMwqFileUpload>
 						</div>
 						<div style="width:3%"></div>
 						<div style="width:3%"></div>
 						<div class="form-group custom-file-upload">
-							<button class="btn btn-primary gap gap-5 gap-lr" (click)="fileChanged($event)">Upload</button>
+							<button class="btn btn-primary gap gap-5 gap-lr" (click)="fileChanged($event,txtMwqFileUpload)">Upload</button>
 						</div>
 					</form>
 				</div>

@@ -82,10 +82,10 @@ export class ConfigureParametersComponent implements OnInit {
       this.parameterUpadateResultStatus = resp;
       if (this.parameterUpadateResultStatus.ParameterStatusUpdateResult === 'success') {
         console.log('UPDATED!', updatedStatus, updatedParamId, updatedBy, this.parameterUpadateResultStatus.ParameterStatusUpdateResult);
-        this.toastr.success("Parameter Id "+updatedParamId+"-"+" Information Updated Successfully")
+        this.toastr.success("Parameter Id " + updatedParamId + "-" + " Information Updated Successfully")
       }
       else {
-        this.toastr.error(this.parameterUpadateResultStatus.ParameterStatusUpdateResult, "Parameter Id "+updatedParamId+"-"+" Param Information Updation Failed");
+        this.toastr.error(this.parameterUpadateResultStatus.ParameterStatusUpdateResult, "Parameter Id " + updatedParamId + "-" + " Param Information Updation Failed");
         console.log('UPDATE Failed!', updatedStatus, updatedParamId, updatedBy, this.parameterUpadateResultStatus.ParameterStatusUpdateResult);
       }
     });
@@ -105,24 +105,29 @@ export class ConfigureParametersComponent implements OnInit {
 
   addConfigureParam(configureParam) {
     console.log(JSON.stringify(configureParam));
-    this.manageMwqDataService.addParameterInfo(configureParam).subscribe((resp) => {
-      this.addParameterInfo = resp;
-      console.log("----addParameterInfo----", this.addParameterInfo);
-      if (this.addParameterInfo.ParametersCreateResult === 'sucess') {
-        this.toastr.success(this.addParameterInfo.ParametersCreateResult, "Param Info Created Successfully");
-        this.f.resetForm();
-        this.closeModal();
-        this.loadParametersList();
-      }
-      else {
-        this.toastr.error(this.addParameterInfo.ParametersCreateResult, "Param Info creation failed");
-      }
-    });
+    if (configureParam.maxValue > configureParam.minValue) {
+      console.log(configureParam.maxValue);
+      this.manageMwqDataService.addParameterInfo(configureParam).subscribe((resp) => {
+        this.addParameterInfo = resp;
+        console.log("----addParameterInfo----", this.addParameterInfo);
+        if (this.addParameterInfo.ParametersCreateResult === 'sucess') {
+          this.toastr.success(this.addParameterInfo.ParametersCreateResult, "Param Info Created Successfully");
+          this.f.resetForm();
+          this.closeModal();
+          this.loadParametersList();
+        }
+        else {
+          this.toastr.error(this.addParameterInfo.ParametersCreateResult, "Param Info creation failed");
+        }
+      });
+    } else {
+      this.toastr.error("Min value should be less than MAX value");
+    }
   }
 
-  checkValue(minValue,maxValue){
-    console.log(minValue,maxValue);
-    if(minValue>=maxValue){
+  checkValue(minValue, maxValue) {
+    console.log(minValue, maxValue);
+    if (minValue >= maxValue) {
       this.toastr.error("MIN value should be less than MAX value");
     }
   }

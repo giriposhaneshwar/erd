@@ -84,9 +84,10 @@ export class UploadFilesComponent implements OnInit {
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
 
-  fileChanged(e) {
+  fileChanged(e, txtMwqFileUpload : HTMLInputElement) {
     let uploadedFile = e.target.files;
     // console.log("Body SElection", $('body'));
+   
     let that = this;
     let data = new FormData();
     $.each($('.uploadFile')[0].files, function (i, file) {
@@ -144,6 +145,10 @@ export class UploadFilesComponent implements OnInit {
         // alert(data);
       }
     });
+
+    if(txtMwqFileUpload.value != 'undefined'){
+      txtMwqFileUpload.value=null;
+    }
   }
 
   updateMWQDataInfo() {
@@ -223,7 +228,6 @@ export class UploadFilesComponent implements OnInit {
       }
     });
   }
-
   fileDelete(fileName, indexValue) {
     console.log("--------" + fileName + " ---------------- " + indexValue);
     this.api.fileDeleteTemp(fileName).subscribe((resp) => {
@@ -297,7 +301,7 @@ export class UploadFilesComponent implements OnInit {
       }); */
       this.toastr.error(
         message,
-        "Faied to submit! Please fill the required fields",
+        "Failed to submit! Please fill the required fields",
         { toastLife: 30000, allowHtml: true, }
       );
     }
