@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-buoys-incidents',
@@ -83,11 +84,26 @@ export class BuoysIncidentsComponent implements OnInit {
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(private pageTitleService: PageTitleService,
-    private incidentsService: IncidentsService,
+    private incidentsService: IncidentsService,private route: Router,
     public toastr: ToastsManager, vcr: ViewContainerRef,
     private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.dateForamt();
+    
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.dateForamt();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   onOptionsSelected(statusSelectedValue, buoysIncidentRemarks: HTMLInputElement, buoysIncidentRemarksBtn:HTMLInputElement) {

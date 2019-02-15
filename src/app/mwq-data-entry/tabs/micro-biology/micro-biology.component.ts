@@ -46,9 +46,30 @@ export class MicroBiologyComponent implements OnInit {
     public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.loadMQLData();
-    this.loadTestMethodData();
-    this.loaadExtractionMethodData();
+
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      this.loadMQLData();
+      this.loadTestMethodData();
+      this.loaadExtractionMethodData();
+
+      let mod = this.config.getModuleName();
+      this.module = mod.module;
+      console.log("----module name----" + this.module);
+      this.getColorValidator();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   getColorValidator() {
@@ -87,39 +108,39 @@ export class MicroBiologyComponent implements OnInit {
     }
   }
 
-  totalColiformDetailsSave(totalColiform,value, maxValueDeviation, meanValue, threshould, standDevition){
+  totalColiformDetailsSave(totalColiform, value, maxValueDeviation, meanValue, threshould, standDevition) {
     console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  totalColiformDetailsListSave(totalColiform){
+  totalColiformDetailsListSave(totalColiform) {
     this.dataEntry[this.totalColiformComponentKey] = totalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  enterococciDetailsSave(enterococci,value, maxValueDeviation, meanValue, threshould, standDevition){
+  enterococciDetailsSave(enterococci, value, maxValueDeviation, meanValue, threshould, standDevition) {
     console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  enterococciDetailsListSave(enterococci){
+  enterococciDetailsListSave(enterococci) {
     this.dataEntry[this.enterococciComponentKey] = enterococci;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  fecalColiformDetailsSave(fecalColiform,value, maxValueDeviation, meanValue, threshould, standDevition){
+  fecalColiformDetailsSave(fecalColiform, value, maxValueDeviation, meanValue, threshould, standDevition) {
     console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  fecalColiformDetailsListSave(fecalColiform){
+  fecalColiformDetailsListSave(fecalColiform) {
     this.dataEntry[this.fecalColiformComponentKey] = fecalColiform;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  
+
   checkValueThresholdNew(value, meanValue, threshould, standDevition, rangeMaxValue) {
     // console.log(value, minValue, maxValue, meanValue, threshould, standDevition);
     if (value > threshould) {
@@ -172,7 +193,7 @@ export class MicroBiologyComponent implements OnInit {
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
     this.isDisabled = false;
   }
-  
+
   microBiologyTabNavNext(module) {
     if (module === "mwqDataEntry") {
       this.route.navigate(["mwqDataEntry", "upload-files"]);
@@ -185,10 +206,6 @@ export class MicroBiologyComponent implements OnInit {
   }
 
   ngOnInit() {
-    let mod = this.config.getModuleName();
-    this.module = mod.module;
-    console.log("----module name----" + this.module);
-    this.getColorValidator();
     // get DAta
     let localData = this.localStore.store.get(this.dataEntryKey);
     let microBiologyGraphData = this.localStore.store.get("graphData");
@@ -217,7 +234,6 @@ export class MicroBiologyComponent implements OnInit {
     }
     //console.log(this.js);
     //console.log("Data Entry", this.dataEntryKey, this.js);
-
   }
 
   loadMQLData() {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PageTitleService } from 'app/core/page-title/page-title.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'ms-manage-lims-services',
@@ -21,9 +23,24 @@ export class ManageLimsServicesComponent implements OnInit {
 
   constructor(
     private pageTitleService: PageTitleService,
+    private route: Router,private spinner: NgxSpinnerService,
     private http: HttpClient) {
-    this.getRestItems();
+  
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
 
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.getRestItems();
+      this.spinner.hide();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {

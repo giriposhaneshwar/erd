@@ -7,6 +7,8 @@ import { BuoysDashboardService } from './buoysdashboard.service';
 import * as moment from 'moment';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AppStorageService } from 'app/appConfiguration/app-config.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "ms-buoysdashboard",
@@ -42,9 +44,11 @@ export class BuoysdashboardComponent implements OnInit {
   endMinDate: any;
   endMaxDate: any;
   isDisabled: boolean = true;
-  mouseWheelDir:any;
-  event:any;
-  
+  mouseWheelDir: any;
+  event: any;
+  paramValuesKey: string = "userInfo";
+  paramValues: any;
+
   handleFormChange(data) {
     if (data == "lastModified") {
       this.spinner.show();
@@ -117,10 +121,26 @@ export class BuoysdashboardComponent implements OnInit {
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
     private buoysDashboardService: BuoysDashboardService, private loadingBar: LoadingBarService,
-    private spinner: NgxSpinnerService) {
-    this.fromDate = moment().subtract(90, "days").format("YYYY-MM-DD");
-    this.toDate = moment().subtract(60, "days").format("YYYY-MM-DD");
-    this.showBuoysDashboardData(this.fromDate, this.toDate);
+    private spinner: NgxSpinnerService, public localStore: AppStorageService, public route: Router) {
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.fromDate = moment().format('YYYY-MM-DD');
+      this.toDate = moment().format('YYYY-MM-DD');
+     // this.toDate = moment().startOf('hour').fromNow();
+      console.log(" Last Modified ", moment().startOf('hour').fromNow() , this.fromDate, this.toDate);
+      this.showBuoysDashboardData(this.fromDate, this.toDate);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -129,12 +149,15 @@ export class BuoysdashboardComponent implements OnInit {
     this.todayDate = setInterval(() => {
 
     }, 900000);
-    this.spinner.show();
+    //this.spinner.show();
     /** spinner ends after 5 seconds */
 
     /*    setTimeout(() => {
          this.spinner.hide();
        }, 5000); */
+
+
+
   }
 
   mondalWindowOpen(selector: String) {
@@ -171,7 +194,7 @@ export class BuoysdashboardComponent implements OnInit {
           this.restItems = [];
           this.spinner.hide();
         }
-        
+
       }
       else if (this.resultStatus === 'Failed') {
         console.log("Error occured");
@@ -179,7 +202,7 @@ export class BuoysdashboardComponent implements OnInit {
         this.spinner.hide();
       }
     });
-   
+
   }
 
   dateForamt() {

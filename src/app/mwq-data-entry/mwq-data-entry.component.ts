@@ -130,7 +130,23 @@ export class MwqDataEntryComponent implements OnInit {
     public route: Router,
     public localStore: AppStorageService,
     public api: MwqDataEntryService, private spinner: NgxSpinnerService
-  ) { }
+  ) { 
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let userId = sessionStorage.getItem("userId");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, userId, currentUrl);
+      this.ngOnInit();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
+  }
 
   tabRouteinMobile(evt, data) {
     this.route.navigate(["mwqDataEntry", data], evt);

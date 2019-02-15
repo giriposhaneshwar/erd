@@ -72,6 +72,22 @@ export class InSituParametersComponent implements OnInit {
     vcr: ViewContainerRef
   ) {
     this.toastr.setRootViewContainerRef(vcr);
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let userId = sessionStorage.getItem("userId");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, userId, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      this.ngOnInit();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -172,6 +188,7 @@ export class InSituParametersComponent implements OnInit {
       //console.log("selected at Options", { m5, m10, m15, m20, m25, m30, m35, m40 })
     }
   }
+  
 
   temperatureDetailsSave(temperature, value, maxValueDeviation, meanValue, threshould, standDevition) {
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);

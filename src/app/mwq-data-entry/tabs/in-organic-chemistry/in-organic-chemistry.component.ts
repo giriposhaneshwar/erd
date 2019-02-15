@@ -67,9 +67,24 @@ export class InOrganicChemistryComponent implements OnInit {
   constructor(public route: Router, public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService, public config: Config, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.loadMQLData();
-    this.loadTestMethodData();
 
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20"){
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      this.loadMQLData();
+      this.loadTestMethodData();
+      this.ngOnInit();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   checkValueThreshold(value, threshould, standDevition, maxValue) {

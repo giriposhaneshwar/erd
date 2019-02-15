@@ -6,6 +6,7 @@ import { DownloadBuoysDataService } from './download-buoys-data.service';
 import { DownloadDataService } from '../download-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastsManager } from 'ng6-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-download-buoys-data',
@@ -32,13 +33,13 @@ export class DownloadBuoysDataComponent implements OnInit {
   event: any;
   selectedBuoysDataDetails = [];
   resultArray = [];
-  rows = [];  
+  rows = [];
   isDisabled: boolean = true;
   columns = [];
 
 
   constructor(private pageTitleService: PageTitleService,
-    private http: HttpClient,
+    public route: Router,
     private excelService: DownloadBuoysDataService,
     private downloadDataService: DownloadDataService,
     public toastr: ToastsManager,
@@ -46,10 +47,25 @@ export class DownloadBuoysDataComponent implements OnInit {
     private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.dateForamt();
-    this.fromDate = moment().subtract(90, "days").format("YYYY-MM");
-    this.toDate = moment().format("YYYY-MM");
-    console.log("-------this.fromDate, this.toDate---------", this.fromDate, this.toDate);
-    this.downloadBUOYSDataList(this.fromDate, this.toDate);
+
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.fromDate = moment().subtract(90, "days").format("YYYY-MM");
+      this.toDate = moment().format("YYYY-MM");
+      console.log("-------this.fromDate, this.toDate---------", this.fromDate, this.toDate);
+      this.downloadBUOYSDataList(this.fromDate, this.toDate);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
 
     this.columns = [
       {

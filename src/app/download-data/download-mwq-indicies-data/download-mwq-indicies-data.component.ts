@@ -6,6 +6,7 @@ import { DownloadMwqIndicesDataService } from './download-mwq-indices-data.servi
 import { DownloadDataService } from '../download-data.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastsManager } from 'ng6-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ms-download-mwq-indicies-data',
   templateUrl: './download-mwq-indicies-data.component.html',
@@ -40,17 +41,31 @@ export class DownloadMwqIndiciesDataComponent implements OnInit {
   isDisabled: boolean = true;
 
   constructor(private pageTitleService: PageTitleService,
-    private http: HttpClient,
+    private http: HttpClient,private route: Router,
     private excelService: DownloadMwqIndicesDataService,
     private downloadDataService: DownloadDataService,
     private spinner: NgxSpinnerService, public toastr: ToastsManager,
     vcr: ViewContainerRef) {
     this.dateForamt();
     this.toastr.setRootViewContainerRef(vcr);
-    this.fromDate = moment().subtract(120, "days").format("YYYY-MM-DD");
-    this.toDate = moment().format("YYYY-MM-DD");
-    console.log(this.fromDate, this.toDate);
-    this.downloadMwqIndicesData(this.fromDate, this.toDate);
+ 
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.fromDate = moment().subtract(120, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format("YYYY-MM-DD");
+      console.log(this.fromDate, this.toDate);
+      this.downloadMwqIndicesData(this.fromDate, this.toDate);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
 
     this.columns = [
       {

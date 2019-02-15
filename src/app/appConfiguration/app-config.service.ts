@@ -44,11 +44,33 @@ export class AppStorageService {
     decode: (data) => {
      // return atob(data);
        return data;
-    }
+    },
+    getSessionKey: (key) => {
+      this.lc = window.sessionStorage;
+      let data = this.lc.getItem(key);
+      if (data != null) {
+        return { status: "success", data: JSON.parse(this.obj.decode(data)) };
+      } else {
+        const empty = {};
+        this.obj.setKey(key, empty);
+        return {};
+        // return { status: "failed", message: "wrong key entered" };
+      }
+    },
+    setSessionKey: (key, data) => {
+      this.lc = window.sessionStorage;
+      //  alert("Storing Key ::: " + key + " -> " + JSON.stringify(data));
+      //console.log("At Set Key", key, data);
+      if (key) {
+        this.lc.setItem(key, this.obj.encode(JSON.stringify(data)));
+      }
+    },
+    
   };
 
   constructor() {
-    this.store = { set: this.obj.setKey, get: this.obj.getKey, delete: this.obj.deleteKey, clear: this.obj.deleteAll };
+    this.store = { set: this.obj.setKey, get: this.obj.getKey, delete: this.obj.deleteKey, 
+                  clear: this.obj.deleteAll, getSession:this.obj.getSessionKey, setSession:this.obj.setSessionKey };
   }
 
 

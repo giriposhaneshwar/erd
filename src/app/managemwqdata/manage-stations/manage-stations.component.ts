@@ -6,6 +6,7 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-manage-stations',
@@ -24,7 +25,7 @@ export class ManageStationsComponent implements OnInit {
   stationsListResultStatus: any;
   stationsListResultStatusMessage: any;
   stationInfo: any = {
-    stationId: "", x: "", y: "", name: "", createdBy: "Admin", status: ""
+    stationId: "", x: "", y: "", name: "", createdBy: "", status: ""
   };
 
   @ViewChild(NgForm) f: NgForm;
@@ -32,9 +33,25 @@ export class ManageStationsComponent implements OnInit {
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient, private spinner: NgxSpinnerService,
     private manageMwqDataService: ManageMwqDataService,
+    private route: Router,
     public toastr: ToastsManager, vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
-    this.loaStationsList();
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      this.stationInfo.createdBy = username;
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.toastr.setRootViewContainerRef(vcr);
+      this.loaStationsList();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Management System");
@@ -72,7 +89,7 @@ export class ManageStationsComponent implements OnInit {
     this.stationsListDetails = [...this.stationsListDetails];
     let updatedStatus = this.stationsListDetails[rowIndex][cell];
     let updatedStationId = row.stationId;
-    let updatedBy = "Admin";
+    let updatedBy = this.stationInfo.createdBy;
     this.manageMwqDataService.updateStationStatus(updatedStationId, updatedBy, updatedStatus).subscribe((resp) => {
       this.stationsListResp = resp;
       console.log("----CategoryStatusUpdateResult----", this.stationsListResp);

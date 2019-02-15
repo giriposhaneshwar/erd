@@ -6,6 +6,7 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-manage-vendor-details',
@@ -18,8 +19,8 @@ export class ManageVendorDetailsComponent implements OnInit {
   mondalOpen: any;
   vendorsListDetails = [];
   venodrsListResp: any;
-  vendorsListResultStatus:any;
-  vendorsListResultStatusMessage:any;
+  vendorsListResultStatus: any;
+  vendorsListResultStatusMessage: any;
   modalShowWindow: Boolean = false;
   vendorInfo: any = {
     vendorName: "", emailId: "", phNum: "", adress: "", status: ""
@@ -28,10 +29,25 @@ export class ManageVendorDetailsComponent implements OnInit {
   @ViewChild(NgForm) f: NgForm;
 
   constructor(private pageTitleService: PageTitleService, private http: HttpClient,
-    public toastr: ToastsManager, vcr: ViewContainerRef,private spinner: NgxSpinnerService,
+    public toastr: ToastsManager, vcr: ViewContainerRef,
+    private spinner: NgxSpinnerService, private route: Router,
     private manageMwqDataService: ManageMwqDataService) {
-    this.toastr.setRootViewContainerRef(vcr);
-    this.loadVendorsList();
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.toastr.setRootViewContainerRef(vcr);
+      this.loadVendorsList();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -96,14 +112,14 @@ export class ManageVendorDetailsComponent implements OnInit {
     this.manageMwqDataService.updatVendorStatus(updatedId, updatedStatus).subscribe((resp) => {
       console.log("----VendorStatusUpdateResult----", resp);
       this.venodrsListResp = resp;
-       if (this.venodrsListResp.VendorStatusUpdateResult === 'success') {
-        console.log('UPDATED!', updatedId, updatedStatus, this.venodrsListResp.VendorStatusUpdateResult,this.vendorsListDetails[rowIndex][cell]);
+      if (this.venodrsListResp.VendorStatusUpdateResult === 'success') {
+        console.log('UPDATED!', updatedId, updatedStatus, this.venodrsListResp.VendorStatusUpdateResult, this.vendorsListDetails[rowIndex][cell]);
         this.toastr.success("Vendor Information Updated Successfully");
       }
       else {
         this.toastr.error(this.venodrsListResp.VendorStatusUpdateResult, "Vendor Information Updation Failed");
         console.log('UPDATE Failed!', updatedId, updatedStatus, this.venodrsListResp.VendorStatusUpdateResult);
-      } 
+      }
     });
   }
 

@@ -71,9 +71,7 @@
                 name="temperatureSurfaceVal" #temperatureSurfaceVal="ngModel" OnlyNumber="true" DecimalPlaces="2" required autocomplete="off"
                 (input)="temperatureDetailsSave(temperature,temperature.surfaceValue,
                 fieldColorValidatior.Temparature.prarmaterMaxValueDeviation,fieldColorValidatior.Temparature.prarmaterMean,
-                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation,
-                fieldColorValidatior.Temparature.prarmaterMin,fieldColorValidatior.Temparature.prarmaterMax,
-                fieldColorValidatior.Temparature.prarmaterMinValueDeviation )"
+                fieldColorValidatior.Temparature.prarmaterThreshold,fieldColorValidatior.Temparature.prarmaterStandDeviation)"
                 (focus)="toastClear()" (keypress)="toastClear()" (click)="toastClear()"/>
             </div>
             <div class="clearfix tbl tbl-per-15 text-center Temparature_Surface" msHistoricalGraph [graphData]="graphData.Temparature_Surface"

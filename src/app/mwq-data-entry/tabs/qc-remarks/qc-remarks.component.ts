@@ -31,15 +31,30 @@ export class QcRemarksComponent implements OnInit {
     vcr: ViewContainerRef,
     public toastr: ToastsManager) {
     this.toastr.setRootViewContainerRef(vcr);
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      console.log(this.sampleInformation.updatedBy)
+      // this.sampleInformation.updatedBy='new val';
+      let mod = this.config.getModuleName();
+      this.module = mod.module;
+      console.log("----module name----" + this.module);
+      this.ngOnInit();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
-
-    console.log(this.sampleInformation.updatedBy)
-    // this.sampleInformation.updatedBy='new val';
-    let mod = this.config.getModuleName();
-    this.module = mod.module;
-    console.log("----module name----" + this.module);
 
     let localData = this.localStore.store.get(this.dataEntryKey);
     if (localData.status == "success") {
@@ -78,7 +93,7 @@ export class QcRemarksComponent implements OnInit {
     if (isValid) {
       this.updateMwqDataEntryQcData(this.js);
     }
-  
+
   }
 
   updateMwqDataEntryQcData(jsonMwqDataEntryInfo) {

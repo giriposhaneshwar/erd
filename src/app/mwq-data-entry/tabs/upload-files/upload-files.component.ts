@@ -6,6 +6,7 @@ import { AppStorageService } from "../../../appConfiguration/app-config.service"
 import { ToastsManager, ToastOptions } from "ng6-toastr/ng2-toastr";
 import { MwqDataEntryService } from './../../mwq-data-entry.service';
 import * as $ from 'jquery';
+import { NgxSpinnerService } from "ngx-spinner";
 declare var $: any;
 
 @Component({
@@ -42,11 +43,25 @@ export class UploadFilesComponent implements OnInit {
     public toastr: ToastsManager,
     public localStore: AppStorageService,
     vcr: ViewContainerRef,
+    private spinner: NgxSpinnerService,
     public api: MwqDataEntryService,
   ) {
-    this.toastr.setRootViewContainerRef(vcr);
-    this.domain = this.config.UPLOAD_URL;
-    this.apiUrl = this.config.API_URL;
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.toastr.setRootViewContainerRef(vcr);
+      this.domain = this.config.UPLOAD_URL;
+      this.apiUrl = this.config.API_URL;
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -84,10 +99,10 @@ export class UploadFilesComponent implements OnInit {
     console.log("Data Entry", this.dataEntryKey, this.dataEntry);
   }
 
-  fileChanged(e, txtMwqFileUpload : HTMLInputElement) {
+  fileChanged(e, txtMwqFileUpload: HTMLInputElement) {
     let uploadedFile = e.target.files;
     // console.log("Body SElection", $('body'));
-   
+
     let that = this;
     let data = new FormData();
     $.each($('.uploadFile')[0].files, function (i, file) {
@@ -117,11 +132,11 @@ export class UploadFilesComponent implements OnInit {
               that.addedFilesList.push(item);
             }
             else {
-              if(that.uploadFileList[i].fileName===item.fileName){
+              if (that.uploadFileList[i].fileName === item.fileName) {
                 console.log("MACHED");
-                alert("Duplicate file not allowed "+item.fileName );
+                alert("Duplicate file not allowed " + item.fileName);
               }
-              else{
+              else {
                 console.log("NOT MACHED");
                 that.uploadFileList.push(item);
                 that.addedFilesList.push(item);
@@ -146,8 +161,8 @@ export class UploadFilesComponent implements OnInit {
       }
     });
 
-    if(txtMwqFileUpload.value != 'undefined'){
-      txtMwqFileUpload.value=null;
+    if (txtMwqFileUpload.value != 'undefined') {
+      txtMwqFileUpload.value = null;
     }
   }
 
@@ -175,13 +190,17 @@ export class UploadFilesComponent implements OnInit {
     let dataEntry = jsonMwqDataEntryInfo.data;
 
     dataEntry[this.uploadFilesInfoKey] = sampleInformation;
+    
+    if(sampleInformation.dataEntryComments!= undefined){
+      console.log("-----sampleInformation----" + JSON.stringify(sampleInformation.dataEntryComments));
+    }
+    else{
+      this.sampleInformation.dataEntryComments=" ";
+      console.log("-----sampleInformation----" + JSON.stringify(sampleInformation.dataEntryComments));
+    }
     this.js["jsonInput"] = dataEntry;
-
     let isValid = this.doValidate(dataEntry);
-
-
     // this.localStore.store.set(this.dataEntryKey, this.dataEntry);
-
     //console.log("At microBiologySiteDateSave Screen ----------" + JSON.stringify(this.js));
     //console.log("jsonMwqDataEntryInfo ------" + JSON.stringify(jsonMwqDataEntryInfo));
     if (isValid) {
@@ -270,6 +289,9 @@ export class UploadFilesComponent implements OnInit {
           let subRow = row[subItem];
           // if (item !== 'upload' || item != 'AddFiles' || item != 'DeleteFiles') {
           if (item !== 'upload') {
+            /*     isRequired.push(subItem);
+                popMessage.push(subItem + " is required from " + item);
+                requiredObj[item].push(subItem); */
             if (subRow === "") {
               isRequired.push(subItem);
               popMessage.push(subItem + " is required from " + item);

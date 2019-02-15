@@ -6,6 +6,7 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastsManager } from 'ng6-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'ms-configure-categories',
   templateUrl: './configure-categories.component.html',
@@ -22,17 +23,33 @@ export class ConfigureCategoriesComponent implements OnInit {
   categoryUpadateResultStatus: any;
   categoryCreateResultStatus: any;
   categoryInfo: any = {
-    categoryName: "", createdBy: "AdminUser", status: ""
+    categoryName: "", createdBy: "", status: ""
   };
   @ViewChild(NgForm) f: NgForm;
 
   modalShowWindow: Boolean = false;
   constructor(private pageTitleService: PageTitleService,
     private http: HttpClient, private spinner: NgxSpinnerService,
-    public toastr: ToastsManager, vcr: ViewContainerRef,
+    public toastr: ToastsManager, vcr: ViewContainerRef,private route: Router,
     private manageMwqDataService: ManageMwqDataService) {
-    this.loadCategoryList();
-    this.toastr.setRootViewContainerRef(vcr);
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      this.categoryInfo.createdBy = username;
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+     
+      this.loadCategoryList();
+      this.toastr.setRootViewContainerRef(vcr);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -73,7 +90,8 @@ export class ConfigureCategoriesComponent implements OnInit {
     this.categoryListDetails = [...this.categoryListDetails];
     let updatedStatus = this.categoryListDetails[rowIndex][cell];
     let updatedCategoryId = row.categoryId;
-    let updatedBy = "Admin";
+    let updatedBy = this.categoryInfo.createdBy;
+    
     this.manageMwqDataService.updateCategoryStatus(updatedCategoryId, updatedBy, updatedStatus).subscribe((resp) => {
       console.log("----CategoryStatusUpdateResult----", resp);
       this.categoryUpadateResultStatus = resp;

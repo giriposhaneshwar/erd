@@ -7,6 +7,8 @@ import * as moment from 'moment';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
+import { Config } from 'app/appConfiguration/config';
 
 @Component({
   selector: 'ms-alerts',
@@ -47,16 +49,28 @@ export class AlertsComponent implements OnInit {
   
   @ViewChild(DatatableComponent) table: DatatableComponent;
   constructor(private pageTitleService: PageTitleService,
-    private alertService: AlertService,
+    private alertService: AlertService, public route: Router,
     public toastr: ToastsManager, vcr: ViewContainerRef, private spinner: NgxSpinnerService) {
     this.dateForamt();
     this.toastr.setRootViewContainerRef(vcr);
 
-    this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
-    this.toDate = moment().format("YYYY-MM-DD");
-    /* console.log(" Current Day ", "----" + this.toDate);
-    console.log(" Last  Three Months " + this.fromDate); */
-    this.loadAlertsData(this.fromDate, this.toDate);
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      this.fromDate = moment().subtract(360, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format("YYYY-MM-DD");
+      this.loadAlertsData(this.fromDate, this.toDate);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   ngOnInit() {
@@ -135,7 +149,7 @@ export class AlertsComponent implements OnInit {
 
   createIncident(selected) {
     let selectedAlertId = selected[0].alertid;
-    let createdBy = "Admin";
+    let createdBy = sessionStorage.getItem("username");
     console.log("selected AlertId---" + selectedAlertId + "CreatedBy----" + createdBy);
     this.alertService.createIncidentForAlertsData(selectedAlertId, createdBy).subscribe((resp) => {
       this.newBuoysIncidentResp = resp;

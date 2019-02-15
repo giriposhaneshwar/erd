@@ -35,15 +35,29 @@ export class OrganicChemistryComponent implements OnInit {
   module: String;
   fieldColorValidatior: any;
   isDisabled: boolean = true;
-  
+
   constructor(public route: Router, public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService, vcr: ViewContainerRef,
     public toastr: ToastsManager,
     public config: Config) {
     this.toastr.setRootViewContainerRef(vcr);
-    this.loadMQLData();
-    this.loadTestMethodData();
-    this.loaadExtractionMethodData();
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      console.log("Executing Configurations", Config.appConfig.mainNav);
+      this.loadMQLData();
+      this.loadTestMethodData();
+      this.loaadExtractionMethodData();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   orgChemTabNavPrev(module) {
@@ -57,30 +71,30 @@ export class OrganicChemistryComponent implements OnInit {
     }
   }
 
-  
-  oc_totalPhospDetailsSave(oc_totalPhosp, value, maxValueDeviation, meanValue, threshould, standDevition){
+
+  oc_totalPhospDetailsSave(oc_totalPhosp, value, maxValueDeviation, meanValue, threshould, standDevition) {
     console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  oc_totalPhospDetailsListSave(oc_totalPhosp){
+  oc_totalPhospDetailsListSave(oc_totalPhosp) {
     this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  oc_tphDetailsSave(oc_tph, value, maxValueDeviation, meanValue, threshould, standDevition){
+  oc_tphDetailsSave(oc_tph, value, maxValueDeviation, meanValue, threshould, standDevition) {
     console.log(value, maxValueDeviation, meanValue, threshould, standDevition);
     this.checkValueThresholdNew(value, meanValue, threshould, standDevition, maxValueDeviation);
     this.dataEntry[this.oc_tphComponentKey] = oc_tph;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  oc_tphDetailsListSave(oc_tph){
+  oc_tphDetailsListSave(oc_tph) {
     this.dataEntry[this.oc_tphComponentKey] = oc_tph;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
 
-  
+
   organicChemistrySiteDetailsSave(oc_totalPhosp, oc_tph) {
     this.toastClear();
     this.dataEntry[this.oc_totalPhospComponentKey] = oc_totalPhosp;
@@ -225,5 +239,5 @@ export class OrganicChemistryComponent implements OnInit {
     this.toastr.clearAllToasts();
     //$('#toast-container').find('.toast').remove();
   }
-  
+
 }

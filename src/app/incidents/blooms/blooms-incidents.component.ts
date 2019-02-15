@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import * as $ from 'jquery';
 import { Config } from 'app/appConfiguration/config';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -68,19 +69,32 @@ export class BloomsIncidentComponent implements OnInit {
   constructor(public api: MwqDataEntryService,
     private pageTitleService: PageTitleService,
     private incidentsService: IncidentsService,
-    public config: Config,
+    public config: Config,private route: Router,
     public toastr: ToastsManager, vcr: ViewContainerRef,
     private spinner: NgxSpinnerService) {
     this.toastr.setRootViewContainerRef(vcr);
     this.domain = this.config.UPLOAD_URL;
     this.apiUrl = this.config.API_URL;
 
-    this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
-    this.toDate = moment().format("YYYY-MM-DD");
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
 
-    console.log(" Last  Three Months " + this.fromDate + " Current Day ", this.toDate);
-    this.loadBloomIncidentsData(this.fromDate, this.toDate);
-    this.dateForamt();
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.fromDate = moment().subtract(60, "days").format("YYYY-MM-DD");
+      this.toDate = moment().format("YYYY-MM-DD");
+  
+      console.log(" Last  Three Months " + this.fromDate + " Current Day ", this.toDate);
+      this.loadBloomIncidentsData(this.fromDate, this.toDate);
+      this.dateForamt();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   createBloomIncident(blommIncidentInfo) {

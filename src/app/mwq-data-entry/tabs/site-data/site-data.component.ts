@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { MwqDataEntryService } from "app/mwq-data-entry/mwq-data-entry.service";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Config } from '../../../appConfiguration/config';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "ms-site-data",
@@ -154,16 +155,34 @@ export class SiteDataComponent implements OnInit {
     public localStore: AppStorageService,
     private mwqDataEntryService: MwqDataEntryService,
     private fb: FormBuilder,
+    private spinner: NgxSpinnerService,
     public config: Config) {
-    this.loaadSiteCategoryData();
-    this.loadSiteNameData();
-    this.loadSourceNameData();
-    this.loadPreservationData();
-    this.loadSampleByData();
-    this.loadEventTypeData();
-    this.loadProjectNames();
-    this.loadSourceDepth();
-    this.dateForamt();
+
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.loaadSiteCategoryData();
+      this.loadSiteNameData();
+      this.loadSourceNameData();
+      this.loadPreservationData();
+      this.loadSampleByData();
+      this.loadEventTypeData();
+      this.loadProjectNames();
+      this.loadSourceDepth();
+      this.dateForamt();
+      this.spinner.hide();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
+
   }
 
   ngOnInit() {
@@ -425,7 +444,7 @@ export class SiteDataComponent implements OnInit {
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;
     this.localStore.store.set(this.dataEntryKey, this.dataEntry);
   }
-  
+
   dataEntrySave(siteDetailsdata, sampleInfoData) {
     this.dataEntry[this.dataComponentKey] = siteDetailsdata;
     this.dataEntry[this.sampleInformationKey] = sampleInfoData;

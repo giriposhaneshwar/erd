@@ -5,6 +5,7 @@ import { ManageMwqDataService } from '../managemwqdata.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-configure-parameters',
@@ -27,16 +28,33 @@ export class ConfigureParametersComponent implements OnInit {
   configureParam: any = {
     parameterId: "", parameterName: "", units: "", groupId: "",
     minValue: "", maxValue: "", thresholdValue: "", meanValue: "",
-    stdDevValue: "", createdBy: "AdminUser", Status: ""
+    stdDevValue: "", createdBy: "", Status: ""
   };
 
   constructor(private pageTitleService: PageTitleService,
-    private http: HttpClient,
+    private http: HttpClient,private route: Router,
     public toastr: ToastsManager, vcr: ViewContainerRef,
     private manageMwqDataService: ManageMwqDataService,
     private spinner: NgxSpinnerService) {
-    this.loadParametersList();
-    this.toastr.setRootViewContainerRef(vcr);
+
+  
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      this.configureParam.createdBy = username;
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.loadParametersList();
+      this.toastr.setRootViewContainerRef(vcr);
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
+  
   }
 
   ngOnInit() {
@@ -76,7 +94,7 @@ export class ConfigureParametersComponent implements OnInit {
     this.parametersListDetails[rowIndex][cell] = event.target.value;
     let updatedStatus = this.parametersListDetails[rowIndex][cell];
     let updatedParamId = row.paramId;
-    let updatedBy = "Admin";
+    let updatedBy = this.configureParam.createdBy;
     this.parametersListDetails = [...this.parametersListDetails];
     this.manageMwqDataService.updateParameterStatus(updatedStatus, updatedParamId, updatedBy).subscribe((resp) => {
       this.parameterUpadateResultStatus = resp;

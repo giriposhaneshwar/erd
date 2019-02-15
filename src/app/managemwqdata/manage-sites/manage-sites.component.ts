@@ -6,6 +6,7 @@ import { MwqDataEntryService } from 'app/mwq-data-entry/mwq-data-entry.service';
 import { NgForm } from '@angular/forms';
 import { ToastsManager } from 'ng6-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ms-manage-sites',
@@ -22,7 +23,7 @@ export class ManageSitesComponent implements OnInit {
 
   siteInfo: any = {
     siteId: "", siteCode: "", siteName: "", categoryId: "", categoryName: "",
-    description: "", x: "", y: "", waterqualityRegionId: "", comment: "", projectid: "", createdBy: "Admin",
+    description: "", x: "", y: "", waterqualityRegionId: "", comment: "", projectid: "", createdBy: "",
     status: "", defaultSiteValue: ""
   };
 
@@ -41,11 +42,27 @@ export class ManageSitesComponent implements OnInit {
     private http: HttpClient, private spinner: NgxSpinnerService,
     public toastr: ToastsManager, vcr: ViewContainerRef,
     private manageMwqDataService: ManageMwqDataService,
+    private route: Router,
     private mwqDataEntryService: MwqDataEntryService) {
-    this.loadSitesList();
-    this.toastr.setRootViewContainerRef(vcr);
-    this.loadSiteCategoryData();
-    this.loadProjectNames();
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let username = sessionStorage.getItem("username");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      this.spinner.show();
+      this.siteInfo.createdBy = username;
+      console.log("-----Group Mached-----" + groupInfo, username, currentUrl);
+      this.loadSitesList();
+      this.toastr.setRootViewContainerRef(vcr);
+      this.loadSiteCategoryData();
+      this.loadProjectNames();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
   ngOnInit() {
     this.pageTitleService.setTitle("Marine Water Quality Mana,gement System");
@@ -84,13 +101,13 @@ export class ManageSitesComponent implements OnInit {
     this.sitesListDetails = [...this.sitesListDetails];
     let updatedStatus = this.sitesListDetails[rowIndex][cell];
     let updatedSiteId = row.siteId;
-    let updatedBy = "Admin";
+    let updatedBy = this.siteInfo.createdBy;
     this.manageMwqDataService.updateSitesStatus(updatedSiteId, updatedBy, updatedStatus).subscribe((resp) => {
       this.siteInfoUpdateResp = resp;
       console.log("----siteInfoUpdateResp----", this.siteInfoUpdateResp);
       if (this.siteInfoUpdateResp.SitesStatusUpdateResult === 'success') {
         console.log('UPDATED!', updatedSiteId, updatedBy, updatedStatus, this.siteInfoUpdateResp.SitesStatusUpdateResult);
-        this.toastr.success("Site Id "+updatedSiteId+"-"+"Site Information Updated Successfully");
+        this.toastr.success("Site Id " + updatedSiteId + "-" + "Site Information Updated Successfully");
       }
       else {
         this.toastr.error(this.siteInfoUpdateResp.SitesStatusUpdateResult, "Site Information Updation Failed");

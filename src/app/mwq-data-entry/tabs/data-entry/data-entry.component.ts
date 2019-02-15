@@ -29,6 +29,21 @@ export class DataEntryComponent implements OnInit {
 
     // this.localStore.store.delete('user');
     // this.localStore.store.set("user", { id: 1, name: "test" });
+
+    let currentUrl = this.route.url;
+    let groupInfo = sessionStorage.getItem("groups");
+    let userId = sessionStorage.getItem("userId");
+
+    if (groupInfo === "2" || groupInfo === "20") {
+      // this.spinner.show();
+      console.log("-----Group Mached-----" + groupInfo, userId, currentUrl);
+      this.ngOnInit();
+    }
+    else {
+      console.log("-----Group Not Matched-----" + groupInfo, currentUrl);
+      //this.spinner.hide();
+      this.route.navigate(["error"]);
+    }
   }
 
   handleFormChange(data) {

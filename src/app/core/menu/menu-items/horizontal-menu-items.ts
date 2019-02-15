@@ -297,8 +297,8 @@ const HORIZONTALMENUITEMS = [
         ]
       }
     ]
-  },
-  {
+  },*/
+/*   {
     state: 'authentication',
     name: 'AUTHENTICATION',
     type: 'sub',
@@ -318,8 +318,8 @@ const HORIZONTALMENUITEMS = [
         ]
       }
     ]
-  }*/
-
+  }
+ */
 ];
 
 @Injectable()
